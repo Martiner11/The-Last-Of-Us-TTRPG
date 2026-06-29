@@ -402,220 +402,298 @@
     ]
   },
   "character": {
+    "startHealth": 25,
+    "intro": "Postava sa tvorí cez Bio (vek, osobnosť, črta, motivácia), triedu a štartovací stupeň. Každá voľba pridáva +1 k zručnosti. Štartovací stupeň si dohodneš s GM.",
     "bio": {
-      "intro": "Cesta preživšieho začína tu. Pri tvorbe postavy si pre každú otázku vyber jednu možnosť — pripočíta +1 k danej zručnosti.",
       "age": {
-        "q": "Keď v roku 2013 vypukla nákaza, koľko si mal rokov?",
+        "q": "Koľko si mal(a), keď v roku 2013 začala nákaza?",
         "options": [
-          [
-            "Not Born",
-            "+1 Survival"
-          ],
-          [
-            "Child",
-            "+1 Elusive"
-          ],
-          [
-            "Teen",
-            "+1 Scavenging"
-          ],
-          [
-            "Young Adult",
-            "+1 Instinct"
-          ],
-          [
-            "Adult",
-            "+1 Brutality"
-          ]
+          {
+            "label": "Not Born (nenarodený)",
+            "skill": "survival"
+          },
+          {
+            "label": "Child (dieťa)",
+            "skill": "elusive"
+          },
+          {
+            "label": "Teen (tínedžer)",
+            "skill": "scavenging"
+          },
+          {
+            "label": "Young Adult (mladý dospelý)",
+            "skill": "instinct"
+          },
+          {
+            "label": "Adult (dospelý)",
+            "skill": "brutality"
+          }
         ]
       },
-      "personality": {
-        "q": "Osobnosť (vyber jednu z páru)",
-        "options": [
-          [
-            "Athletic alebo Agile?",
-            "+1 Brutality / +1 Elusive"
-          ],
-          [
-            "Hunter alebo Gatherer?",
-            "+1 Aiming / +1 Scavenging"
-          ],
-          [
-            "Handy alebo Academic?",
-            "+1 Maintenance / +1 Medicine"
-          ],
-          [
-            "Survivalist alebo Instinctual?",
-            "+1 Survival / +1 Instinct"
+      "personality": [
+        {
+          "q": "Athletic alebo Agile?",
+          "options": [
+            {
+              "label": "Athletic",
+              "skill": "brutality"
+            },
+            {
+              "label": "Agile",
+              "skill": "elusive"
+            }
           ]
-        ]
-      },
+        },
+        {
+          "q": "Hunter alebo Gatherer?",
+          "options": [
+            {
+              "label": "Hunter",
+              "skill": "aiming"
+            },
+            {
+              "label": "Gatherer",
+              "skill": "scavenging"
+            }
+          ]
+        },
+        {
+          "q": "Handy alebo Academic?",
+          "options": [
+            {
+              "label": "Handy",
+              "skill": "maintenance"
+            },
+            {
+              "label": "Academic",
+              "skill": "medicine"
+            }
+          ]
+        },
+        {
+          "q": "Survivalist alebo Instinctual?",
+          "options": [
+            {
+              "label": "Survivalist",
+              "skill": "survival"
+            },
+            {
+              "label": "Instinctual",
+              "skill": "instinct"
+            }
+          ]
+        }
+      ],
       "trait": {
-        "q": "Povahová črta",
+        "q": "Aká je tvoja črta?",
         "options": [
-          [
-            "Hopeful",
-            "+1 Medicine"
-          ],
-          [
-            "Helpful",
-            "+1 Maintenance"
-          ],
-          [
-            "Cautious",
-            "+1 Instinct"
-          ],
-          [
-            "Ruthless",
-            "+1 Brutality"
-          ],
-          [
-            "Focused",
-            "+1 Aiming"
-          ],
-          [
-            "Thorough",
-            "+1 Scavenging"
-          ],
-          [
-            "Resilient",
-            "+1 Survival"
-          ]
+          {
+            "label": "Hopeful",
+            "skill": "medicine"
+          },
+          {
+            "label": "Helpful",
+            "skill": "maintenance"
+          },
+          {
+            "label": "Cautious",
+            "skill": "instinct"
+          },
+          {
+            "label": "Ruthless",
+            "skill": "brutality"
+          },
+          {
+            "label": "Focused",
+            "skill": "aiming"
+          },
+          {
+            "label": "Thorough",
+            "skill": "scavenging"
+          },
+          {
+            "label": "Resilient",
+            "skill": "survival"
+          }
         ]
       },
       "motivation": {
         "q": "Aká je tvoja motivácia?",
         "options": [
-          [
-            "Vydržať a prežiť?",
-            "+1 Instinct"
-          ],
-          [
-            "Byť súčasťou osady/komunity?",
-            "+1 Maintenance"
-          ],
-          [
-            "Nájsť raj?",
-            "+1 Survival"
-          ],
-          [
-            "Vyhýbať sa nebezpečenstvu?",
-            "+1 Elusive"
-          ],
-          [
-            "Nájsť liek na nákazu?",
-            "+1 Medicine"
-          ],
-          [
-            "Byť pripravený na všetko?",
-            "+1 Scavenging"
-          ],
-          [
-            "Brániť seba a blízkych?",
-            "+1 Aiming"
-          ],
-          [
-            "Zabiť svojich nepriateľov?",
-            "+1 Brutality"
-          ]
+          {
+            "label": "Vytrvať a prežiť",
+            "skill": "instinct"
+          },
+          {
+            "label": "Byť súčasťou osady/komunity",
+            "skill": "maintenance"
+          },
+          {
+            "label": "Nájsť raj",
+            "skill": "survival"
+          },
+          {
+            "label": "Vyhnúť sa nebezpečenstvu",
+            "skill": "elusive"
+          },
+          {
+            "label": "Nájsť liek na nákazu",
+            "skill": "medicine"
+          },
+          {
+            "label": "Byť pripravený na všetko",
+            "skill": "scavenging"
+          },
+          {
+            "label": "Brániť seba a blízkych",
+            "skill": "aiming"
+          },
+          {
+            "label": "Zabiť svojich nepriateľov",
+            "skill": "brutality"
+          }
         ]
       }
     },
     "classes": [
-      [
-        "Citizen",
-        "+1 Maintenance · +1 Scavenging",
-        "Prežil pod tvrdým dohľadom FEDRA v karanténnej zóne. Nasadený na údržbu zóny a zháňanie zásob počas vonkajšej pracovnej služby."
-      ],
-      [
-        "Smuggler",
-        "+1 Instinct · +1 Elusive",
-        "Pašerácke operácie v karanténnych zónach (sám či v partii) si žiadajú vnímavosť a schopnosť vyhýbať sa protivníkom."
-      ],
-      [
-        "Firefly",
-        "+1 Aiming · +1 Medicine",
-        "Boj za vieru a s veľkými stratami; jediné, čoho sa držať, je nádej. Lepšiu budúcnosť spravíš len činom — za každú cenu."
-      ],
-      [
-        "Survivor",
-        "+1 Survival · +1 Scavenging",
-        "Či už v skupine alebo sám, prežil drsné počasie, hlad, infikovaných aj najhoršie z ľudstva. Jediný cieľ: prežiť ďalší deň."
-      ],
-      [
-        "Soldier",
-        "+1 Aiming · +1 Brutality",
-        "Fyzické zručnosti užitočné pre FEDRA, milície, osady aj rebelov. Vojenský výcvik na boj, ochranu alebo vydieranie."
-      ],
-      [
-        "Renegade",
-        "+1 Brutality · +1 Instinct",
-        "Buď korisť, alebo lovec. Prežitie si žiada morálnu obetu."
-      ]
+      {
+        "name": "Citizen",
+        "skills": [
+          "maintenance",
+          "scavenging"
+        ],
+        "desc": "Prežil pod tvrdým dohľadom FEDRA v karanténnej zóne. Počas vonkajšej pracovnej služby udržiaval zónu a zháňal zásoby."
+      },
+      {
+        "name": "Smuggler",
+        "skills": [
+          "instinct",
+          "elusive"
+        ],
+        "desc": "Pašerácke operácie v karanténnych zónach — v partii alebo sám — si žiadajú postreh a schopnosť vyhýbať sa protivníkom."
+      },
+      {
+        "name": "Firefly",
+        "skills": [
+          "aiming",
+          "medicine"
+        ],
+        "desc": "Boj za vieru s veľkými stratami; nádej je jediné, čoho sa držať. Lepšiu budúcnosť spravíš len činom za každú cenu."
+      },
+      {
+        "name": "Survivor",
+        "skills": [
+          "survival",
+          "scavenging"
+        ],
+        "desc": "V partii alebo sám prežil drsné počasie, hlad, infikovaných aj ľudstvo v jeho najhoršom. Jediný cieľ — prežiť ďalší deň."
+      },
+      {
+        "name": "Soldier",
+        "skills": [
+          "aiming",
+          "brutality"
+        ],
+        "desc": "Fyzická výbava užitočná pre FEDRA, milície, osady aj rebelov. Bývalý vojenský výcvik na boj, ochranu či vydieranie."
+      },
+      {
+        "name": "Renegade",
+        "skills": [
+          "brutality",
+          "instinct"
+        ],
+        "desc": "Buď korisť, alebo lovec. Prežitie si žiada morálnu obeť."
+      }
     ],
-    "morality": {
-      "intro": "Voliteľná mechanika tvorby postavy — dá hráčovi cieľ na roleplay a konkrétny bonus k zručnosti. Morálka určuje, kto preživší je a ako vidí svet.",
-      "options": [
-        [
-          "Good-Natured",
-          "+1 Medicine",
-          "Stará sa o spolu-preživších a podá pomocnú ruku. Silný morálny kompas, robí správnu vec."
+    "startingTiers": [
+      {
+        "name": "Novice Survivor",
+        "desc": "Najnižší stupeň — najlepší pre nových hráčov a prvé kampane.",
+        "pills": 100,
+        "equipment": [
+          "Baterka"
         ],
-        [
-          "Unpredictable",
-          "+1 Scavenging",
-          "Nikto nevie, ako zareaguje; rozhodnutia mení zo sekundy na sekundu."
-        ],
-        [
-          "Moral Grey",
-          "+1 Elusive",
-          "Kto zažil bolesť straty, často sa pohybuje v šedej zóne. Niet správnej či zlej odpovede, len prežitie. Aj najlepší majú temné chvíle."
-        ],
-        [
-          "Lawless",
-          "+1 Survival",
-          "Riadi sa vlastným morálnym kódexom. Ťažko sa s ním spolupracuje; jeho činy prospievajú jedinému — jemu samému."
-        ],
-        [
-          "Honest",
-          "+1 Instinct",
-          "S rozumom na správnom mieste; čestní preživší robia, čo môžu, bez toho, aby sa cestou skazili."
-        ],
-        [
-          "Irredeemable",
-          "+1 Brutality",
-          "Svet je posiaty telami, čo po ňom zostali. Ľudia preňho nič neznamenajú, sú len prostriedok. Bez súcitu; prežiť za každú cenu."
+        "weapons": [
+          "2x4 (melee)",
+          "Pistol"
         ]
-      ]
-    },
-    "startingEquipment": {
-      "intro": "Hráči sa s GM dohodnú, ktorý štartovací tier sedí kampani najlepšie.",
-      "tiers": [
-        [
-          "Novice Survivor",
-          "Najnižší tier — ideálny pre nových hráčov a prvé kampane.",
-          "100",
-          "Flashlight",
-          "2x4 Melee Weapon & Pistol"
+      },
+      {
+        "name": "Capable Survivor",
+        "desc": "Stredný stupeň — pre náročnejšie začiatky kampaní a one-shoty.",
+        "pills": 250,
+        "equipment": [
+          "Plynová maska",
+          "Baterka"
         ],
-        [
-          "Capable Survivor",
-          "Mid-tier — pre náročnejšie začiatky a one-shoty.",
-          "250",
-          "Gas Mask & Flashlight",
-          "Blunt Melee Weapon, Hunting Rifle & Pistol/Revolver"
-        ],
-        [
-          "Veteran Survivor",
-          "Najvyšší štart — pre pokročilých a ťažké začiatky kampaní.",
-          "400",
-          "Gas Mask & Flashlight",
-          "Bladed Melee Weapon & Long Gun & Short Gun"
+        "weapons": [
+          "Tupá melee zbraň",
+          "Hunting Rifle",
+          "Pistol alebo Revolver"
         ]
-      ]
-    },
-    "journal": "Survivor's Journal je rozšírenie character sheetu — zapíšeš si osobné info postavy (výzor, lore) a priebežne zaznamenávaš dôležité stretnutia, ciele, vzťahy s PC/NPC, vzťahy s frakciami a travel log navštívených miest. Sekcie: Name/Age/Region, Travel Log, výzor (Gender/Hair/Eye/Height/Build/Skin), Bio (Motivation/Traits/Backstory), Relationships/Objectives/Notes, Neutral/Enemy/Ally Factions a Kills.",
-    "sheetNote": "Postavy začínajú s 25 Health (Survival upgrade Life ho zvyšuje na 50/75/100). Modifier sa pripočítava k hodu danej zručnosti, predvolená kocka je D10 (dá sa zvýšiť na D12). Parts = mena na upgrady zbraní a výbavy, Pills = mena na Survival Upgrades, Tool Level otvára vyššie tiery upgradov. Long Guns (obojručné: pušky, brokovnice, luky, plameňomet) vs Short Guns (jednoručné: Pistol, Revolver, Hunting Pistol, Shorty). Throwables max 3 z každého, okrem fľaše/tehly (max 1)."
+      },
+      {
+        "name": "Veteran Survivor",
+        "desc": "Najvyšší stupeň — pre pokročilých hráčov a ťažké začiatky.",
+        "pills": 400,
+        "equipment": [
+          "Plynová maska",
+          "Baterka"
+        ],
+        "weapons": [
+          "Ostrá melee zbraň",
+          "Long Gun",
+          "Short Gun"
+        ]
+      }
+    ],
+    "glossary": [
+      {
+        "k": "Skills / Modifier / Dice",
+        "v": "Stĺpec Skills určuje zručnosti (ikonou), Modifier je tvoja proficiencia, ktorú pripočítaš k hodu, a Dice hovorí, ktorou kockou hádžeš (default D10, neskôr až D12)."
+      },
+      {
+        "k": "Health",
+        "v": "Max Health je celkové zdravie, Health tracker aktuálne po zranení. Postavy začínajú s 25 Health."
+      },
+      {
+        "k": "First Aid",
+        "v": "Sleduje počet lekárničiek a koľko liečia. Kvalitu vieš zvýšiť cez Survival Upgrades."
+      },
+      {
+        "k": "Ammo",
+        "v": "Munícia podľa typu: 9MM, .357, .44, .308, 5.56, 7.62, .45-70, Shell, Arrow, Fuel, Shiv."
+      },
+      {
+        "k": "Crafting",
+        "v": "Crafting materiály: Binding, Rags, Alcohol, Blades, Sugar a Explosives."
+      },
+      {
+        "k": "Parts",
+        "v": "Súčiastky sú mena na vylepšovanie zbraní a výbavy."
+      },
+      {
+        "k": "Pills",
+        "v": "Pilulky sa míňajú na Survival Upgrades a posilnenie schopností."
+      },
+      {
+        "k": "Tool Level",
+        "v": "Úroveň náradia určuje, na aký stupeň vieš vylepšiť predmety a zbrane."
+      },
+      {
+        "k": "Upgrades",
+        "v": "Zoznam vylepšení — Survival aj Weapon — podľa stupňa a efektu."
+      },
+      {
+        "k": "Backpack",
+        "v": "Katalóg predmetov v batohu. Kapacita = počet riadkov v sekcii."
+      },
+      {
+        "k": "Weapons",
+        "v": "Long Guns (obojručné: pušky, brokovnice, luky, plameňomety), Short Guns (jednoručné: Pistol, Revolver, Hunting Pistol, Shorty) a Throwables (max 3 na druh; výnimka: len 1 fľaša alebo tehla)."
+      }
+    ],
+    "journalIntro": "Survivor's Journal je rozšírenie sheetu na osobné info (vzhľad, lore) a priebežný zápis stretnutí, cieľov, vzťahov (PC aj NPC), vzťahov s frakciami a travel logu navštívených miest."
   },
   "survivalUpgrades": {
     "intro": "Survival Upgrades sú perky, ktoré vylepšujú zručnosti a schopnosti. Odomykajú sa míňaním Pills (lootovateľná surovina, aj odmena v kampani). Upgradovať môžeš kedykoľvek okrem aktívneho boja. Viactierové upgrady treba odomykať po poradí (Tier 1 pred Tier 2). Náklady sú v Pills.",
