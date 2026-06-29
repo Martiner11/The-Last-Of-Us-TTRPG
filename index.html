@@ -99,7 +99,7 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
 .vital{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:10px;text-align:center}
 .vital .k{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.08em;font-size:9.5px;color:var(--muted)}
 .vital .v{font-family:var(--font-m);font-size:21px;font-weight:700;margin-top:3px}
-.vital.hp .v{color:var(--amber)} .vital.inf .v{color:var(--danger)}
+.vital.hp .v{color:var(--amber)} .vital.inf .v{color:var(--danger)} .vital.pills .v{color:var(--teal)}
 .bar{height:5px;border-radius:3px;background:var(--bg2);margin-top:7px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--amber)}
 .bar.red i{background:var(--danger)}
@@ -216,16 +216,20 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
       <div class="grow">
         <h2 class="sec" id="charName">Nová postava</h2>
         <div class="sub" id="charLine">Bez frakcie · bez triedy</div>
+        <div class="sub" id="charMor" style="display:none"></div>
       </div>
-      <button class="btn sm ghost" onclick="openEdit()">Upraviť</button>
+      <div class="row" style="gap:7px">
+        <button class="btn sm ghost" onclick="openCreator()">Sprievodca</button>
+        <button class="btn sm ghost" onclick="openEdit()">Upraviť</button>
+      </div>
     </div>
 
     <div class="vitals">
-      <div class="vital hp"><div class="k">Health</div><div class="v" id="vHp">30</div>
+      <div class="vital hp"><div class="k">Health</div><div class="v" id="vHp">25</div>
         <div class="bar"><i id="barHp" style="width:100%"></i></div></div>
       <div class="vital inf"><div class="k">Infekcia</div><div class="v" id="vInf">0%</div>
         <div class="bar red"><i id="barInf" style="width:0%"></i></div></div>
-      <div class="vital"><div class="k">Morálka</div><div class="v" id="vMor">0</div></div>
+      <div class="vital pills"><div class="k">Pilulky</div><div class="v" id="vPills">0</div></div>
     </div>
 
     <div class="eyebrow">Zručnosti — ťukni pre hod</div>
@@ -322,12 +326,12 @@ let DATA = null;
 const KEY="tlou_ttrpg_char_v1";
 const blank=()=>({
   name:"", faction:"", cls:"", bio:"",
-  skills:Object.fromEntries(DATA.skills.map(s=>[s.key,2])),
-  hp:30, hpMax:30, inf:0, mor:0,
+  skills:Object.fromEntries(DATA.skills.map(s=>[s.key,0])),
+  hp:25, hpMax:25, inf:0, morality:"", pills:0,
   inv:[], equip:"Pistol", journal:""
 });
 let mem=null,C;
-function load(){ try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):(mem||blank());}catch(e){return mem||blank();} }
+function load(){ try{const r=localStorage.getItem(KEY);return r?{...blank(),...JSON.parse(r)}:(mem||blank());}catch(e){return mem||blank();} }
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(C));}catch(e){} mem=C; }
 /* C sa naplní v init() po načítaní dát */
 
@@ -369,7 +373,11 @@ function renderSheet(){
   document.getElementById("barHp").style.width=Math.max(0,Math.min(100,C.hp/C.hpMax*100))+"%";
   document.getElementById("vInf").textContent=C.inf+"%";
   document.getElementById("barInf").style.width=Math.min(100,C.inf)+"%";
-  document.getElementById("vMor").textContent=(C.mor>0?"+":"")+C.mor;
+  document.getElementById("vPills").textContent=C.pills||0;
+  const morEl=document.getElementById("charMor");
+  if(C.morality){const mo=(DATA.character.morality?.options||[]).find(o=>o.name===C.morality);
+    morEl.style.display="";morEl.innerHTML=`Morálka: <b style="color:var(--teal)">${esc(C.morality)}</b>${mo?` <span style="color:var(--faint)">(+1 ${skName(mo.skill)})</span>`:""}`;}
+  else morEl.style.display="none";
 
   const g=document.getElementById("skillGrid"); g.innerHTML="";
   DATA.skills.forEach(s=>{
@@ -417,8 +425,10 @@ function openEdit(){
    </div>
    <div class="row" style="gap:10px">
      <div class="grow field"><label>Infekcia %</label>${stepperHTML("e-inf",C.inf,0,100,5)}</div>
-     <div class="grow field"><label>Morálka</label>${stepperHTML("e-mor",C.mor,-20,20)}</div>
+     <div class="grow field"><label>Pilulky</label>${stepperHTML("e-pills",C.pills||0,0,9999,10)}</div>
    </div>
+   <div class="field"><label>Morálka (archetyp)</label>
+     <select id="e-mor"><option value="">— žiadna —</option>${(DATA.character.morality?.options||[]).map(o=>`<option ${C.morality===o.name?"selected":""}>${o.name}</option>`).join("")}</select></div>
    <div class="eyebrow" style="margin-top:6px">Zručnosti</div>
    <div id="e-skills"></div>
    <button class="btn amber full" style="margin-top:14px" onclick="commitEdit()">Uložiť</button>`;
@@ -470,9 +480,94 @@ function deleteCustomFaction(id){
   if(!confirm("Zmazať túto vlastnú frakciu?"))return;
   customFactions=customFactions.filter(f=>f.id!==id);saveCustomFactions();renderCodex();
 }
+
+/* ---------- sprievodca tvorby postavy ---------- */
+function skName(key){const s=DATA.skills.find(x=>x.key===key);return s?s.name:key;}
+function gv(id){const e=document.getElementById(id);return e?e.value:null;}
+function openCreator(){
+  const ch=DATA.character,m=document.getElementById("modal");
+  const skOpt=o=>`<option value="${o.skill}">${esc(o.label)} (+1 ${skName(o.skill)})</option>`;
+  let h=`<div class="grabber"></div>
+    <h3>Tvorba postavy <span class="x" onclick="closeEdit()">×</span></h3>
+    <div class="note" style="margin-bottom:12px">${esc(ch.intro)}</div>
+    <div class="field"><label>Meno</label><input id="cr-name" value="${esc(C.name||"")}" placeholder="Meno postavy"></div>
+    <div class="field"><label>${esc(ch.bio.age.q)}</label>
+      <select id="cr-age" onchange="updateCreator()">${ch.bio.age.options.map(skOpt).join("")}</select></div>`;
+  ch.bio.personality.forEach((p,i)=>{
+    h+=`<div class="field"><label>${esc(p.q)}</label>
+      <select id="cr-pers${i}" onchange="updateCreator()">${p.options.map(skOpt).join("")}</select></div>`;
+  });
+  h+=`<div class="field"><label>${esc(ch.bio.trait.q)}</label>
+      <select id="cr-trait" onchange="updateCreator()">${ch.bio.trait.options.map(skOpt).join("")}</select></div>
+    <div class="field"><label>${esc(ch.bio.motivation.q)}</label>
+      <select id="cr-mot" onchange="updateCreator()">${ch.bio.motivation.options.map(skOpt).join("")}</select></div>
+    <div class="field"><label>Trieda</label>
+      <select id="cr-class" onchange="updateCreator()">${ch.classes.map((c,i)=>`<option value="${i}">${esc(c.name)} (+1 ${skName(c.skills[0])}, +1 ${skName(c.skills[1])})</option>`).join("")}</select></div>
+    <div class="field"><label>Štartovací stupeň</label>
+      <select id="cr-tier" onchange="updateCreator()">${ch.startingTiers.map((t,i)=>`<option value="${i}">${esc(t.name)} · ${t.pills} pills</option>`).join("")}</select></div>
+    <div class="field"><label>Morálka (voliteľné)</label>
+      <select id="cr-mor" onchange="updateCreator()"><option value="">— žiadna —</option>${ch.morality.options.map(o=>`<option value="${esc(o.name)}">${esc(o.name)} (+1 ${skName(o.skill)})</option>`).join("")}</select></div>
+    <div class="eyebrow" style="margin-top:8px">Výsledok</div>
+    <div id="cr-preview" class="card"></div>
+    <button class="btn amber full" style="margin-top:6px" onclick="applyCreator()">Vytvoriť postavu</button>
+    <div class="note" style="margin-top:8px;text-align:center">Prepíše aktuálnu postavu novými hodnotami a výbavou.</div>`;
+  m.innerHTML=h;
+  document.getElementById("scrim").classList.add("on");
+  updateCreator();
+}
+function computeCreator(){
+  const skills=Object.fromEntries(DATA.skills.map(s=>[s.key,0]));
+  const add=k=>{if(k&&k in skills)skills[k]++;};
+  add(gv("cr-age"));
+  DATA.character.bio.personality.forEach((_,i)=>add(gv("cr-pers"+i)));
+  add(gv("cr-trait"));add(gv("cr-mot"));
+  const cls=DATA.character.classes[parseInt(gv("cr-class"))];
+  if(cls)cls.skills.forEach(add);
+  const tier=DATA.character.startingTiers[parseInt(gv("cr-tier"))];
+  const morName=gv("cr-mor")||"";
+  const mor=DATA.character.morality.options.find(o=>o.name===morName);
+  if(mor)add(mor.skill);
+  return {skills,cls,tier,morName};
+}
+function updateCreator(){
+  const {skills,tier}=computeCreator();
+  const sk=DATA.skills.map(s=>`<div class="s"><span class="k">${s.name}</span><span class="v">${skills[s.key]}</span></div>`).join("");
+  const gear=tier?tier.equipment.concat(tier.weapons).map(x=>`<span class="pill">${esc(x)}</span>`).join(" "):"";
+  document.getElementById("cr-preview").innerHTML=
+    `<div class="statgrid">${sk}</div>
+     <div class="note" style="margin-top:6px"><b style="color:var(--muted)">Health:</b> ${DATA.character.startHealth} · <b style="color:var(--muted)">Pilulky:</b> ${tier?tier.pills:0}</div>
+     <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">${gear}</div>`;
+}
+function applyCreator(){
+  const {skills,cls,tier,morName}=computeCreator();
+  const name=val("cr-name");
+  C.skills=skills;
+  C.hpMax=DATA.character.startHealth;C.hp=DATA.character.startHealth;
+  C.pills=tier?tier.pills:0;
+  C.morality=morName||"";
+  if(name)C.name=name;
+  if(cls)C.cls=cls.name;
+  const gear=[].concat(tier?tier.equipment:[],tier?tier.weapons:[]);
+  C.inv=gear.map(n=>({name:n,q:1}));
+  const known=DATA.weapons.map(w=>w.name);
+  const eqW=(tier?tier.weapons:[]).find(w=>known.includes(w));
+  C.equip=eqW||C.equip||(known[0]||"");
+  save();renderSheet();renderDice();closeEdit();go("sheet");
+}
+
+/* ---------- pomocné pre Kódex: Postava ---------- */
+function appendEyebrow(parent,txt){const d=document.createElement("div");d.className="eyebrow";d.textContent=txt;parent.appendChild(d);}
+function bioTable(title,options){
+  const c=document.createElement("div");c.className="card";
+  const rows=options.map(o=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px dotted var(--line2)">
+    <span style="font-size:13px">${esc(o.label)}</span>
+    <span style="font-family:var(--font-m);color:var(--amber-dim);font-size:12px;white-space:nowrap">+1 ${skName(o.skill)}</span></div>`).join("");
+  c.innerHTML=`<div style="font-family:var(--font-d);text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--amber-dim);margin-bottom:6px">${esc(title)}</div>${rows}`;
+  return c;
+}
 function commitEdit(){
   C.name=val("e-name");C.faction=sel("e-fac");C.cls=val("e-cls");C.bio=val("e-bio");
-  C.hpMax=num("e-hpmax",30);C.hp=Math.min(num("e-hp",30),C.hpMax);C.inf=num("e-inf",0);C.mor=num("e-mor",0);
+  C.hpMax=num("e-hpmax",30);C.hp=Math.min(num("e-hp",30),C.hpMax);C.inf=num("e-inf",0);C.morality=sel("e-mor");C.pills=num("e-pills",0);
   DATA.skills.forEach(s=>C.skills[s.key]=num("e-sk-"+s.key,2));
   save();renderSheet();renderCheckCard();closeEdit();
 }
@@ -621,7 +716,7 @@ function flashCheck(){const sk=document.getElementById("ckSkill");
    CODEX
    ================================================================= */
 let cxCat="weapons";
-const CX=[["weapons","Zbrane"],["infected","Infikovaní"],["factions","Frakcie"],["skills","Zručnosti"],["dc","DC"],["dice","Kocky"]];
+const CX=[["weapons","Zbrane"],["infected","Infikovaní"],["factions","Frakcie"],["character","Postava"],["skills","Zručnosti"],["dc","DC"],["dice","Kocky"]];
 function renderCodexTabs(){
   const t=document.getElementById("cxTabs");t.innerHTML="";
   CX.forEach(([k,l])=>{const b=document.createElement("button");b.textContent=l;
@@ -678,6 +773,48 @@ function renderCodex(){
       add.onclick=()=>openFactionForm();
       body.appendChild(add);
     }
+  } else if(cxCat==="character"){
+    const ch=DATA.character;
+    if(!q){const b=document.createElement("button");b.className="btn amber full";b.style.marginBottom="12px";
+      b.textContent="Spustiť sprievodcu tvorby postavy";b.onclick=openCreator;body.appendChild(b);}
+    const cls=ch.classes.filter(c=>match(c.name)||match(c.desc));
+    if(cls.length){appendEyebrow(body,"Triedy");cls.forEach(c=>{
+      const e=document.createElement("details");e.className="entry";
+      e.innerHTML=`<summary><span class="t">${c.name}</span>
+        <span class="pill amber" style="margin-left:auto">+1 ${skName(c.skills[0])}</span><span class="pill amber">+1 ${skName(c.skills[1])}</span><span class="chev">›</span></summary>
+        <div class="body"><div class="desc" style="margin-top:10px">${c.desc}</div></div>`;
+      body.appendChild(e);});}
+    const tiers=ch.startingTiers.filter(t=>match(t.name)||match(t.desc));
+    if(tiers.length){appendEyebrow(body,"Štartovacie vybavenie");tiers.forEach(t=>{
+      const e=document.createElement("details");e.className="entry";
+      e.innerHTML=`<summary><span class="t">${t.name}</span><span class="pill teal" style="margin-left:auto">${t.pills} pills</span><span class="chev">›</span></summary>
+        <div class="body"><div class="desc" style="margin:10px 0">${t.desc}</div>
+          <div class="note"><b style="color:var(--muted)">Výbava:</b> ${t.equipment.join(", ")}</div>
+          <div class="note" style="margin-top:2px"><b style="color:var(--muted)">Zbrane:</b> ${t.weapons.join(", ")}</div></div>`;
+      body.appendChild(e);});}
+    if(!q){
+      appendEyebrow(body,"Bio — každá voľba dá +1 zručnosť");
+      body.appendChild(bioTable("Vek pri nákaze (2013)",ch.bio.age.options));
+      ch.bio.personality.forEach(p=>body.appendChild(bioTable(p.q,p.options)));
+      body.appendChild(bioTable("Črta",ch.bio.trait.options));
+      body.appendChild(bioTable("Motivácia",ch.bio.motivation.options));
+    }
+    const mors=ch.morality.options.filter(o=>match(o.name)||match(o.desc));
+    if(mors.length){appendEyebrow(body,"Morality — voliteľná (+1 zručnosť)");
+      if(!q){const n=document.createElement("div");n.className="note";n.style.cssText="margin:0 0 8px";n.textContent=ch.morality.intro;body.appendChild(n);}
+      mors.forEach(o=>{
+        const e=document.createElement("details");e.className="entry";
+        e.innerHTML=`<summary><span class="t">${o.name}</span><span class="pill amber" style="margin-left:auto">+1 ${skName(o.skill)}</span><span class="chev">›</span></summary>
+          <div class="body"><div class="desc" style="margin-top:10px">${o.desc}</div></div>`;
+        body.appendChild(e);});}
+    const gl=ch.glossary.filter(g=>match(g.k)||match(g.v));
+    if(gl.length){appendEyebrow(body,"Character sheet — čo znamená čo");gl.forEach(g=>{
+      const e=document.createElement("details");e.className="entry";
+      e.innerHTML=`<summary><span class="t" style="font-size:15px">${g.k}</span><span class="chev">›</span></summary>
+        <div class="body"><div class="desc" style="margin-top:10px">${g.v}</div></div>`;
+      body.appendChild(e);});}
+    if(!q){appendEyebrow(body,"Survivor's Journal");
+      const e=document.createElement("div");e.className="card";e.innerHTML=`<div class="desc">${ch.journalIntro}</div>`;body.appendChild(e);}
   } else if(cxCat==="skills"){
     DATA.skills.filter(s=>match(s.name)||match(s.role)||match(s.desc||"")).forEach(s=>{
       const e=document.createElement("details");e.className="entry";

@@ -693,7 +693,42 @@
         "v": "Long Guns (obojručné: pušky, brokovnice, luky, plameňomety), Short Guns (jednoručné: Pistol, Revolver, Hunting Pistol, Shorty) a Throwables (max 3 na druh; výnimka: len 1 fľaša alebo tehla)."
       }
     ],
-    "journalIntro": "Survivor's Journal je rozšírenie sheetu na osobné info (vzhľad, lore) a priebežný zápis stretnutí, cieľov, vzťahov (PC aj NPC), vzťahov s frakciami a travel logu navštívených miest."
+    "journalIntro": "Survivor's Journal je rozšírenie sheetu na osobné info (vzhľad, lore) a priebežný zápis stretnutí, cieľov, vzťahov (PC aj NPC), vzťahov s frakciami a travel logu navštívených miest.",
+    "morality": {
+      "intro": "Morality je voliteľný creation mechanizmus — dá postave cieľ na roleplay a konkrétny +1 bonus k zručnosti. Morálka preživšieho určuje, kto je a ako vidí svet.",
+      "options": [
+        {
+          "name": "Good-Natured",
+          "skill": "medicine",
+          "desc": "Stará sa o ostatných preživších a rád podá pomocnú ruku. Má silný morálny kompas a inklinuje robiť správnu vec."
+        },
+        {
+          "name": "Unpredictable",
+          "skill": "scavenging",
+          "desc": "Nikto nevie, ako zareaguje — môže sa prikloniť na ktorúkoľvek stranu a názor zmení zo sekundy na sekundu."
+        },
+        {
+          "name": "Moral Grey",
+          "skill": "elusive",
+          "desc": "Po tvrdých stratách sa pohybuje v morálne šedej zóne. Niet správnej ani zlej odpovede — len prežitie. Aj tí najlepší majú svoje temné chvíle."
+        },
+        {
+          "name": "Lawless",
+          "skill": "survival",
+          "desc": "Riadi sa vlastným morálnym kódexom či honor systémom. Ťažký tímový hráč — jeho činy väčšinou prospejú len jemu samému."
+        },
+        {
+          "name": "Honest",
+          "skill": "instinct",
+          "desc": "S rozumom na správnom mieste robí, čo môže, aby prežil — a pritom sa nepoškvrní."
+        },
+        {
+          "name": "Irredeemable",
+          "skill": "brutality",
+          "desc": "Svet je posiaty telami, ktoré tam položil. Ľudia preňho nič neznamenajú, sú len prostriedok a postrádateľní; bez súcitu a empatie. Prežiť za každú cenu je jediný cieľ."
+        }
+      ]
+    }
   },
   "survivalUpgrades": {
     "intro": "Survival Upgrades sú perky, ktoré vylepšujú zručnosti a schopnosti. Odomykajú sa míňaním Pills (lootovateľná surovina, aj odmena v kampani). Upgradovať môžeš kedykoľvek okrem aktívneho boja. Viactierové upgrady treba odomykať po poradí (Tier 1 pred Tier 2). Náklady sú v Pills.",
