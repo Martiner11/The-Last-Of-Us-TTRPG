@@ -313,70 +313,7 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
    Štruktúrované tak, aby sa dalo neskôr presunúť do externých JSON.
    Stuby (Staty doplníme) dopĺňame kapitolu po kapitole.
    ================================================================= */
-const DATA = {
-  dice:[
-    {d:"d20",use:"Heavy damage"},
-    {d:"d12",use:"Upgraded checky · silné damage"},
-    {d:"d10",use:"Predvolená skill kocka",def:true},
-    {d:"d8", use:"Damage · condition charts"},
-    {d:"d6", use:"Damage typy"},
-    {d:"d4", use:"Malé charty · light damage"}
-  ],
-  skills:[
-    {key:"brutality",  name:"Brutality",  role:"Boj nablízko",  dc:"Hit · Grapple · Counter"},
-    {key:"aiming",     name:"Aiming",     role:"Streľba",        dc:"Hit (zbrane, luk)"},
-    {key:"elusive",    name:"Elusive",    role:"Úhyb, mrštnosť", dc:"Dodge"},
-    {key:"instinct",   name:"Instinct",   role:"Vnímanie, postreh", dc:"Sneak / detekcia"},
-    {key:"scavenging", name:"Scavenging", role:"Hľadanie zdrojov", dc:"Loot / scavenge"},
-    {key:"survival",   name:"Survival",   role:"Výdrž, divočina", dc:"Survival checky"},
-    {key:"maintenance",name:"Maintenance",role:"Oprava a údržba", dc:"Crafting / weapon upkeep"},
-    {key:"medicine",   name:"Medicine",   role:"Liečenie",        dc:"Ošetrenie / infekcia"}
-  ],
-  dcTypes:[
-    {name:"Hit DC",    txt:"Koľko treba hodiť, aby si zasiahol nepriateľa pripravenou zbraňou. Ráta sa z Brutality a Aiming."},
-    {name:"Dodge DC",  txt:"Hodnota v Elusive hode potrebná na úhyb prichádzajúceho útoku."},
-    {name:"Grapple DC",txt:"Sila nepriateľa pri zápase — Brutality ho dokáže pridržať a zabrániť mu útočiť."},
-    {name:"Counter DC",txt:"Pri boji nablízko s ľuďmi: Brutality umožní counter a udrieť prvý."},
-    {name:"Sneak DC",  txt:"Náročnosť toho, ako sa nepozorovane prešmykneš okolo nepriateľa."}
-  ],
-  weapons:[
-    {name:"Pistol", cat:"Pištoľ", skill:"Aiming", stats:{
-       Damage:"1D8 + 1D6","Fire Rate":"1", Ammo:"9mm", Capacity:"7",
-       Reload:"Zásobník","Armor Piercing":"3 strely", Craft:"150"},
-       upg:[
-        {h:"Reload Speed",rows:[["Vie nabiť v tom istom kole, keď minie náboje","15"],["Vie nabiť a vystreliť 1 náboj v tom istom kole","2 / 25"]]},
-        {h:"Fire Rate",rows:[["Fire Rate na 2","1 / 30"],["Fire Rate na 3","2 / 40"]]},
-        {h:"Capacity",rows:[["Zásobník na 12 nábojov","1 / 20"],["Zásobník na 21 nábojov","3 / 30"]]}
-       ]},
-    {name:"Revolver", cat:"Pištoľ", skill:"Aiming", stats:{
-       Damage:"1D12 + 1D8","Fire Rate":"1", Ammo:".357 Magnum", Capacity:"6",
-       Reload:"2 náboje za kolo","Armor Piercing":"2 strely", Craft:"180"},
-       upg:[
-        {h:"Reload Speed",rows:[["Nabíja 4 náboje za kolo","1 / 20"],["Speed reloader: všetkých 6 za kolo","3 / 30"]]},
-        {h:"Fire Rate",rows:[["Fire Rate na 2","2 / 30"],["Fire Rate na 3","3 / 40"]]}
-       ]}
-  ],
-  weaponStubs:["Magnum","Shorty","Hunting Pistol","Hunting Rifle","Pump Shotgun","Bow","Double Barrel Shotgun","Frontier Rifle","Battle Rifle","Assault Rifle","Semi-Auto Rifle","Tactical Shotgun","Military Sniper Rifle","Flamethrower","Hand to Hand","2x4","Hammer and Wrench","Crowbar","Pipe","Bat","Sledgehammer","Golf Club","Riot Shield","Shiv","Switchblade","Axe","Machete","Molotov","Nail Bomb","Smoke Bomb","Pipe Bomb","Trap Mine"],
-  infected:[
-    {name:"Clicker", rarity:"Common", stats:{
-       Health:"35–50", Damage:"3D12","Number of Attacks":"1",
-       "Sneak DC":"10","Hit DC":"9","Dodge DC":"8","Grapple DC":"10",
-       "Speed (Undetected)":"Slow","Speed (Detected)":"Moderate"},
-       desc:"Zvuk taký výrazný, že naplní každého preživšieho strachom. Clickeri sú v štádiu infekcie, kde sú slepí, ale orientujú sa echolokáciou — odtiaľ ten klikavý zvuk. Sú silní, agresívni a inteligentní; keď raz objavia korisť, neopustia oblasť. Pri zlyhanom stealth hode okamžite prejdú do berserk módu. Preživší ich vie odlákať hodom (Aiming) tehly či fľaše do cieľovej oblasti."}
-  ],
-  infectedStubs:["Runner","Stalker","Shambler","Bloater","Rat King"],
-  factions:["Survivors","Fireflies","FEDRA","Smugglers","Hunters","Bandits","Cannibals","Rebels","Cultists","Liberation Front","Slavers"],
-  scenarios:[
-    {title:"Tichá stanica", tag:"Ukážka · šablóna", players:"1–4", level:"Štart", time:"~45 min",
-     intro:"Generátor v útočisku dohorel. Niekto spomenul, že v opustenej stanici metra pár blokov odtiaľto bývali zásoby. Problém: nie ste tam prví, čo to skúsili — a niektorí z nich sa odtiaľ nikdy nevrátili.",
-     beats:[
-       {n:"Scéna 1", h:"Vstup", p:"Vchod do stanice je zatarasený prevrátenými lavičkami. Cez škáru cítiť vlhko a hnilobu. Aby ste sa potichu dostali dnu bez hluku, treba sa prešmyknúť cez bariéru.", check:{skill:"Elusive",dc:8,as:"Sneak"}},
-       {n:"Scéna 2", h:"Tma na nástupišti", p:"Tunelom sa nesie klikanie. Niekde vpredu stojí Clicker, slepý ale ostražitý. Buď ho obíďte stealthom, alebo ho odlákajte hodenou fľašou do vzdialeného rohu.", check:{skill:"Aiming",dc:7,as:"Odlákanie"}},
-       {n:"Scéna 3", h:"Sklad", p:"Za turniketmi je zamknutá miestnosť údržby. Zámka je hrdzavá — dá sa vypáčiť, ale nesmiete narobiť hluk, inak Clicker prejde do berserku.", check:{skill:"Maintenance",dc:9,as:"Hit"}},
-       {n:"Záver", h:"Odchod", p:"Vnútri sú náhradné súčiastky aj lekárničky. Cesta von je tá istá — ibaže teraz s plnými rukami. Ak Clicker zachytil zvuk, posledný únik je hod Elusive proti jeho útoku.", check:{skill:"Elusive",dc:8,as:"Dodge"}}
-     ]}
-  ]
-};
+let DATA = null;
 
 /* =================================================================
    STATE  — postava sa ukladá lokálne (localStorage). V claude.ai
@@ -389,10 +326,10 @@ const blank=()=>({
   hp:30, hpMax:30, inf:0, mor:0,
   inv:[], equip:"Pistol", journal:""
 });
-let mem=null;
+let mem=null,C;
 function load(){ try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):(mem||blank());}catch(e){return mem||blank();} }
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(C));}catch(e){} mem=C; }
-let C=load();
+/* C sa naplní v init() po načítaní dát */
 
 /* ---------- nav ---------- */
 const TABS=[
@@ -458,7 +395,7 @@ function saveJournal(v){C.journal=v;save();}
 /* ---------- edit modal ---------- */
 function openEdit(){
   const m=document.getElementById("modal");
-  const facOpts=['<option value="">— frakcia —</option>'].concat(DATA.factions.map(f=>`<option ${C.faction===f?"selected":""}>${f}</option>`)).join("");
+  const facOpts=['<option value="">— frakcia —</option>'].concat(DATA.factions.map(f=>`<option ${C.faction===f.name?"selected":""}>${f.name}</option>`)).join("");
   m.innerHTML=`<div class="grabber"></div>
    <h3>Upraviť postavu <span class="x" onclick="closeEdit()">×</span></h3>
    <div class="field"><label>Meno</label><input id="e-name" value="${esc(C.name)}" placeholder="Napr. Ellie"></div>
@@ -638,7 +575,7 @@ function flashCheck(){const sk=document.getElementById("ckSkill");
    CODEX
    ================================================================= */
 let cxCat="weapons";
-const CX=[["weapons","Zbrane"],["infected","Infikovaní"],["skills","Zručnosti"],["dc","DC"],["dice","Kocky"]];
+const CX=[["weapons","Zbrane"],["infected","Infikovaní"],["factions","Frakcie"],["skills","Zručnosti"],["dc","DC"],["dice","Kocky"]];
 function renderCodexTabs(){
   const t=document.getElementById("cxTabs");t.innerHTML="";
   CX.forEach(([k,l])=>{const b=document.createElement("button");b.textContent=l;
@@ -657,6 +594,15 @@ function renderCodex(){
     DATA.infected.filter(i=>match(i.name)).forEach(i=>body.appendChild(infectedEntry(i)));
     const stubs=DATA.infectedStubs.filter(match);
     if(stubs.length)body.appendChild(stubBlock("Ďalší infikovaní",stubs));
+  } else if(cxCat==="factions"){
+    DATA.factions.filter(f=>match(f.name)||match(f.desc)).forEach(f=>{
+      const e=document.createElement("details");e.className="entry";
+      e.innerHTML=`<summary><span class="t">${f.name}</span>
+        ${C.faction===f.name?'<span class="pill amber">tvoja</span>':''}<span class="chev">›</span></summary>
+        <div class="body">${f.motto?`<div class="note" style="font-style:italic;margin:10px 0 2px;color:var(--amber-dim)">„${f.motto}"</div>`:''}
+        <div class="desc">${f.desc}</div></div>`;
+      body.appendChild(e);
+    });
   } else if(cxCat==="skills"){
     DATA.skills.filter(s=>match(s.name)||match(s.role)).forEach(s=>{
       const e=document.createElement("div");e.className="entry";e.style.padding="13px 14px";
@@ -760,9 +706,23 @@ const sel=id=>document.getElementById(id).value;
 const num=(id,f)=>{const v=parseInt(document.getElementById(id).value);return isNaN(v)?f:v;};
 
 /* ---------- boot ---------- */
-/* ---------- boot ---------- */
-document.querySelectorAll("#rollSeg button").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
-renderSheet();renderDice();renderCodexTabs();renderCodex();renderScn();
+async function init(){
+  try{
+    const res=await fetch("data.json",{cache:"no-cache"});
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    DATA=await res.json();
+  }catch(e){
+    document.querySelector("main").innerHTML=
+      '<div class="card" style="margin-top:40px"><div class="eyebrow">Nepodarilo sa načítať dáta</div>'+
+      '<div class="desc">Súbor <b>data.json</b> sa nenašiel vedľa <b>index.html</b>. Skontroluj, či je nahratý v repe. '+
+      'Ak si appku otvoril ako lokálny súbor (file://), spusti ju radšej cez GitHub Pages — odtiaľ to funguje.</div></div>';
+    return;
+  }
+  C=load();
+  document.querySelectorAll("#rollSeg button").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+  renderSheet();renderDice();renderCodexTabs();renderCodex();renderScn();
+}
+init();
 
 if("serviceWorker"in navigator){
   window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));

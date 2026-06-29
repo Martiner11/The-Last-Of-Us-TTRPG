@@ -1,0 +1,359 @@
+{
+  "dice": [
+    {
+      "d": "d20",
+      "use": "Heavy damage"
+    },
+    {
+      "d": "d12",
+      "use": "Upgraded checky · silné damage"
+    },
+    {
+      "d": "d10",
+      "use": "Predvolená skill kocka",
+      "def": true
+    },
+    {
+      "d": "d8",
+      "use": "Damage · condition charts"
+    },
+    {
+      "d": "d6",
+      "use": "Damage typy"
+    },
+    {
+      "d": "d4",
+      "use": "Malé charty · light damage"
+    }
+  ],
+  "skills": [
+    {
+      "key": "brutality",
+      "name": "Brutality",
+      "role": "Boj nablízko",
+      "dc": "Hit · Grapple · Counter"
+    },
+    {
+      "key": "aiming",
+      "name": "Aiming",
+      "role": "Streľba",
+      "dc": "Hit (zbrane, luk)"
+    },
+    {
+      "key": "elusive",
+      "name": "Elusive",
+      "role": "Úhyb, mrštnosť",
+      "dc": "Dodge"
+    },
+    {
+      "key": "instinct",
+      "name": "Instinct",
+      "role": "Vnímanie, postreh",
+      "dc": "Sneak / detekcia"
+    },
+    {
+      "key": "scavenging",
+      "name": "Scavenging",
+      "role": "Hľadanie zdrojov",
+      "dc": "Loot / scavenge"
+    },
+    {
+      "key": "survival",
+      "name": "Survival",
+      "role": "Výdrž, divočina",
+      "dc": "Survival checky"
+    },
+    {
+      "key": "maintenance",
+      "name": "Maintenance",
+      "role": "Oprava a údržba",
+      "dc": "Crafting / weapon upkeep"
+    },
+    {
+      "key": "medicine",
+      "name": "Medicine",
+      "role": "Liečenie",
+      "dc": "Ošetrenie / infekcia"
+    }
+  ],
+  "dcTypes": [
+    {
+      "name": "Hit DC",
+      "txt": "Koľko treba hodiť, aby si zasiahol nepriateľa pripravenou zbraňou. Ráta sa z Brutality a Aiming."
+    },
+    {
+      "name": "Dodge DC",
+      "txt": "Hodnota v Elusive hode potrebná na úhyb prichádzajúceho útoku."
+    },
+    {
+      "name": "Grapple DC",
+      "txt": "Sila nepriateľa pri zápase — Brutality ho dokáže pridržať a zabrániť mu útočiť."
+    },
+    {
+      "name": "Counter DC",
+      "txt": "Pri boji nablízko s ľuďmi: Brutality umožní counter a udrieť prvý."
+    },
+    {
+      "name": "Sneak DC",
+      "txt": "Náročnosť toho, ako sa nepozorovane prešmykneš okolo nepriateľa."
+    }
+  ],
+  "weapons": [
+    {
+      "name": "Pistol",
+      "cat": "Pištoľ",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D8 + 1D6",
+        "Fire Rate": "1",
+        "Ammo": "9mm",
+        "Capacity": "7",
+        "Reload": "Zásobník",
+        "Armor Piercing": "3 strely",
+        "Craft": "150"
+      },
+      "upg": [
+        {
+          "h": "Reload Speed",
+          "rows": [
+            [
+              "Vie nabiť v tom istom kole, keď minie náboje",
+              "15"
+            ],
+            [
+              "Vie nabiť a vystreliť 1 náboj v tom istom kole",
+              "2 / 25"
+            ]
+          ]
+        },
+        {
+          "h": "Fire Rate",
+          "rows": [
+            [
+              "Fire Rate na 2",
+              "1 / 30"
+            ],
+            [
+              "Fire Rate na 3",
+              "2 / 40"
+            ]
+          ]
+        },
+        {
+          "h": "Capacity",
+          "rows": [
+            [
+              "Zásobník na 12 nábojov",
+              "1 / 20"
+            ],
+            [
+              "Zásobník na 21 nábojov",
+              "3 / 30"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Revolver",
+      "cat": "Pištoľ",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D12 + 1D8",
+        "Fire Rate": "1",
+        "Ammo": ".357 Magnum",
+        "Capacity": "6",
+        "Reload": "2 náboje za kolo",
+        "Armor Piercing": "2 strely",
+        "Craft": "180"
+      },
+      "upg": [
+        {
+          "h": "Reload Speed",
+          "rows": [
+            [
+              "Nabíja 4 náboje za kolo",
+              "1 / 20"
+            ],
+            [
+              "Speed reloader: všetkých 6 za kolo",
+              "3 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Fire Rate",
+          "rows": [
+            [
+              "Fire Rate na 2",
+              "2 / 30"
+            ],
+            [
+              "Fire Rate na 3",
+              "3 / 40"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "weaponStubs": [
+    "Magnum",
+    "Shorty",
+    "Hunting Pistol",
+    "Hunting Rifle",
+    "Pump Shotgun",
+    "Bow",
+    "Double Barrel Shotgun",
+    "Frontier Rifle",
+    "Battle Rifle",
+    "Assault Rifle",
+    "Semi-Auto Rifle",
+    "Tactical Shotgun",
+    "Military Sniper Rifle",
+    "Flamethrower",
+    "Hand to Hand",
+    "2x4",
+    "Hammer and Wrench",
+    "Crowbar",
+    "Pipe",
+    "Bat",
+    "Sledgehammer",
+    "Golf Club",
+    "Riot Shield",
+    "Shiv",
+    "Switchblade",
+    "Axe",
+    "Machete",
+    "Molotov",
+    "Nail Bomb",
+    "Smoke Bomb",
+    "Pipe Bomb",
+    "Trap Mine"
+  ],
+  "infected": [
+    {
+      "name": "Clicker",
+      "rarity": "Common",
+      "stats": {
+        "Health": "35–50",
+        "Damage": "3D12",
+        "Number of Attacks": "1",
+        "Sneak DC": "10",
+        "Hit DC": "9",
+        "Dodge DC": "8",
+        "Grapple DC": "10",
+        "Speed (Undetected)": "Slow",
+        "Speed (Detected)": "Moderate"
+      },
+      "desc": "Zvuk taký výrazný, že naplní každého preživšieho strachom. Clickeri sú v štádiu infekcie, kde sú slepí, ale orientujú sa echolokáciou — odtiaľ ten klikavý zvuk. Sú silní, agresívni a inteligentní; keď raz objavia korisť, neopustia oblasť. Pri zlyhanom stealth hode okamžite prejdú do berserk módu. Preživší ich vie odlákať hodom (Aiming) tehly či fľaše do cieľovej oblasti."
+    }
+  ],
+  "infectedStubs": [
+    "Runner",
+    "Stalker",
+    "Shambler",
+    "Bloater",
+    "Rat King"
+  ],
+  "factions": [
+    {
+      "name": "Survivors",
+      "desc": "Zvyšky bežných obyvateľov roztrúsených po vypuknutí nákazy. Nie sú oficiálna frakcia — len ľudia, čo sa snažia prežiť: putujú alebo sa zakopú, niektorí budujú komunity. Sú nepredvídateľní: vítajú ťa, sú opatrní, alebo útočia; jedni potrebujú pomoc, iní obchodujú."
+    },
+    {
+      "name": "Fireflies",
+      "motto": "When lost in the darkness, look for the light.",
+      "desc": "Revolučná milícia, ktorá povstala proti vojenskému útlaku FEDRA v karanténnych zónach a chce obnoviť vládu. Hľadajú vakcínu proti nákaze (CBI) a verbujú predvojnových lekárov; po sérii neúspešných testov im klesá morálka. Spoznáš ich podľa svetluškového prívesku."
+    },
+    {
+      "name": "FEDRA",
+      "desc": "Federal Disaster Response Agency — posledný zvyšok predvojnovej vlády USA. Po vypuknutí CBI (2013) prevzala armádu, vyhlásila stanné právo a presunula neinfikovaných do karanténnych zón (QZ). Zóny premenila na autoritatívne policajné štáty s múrmi, vežami a kontrolami; jediný cieľ je zadržať nákazu."
+    },
+    {
+      "name": "Smugglers",
+      "desc": "Organizované skupiny dílerov a pašerákov, ktorí za úplatu prepravujú kontraband, zásoby aj ľudí bez dokladov cez vojenské zóny. Pracujú s kýmkoľvek za správnu cenu, využívajú tunely a opustené budovy. Ich sila stojí na schopnostiach, nie na výzbroji či počtoch."
+    },
+    {
+      "name": "Hunters",
+      "desc": "Organizovaní Bandits povestní brutalitou. V mestských ruinách a opustených QZ vystopujú, prepadnú a zabijú každého, kto vojde na ich územie. Výbavu majú nazbieranú alebo z mŕtvych vojakov; sú majstri pascí a prepadov a blúdiacim preživším hovoria „turisti“."
+    },
+    {
+      "name": "Bandits",
+      "desc": "Nebezpečná skupina násilných zlodejov a nájazdníkov v pustatine. Darí sa im vo vidieckych oblastiach mimo dosahu FEDRA a na rozdiel od mestských Hunterov vyrážajú z táborov na nájazdy. Niektorí majú pancier a respirátory a používajú Molotovy a dymovnice."
+    },
+    {
+      "name": "Cannibals",
+      "desc": "Preživší, čo zo zúfalstva a z nedostatku jedla zavrhli ľudskosť a lovia cestovateľov, ktorých zjedia. Jedni sú otvorene násilní, iní lákajú úsmevom; ťažko ich odhaliť a obeť radšej vystopujú a chytia nepripravenú. Konajú samostatne, bez frakcie."
+    },
+    {
+      "name": "Rebels",
+      "desc": "Rogue Rebels — nespokojní bývalí vojaci, čo dezertovali z armády alebo FEDRA a založili vlastnú frakciu. Majú vojenskú výzbroj a vedia ju udržať; vyberajú výpalné, stavajú mýta na cestách a tvrdo trestajú neposlušnosť. Niektorí sú militaristické apokalyptické kulty — obzvlášť nebezpeční."
+    },
+    {
+      "name": "Cultists",
+      "desc": "Preživší okolo vodcov, čo zneužili chaos a vyšplhali sa k moci (niekedy uctievaní ako božstvá). Sú fanatickí — kto je označený za „hriešneho“, stáva sa nepriateľom. Bežné sú obety a rituály; modernú technológiu často zavrhujú, takže preferujú zbrane nablízko a luky. Žijú v divočine a na samote."
+    },
+    {
+      "name": "Liberation Front",
+      "motto": "May your survival be long. May your death be swift.",
+      "desc": "Militantné polovojenské organizácie civilistov, ktorí v karanténnej zóne zvrhli FEDRA. Vznikli z túžby po lepšom živote pod jej tvrdou rukou; do otvoreného boja ich dotlačila smrteľná odveta na protesty. Po prevzatí moci ovládnu QZ — život je znesiteľný, kým poslúchaš. Časom sa štruktúrou nebezpečne podobajú na samotnú FEDRA."
+    },
+    {
+      "name": "Slavers",
+      "desc": "Militaristické gangy, čo zajímajú a zotročujú preživších na prácu; sila im rastie s počtom väzňov. Sú majstri pascí, ktoré v cestovných zónach lapia ľudí aj infikovaných. Sadistickí a krutí, ťažko vyzbrojení a často v presile — no z nedbalosti a prílišnej sebaistoty sa dajú zneužiť."
+    }
+  ],
+  "scenarios": [
+    {
+      "title": "Tichá stanica",
+      "tag": "Ukážka · šablóna",
+      "players": "1–4",
+      "level": "Štart",
+      "time": "~45 min",
+      "intro": "Generátor v útočisku dohorel. Niekto spomenul, že v opustenej stanici metra pár blokov odtiaľto bývali zásoby. Problém: nie ste tam prví, čo to skúsili — a niektorí z nich sa odtiaľ nikdy nevrátili.",
+      "beats": [
+        {
+          "n": "Scéna 1",
+          "h": "Vstup",
+          "p": "Vchod do stanice je zatarasený prevrátenými lavičkami. Cez škáru cítiť vlhko a hnilobu. Aby ste sa potichu dostali dnu bez hluku, treba sa prešmyknúť cez bariéru.",
+          "check": {
+            "skill": "Elusive",
+            "dc": 8,
+            "as": "Sneak"
+          }
+        },
+        {
+          "n": "Scéna 2",
+          "h": "Tma na nástupišti",
+          "p": "Tunelom sa nesie klikanie. Niekde vpredu stojí Clicker, slepý ale ostražitý. Buď ho obíďte stealthom, alebo ho odlákajte hodenou fľašou do vzdialeného rohu.",
+          "check": {
+            "skill": "Aiming",
+            "dc": 7,
+            "as": "Odlákanie"
+          }
+        },
+        {
+          "n": "Scéna 3",
+          "h": "Sklad",
+          "p": "Za turniketmi je zamknutá miestnosť údržby. Zámka je hrdzavá — dá sa vypáčiť, ale nesmiete narobiť hluk, inak Clicker prejde do berserku.",
+          "check": {
+            "skill": "Maintenance",
+            "dc": 9,
+            "as": "Hit"
+          }
+        },
+        {
+          "n": "Záver",
+          "h": "Odchod",
+          "p": "Vnútri sú náhradné súčiastky aj lekárničky. Cesta von je tá istá — ibaže teraz s plnými rukami. Ak Clicker zachytil zvuk, posledný únik je hod Elusive proti jeho útoku.",
+          "check": {
+            "skill": "Elusive",
+            "dc": 8,
+            "as": "Dodge"
+          }
+        }
+      ]
+    }
+  ]
+}
