@@ -331,6 +331,13 @@ function load(){ try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):(m
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(C));}catch(e){} mem=C; }
 /* C sa naplní v init() po načítaní dát */
 
+/* ---------- vlastné frakcie (ukladané lokálne) ---------- */
+const CFKEY="tlou_custom_factions";
+let customFactions=[];
+function loadCustomFactions(){try{return JSON.parse(localStorage.getItem(CFKEY))||[];}catch(e){return [];}}
+function saveCustomFactions(){try{localStorage.setItem(CFKEY,JSON.stringify(customFactions));}catch(e){}}
+function allFactionNames(){return DATA.factions.map(f=>f.name).concat(customFactions.map(f=>f.name));}
+
 /* ---------- nav ---------- */
 const TABS=[
   {id:"sheet",label:"Postava",ic:'<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>'},
@@ -395,7 +402,7 @@ function saveJournal(v){C.journal=v;save();}
 /* ---------- edit modal ---------- */
 function openEdit(){
   const m=document.getElementById("modal");
-  const facOpts=['<option value="">— frakcia —</option>'].concat(DATA.factions.map(f=>`<option ${C.faction===f.name?"selected":""}>${f.name}</option>`)).join("");
+  const facOpts=['<option value="">— frakcia —</option>'].concat(allFactionNames().map(n=>`<option ${C.faction===n?"selected":""}>${esc(n)}</option>`)).join("");
   m.innerHTML=`<div class="grabber"></div>
    <h3>Upraviť postavu <span class="x" onclick="closeEdit()">×</span></h3>
    <div class="field"><label>Meno</label><input id="e-name" value="${esc(C.name)}" placeholder="Napr. Ellie"></div>
@@ -424,6 +431,45 @@ function openEdit(){
   document.getElementById("scrim").classList.add("on");
 }
 function closeEdit(){document.getElementById("scrim").classList.remove("on");}
+
+/* ---------- builder vlastnej frakcie ---------- */
+function openFactionForm(editId){
+  const g=DATA.customFactionGuide;
+  const ex=editId?customFactions.find(f=>f.id===editId):null;
+  const m=document.getElementById("modal");
+  let fields="";
+  g.prompts.forEach(p=>{
+    if(p.k==="Name")return;
+    const v=ex?(ex.fields[p.k]||""):"";
+    fields+=`<div class="field"><label>${p.k}</label>
+      <textarea id="cf-${p.k}" rows="2" placeholder="${esc(p.q)}">${esc(v)}</textarea></div>`;
+  });
+  m.innerHTML=`<div class="grabber"></div>
+    <h3>${ex?"Upraviť frakciu":"Nová vlastná frakcia"} <span class="x" onclick="closeEdit()">×</span></h3>
+    <div class="note" style="margin-bottom:12px">${esc(g.intro)}</div>
+    <div class="field"><label>Name</label>
+      <input id="cf-Name" value="${ex?esc(ex.name):""}" placeholder="Ako sa frakcia volá?"></div>
+    ${fields}
+    <button class="btn amber full" style="margin-top:6px" onclick="saveCustomFaction('${editId||""}')">Uložiť frakciu</button>`;
+  document.getElementById("scrim").classList.add("on");
+}
+function saveCustomFaction(editId){
+  const name=val("cf-Name");
+  if(!name){flashEl("cf-Name");return;}
+  const fields={};
+  DATA.customFactionGuide.prompts.forEach(p=>{if(p.k==="Name")return;fields[p.k]=val("cf-"+p.k);});
+  if(editId){
+    const f=customFactions.find(x=>x.id===editId);
+    if(f){f.name=name;f.fields=fields;}
+  }else{
+    customFactions.push({id:"cf_"+Date.now(),name,fields});
+  }
+  saveCustomFactions();closeEdit();renderCodex();
+}
+function deleteCustomFaction(id){
+  if(!confirm("Zmazať túto vlastnú frakciu?"))return;
+  customFactions=customFactions.filter(f=>f.id!==id);saveCustomFactions();renderCodex();
+}
 function commitEdit(){
   C.name=val("e-name");C.faction=sel("e-fac");C.cls=val("e-cls");C.bio=val("e-bio");
   C.hpMax=num("e-hpmax",30);C.hp=Math.min(num("e-hp",30),C.hpMax);C.inf=num("e-inf",0);C.mor=num("e-mor",0);
@@ -603,13 +649,46 @@ function renderCodex(){
         <div class="desc">${f.desc}</div></div>`;
       body.appendChild(e);
     });
+    // vlastné frakcie hráča
+    customFactions.filter(f=>match(f.name)||Object.values(f.fields).some(match)).forEach(f=>{
+      const e=document.createElement("details");e.className="entry";
+      let rows="";DATA.customFactionGuide.prompts.forEach(p=>{
+        if(p.k==="Name")return;const v=f.fields[p.k];
+        if(v)rows+=`<div class="h">${p.k}</div><div class="desc" style="margin:0 0 6px">${esc(v)}</div>`;
+      });
+      e.innerHTML=`<summary><span class="t">${esc(f.name)}</span>
+        <span class="pill teal">vlastná</span>${C.faction===f.name?'<span class="pill amber">tvoja</span>':''}<span class="chev">›</span></summary>
+        <div class="body"><div class="upg" style="margin-top:10px">${rows||'<div class="note">Žiadne detaily.</div>'}</div>
+        <div class="row" style="gap:7px;margin-top:11px">
+          <button class="btn sm grow" onclick="openFactionForm('${f.id}')">Upraviť</button>
+          <button class="btn sm" style="color:var(--danger);border-color:#5a2c22" onclick="deleteCustomFaction('${f.id}')">Zmazať</button>
+        </div></div>`;
+      body.appendChild(e);
+    });
+    if(!q){
+      // návod Custom Factions + tlačidlo
+      const g=DATA.customFactionGuide;
+      const guide=document.createElement("details");guide.className="entry";
+      let pr="";g.prompts.forEach(p=>{pr+=`<div class="h">${p.k}</div><div class="desc" style="margin:0 0 7px">${esc(p.q)}</div>`;});
+      guide.innerHTML=`<summary><span class="t">Custom Factions</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
+        <div class="body"><div class="note" style="margin:10px 0">${esc(g.intro)}</div><div class="upg">${pr}</div></div>`;
+      body.appendChild(guide);
+      const add=document.createElement("button");
+      add.className="btn amber full";add.style.marginTop="4px";add.textContent="+ Vytvoriť vlastnú frakciu";
+      add.onclick=()=>openFactionForm();
+      body.appendChild(add);
+    }
   } else if(cxCat==="skills"){
-    DATA.skills.filter(s=>match(s.name)||match(s.role)).forEach(s=>{
-      const e=document.createElement("div");e.className="entry";e.style.padding="13px 14px";
-      e.innerHTML=`<div style="display:flex;align-items:center;gap:10px">
-        <span class="t" style="font-family:var(--font-d);font-weight:600;font-size:17px">${s.name}</span>
-        <span class="pill amber" style="margin-left:auto">${C.skills?C.skills[s.key]:""}</span></div>
-        <div class="desc">${s.role}.</div><div class="note" style="margin-top:4px">DC: ${s.dc}</div>`;
+    DATA.skills.filter(s=>match(s.name)||match(s.role)||match(s.desc||"")).forEach(s=>{
+      const e=document.createElement("details");e.className="entry";
+      e.innerHTML=`<summary><span class="t">${s.name}</span>
+        <span class="pill amber" style="margin-left:auto">${C.skills?C.skills[s.key]:""}</span><span class="chev">›</span></summary>
+        <div class="body">
+          <div class="desc" style="margin-top:10px">${s.desc||s.role+"."}</div>
+          <div class="note" style="margin-top:9px"><b style="color:var(--muted)">Pokrýva:</b> ${s.role}</div>
+          <div class="note" style="margin-top:2px"><b style="color:var(--muted)">Checky:</b> ${s.dc}</div>
+          <button class="btn sm amber roll-inline" onclick="quickCheck('${s.key}','${s.name}')">Hod na ${s.name}</button>
+        </div>`;
       body.appendChild(e);
     });
   } else if(cxCat==="dc"){
@@ -719,6 +798,7 @@ async function init(){
     return;
   }
   C=load();
+  customFactions=loadCustomFactions();
   document.querySelectorAll("#rollSeg button").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
   renderSheet();renderDice();renderCodexTabs();renderCodex();renderScn();
 }
