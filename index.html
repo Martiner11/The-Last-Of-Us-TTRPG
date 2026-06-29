@@ -716,7 +716,7 @@ function flashCheck(){const sk=document.getElementById("ckSkill");
    CODEX
    ================================================================= */
 let cxCat="weapons";
-const CX=[["weapons","Zbrane"],["infected","Infikovaní"],["factions","Frakcie"],["character","Postava"],["skills","Zručnosti"],["dc","DC"],["dice","Kocky"]];
+const CX=[["weapons","Zbrane"],["infected","Infikovaní"],["factions","Frakcie"],["character","Postava"],["upgrades","Upgrades"],["trauma","Trauma"],["grounded","Grounded"],["skills","Zručnosti"],["dc","DC"],["dice","Kocky"]];
 function renderCodexTabs(){
   const t=document.getElementById("cxTabs");t.innerHTML="";
   CX.forEach(([k,l])=>{const b=document.createElement("button");b.textContent=l;
@@ -815,6 +815,60 @@ function renderCodex(){
       body.appendChild(e);});}
     if(!q){appendEyebrow(body,"Survivor's Journal");
       const e=document.createElement("div");e.className="card";e.innerHTML=`<div class="desc">${ch.journalIntro}</div>`;body.appendChild(e);}
+  } else if(cxCat==="upgrades"){
+    const su=DATA.survivalUpgrades;
+    if(!q){const n=document.createElement("div");n.className="note box";n.style.margin="0 0 12px";n.textContent=su.intro;body.appendChild(n);}
+    su.categories.forEach(cat=>{
+      const items=cat.items.filter(it=>match(it.name)||match(it.effect)||it.tiers.some(t=>match(t.e)));
+      if(!items.length)return;
+      appendEyebrow(body,cat.name+" upgrady");
+      if(cat.note&&!q){const nn=document.createElement("div");nn.className="note";nn.style.cssText="margin:0 0 8px";nn.textContent=cat.note;body.appendChild(nn);}
+      items.forEach(it=>{
+        const e=document.createElement("details");e.className="entry";
+        const rows=it.tiers.map(t=>`<div class="r"><span>T${t.t}: ${esc(t.e)}</span><span class="c">${t.c==null?"?":t.c+" pills"}</span></div>`).join("");
+        e.innerHTML=`<summary><span class="t">${it.name}</span><span class="chev">›</span></summary>
+          <div class="body"><div class="desc" style="margin-top:10px">${esc(it.effect)}</div>
+            <div class="upg" style="margin-top:8px">${rows}</div></div>`;
+        body.appendChild(e);
+      });
+    });
+  } else if(cxCat==="trauma"){
+    const tr=DATA.trauma;
+    const n=document.createElement("div");n.className="note box";n.style.margin="0 0 12px";n.textContent=tr.intro;body.appendChild(n);
+    const r=document.createElement("div");r.className="card";
+    r.innerHTML=`<div class="eyebrow" style="margin:0 0 6px">Ako znížiť traumu</div><div class="desc">${esc(tr.reduce)}</div>`;body.appendChild(r);
+    const tg=document.createElement("div");tg.className="card";
+    tg.innerHTML=`<div class="eyebrow" style="margin:0 0 6px">Spúšťače</div>`+tr.triggers.map(x=>`<div class="desc" style="padding:2px 0">• ${esc(x)}</div>`).join("");body.appendChild(tg);
+    appendEyebrow(body,"Stupne traumy (Psychosis)");
+    tr.stages.forEach((s,i)=>{
+      const e=document.createElement("details");e.className="entry";
+      const eff=s.effects.map(x=>`<div class="desc" style="padding:2px 0">• ${esc(x)}</div>`).join("");
+      e.innerHTML=`<summary><span class="t">${s.name}</span><span class="pill danger" style="margin-left:auto">${i+1}</span><span class="chev">›</span></summary>
+        <div class="body" style="padding-top:10px">${eff}</div>`;
+      body.appendChild(e);
+    });
+  } else if(cxCat==="grounded"){
+    const gr=DATA.grounded;
+    appendEyebrow(body,"Grounded Difficulty");
+    const i1=document.createElement("div");i1.className="note box";i1.style.margin="0 0 10px";i1.textContent=gr.difficulty.intro;body.appendChild(i1);
+    const rc=document.createElement("div");rc.className="card";
+    rc.innerHTML=gr.difficulty.rules.map(x=>`<div class="desc" style="padding:3px 0">• ${esc(x)}</div>`).join("");body.appendChild(rc);
+    const ed=document.createElement("details");ed.className="entry";
+    ed.innerHTML=`<summary><span class="t" style="font-size:15px">Enemy Drops (D8)</span><span class="chev">›</span></summary>
+      <div class="body" style="padding-top:10px"><div class="note" style="margin-bottom:6px">${esc(gr.difficulty.enemyDropsNote)}</div>${gr.difficulty.enemyDrops.map(x=>`<div class="desc" style="padding:1px 0">${esc(x)}</div>`).join("")}</div>`;
+    body.appendChild(ed);
+    const sc=document.createElement("details");sc.className="entry";
+    sc.innerHTML=`<summary><span class="t" style="font-size:15px">Scavenging Find DC</span><span class="chev">›</span></summary>
+      <div class="body" style="padding-top:10px">${gr.difficulty.scavengingDC.map(x=>`<div class="desc" style="padding:1px 0">${esc(x)}</div>`).join("")}</div>`;
+    body.appendChild(sc);
+    appendEyebrow(body,"Grounded Clickers");
+    const i2=document.createElement("div");i2.className="note";i2.style.cssText="margin:0 0 8px";i2.textContent=gr.clickers.intro;body.appendChild(i2);
+    gr.clickers.rules.forEach(rl=>{
+      const e=document.createElement("details");e.className="entry";
+      e.innerHTML=`<summary><span class="t" style="font-size:15px">${rl.h}</span><span class="chev">›</span></summary>
+        <div class="body"><div class="desc" style="margin-top:10px">${esc(rl.t)}</div></div>`;
+      body.appendChild(e);
+    });
   } else if(cxCat==="skills"){
     DATA.skills.filter(s=>match(s.name)||match(s.role)||match(s.desc||"")).forEach(s=>{
       const e=document.createElement("details");e.className="entry";

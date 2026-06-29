@@ -731,613 +731,611 @@
     }
   },
   "survivalUpgrades": {
-    "intro": "Survival Upgrades sú perky, ktoré vylepšujú zručnosti a schopnosti. Odomykajú sa míňaním Pills (lootovateľná surovina, aj odmena v kampani). Upgradovať môžeš kedykoľvek okrem aktívneho boja. Viactierové upgrady treba odomykať po poradí (Tier 1 pred Tier 2). Náklady sú v Pills.",
+    "intro": "Survival Upgrades sú perky, čo posilňujú zručnosti a schopnosti. Odomykajú sa míňaním piluliek (lootovateľný/scavengeovateľný predmet, aj odmena v kampani). Vylepšovať sa dá kedykoľvek okrem aktívneho boja. Niektoré majú viac stupňov (Tier) — tie treba odomykať po poradí (T1 pred T2). Tri kategórie: Skills, Survival a Combat.",
     "categories": [
       {
         "name": "Skills",
-        "note": "Modifikátory a kocky zručností.",
+        "note": "Modifier upgrady dávajú +1 k modifieru zručnosti. Dice upgrady zvyšujú kocku zručnosti na D12.",
         "items": [
           {
             "name": "Aggression",
-            "effect": "+ Brutality modifikátor",
+            "effect": "Zvyšuje Brutality modifier.",
             "tiers": [
-              [
-                "T1",
-                "+1",
-                "40"
-              ],
-              [
-                "T2",
-                "+1",
-                "50"
-              ],
-              [
-                "T3",
-                "+1",
-                "60"
-              ]
+              {
+                "t": 1,
+                "e": "+1",
+                "c": 40
+              },
+              {
+                "t": 2,
+                "e": "+1",
+                "c": 50
+              },
+              {
+                "t": 3,
+                "e": "+1",
+                "c": 60
+              }
             ]
           },
           {
             "name": "Steady",
-            "effect": "+ Aiming modifikátor",
+            "effect": "Zvyšuje Aiming modifier.",
             "tiers": [
-              [
-                "T1",
-                "+1",
-                "40"
-              ],
-              [
-                "T2",
-                "+1",
-                "50"
-              ],
-              [
-                "T3",
-                "+1",
-                "60"
-              ]
+              {
+                "t": 1,
+                "e": "+1",
+                "c": 40
+              },
+              {
+                "t": 2,
+                "e": "+1",
+                "c": 50
+              },
+              {
+                "t": 3,
+                "e": "+1",
+                "c": 60
+              }
             ]
           },
           {
             "name": "Awareness",
-            "effect": "+ Instinct modifikátor",
+            "effect": "Zvyšuje Instinct modifier.",
             "tiers": [
-              [
-                "T1",
-                "+1",
-                "30"
-              ],
-              [
-                "T2",
-                "+1",
-                "40"
-              ],
-              [
-                "T3",
-                "+1",
-                "50"
-              ]
+              {
+                "t": 1,
+                "e": "+1",
+                "c": 30
+              },
+              {
+                "t": 2,
+                "e": "+1",
+                "c": 40
+              },
+              {
+                "t": 3,
+                "e": "+1",
+                "c": 50
+              }
             ]
           },
           {
             "name": "Agile",
-            "effect": "+ Elusive modifikátor",
+            "effect": "Zvyšuje Elusive modifier.",
             "tiers": [
-              [
-                "T1",
-                "+1",
-                "50"
-              ],
-              [
-                "T2",
-                "+1",
-                "60"
-              ],
-              [
-                "T3",
-                "+1",
-                "70"
-              ]
+              {
+                "t": 1,
+                "e": "+1",
+                "c": 50
+              },
+              {
+                "t": 2,
+                "e": "+1",
+                "c": 60
+              },
+              {
+                "t": 3,
+                "e": "+1",
+                "c": 70
+              }
             ]
           },
           {
             "name": "Scavenger",
-            "effect": "+ Scavenging modifikátor",
+            "effect": "Zvyšuje Scavenging modifier.",
             "tiers": [
-              [
-                "T1",
-                "+1",
-                "30"
-              ],
-              [
-                "T2",
-                "+1",
-                "40"
-              ],
-              [
-                "T3",
-                "+1",
-                "50"
-              ]
+              {
+                "t": 1,
+                "e": "+1",
+                "c": 30
+              },
+              {
+                "t": 2,
+                "e": "+1",
+                "c": 40
+              },
+              {
+                "t": 3,
+                "e": "+1",
+                "c": 50
+              }
             ]
           },
           {
             "name": "Survivalist",
-            "effect": "+ Survival modifikátor",
+            "effect": "Zvyšuje Survival modifier.",
             "tiers": [
-              [
-                "T1",
-                "+1",
-                "20"
-              ],
-              [
-                "T2",
-                "+1",
-                "30"
-              ],
-              [
-                "T3",
-                "+1",
-                "40"
-              ]
+              {
+                "t": 1,
+                "e": "+1",
+                "c": 20
+              },
+              {
+                "t": 2,
+                "e": "+1",
+                "c": 30
+              },
+              {
+                "t": 3,
+                "e": "+1",
+                "c": 40
+              }
             ]
           },
           {
             "name": "Healer",
-            "effect": "+ Medicine modifikátor",
+            "effect": "Zvyšuje Medicine modifier.",
             "tiers": [
-              [
-                "T1",
-                "+1",
-                "20"
-              ],
-              [
-                "T2",
-                "+1",
-                "30"
-              ],
-              [
-                "T3",
-                "+1",
-                "40"
-              ]
+              {
+                "t": 1,
+                "e": "+1",
+                "c": 20
+              },
+              {
+                "t": 2,
+                "e": "+1",
+                "c": 30
+              },
+              {
+                "t": 3,
+                "e": "+1",
+                "c": 40
+              }
             ]
           },
           {
             "name": "Engineer",
-            "effect": "+ Maintenance modifikátor",
+            "effect": "Zvyšuje Maintenance modifier.",
             "tiers": [
-              [
-                "T1",
-                "+1",
-                "20"
-              ],
-              [
-                "T2",
-                "+1",
-                "30"
-              ],
-              [
-                "T3",
-                "+1",
-                "40"
-              ]
+              {
+                "t": 1,
+                "e": "+1",
+                "c": 20
+              },
+              {
+                "t": 2,
+                "e": "+1",
+                "c": 30
+              },
+              {
+                "t": 3,
+                "e": "+1",
+                "c": 40
+              }
             ]
           },
           {
             "name": "Hard Road",
-            "effect": "Brutality kocka",
+            "effect": "Brutality kocka → D12.",
             "tiers": [
-              [
-                "T1",
-                "na D12",
-                "80"
-              ]
+              {
+                "t": 1,
+                "e": "D12",
+                "c": 80
+              }
             ]
           },
           {
             "name": "Accuracy",
-            "effect": "Aiming kocka",
+            "effect": "Aiming kocka → D12.",
             "tiers": [
-              [
-                "T1",
-                "na D12",
-                "80"
-              ]
+              {
+                "t": 1,
+                "e": "D12",
+                "c": 80
+              }
             ]
           },
           {
             "name": "Perception",
-            "effect": "Instinct kocka",
+            "effect": "Instinct kocka → D12.",
             "tiers": [
-              [
-                "T1",
-                "na D12",
-                "70"
-              ]
+              {
+                "t": 1,
+                "e": "D12",
+                "c": 70
+              }
             ]
           },
           {
             "name": "Endurance",
-            "effect": "Elusive kocka",
+            "effect": "Elusive kocka → D12.",
             "tiers": [
-              [
-                "T1",
-                "na D12",
-                "90"
-              ]
+              {
+                "t": 1,
+                "e": "D12",
+                "c": 90
+              }
             ]
           },
           {
             "name": "Looter",
-            "effect": "Scavenging kocka",
+            "effect": "Scavenging kocka → D12.",
             "tiers": [
-              [
-                "T1",
-                "na D12",
-                "70"
-              ]
+              {
+                "t": 1,
+                "e": "D12",
+                "c": 70
+              }
             ]
           },
           {
             "name": "Ranger",
-            "effect": "Survival kocka",
+            "effect": "Survival kocka → D12.",
             "tiers": [
-              [
-                "T1",
-                "na D12",
-                "60"
-              ]
+              {
+                "t": 1,
+                "e": "D12",
+                "c": 60
+              }
             ]
           },
           {
             "name": "Doctor",
-            "effect": "Medicine kocka",
+            "effect": "Medicine kocka → D12.",
             "tiers": [
-              [
-                "T1",
-                "na D12",
-                "60"
-              ]
+              {
+                "t": 1,
+                "e": "D12",
+                "c": 60
+              }
             ]
           },
           {
             "name": "Repair",
-            "effect": "Maintenance kocka",
+            "effect": "Maintenance kocka → D12.",
             "tiers": [
-              [
-                "T1",
-                "na D12",
-                "60"
-              ]
+              {
+                "t": 1,
+                "e": "D12",
+                "c": 60
+              }
             ]
           }
         ]
       },
       {
         "name": "Survival",
-        "note": "Prežitie, zdravie, zdroje.",
         "items": [
           {
             "name": "Crow",
-            "effect": "Viac itemov pri scavengingu",
+            "effect": "Viac predmetov pri scavengingu.",
             "tiers": [
-              [
-                "T1",
-                "Dvojnásobok Pills a Parts pri scavengingu",
-                "30"
-              ],
-              [
-                "T2",
-                "Nájdeš 1 item navyše",
-                "50"
-              ],
-              [
-                "T3",
-                "Pridá ďalšie množstvo nájdených (stackovateľných) itemov",
-                "70"
-              ]
+              {
+                "t": 1,
+                "e": "2× Pills a Parts pri scavengingu",
+                "c": 30
+              },
+              {
+                "t": 2,
+                "e": "+1 predmet pri scavengingu",
+                "c": 50
+              },
+              {
+                "t": 3,
+                "e": "+1 množstvo nájdených predmetov (stackuje sa)",
+                "c": 70
+              }
             ]
           },
           {
             "name": "Night Vision",
-            "effect": "Advantage na Instinct hody v tme",
+            "effect": "Výhoda na Instinct hody v tmavom prostredí.",
             "tiers": [
-              [
-                "T1",
-                "",
-                "70"
-              ]
+              {
+                "t": 1,
+                "e": "Výhoda",
+                "c": 70
+              }
             ]
           },
           {
             "name": "Medic",
-            "effect": "Vyššie liečenie lekárničkou",
+            "effect": "Zvyšuje liečenie z lekárničiek.",
             "tiers": [
-              [
-                "T1",
-                "20HP + Medicine hod",
-                "25"
-              ],
-              [
-                "T2",
-                "35HP + Medicine hod",
-                "50"
-              ],
-              [
-                "T3",
-                "50HP + Medicine hod",
-                "75"
-              ]
+              {
+                "t": 1,
+                "e": "20HP + Medicine hod",
+                "c": 25
+              },
+              {
+                "t": 2,
+                "e": "35HP + Medicine hod",
+                "c": 50
+              },
+              {
+                "t": 3,
+                "e": "50HP + Medicine hod",
+                "c": 75
+              }
             ]
           },
           {
             "name": "Shanks",
-            "effect": "Odolnosť Shivov",
+            "effect": "Zvyšuje odolnosť Shivov.",
             "tiers": [
-              [
-                "T1",
-                "Shiv vydrží 2 použitia",
-                "40"
-              ]
+              {
+                "t": 1,
+                "e": "Shiv vydrží 2 použitia",
+                "c": 40
+              }
             ]
           },
           {
             "name": "Endure and Survive",
-            "effect": "Bez lekárničky hod 1×/deň na regen Health",
+            "effect": "Bez lekárničky raz denne hod na obnovu Health.",
             "tiers": [
-              [
-                "T1",
-                "D6 Health",
-                "20"
-              ],
-              [
-                "T2",
-                "D12 Health",
-                "40"
-              ],
-              [
-                "T3",
-                "D20 Health",
-                "60"
-              ]
+              {
+                "t": 1,
+                "e": "D6 Health",
+                "c": 20
+              },
+              {
+                "t": 2,
+                "e": "D12 Health",
+                "c": 40
+              },
+              {
+                "t": 3,
+                "e": "D20 Health",
+                "c": 60
+              }
             ]
           },
           {
             "name": "Life",
-            "effect": "+ Max Health",
+            "effect": "Zvyšuje Max Health.",
             "tiers": [
-              [
-                "T1",
-                "50 Max Health",
-                "60"
-              ],
-              [
-                "T2",
-                "75 Max Health",
-                "80"
-              ],
-              [
-                "T3",
-                "100 Max Health",
-                "100"
-              ]
+              {
+                "t": 1,
+                "e": "50 Max Health",
+                "c": 60
+              },
+              {
+                "t": 2,
+                "e": "75 Max Health",
+                "c": 80
+              },
+              {
+                "t": 3,
+                "e": "100 Max Health",
+                "c": 100
+              }
             ]
           },
           {
             "name": "Workbench",
-            "effect": "+ Tool Level (lepšie upgrady)",
+            "effect": "Zvyšuje Tool Level (lepšie upgrade možnosti).",
             "tiers": [
-              [
-                "T1",
-                "Tool Level 2",
-                "50"
-              ],
-              [
-                "T2",
-                "Tool Level 3",
-                "80"
-              ],
-              [
-                "T3",
-                "Tool Level 4",
-                "110"
-              ]
+              {
+                "t": 1,
+                "e": "Tool Level 2",
+                "c": 50
+              },
+              {
+                "t": 2,
+                "e": "Tool Level 3",
+                "c": 80
+              },
+              {
+                "t": 3,
+                "e": "Tool Level 4",
+                "c": 110
+              }
             ]
           },
           {
             "name": "Resilience",
-            "effect": "Re-rolly kociek 1×/deň",
+            "effect": "Re-roll kociek raz denne.",
             "tiers": [
-              [
-                "T1",
-                "Jeden re-roll",
-                "30"
-              ],
-              [
-                "T2",
-                "Dva re-rolly",
-                "60"
-              ],
-              [
-                "T3",
-                "Tri re-rolly",
-                "90"
-              ]
+              {
+                "t": 1,
+                "e": "1 re-roll",
+                "c": 30
+              },
+              {
+                "t": 2,
+                "e": "2 re-rolly",
+                "c": 60
+              },
+              {
+                "t": 3,
+                "e": "3 re-rolly",
+                "c": 90
+              }
             ]
           }
         ]
       },
       {
         "name": "Combat",
-        "note": "Boj.",
         "items": [
           {
             "name": "Bloody Knuckles",
-            "effect": "+ Hand to Hand damage",
+            "effect": "Zvyšuje Hand to Hand damage.",
             "tiers": [
-              [
-                "T1",
-                "1D8 DMG",
-                "30"
-              ],
-              [
-                "T2",
-                "1D10 DMG",
-                "50"
-              ],
-              [
-                "T3",
-                "1D12 DMG",
-                "70"
-              ]
+              {
+                "t": 1,
+                "e": "1D8 DMG",
+                "c": 30
+              },
+              {
+                "t": 2,
+                "e": "1D10 DMG",
+                "c": 50
+              },
+              {
+                "t": 3,
+                "e": "1D12 DMG",
+                "c": 70
+              }
             ]
           },
           {
             "name": "Durable",
-            "effect": "+ odolnosť melee zbraní",
+            "effect": "Zvyšuje odolnosť melee zbraní.",
             "tiers": [
-              [
-                "T1",
-                "+1 durability",
-                "25"
-              ],
-              [
-                "T2",
-                "+2 durability",
-                "40"
-              ],
-              [
-                "T3",
-                "+3 durability",
-                "55"
-              ]
+              {
+                "t": 1,
+                "e": "+1 odolnosť",
+                "c": 25
+              },
+              {
+                "t": 2,
+                "e": "+2 odolnosť",
+                "c": 40
+              },
+              {
+                "t": 3,
+                "e": "+3 odolnosť",
+                "c": 55
+              }
             ]
           },
           {
             "name": "Fighter",
-            "effect": "Extra melee švihy za kolo",
+            "effect": "Extra melee údery za kolo.",
             "tiers": [
-              [
-                "T1",
-                "2. švih",
-                "25"
-              ],
-              [
-                "T2",
-                "3. švih",
-                "50"
-              ],
-              [
-                "T3",
-                "3. švih dáva double damage",
-                "75"
-              ]
+              {
+                "t": 1,
+                "e": "2. úder",
+                "c": 25
+              },
+              {
+                "t": 2,
+                "e": "3. úder",
+                "c": 50
+              },
+              {
+                "t": 3,
+                "e": "3. úder dáva 2× damage",
+                "c": 75
+              }
             ]
           },
           {
             "name": "Momentum",
-            "effect": "Po killing blow extra útok",
+            "effect": "Po killing blow v boji extra útok.",
             "tiers": [
-              [
-                "T1",
-                "",
-                "90"
-              ]
+              {
+                "t": 1,
+                "e": "Extra útok",
+                "c": 90
+              }
             ]
           },
           {
             "name": "Cold Blooded",
-            "effect": "+ modifikátory na stealth hody",
+            "effect": "Bonus k hodom pri stealth zručnostiach.",
             "tiers": [
-              [
-                "T1",
-                "+1 stealth",
-                "30"
-              ],
-              [
-                "T2",
-                "+2 stealth",
-                "60"
-              ],
-              [
-                "T3",
-                "+3 stealth",
-                "90"
-              ]
+              {
+                "t": 1,
+                "e": "+1 stealth",
+                "c": 30
+              },
+              {
+                "t": 2,
+                "e": "+2 stealth",
+                "c": 60
+              },
+              {
+                "t": 3,
+                "e": "+3 stealth",
+                "c": 90
+              }
             ]
           },
           {
             "name": "Adrenaline Rush",
-            "effect": "Pri Health ≤ 10 extra kocka k skill checkom",
+            "effect": "Pri Health ≤ 10 pridá extra kocku k skill checkom.",
             "tiers": [
-              [
-                "T1",
-                "+D4 k hodom",
-                "20"
-              ],
-              [
-                "T2",
-                "+D6 k hodom",
-                "40"
-              ],
-              [
-                "T3",
-                "+D8 k hodom",
-                "60"
-              ]
+              {
+                "t": 1,
+                "e": "+D4",
+                "c": 20
+              },
+              {
+                "t": 2,
+                "e": "+D6",
+                "c": 40
+              },
+              {
+                "t": 3,
+                "e": "+D8",
+                "c": 60
+              }
             ]
           },
           {
             "name": "Fury",
-            "effect": "Advantage na 1 Brutality hod / encounter (netreba ohlásiť vopred)",
+            "effect": "Výhoda na 1 Brutality hod za súboj (netreba ohlásiť vopred).",
             "tiers": [
-              [
-                "T1",
-                "",
-                "70"
-              ]
+              {
+                "t": 1,
+                "e": "Výhoda",
+                "c": 70
+              }
             ]
           },
           {
             "name": "Precision",
-            "effect": "Advantage na 1 Aiming hod / encounter (netreba ohlásiť vopred)",
+            "effect": "Výhoda na 1 Aiming hod za súboj (netreba ohlásiť vopred).",
             "tiers": [
-              [
-                "T1",
-                "",
-                "70"
-              ]
+              {
+                "t": 1,
+                "e": "Výhoda",
+                "c": 70
+              }
             ]
           },
           {
             "name": "Cover Fire",
-            "effect": "Voľný výstrel pri Take Cover akcii (Aiming s disadvantage)",
+            "effect": "Voľný výstrel pri akcii Take Cover (Aiming hod s nevýhodou).",
             "tiers": [
-              [
-                "T1",
-                "",
-                "60"
-              ]
+              {
+                "t": 1,
+                "e": "Voľný výstrel",
+                "c": 60
+              }
             ]
           },
           {
             "name": "Suppressing Fire",
-            "effect": "Pripútaš nepriateľa (disadvantage na missile útoky); ak sa pohne, máš reaction shot. Dvojnásobná spotreba munície na kolo.",
+            "effect": "Pripútaš nepriateľa — nevýhoda na jeho missile útoky; ak sa pohne, dostaneš reakčný výstrel. 2× spotreba munície na kolo.",
             "tiers": [
-              [
-                "T1",
-                "",
-                "50"
-              ]
+              {
+                "t": 1,
+                "e": "Pripútanie",
+                "c": 50
+              }
             ]
           },
           {
             "name": "Extra Kick",
-            "effect": "+ Aiming/Brutality modifikátor k damage v boji",
+            "effect": "Pridáva Aiming alebo Brutality modifier k damage hodom v boji.",
             "tiers": [
-              [
-                "T1",
-                "Modifikátor pridá damage (+3 mod = +3 dmg)",
-                "50"
-              ],
-              [
-                "T2",
-                "Zdvojnásobí modifikátor damage (+3 mod = +6 dmg)",
-                "?"
-              ]
+              {
+                "t": 1,
+                "e": "Modifier = extra damage (+3 mod = +3 dmg)",
+                "c": 50
+              },
+              {
+                "t": 2,
+                "e": "2× modifier damage (+3 mod = +6 dmg)",
+                "c": null
+              }
             ]
           },
           {
             "name": "Last Chance",
-            "effect": "Pri prvom páde na 0HP v boji spadneš na 1HP namiesto 0",
+            "effect": "Pri prvom páde na 0HP v boji spadneš na 1HP namiesto toho.",
             "tiers": [
-              [
-                "T1",
-                "",
-                "90"
-              ]
+              {
+                "t": 1,
+                "e": "0HP → 1HP",
+                "c": 90
+              }
             ]
           }
         ]
@@ -1345,122 +1343,87 @@
     ]
   },
   "trauma": {
-    "intro": "Voliteľná mechanika: preživší trpia psychickou záťažou, ako sa ich príbeh vyvíja a sú vystavení tragickým a desivým udalostiam.",
-    "reduce": "Trauma sa znižuje hraním na gitaru, oddychom v chránenom prístrešku, alebo prečkaním GM-určeného času bez spustenia ďalšej traumy.",
+    "intro": "TRAUMA je voliteľný mechanizmus — preživší trpia psychickou záťažou, ako sa ich cesta vyvíja a vystavujú sa tragickým a desivým udalostiam. Keď preživší trpí ktorýmkoľvek stupňom traumy, musí uplatniť efekty toho stupňa.",
+    "reduce": "Trauma sa znižuje hraním na gitaru, oddychom v chránenom prístrešku alebo prečkaním času (určí GM) bez ďalšieho spustenia.",
     "triggers": [
       "Strata člena partie",
       "Zabitie nevinného alebo vzdávajúceho sa preživšieho",
-      "Mučenie (vykonávané alebo prežité)",
-      "Pád na 0 HP viac ako trikrát"
+      "Mučenie (vykonané alebo prežité)",
+      "Pád na 0 HP viac než trikrát"
     ],
     "stages": [
-      [
-        "Stage 1: Shaken",
-        [
+      {
+        "name": "Stage 1: Shaken",
+        "effects": [
           "Zamrznutie v prvom kole boja",
           "-1 Brutality checky",
           "-1 Elusive checky",
           "-1 Aiming checky",
           "+2 Dodge checky"
         ]
-      ],
-      [
-        "Stage 2: Traumatized",
-        [
+      },
+      {
+        "name": "Stage 2: Traumatized",
+        "effects": [
           "+3 Elusive checky pri úteku",
-          "Zlyhané Brutality a Aiming checky sa rátajú ako kritické zlyhania",
-          "-2 ku všetkým hodom proti nepriateľom, ktorí ťa zranili"
+          "Neúspešné Brutality a Aiming checky sa rátajú ako kritické zlyhania",
+          "-2 ku všetkým hodom proti nepriateľom, čo ťa zranili"
         ]
-      ],
-      [
-        "Stage 3: Broken",
-        [
+      },
+      {
+        "name": "Stage 3: Broken",
+        "effects": [
           "+4 Brutality checky",
-          "Dvojnásobné melee damage",
-          "Musíš zabiť všetkých nepriateľov v boji",
+          "2× melee damage",
+          "Musíš zabiť všetkých nepriateľov v súboji",
           "-3 Elusive checky",
           "-2 Instinct hody"
         ]
-      ]
+      }
     ]
   },
   "grounded": {
     "difficulty": {
-      "intro": "Pre preživších, čo chcú väčšiu výzvu — modifikátory spravia každé stretnutie brutálnym a preveria stratégiu pri obmedzených zásobách.",
+      "intro": "Pre preživších, čo chcú väčšiu výzvu — Grounded modifikátory spravia každý stret brutálnym a preveria stratégiu s obmedzenými zásobami.",
       "rules": [
-        "Instinct hody už neodhalia presnú polohu nepriateľa — len ju naznačia opisom zvukov.",
-        "Preživší dostávajú DVOJNÁSOBNÉ poškodenie zo všetkých útokov.",
-        "Zásoby sú obmedzené a vzácnejšie pri scavengingu. Upgrade Crow je vypnutý.",
-        "Nové postavy začínajú bez pills a bez štartovacej výbavy."
+        "Instinct hody už neodhalia fyzickú polohu nepriateľa — naznačí sa len opisom zvukov, ktoré preživší počuje.",
+        "Preživší dostávajú DVOJNÁSOBNÝ damage zo všetkých útokov.",
+        "Zásoby sú obmedzenejšie a vzácnejšie pri scavengingu. Upgrade Crow je vypnutý.",
+        "Nové postavy začínajú bez piluliek a bez štartovacej výbavy."
       ],
+      "enemyDropsNote": "Nepriatelia po smrti už nepustia svoju výbavu. Hoď D8:",
       "enemyDrops": [
-        [
-          "1",
-          "Nič"
-        ],
-        [
-          "2",
-          "1D4 Ammo"
-        ],
-        [
-          "3",
-          "Nič"
-        ],
-        [
-          "4",
-          "1D4 Pills"
-        ],
-        [
-          "5",
-          "1D6 Parts"
-        ],
-        [
-          "6",
-          "Nič"
-        ],
-        [
-          "7",
-          "Nič"
-        ],
-        [
-          "8",
-          "1D8 Parts"
-        ]
+        "1 — Nič",
+        "2 — 1D4 Ammo",
+        "3 — Nič",
+        "4 — 1D4 Pills",
+        "5 — 1D6 Parts",
+        "6 — Nič",
+        "7 — Nič",
+        "8 — 1D8 Parts"
       ],
-      "findDC": [
-        [
-          "DC 7",
-          "Easy"
-        ],
-        [
-          "DC 9",
-          "Normal"
-        ],
-        [
-          "DC 11",
-          "Difficult"
-        ],
-        [
-          "DC 13",
-          "Impossible"
-        ]
+      "scavengingDC": [
+        "DC 7 — Easy",
+        "DC 9 — Normal",
+        "DC 11 — Difficult",
+        "DC 13 — Impossible"
       ]
     },
     "clickers": {
-      "intro": "Voliteľná mechanika infikovaných — robí stretnutia s Clickermi v Grounded kampaniach ešte desivejšími.",
+      "intro": "Grounded Clickers sú voliteľný infikovaný mechanizmus, ktorý spraví stretnutia s Clickermi ešte desivejšie pre Grounded kampane.",
       "rules": [
-        [
-          "Deadly Damage",
-          "Ako insta-kill z hry: keď Clicker zraní preživšieho, okamžite padne na 0HP. Clickera sa stále dá odohnať Shivom."
-        ],
-        [
-          "Heightened Senses",
-          "Z TLOU2: Clickeri vedia odhaliť hráča, ktorý si vymieňa/nasadzuje veci v batohu. Pri každom prístupe do inventára treba hodiť stealth check, aby ťa neodhalili."
-        ],
-        [
-          "No Second Chances",
-          "Clickeri už nie sú nečinní — automaticky hliadkujú/sú v strehu, keď sú preživší nablízku. Pri zlyhanom sneak checku grounded Clicker okamžite prejde do berserku a zaútočí."
-        ]
+        {
+          "h": "Deadly Damage",
+          "t": "Ako insta-kill z hry — keď Clicker zraní preživšieho, okamžite padne na 0HP. Stále sa dá odraziť Shivom."
+        },
+        {
+          "h": "Heightened Senses",
+          "t": "(TLOU2) Clickeri môžu odhaliť hráča, čo si nasadzuje alebo vymieňa veci v batohu. Pri každom prístupe do inventára treba hodiť stealth check, aby ťa neodhalili."
+        },
+        {
+          "h": "No Second Chances",
+          "t": "Clickeri už nie sú nečinní — automaticky sú v strehu/hliadkujú, keď sú preživší nablízku. Pri neúspešnom stealth checku grounded Clicker okamžite vletí do berserku a zaútočí."
+        }
       ]
     }
   }
