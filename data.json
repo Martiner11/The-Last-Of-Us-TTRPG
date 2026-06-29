@@ -756,7 +756,11 @@
                 "e": "+1",
                 "c": 60
               }
-            ]
+            ],
+            "apply": {
+              "type": "mod",
+              "skill": "brutality"
+            }
           },
           {
             "name": "Steady",
@@ -777,7 +781,11 @@
                 "e": "+1",
                 "c": 60
               }
-            ]
+            ],
+            "apply": {
+              "type": "mod",
+              "skill": "aiming"
+            }
           },
           {
             "name": "Awareness",
@@ -798,7 +806,11 @@
                 "e": "+1",
                 "c": 50
               }
-            ]
+            ],
+            "apply": {
+              "type": "mod",
+              "skill": "instinct"
+            }
           },
           {
             "name": "Agile",
@@ -819,7 +831,11 @@
                 "e": "+1",
                 "c": 70
               }
-            ]
+            ],
+            "apply": {
+              "type": "mod",
+              "skill": "elusive"
+            }
           },
           {
             "name": "Scavenger",
@@ -840,7 +856,11 @@
                 "e": "+1",
                 "c": 50
               }
-            ]
+            ],
+            "apply": {
+              "type": "mod",
+              "skill": "scavenging"
+            }
           },
           {
             "name": "Survivalist",
@@ -861,7 +881,11 @@
                 "e": "+1",
                 "c": 40
               }
-            ]
+            ],
+            "apply": {
+              "type": "mod",
+              "skill": "survival"
+            }
           },
           {
             "name": "Healer",
@@ -882,7 +906,11 @@
                 "e": "+1",
                 "c": 40
               }
-            ]
+            ],
+            "apply": {
+              "type": "mod",
+              "skill": "medicine"
+            }
           },
           {
             "name": "Engineer",
@@ -903,7 +931,11 @@
                 "e": "+1",
                 "c": 40
               }
-            ]
+            ],
+            "apply": {
+              "type": "mod",
+              "skill": "maintenance"
+            }
           },
           {
             "name": "Hard Road",
@@ -914,7 +946,12 @@
                 "e": "D12",
                 "c": 80
               }
-            ]
+            ],
+            "apply": {
+              "type": "dice",
+              "skill": "brutality",
+              "die": "d12"
+            }
           },
           {
             "name": "Accuracy",
@@ -925,7 +962,12 @@
                 "e": "D12",
                 "c": 80
               }
-            ]
+            ],
+            "apply": {
+              "type": "dice",
+              "skill": "aiming",
+              "die": "d12"
+            }
           },
           {
             "name": "Perception",
@@ -936,7 +978,12 @@
                 "e": "D12",
                 "c": 70
               }
-            ]
+            ],
+            "apply": {
+              "type": "dice",
+              "skill": "instinct",
+              "die": "d12"
+            }
           },
           {
             "name": "Endurance",
@@ -947,7 +994,12 @@
                 "e": "D12",
                 "c": 90
               }
-            ]
+            ],
+            "apply": {
+              "type": "dice",
+              "skill": "elusive",
+              "die": "d12"
+            }
           },
           {
             "name": "Looter",
@@ -958,7 +1010,12 @@
                 "e": "D12",
                 "c": 70
               }
-            ]
+            ],
+            "apply": {
+              "type": "dice",
+              "skill": "scavenging",
+              "die": "d12"
+            }
           },
           {
             "name": "Ranger",
@@ -969,7 +1026,12 @@
                 "e": "D12",
                 "c": 60
               }
-            ]
+            ],
+            "apply": {
+              "type": "dice",
+              "skill": "survival",
+              "die": "d12"
+            }
           },
           {
             "name": "Doctor",
@@ -980,7 +1042,12 @@
                 "e": "D12",
                 "c": 60
               }
-            ]
+            ],
+            "apply": {
+              "type": "dice",
+              "skill": "medicine",
+              "die": "d12"
+            }
           },
           {
             "name": "Repair",
@@ -991,7 +1058,12 @@
                 "e": "D12",
                 "c": 60
               }
-            ]
+            ],
+            "apply": {
+              "type": "dice",
+              "skill": "maintenance",
+              "die": "d12"
+            }
           }
         ]
       },
@@ -1090,19 +1162,25 @@
               {
                 "t": 1,
                 "e": "50 Max Health",
-                "c": 60
+                "c": 60,
+                "val": 50
               },
               {
                 "t": 2,
                 "e": "75 Max Health",
-                "c": 80
+                "c": 80,
+                "val": 75
               },
               {
                 "t": 3,
                 "e": "100 Max Health",
-                "c": 100
+                "c": 100,
+                "val": 100
               }
-            ]
+            ],
+            "apply": {
+              "type": "maxhp"
+            }
           },
           {
             "name": "Workbench",
