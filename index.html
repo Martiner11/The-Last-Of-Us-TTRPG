@@ -986,6 +986,14 @@ function renderCodex(){
     sec("Death", p(cb.death));
   } else if(cxCat==="infected"){
     DATA.infected.filter(i=>match(i.name)).forEach(i=>body.appendChild(infectedEntry(i)));
+    if(!q && DATA.customInfectedGuide){
+      appendEyebrow(body,"Vlastní infikovaní");
+      const g=DATA.customInfectedGuide,e=document.createElement("details");e.className="entry";
+      let pr="";g.prompts.forEach(p=>{pr+=`<div class="h">${p.k}</div><div class="desc" style="margin:0 0 7px">${esc(p.q)}</div>`;});
+      e.innerHTML=`<summary><span class="t">Custom Infected</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
+        <div class="body"><div class="note" style="margin:10px 0">${esc(g.intro)}</div><div class="upg">${pr}</div></div>`;
+      body.appendChild(e);
+    }
     const stubs=DATA.infectedStubs.filter(match);
     if(stubs.length)body.appendChild(stubBlock("Ďalší infikovaní",stubs));
   } else if(cxCat==="factions"){

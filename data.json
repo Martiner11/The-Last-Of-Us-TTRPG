@@ -1265,6 +1265,38 @@
   "weaponStubs": [],
   "infected": [
     {
+      "name": "Runner",
+      "rarity": "Common",
+      "stats": {
+        "Health": "15–25",
+        "Damage": "3D8",
+        "Number of Attacks": "1",
+        "Sneak DC": "7",
+        "Hit DC": "7",
+        "Dodge DC": "7",
+        "Grapple DC": "8",
+        "Speed (Undetected)": "Slow",
+        "Speed (Detected)": "Fast"
+      },
+      "desc": "Bledí, škvrnití, pokrytí léziami, s vypadanými vlasmi. Majú slabý zrak, ale väčšinu ľudských vlastností si zachovávajú — sú rýchli a hbití. Kto je uhryznutý, premení sa na Runnera do dvoch dní. V boji sa vyhni obkľúčeniu vo veľkom počte; sú najľahší na prekradnutie. Voči neodhalenému hráčovi sú nevšímaví — blúdia alebo stoja zhrbení a nehybní. Keď ich vyplašíš, bezhlavo zakričia a vrhnú sa na prvého preživšieho v dohľade."
+    },
+    {
+      "name": "Stalker",
+      "rarity": "Uncommon",
+      "stats": {
+        "Health": "25–35",
+        "Damage": "3D10",
+        "Number of Attacks": "1",
+        "Sneak DC": "9",
+        "Hit DC": "8",
+        "Dodge DC": "9",
+        "Grapple DC": "7",
+        "Speed (Undetected)": "Fast",
+        "Speed (Detected)": "Fast"
+      },
+      "desc": "Kvôli nim si preživší dvakrát rozmyslia vstup do opustených budov. Prezradí ich charakteristický chrapot a hubový porast na hlave a tvári. Sú hbití a spoliehajú sa na stealth — uhýbajú, kryjú sa a postupne sa priblížia, aby z prepadu zaútočili. Hod DC 10 Instinct pomôže určiť, odkiaľ chrapot vychádza, a brániť sa, keď vyrazia. Nepripravení preživší doplatia, lebo Stalkeri rýchlo stiahnu vzdialenosť a útočia prví. Bývajú v tmavých budovách, pivniciach, kanáloch a podzemí. Niektorí sú prichytení na stenách v skamenenom hubovom poraste — keď okolo nich nič netušiaci preživší prejde, odlepia sa a zaútočia v prepade."
+    },
+    {
       "name": "Clicker",
       "rarity": "Common",
       "stats": {
@@ -1279,15 +1311,57 @@
         "Speed (Detected)": "Moderate"
       },
       "desc": "Zvuk taký výrazný, že naplní každého preživšieho strachom. Clickeri sú v štádiu infekcie, kde sú slepí, ale orientujú sa echolokáciou — odtiaľ ten klikavý zvuk. Sú silní, agresívni a inteligentní; keď raz objavia korisť, neopustia oblasť. Pri zlyhanom stealth hode okamžite prejdú do berserk módu. Preživší ich vie odlákať hodom (Aiming) tehly či fľaše do cieľovej oblasti."
+    },
+    {
+      "name": "Shambler",
+      "rarity": "Rare",
+      "stats": {
+        "Health": "75–100",
+        "Damage": "6D8 acid / 6D6 spóry",
+        "Number of Attacks": "1",
+        "Sneak DC": "9",
+        "Hit DC": "8",
+        "Dodge DC": "9",
+        "Grapple DC": "11",
+        "Speed (Undetected)": "Slow",
+        "Speed (Detected)": "Moderate"
+      },
+      "desc": "Hrôzostrašné chodiace zhluky pustúl, ktoré pri priblížení rozprašujú plynnú kyselinu. Pohybujú sa pomaly, no pri hluku vedia šprintovať. Spóry pokrývajú celé telo — nadmerné hlavy a trupy s hnisavými cystami. Ústa má hubový porast roztiahnuté (nevedia hrýzť). Veľkosťou pripomínajú Bloaterov, no nemajú ich silu — dajú sa pretlačiť pri uchopení; sú hbití a vyšplhajú cez prekážky. Pasívneho Shamblera vyruší zlyhaný Sneak hod a vystopuje zdroj, ak hráč neprejde Sneak check. Po zapojení pribehne, chytí a pridrží, kým z neho vybuchne kyselina — uniknúť sa dá len úspešným grapple hodom v tvojom ťahu, inak ťa stretne to isté znova. Keď zomrie, vybuchne a vyvrhne oblak spór, ktorý ťažko poškodí všetkých nablízku (vyhneš sa úspešným Dodge hodom)."
+    },
+    {
+      "name": "Bloater",
+      "rarity": "Uncommon",
+      "stats": {
+        "Health": "150–200",
+        "Damage": "5D10 melee / 2D10 mykotoxín",
+        "Number of Attacks": "2 (hod mykotoxínu + útok)",
+        "Sneak DC": "9",
+        "Hit DC": "5",
+        "Dodge DC": "8",
+        "Grapple DC": "N/A",
+        "Speed (Undetected)": "Slow",
+        "Speed (Detected)": "Slow"
+      },
+      "desc": "Mimoriadne silní infikovaní pokrytí hrubým, brneniu podobným hubovým porastom. Koža tvorí veľké šupinaté plochy, ktoré v tme svietia a tvoria mykotoxínové vaky po celom tele. Sú veľmi agresívni, ale pomalí — čím predvídateľnejší než ostatní. Vážnym problémom sú len v tesných priestoroch alebo keď ťa zaženú do kúta. Ak preživšieho chytia, brutálnou silou ho roztrhnú alebo zmlátia. Vedia hádzať vrecká mykotoxínu, ktoré pri náraze vybuchnú a postriekajú cieľ. Ostávajú pasívni, kým nezbadajú preživšieho; v boji najprv hodia mykotoxínový vak a potom sa priblížia."
+    },
+    {
+      "name": "Rat King",
+      "rarity": "Very Rare",
+      "stats": {
+        "Health": "300–500",
+        "Damage": "2D8 Stalker / 2D12 Clicker / 2D4 kyselina / 2D6 mykotoxín / 2D10 Bloater",
+        "Number of Attacks": "5 (po jednom z každého)",
+        "Sneak DC": "13",
+        "Hit DC": "3",
+        "Dodge DC": "10",
+        "Grapple DC": "N/A",
+        "Speed (Undetected)": "Slow",
+        "Speed (Detected)": "Slow"
+      },
+      "desc": "V tme číha monštrum zvané Rat King — super-organizmus zložený z viacerých Stalkerov, Clickerov a Bloatera, prepojených prerasteným Cordyceps porastom. Prekonáva všetkých ostatných v sile aj odolnosti; bariéry a steny ho nezastavia. Má vyššie povedomie než Stalker, citlivosť na hluk ako Clicker a silu Bloatera. Je najsilnejší známy infikovaný a znesie obrovský damage. Každý ťah použije všetkých päť útokov a vie zacieliť viacerých nepriateľov. Po dostatočnom poškodení sa niektorí prepletení infikovaní odtrhnú od masy — každý je samostatná bytosť. Za každých 50 damage, ktoré utrpí, sa odtrhne Stalker alebo Clicker a pridá sa do boja. Vzniká za špecifických podmienok tam, kde sa infekcia môže spojiť a šíriť na blízke telá — zvyčajne v tmavých uzavretých miestnostiach. Trvá to veľmi dlho."
     }
   ],
-  "infectedStubs": [
-    "Runner",
-    "Stalker",
-    "Shambler",
-    "Bloater",
-    "Rat King"
-  ],
+  "infectedStubs": [],
   "factions": [
     {
       "name": "Survivors",
@@ -2950,5 +3024,50 @@
       ]
     },
     "death": "Keď nepriateľ padne na 0 Health, okamžite zomiera. Keď padne na 0 Health hráč alebo NPC a nikto ho nevylieči, pri ďalšom prijatom damage je brutálne zabitý. Systém smrti má byť tvrdým dôsledkom za rozhodnutia hráčov."
+  },
+  "customInfectedGuide": {
+    "intro": "Infekcia za desaťročia zmutovala v rôznych podmienkach po svete a môže mať odlišné účinky, formy a štádiá. Tieto body pomôžu vytvoriť vlastné štádium infekcie.",
+    "prompts": [
+      {
+        "k": "Name",
+        "q": "Aké meno alebo prezývku má toto štádium infekcie?"
+      },
+      {
+        "k": "Health",
+        "q": "Koľko damage znesie toto štádium pred smrťou?"
+      },
+      {
+        "k": "Characteristics",
+        "q": "Ako vyzerajú jeho fyzické črty?"
+      },
+      {
+        "k": "Attacks",
+        "q": "Akým spôsobom zabíja preživších alebo šíri infekciu?"
+      },
+      {
+        "k": "Damage",
+        "q": "Koľko damage spôsobí svojimi útokmi?"
+      },
+      {
+        "k": "Speed",
+        "q": "Ako rýchlo sa pohybuje?"
+      },
+      {
+        "k": "Hit DC",
+        "q": "Čím je väčší alebo predvídateľnejší, tým ľahšie ho trafiť."
+      },
+      {
+        "k": "Sneak DC",
+        "q": "Prekradnutie je najbezpečnejšie. Vnímavejší infikovaní majú vyšší Sneak DC."
+      },
+      {
+        "k": "Dodge DC",
+        "q": "Čím rýchlejší, tým ťažšie sa mu vyhnúť (Elusive)."
+      },
+      {
+        "k": "Grapple DC",
+        "q": "Odráža silu potrebnú na zadržanie infikovaného, aby nespôsobil damage."
+      }
+    ]
   }
 }
