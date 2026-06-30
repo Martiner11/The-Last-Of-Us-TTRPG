@@ -206,6 +206,35 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
 .grabber{width:38px;height:4px;background:var(--line2);border-radius:3px;margin:0 auto 14px}
 
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms !important}}
+/* ---------- Hra (sólo) ---------- */
+.gparty{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;margin-bottom:6px}
+.gpc{flex:0 0 auto;min-width:118px;padding:8px 11px;border:1px solid var(--line);border-radius:11px;background:var(--panel);text-align:left}
+.gpc.on{border-color:var(--amber);background:var(--panel2)}
+.gpc.down{opacity:.5}
+.gpc .nm{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.05em;font-size:13px;color:var(--ink)}
+.gpc .hpn{font-family:var(--font-m);font-size:11px;color:var(--muted);margin-top:3px}
+.gpc .hpb{height:4px;border-radius:3px;background:var(--bg2);margin-top:4px;overflow:hidden}
+.gpc .hpb i{display:block;height:100%;background:var(--teal)}
+.gscene{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;margin-bottom:12px}
+.gscene h3{font-family:var(--font-d);font-size:21px;letter-spacing:.01em;margin-bottom:9px}
+.gscene p.story{color:var(--ink);line-height:1.6;font-size:15px}
+.gchoice{width:100%;text-align:left;justify-content:flex-start;margin-top:8px;padding:13px 14px;font-family:var(--font-b);text-transform:none;letter-spacing:0;font-size:14.5px}
+.gchoice .dc{margin-left:auto;color:var(--teal);font-family:var(--font-m);font-size:11px;white-space:nowrap;padding-left:10px}
+.gbanner{border-radius:10px;padding:9px 12px;margin-bottom:10px;font-family:var(--font-m);font-size:12.5px;border:1px solid}
+.gbanner.ok{border-color:var(--teal);color:var(--teal);background:rgba(110,156,139,.08)}
+.gbanner.bad{border-color:var(--danger);color:var(--danger);background:rgba(194,75,51,.08)}
+.glog{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:10px 0;font-family:var(--font-m);font-size:12.5px;max-height:190px;overflow-y:auto;display:flex;flex-direction:column-reverse}
+.glog div{padding:2px 0;color:var(--muted);line-height:1.4}
+.glog .hit{color:var(--teal)}.glog .miss{color:var(--danger)}.glog .crit{color:var(--amber)}
+.gfoe{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid #5a2c22;border-radius:11px;margin-bottom:8px;background:rgba(194,75,51,.07)}
+.gfoe.dead{opacity:.4;border-color:var(--line)}
+.gfoe .fn{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.05em;font-size:14px}
+.gfoe .fhp{font-family:var(--font-m);font-size:12px;color:var(--muted)}
+.ginv{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin-top:4px}
+.picks{display:flex;flex-direction:column;gap:7px}
+.pick{display:flex;align-items:center;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg2);cursor:pointer}
+.pick input{width:auto;flex:0 0 auto}
+.pick b{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.04em;font-size:13px}
 </style>
 </head>
 <body>
@@ -385,7 +414,7 @@ const TABS=[
   {id:"sheet",label:"Postava",ic:'<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>'},
   {id:"dice", label:"Kocky", ic:'<rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.1" fill="currentColor" stroke="none"/>'},
   {id:"codex",label:"Kódex", ic:'<path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Z"/><path d="M5 18a2 2 0 0 1 2-2h11"/>'},
-  {id:"scn",  label:"Scenáre",ic:'<path d="M4 5h16M4 12h16M4 19h10"/>'}
+  {id:"scn",  label:"Hra",ic:'<path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0Z"/><path d="M8 12h3v3M16 9l-3 3"/>'}
 ];
 const nav=document.getElementById("nav");
 TABS.forEach((t,i)=>{
@@ -1343,34 +1372,208 @@ function quickCheck(skillKey,as,dc){
 /* =================================================================
    SCENARIOS
    ================================================================= */
-function renderScn(){
-  const body=document.getElementById("scnBody");body.innerHTML="";
-  DATA.scenarios.forEach(s=>{
-    const head=document.createElement("div");head.className="scn-head";
-    head.innerHTML=`<div class="meta">
-      <span class="pill amber">${s.tag}</span>
-      <h3 style="margin-top:8px">${s.title}</h3>
-      <div class="note" style="margin-top:6px">Hráči ${s.players} · ${s.level} · ${s.time}</div>
-      <p class="desc">${s.intro}</p></div>`;
-    body.appendChild(head);
-    s.beats.forEach(b=>{
-      const el=document.createElement("div");el.className="beat";
-      el.innerHTML=`<div class="n">${b.n}</div><h4>${b.h}</h4><p>${b.p}</p>`;
-      if(b.check){
-        const c=document.createElement("div");c.className="check";
-        c.innerHTML=`<span class="lbl">${b.check.as} check</span>
-          <span><b>${b.check.skill}</b> vs DC <b>${b.check.dc}</b></span>
-          <button class="do">Hod ›</button>`;
-        c.querySelector(".do").onclick=()=>quickCheck(skillKeyByName(b.check.skill),b.check.as,b.check.dc);
-        el.appendChild(c);
-      }
-      body.appendChild(el);
-    });
+/* ================= HRA — sólo hrateľný engine (bez AI) ================= */
+const GKEY="tlou_game_v1";
+let GAME=null;
+function gLoad(){try{const r=localStorage.getItem(GKEY);return r?JSON.parse(r):null;}catch(e){return null;}}
+function gSave(){try{localStorage.setItem(GKEY,JSON.stringify(GAME));}catch(e){}}
+function gActive(){return GAME&&GAME.party[GAME.active];}
+function curStory(){return (DATA.stories||[]).find(s=>s.id===GAME.storyId)||(DATA.stories||[])[0];}
+function curScene(){const st=curStory();return st&&st.scenes[GAME.scene];}
+const sidesOf=die=>parseInt(String(die).replace(/[^0-9]/g,""))||10;
+function rollExpr(str){str=String(str||"").split("/")[0];let tot=0;(str.match(/(\d+)\s*[dD]\s*(\d+)/g)||[]).forEach(t=>{const [a,b]=t.toLowerCase().split("d").map(Number);for(let i=0;i<a;i++)tot+=1+Math.floor(Math.random()*b);});const fl=str.match(/\+\s*(\d+)(?!\s*[dD])/g)||[];fl.forEach(f=>tot+=parseInt(f.replace(/[^0-9]/g,"")));return tot||1;}
+function rollRange(str){const m=String(str).match(/(\d+)\D+(\d+)/);if(m){const lo=+m[1],hi=+m[2];return lo+Math.floor(Math.random()*(hi-lo+1));}return parseInt(str)||10;}
+function gDie(ch,key){return (ch.skillDice&&ch.skillDice[key])||"d10";}
+function gCheck(ch,key,dc){const s=sidesOf(gDie(ch,key));const nat=1+Math.floor(Math.random()*s);const mod=ch.skills[key]||0;const total=nat+mod;return {nat,mod,total,sides:s,crit:nat===s,fumble:nat===1,success:total>=dc,dc};}
+function weaponOf(ch){return DATA.weapons.find(w=>w.name===ch.equip)||DATA.weapons[0];}
+function gMakeChar(name,clsName){
+  const c=blank();c.name=(name||"Survivor").slice(0,24);
+  DATA.skills.forEach(s=>c.skills[s.key]=2);
+  const cls=(DATA.character.classes||[]).find(x=>x.name===clsName);
+  if(cls&&cls.skills)cls.skills.forEach(k=>{if(k in c.skills)c.skills[k]++;});
+  c.cls=clsName||"";c.hp=25;c.hpMax=25;c.pills=80;c.equip="Pistol";
+  c.ammo["9mm"]=7;c.firstAid={qty:1,heal:10};
+  c.inv=[{name:"Pistol",q:1},{name:"Bandáž",q:2}];
+  return c;
+}
+function gAddInv(ch,name,q){const e=ch.inv.find(x=>x.name===name);if(e)e.q=(e.q||1)+(q||1);else ch.inv.push({name,q:q||1});}
+function applyFx(fx){const ch=gActive();if(!ch||!fx)return;fx.forEach(f=>{
+  if(f.item)gAddInv(ch,f.item,f.q||1);
+  if(f.ammo)ch.ammo[f.ammo]=(ch.ammo[f.ammo]||0)+(f.n||0);
+  if(f.mat)ch.mats[f.mat]=(ch.mats[f.mat]||0)+(f.n||0);
+  if(f.pills)ch.pills=(ch.pills||0)+f.pills;
+  if(f.parts)ch.parts=(ch.parts||0)+f.parts;
+  if(f.heal)ch.hp=Math.min(ch.hpMax,(ch.hp||0)+f.heal);
+  if(f.dmg)ch.hp=Math.max(0,(ch.hp||0)-f.dmg);
+  if(f.firstaid){if(!ch.firstAid)ch.firstAid={qty:0,heal:10};ch.firstAid.qty=(ch.firstAid.qty||0)+f.firstaid;if(!ch.firstAid.heal)ch.firstAid.heal=10;}
+  if(f.equip)ch.equip=f.equip;
+  if(f.flag)GAME.flags[f.flag]=true;
+});}
+function gHasNeed(need){if(!need)return true;if(need.flag&&!GAME.flags[need.flag])return false;if(need.item){const ch=gActive();if(!ch||!ch.inv.some(x=>x.name===need.item))return false;}return true;}
+
+function gNewGame(id){const st=(DATA.stories||[]).find(s=>s.id===id)||(DATA.stories||[])[0];
+  GAME={storyId:st.id,scene:st.start,flags:{},visited:{},party:[],active:0,phase:"setup",banner:null,combat:null};gSave();renderScn();}
+function gReset(){GAME=null;try{localStorage.removeItem(GKEY);}catch(e){}renderScn();}
+function gStart(){if(!GAME.party.length)return;GAME.phase="play";gGoto(curStory().start,true);}
+function gSwitch(i){GAME.active=i;gSave();renderScn();}
+
+function gGoto(sceneId,first){const st=curStory();const sc=st.scenes[sceneId];if(!sc)return;
+  GAME.scene=sceneId;
+  if(sc.onEnter&&!GAME.visited[sceneId])applyFx(sc.onEnter);
+  GAME.visited[sceneId]=true;
+  if(sc.combat){gStartCombat(sc);} else {GAME.combat=null;}
+  gSave();renderScn();
+}
+function gChoice(ch){ // ch = choice object
+  if(ch.restart){gReset();return;}
+  if(ch.check){const ac=gActive();const r=gCheck(ac,ch.check.skill,ch.check.dc);
+    const sn=(DATA.skills.find(s=>s.key===ch.check.skill)||{}).name||ch.check.skill;
+    GAME.banner={ok:r.success,text:`${sn}: hod ${r.nat}${r.mod>=0?"+":""}${r.mod} = ${r.total} vs DC ${ch.check.dc} — ${r.crit?"KRIT! ":""}${r.success?"úspech":"neúspech"}`};
+    const tgt=r.success?(r.crit&&ch.crit?ch.crit:ch.to):ch.fail;
+    if(ch.fx&&r.success)applyFx(ch.fx);
+    gGoto(tgt);return;}
+  if(ch.fx)applyFx(ch.fx);
+  GAME.banner=null;
+  gGoto(ch.to);
+}
+
+/* ---------- combat ---------- */
+function mkFoe(f){let stats=null;
+  if(f.type==="enemy"){for(const g of DATA.enemies.groups){const m=g.members.find(x=>x.name===f.name);if(m){stats={Health:String(m.health),Damage:m.weapon,"Hit DC":m.hitDC,"Dodge DC":m.dodgeDC};break;}}}
+  else{const inf=DATA.infected.find(x=>x.name===f.name);if(inf)stats=inf.stats;}
+  stats=stats||{Health:"20",Damage:"2D6","Hit DC":7,"Dodge DC":7};
+  const hp=rollRange(stats.Health);
+  return {name:f.name,hp,hpMax:hp,dmg:stats.Damage,hitDC:+String(stats["Hit DC"]).replace(/\D/g,"")||7,dodgeDC:+String(stats["Dodge DC"]).replace(/\D/g,"")||7};
+}
+function gStartCombat(sc){GAME.combat={title:sc.title,intro:sc.text,win:sc.combat.win,lose:sc.combat.lose,
+  stealthKill:sc.combat.stealthKill||null,surprise:true,foes:sc.combat.foes.map(mkFoe),log:[],result:null};}
+function aliveFoe(){return GAME.combat.foes.find(f=>f.hp>0);}
+function clog(t,cls){GAME.combat.log.push(`<div class="${cls||""}">${t}</div>`);}
+function gAttack(){const cb=GAME.combat;if(cb.result)return;const ch=gActive();if(ch.hp<=0)return;
+  cb.surprise=false;const foe=aliveFoe();if(!foe)return;
+  const w=weaponOf(ch);const wk=(w.skill||"Aiming").toLowerCase();
+  const r=gCheck(ch,wk,foe.dodgeDC);
+  if(r.success){let dmg=rollExpr(w.stats.Damage);if(r.crit)dmg*=2;foe.hp=Math.max(0,foe.hp-dmg);
+    clog(`${ch.name}: ${w.name} zásah${r.crit?" (KRIT!)":""} za ${dmg} — ${foe.name} ${foe.hp>0?foe.hp+" HP":"PADOL"}`,r.crit?"crit":"hit");}
+  else clog(`${ch.name}: minul (hod ${r.total} vs Dodge ${foe.dodgeDC})`,"miss");
+  if(!aliveFoe()){cb.result="win";clog("Nepriatelia zneškodnení.","hit");gSave();renderScn();return;}
+  gEnemyTurn();gSave();renderScn();
+}
+function gEnemyTurn(){const cb=GAME.combat;const ch=gActive();
+  cb.foes.filter(f=>f.hp>0).forEach(foe=>{
+    if(ch.hp<=0)return;
+    const r=gCheck(ch,"elusive",foe.hitDC);
+    if(r.success)clog(`${ch.name} uhol útoku ${foe.name} (hod ${r.total} vs Hit ${foe.hitDC})`,"hit");
+    else{const ed=rollExpr(foe.dmg);ch.hp=Math.max(0,ch.hp-ed);clog(`${foe.name} zasiahol ${ch.name} za ${ed} — ${ch.hp} HP`,"miss");}
   });
-  const tip=document.createElement("div");tip.className="note box";
-  tip.style.marginTop="6px";
-  tip.innerHTML="Reference mód: scenár vediete vy/GM, kocky hádžete cez tlačidlá. Ďalšie scenáre pridáme do tej istej štruktúry.";
+  if(GAME.party.every(p=>p.hp<=0)){cb.result="lose";clog("Celá partia padla.","miss");}
+}
+function gStealthKill(){const cb=GAME.combat;const foe=aliveFoe();if(!foe)return;
+  foe.hp=0;cb.surprise=false;clog(`${gActive().name}: tichý zásah — ${foe.name} padol bez hluku.`,"crit");
+  if(!aliveFoe())cb.result="win";gSave();renderScn();}
+function gCombatFirstAid(){const ch=gActive();if(!ch.firstAid||ch.firstAid.qty<=0||ch.hp>=ch.hpMax)return;
+  ch.firstAid.qty--;const before=ch.hp;ch.hp=Math.min(ch.hpMax,ch.hp+(ch.firstAid.heal||10));
+  clog(`${ch.name} použil lekárničku (+${ch.hp-before} HP).`,"hit");gEnemyTurn();gSave();renderScn();}
+
+/* ---------- render ---------- */
+function renderScn(){const body=document.getElementById("scnBody");body.innerHTML="";
+  if(!GAME){renderHome(body);return;}
+  if(GAME.phase==="setup"){renderSetup(body);return;}
+  if(GAME.combat){renderCombat(body);return;}
+  renderScene(body);
+}
+function partyBar(){const b=document.createElement("div");b.className="gparty";
+  GAME.party.forEach((p,i)=>{const c=document.createElement("button");
+    c.className="gpc"+(i===GAME.active?" on":"")+(p.hp<=0?" down":"");
+    c.innerHTML=`<div class="nm">${esc(p.name)}</div><div class="hpn">${p.hp}/${p.hpMax} HP${p.cls?" · "+esc(p.cls):""}</div><div class="hpb"><i style="width:${Math.max(0,p.hp/p.hpMax*100)}%"></i></div>`;
+    c.onclick=()=>gSwitch(i);b.appendChild(c);});
+  return b;}
+function renderHome(body){
+  const intro=document.createElement("div");intro.className="gscene";
+  intro.innerHTML=`<h3>Hraj sólo</h3><p class="story">Vytvor si postavu (alebo partiu) a prejdi nascriptovaný príbeh. Hod kockami je v hre — pri voľbách s <span style="color:var(--teal)">DC</span> sa hádže automaticky. Loot ide do inventára postavy, boj beží cez reálne staty nepriateľov z knihy.</p>`;
+  body.appendChild(intro);
+  (DATA.stories||[]).forEach(s=>{const card=document.createElement("div");card.className="card";
+    card.innerHTML=`<div class="pill amber">Scenár</div><h3 style="margin:8px 0 4px;font-family:var(--font-d);font-size:19px">${esc(s.title)}</h3><p class="desc">${esc(s.blurb)}</p>`;
+    const btn=document.createElement("button");btn.className="btn amber full";btn.style.marginTop="10px";btn.textContent="Nová hra";
+    btn.onclick=()=>gNewGame(s.id);card.appendChild(btn);body.appendChild(card);});
+  const tip=document.createElement("div");tip.className="note box";tip.style.marginTop="6px";
+  tip.textContent="Ďalšie scenáre dopĺňame do tej istej štruktúry — povedz, akú zápletku chceš, a napíšem ju.";
   body.appendChild(tip);
+}
+function classPicker(idPrefix){return DATA.character.classes.map((c,i)=>
+  `<label class="pick"><input type="radio" name="${idPrefix}cls" value="${esc(c.name)}" ${i===0?"checked":""}><b>${esc(c.name)}</b> <span class="note" style="margin:0">+${c.skills.map(k=>(DATA.skills.find(s=>s.key===k)||{}).name||k).join(", +")}</span></label>`).join("");}
+function renderSetup(body){
+  const h=document.createElement("div");h.className="gscene";
+  h.innerHTML=`<h3>${esc(curStory().title)}</h3><p class="story">Zostav partiu (1–4 postavy). Každá má vlastné HP, zručnosti a inventár — počas hry medzi nimi prepínaš ťuknutím.</p>`;
+  body.appendChild(h);
+  if(GAME.party.length){const bar=partyBar();body.appendChild(bar);}
+  const add=document.createElement("button");add.className="btn full";add.style.marginBottom="10px";
+  add.textContent="+ Pridať postavu";add.onclick=gOpenAddChar;body.appendChild(add);
+  if(GAME.party.length){const go=document.createElement("button");go.className="btn amber full";
+    go.textContent="Začať príbeh ›";go.onclick=gStart;body.appendChild(go);}
+  const back=document.createElement("button");back.className="btn ghost full";back.style.marginTop="8px";
+  back.textContent="Zrušiť hru";back.onclick=()=>{if(confirm("Zahodiť rozohratú hru?"))gReset();};body.appendChild(back);
+}
+function gOpenAddChar(){const m=document.getElementById("modal");
+  m.innerHTML=`<div class="grabber"></div><h3>Nová postava <span class="x" onclick="closeEdit()">×</span></h3>
+   <div class="field"><label>Meno</label><input id="g-name" placeholder="Napr. Ellie"></div>
+   <div class="field"><label>Trieda (dá +1/+1 k zručnostiam)</label><div class="picks" id="g-cls">${classPicker("g-")}</div></div>
+   <button class="btn amber full" onclick="gConfirmAddChar()" style="margin-top:6px">Pridať do partie</button>`;
+  document.getElementById("scrim").classList.add("on");
+}
+function gConfirmAddChar(){const name=(document.getElementById("g-name").value||"").trim()||"Survivor";
+  const cls=(document.querySelector('input[name="g-cls"]:checked')||{}).value||"";
+  GAME.party.push(gMakeChar(name,cls));if(GAME.party.length===1)GAME.active=0;gSave();closeEdit();renderScn();}
+
+function renderScene(body){
+  const sc=curScene();if(!sc){renderHome(body);return;}
+  body.appendChild(partyBar());
+  if(GAME.banner){const bn=document.createElement("div");bn.className="gbanner "+(GAME.banner.ok?"ok":"bad");bn.textContent=GAME.banner.text;body.appendChild(bn);GAME.banner=null;}
+  const sceneEl=document.createElement("div");sceneEl.className="gscene";
+  sceneEl.innerHTML=`<h3>${esc(sc.title||"")}</h3><p class="story">${esc(sc.text||"")}</p>`;
+  body.appendChild(sceneEl);
+  (sc.choices||[]).forEach(c=>{
+    if(!gHasNeed(c.need))return;
+    const b=document.createElement("button");b.className="btn gchoice";
+    let dc="";if(c.check){const sn=(DATA.skills.find(s=>s.key===c.check.skill)||{}).name||c.check.skill;dc=`<span class="dc">${sn} DC ${c.check.dc}</span>`;}
+    b.innerHTML=`<span>${esc(c.t)}</span>${dc}`;
+    b.onclick=()=>gChoice(c);body.appendChild(b);
+  });
+  body.appendChild(invDrawer());
+  if(sc.end){const r=document.createElement("div");r.className="note box";r.style.marginTop="8px";
+    r.textContent="Koniec scenára. Ďalšie kapitoly pridáme do hry.";body.appendChild(r);}
+}
+function invDrawer(){const ch=gActive();const det=document.createElement("details");det.className="entry";det.style.marginTop="10px";
+  const items=ch.inv.length?ch.inv.map(i=>`<div class="invrow"><span class="q">${i.q||1}×</span><span class="grow">${esc(i.name)}</span></div>`).join(""):'<div class="note">Prázdny.</div>';
+  const ammo=Object.entries(ch.ammo).filter(([k,v])=>v>0).map(([k,v])=>`${k}: ${v}`).join(" · ")||"—";
+  const mats=Object.entries(ch.mats).filter(([k,v])=>v>0).map(([k,v])=>`${k}: ${v}`).join(" · ")||"—";
+  det.innerHTML=`<summary><span class="t">${esc(ch.name)} — inventár</span><span class="pill amber" style="margin-left:auto">${ch.hp}/${ch.hpMax} HP</span><span class="chev">›</span></summary>
+    <div class="body" style="padding-top:8px">
+     <div class="note" style="margin:0 0 6px">Zbraň: <b style="color:var(--amber)">${esc(ch.equip)}</b> · Pilulky: ${ch.pills} · Lekárničky: ${(ch.firstAid||{}).qty||0}</div>
+     <div class="ginv">${items}</div>
+     <div class="note" style="margin-top:8px">Munícia: ${ammo}</div>
+     <div class="note" style="margin-top:3px">Materiály: ${mats}</div></div>`;
+  return det;}
+function renderCombat(body){const cb=GAME.combat;body.appendChild(partyBar());
+  const head=document.createElement("div");head.className="gscene";
+  head.innerHTML=`<h3>${esc(cb.title||"Boj")}</h3>${cb.surprise?`<p class="story">${esc(cb.intro||"")}</p>`:""}`;
+  body.appendChild(head);
+  cb.foes.forEach(f=>{const el=document.createElement("div");el.className="gfoe"+(f.hp<=0?" dead":"");
+    el.innerHTML=`<span class="fn">${esc(f.name)}</span><span class="fhp">${f.hp>0?f.hp+"/"+f.hpMax+" HP":"mŕtvy"}</span>`;body.appendChild(el);});
+  if(cb.log.length){const lg=document.createElement("div");lg.className="glog";lg.innerHTML=cb.log.slice().reverse().join("");body.appendChild(lg);}
+  const ch=gActive();
+  if(cb.result==="win"){const b=document.createElement("button");b.className="btn amber full";b.textContent="Pokračovať ›";b.onclick=()=>{const w=cb.win;GAME.combat=null;gGoto(w);};body.appendChild(b);return;}
+  if(cb.result==="lose"){const b=document.createElement("button");b.className="btn full";b.style.color="var(--danger)";b.textContent="Ďalej ›";b.onclick=()=>{const l=cb.lose;GAME.combat=null;gGoto(l);};body.appendChild(b);return;}
+  if(ch.hp<=0){const n=document.createElement("div");n.className="gbanner bad";n.textContent=`${ch.name} je v bezvedomí — prepni sa na inú postavu v partii.`;body.appendChild(n);return;}
+  // stealth-kill option
+  if(cb.surprise&&cb.stealthKill&&gHasNeed({flag:cb.stealthKill})){
+    const sk=document.createElement("button");sk.className="btn full";sk.style.borderColor="var(--teal)";sk.style.color="var(--teal)";
+    sk.innerHTML="🔪 Tichý zásah (Shiv) — okamžitá smrť";sk.onclick=gStealthKill;body.appendChild(sk);}
+  const atk=document.createElement("button");atk.className="btn amber full";atk.style.marginTop="8px";
+  const w=weaponOf(ch);atk.innerHTML=`Zaútoč — ${esc(w.name)} (${esc(w.stats.Damage)})`;atk.onclick=gAttack;body.appendChild(atk);
+  if((ch.firstAid||{}).qty>0&&ch.hp<ch.hpMax){const fa=document.createElement("button");fa.className="btn full";fa.style.marginTop="8px";
+    fa.textContent=`Lekárnička (+${ch.firstAid.heal} HP)`;fa.onclick=gCombatFirstAid;body.appendChild(fa);}
+  body.appendChild(invDrawer());
 }
 const skillKeyByName=n=>(DATA.skills.find(s=>s.name===n)||{}).key||"brutality";
 
@@ -1394,6 +1597,7 @@ async function init(){
     return;
   }
   C=load();
+  GAME=gLoad();
   customFactions=loadCustomFactions();
   document.querySelectorAll("#rollSeg button").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
   renderSheet();renderDice();renderCodexTabs();renderCodex();renderScn();

@@ -4300,5 +4300,193 @@
       "questions": "Dôležité otázky: Kde sa kampaň začína? V osade, v Quarantine Zone, alebo vonku na tvrdej ceste? Prostredie ti pomôže pri tvorbe questov a stretnutí.",
       "outro": "Máš nekonečnú tvorivú slobodu pre svoju cestu. A vždy pamätaj: keď sa stratíš v tme, pozri do príručky."
     }
-  }
+  },
+  "stories": [
+    {
+      "id": "prolog",
+      "title": "Prológ: Na okraji zóny",
+      "blurb": "Zobudíš sa v opustenej budove na kraji karanténnej zóny. Musíš sa dostať von a nájsť bezpečný dom. Krátky úvodný scenár — naučí ťa základy hry.",
+      "start": "start",
+      "scenes": {
+        "start": {
+          "title": "Prebudenie",
+          "text": "Hlava ti trešťí. Ležíš na studenej dlážke v rozbitej kancelárii. Cez prasknuté okno presvitá sivé svetlo. Niekde v diaľke kvapká voda. Tvoj batoh leží vedľa teba — aspoň niečo.",
+          "choices": [
+            {
+              "t": "Prehľadať miestnosť",
+              "to": "search"
+            },
+            {
+              "t": "Pozrieť von oknom",
+              "to": "window"
+            }
+          ]
+        },
+        "window": {
+          "title": "Pohľad von",
+          "text": "Cez špinavé sklo vidíš ulicu. Na chodníku stojí postava — zhrbená, nehybná. Runner. Zatiaľ o tebe nevie. Dvere z budovy vedú práve tým smerom.",
+          "choices": [
+            {
+              "t": "Vrátiť sa dnu a prehľadať miestnosť",
+              "to": "search"
+            },
+            {
+              "t": "Potichu sa zakrásť k východu (Elusive)",
+              "check": {
+                "skill": "elusive",
+                "dc": 8
+              },
+              "to": "exit",
+              "fail": "fightRunner"
+            }
+          ]
+        },
+        "search": {
+          "title": "Prehľadávanie",
+          "text": "Prekopávaš sa zásuvkami a rozbitým nábytkom. Niečo tu byť musí.",
+          "choices": [
+            {
+              "t": "Dôkladne prehľadať (Scavenging)",
+              "check": {
+                "skill": "scavenging",
+                "dc": 7
+              },
+              "to": "foundLoot",
+              "fail": "foundNoise"
+            }
+          ]
+        },
+        "foundLoot": {
+          "title": "Nález",
+          "text": "V zásuvke nájdeš obviazanú handru a hrsť nábojov. Pod stolom je aj stará lekárnička. Slušný úlovok.",
+          "onEnter": [
+            {
+              "mat": "Rag",
+              "n": 2
+            },
+            {
+              "ammo": "9mm",
+              "n": 7
+            },
+            {
+              "firstaid": 1
+            }
+          ],
+          "choices": [
+            {
+              "t": "Pokračovať na chodbu",
+              "to": "hall"
+            }
+          ]
+        },
+        "foundNoise": {
+          "title": "Buchot",
+          "text": "Pri prehľadávaní zhodíš plechovku. Zarachotí o zem — v tichu to znie ako výstrel. Z chodby sa ozve chrapot. Niečo ťa počulo.",
+          "onEnter": [
+            {
+              "ammo": "9mm",
+              "n": 3
+            }
+          ],
+          "choices": [
+            {
+              "t": "Vyraziť na chodbu, kým je čas",
+              "to": "hallAlert"
+            }
+          ]
+        },
+        "hall": {
+          "title": "Chodba",
+          "text": "Úzka chodba plná sutín. Naľavo zabarikádované dvere, napravo otvorená skriňa. Na konci je východ na ulicu.",
+          "choices": [
+            {
+              "t": "Prehľadať skriňu",
+              "to": "closet"
+            },
+            {
+              "t": "Potichu sa zakrásť k východu (Elusive)",
+              "check": {
+                "skill": "elusive",
+                "dc": 8
+              },
+              "to": "exit",
+              "fail": "fightRunner"
+            },
+            {
+              "t": "Rovno k východu — riskni to",
+              "to": "fightRunner"
+            }
+          ]
+        },
+        "hallAlert": {
+          "title": "Chodba — chrapot silnie",
+          "text": "Vbehneš do chodby. Z tieňa sa vynorí Runner a zafixuje pohľad rovno na teba. Niet kam ujsť.",
+          "choices": [
+            {
+              "t": "Postaviť sa mu",
+              "to": "fightRunner"
+            }
+          ]
+        },
+        "closet": {
+          "title": "Skriňa",
+          "text": "Medzi handrami nahmatáš čosi tvrdé — improvizovaný Shiv. Jediná rana, ale na tichý zásah ako stvorený.",
+          "onEnter": [
+            {
+              "item": "Shiv",
+              "q": 1
+            },
+            {
+              "flag": "shiv"
+            }
+          ],
+          "choices": [
+            {
+              "t": "Späť na chodbu",
+              "to": "hall"
+            }
+          ]
+        },
+        "fightRunner": {
+          "title": "Runner!",
+          "text": "Runner zavrieska a vrhne sa na teba. Boj!",
+          "combat": {
+            "foes": [
+              {
+                "type": "infected",
+                "name": "Runner"
+              }
+            ],
+            "win": "exit",
+            "lose": "dead",
+            "stealthKill": "shiv"
+          }
+        },
+        "exit": {
+          "title": "Von",
+          "text": "Vykĺzneš na ulicu. Vzduch je ostrý a studený, ale slobodný. O pár blokov ďalej vidíš dohodnutý bezpečný dom — okno svieti slabým svetlom. Zatiaľ si to zvládol.",
+          "end": true,
+          "choices": [
+            {
+              "t": "Pokračovať (čoskoro ďalšie kapitoly)",
+              "to": "start",
+              "restart": true
+            }
+          ]
+        },
+        "dead": {
+          "title": "Koniec cesty",
+          "text": "Runner ťa strhol na zem. Posledné, čo cítiš, je jeho dych. Tma. — Tvoja cesta sa skončila tu.",
+          "end": true,
+          "choices": [
+            {
+              "t": "Skúsiť znova",
+              "to": "start",
+              "restart": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }
