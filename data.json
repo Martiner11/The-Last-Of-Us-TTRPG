@@ -4119,5 +4119,186 @@
         "desc": "V takom pochmúrnom svete nič neupokojí ako hudba. Počas oddychu zahraj pieseň — dá tímu jedinečný inšpiračný bod, ktorý pridá +3 k ľubovoľnému hodu. Naraz sa dá držať max jeden inšpiračný bod."
       }
     ]
+  },
+  "world": {
+    "openWorld": {
+      "intro": "Infikovaný svet sa rozprestiera cez mestá, krajiny a kontinenty — kto sa vydá na otvorenú cestu, môže naraziť na čokoľvek. Pri open-world cestovaní dostanú hráči veľké územie, ktorým sa voľne pohybujú a vyberajú smer: vidiek, diaľnice, divočina. GM pripraví stretnutia podľa typu regiónu. Hráči postupujú cez Survival checky a GM podľa výsledkov určí typ stretnutia (dobré či zlé).",
+      "example": "Príklad: traja preživší idú po opustenej diaľnici v nádeji, že dosiahnu nemocnicu, o ktorej sa povráva, že znova funguje. Cestou môžu naraziť na banditov, na ruinu čerpacej stanice plnú zásob, na inú skupinu mieriacu k tomu istému cieľu — alebo ich privíta povedomé desivé ticho izolácie."
+    },
+    "linear": "Niekedy musia preživší prejsť cez husté mestá a stiesnené podzemné tunely a stále sa báť, čo je za rohom. Linear Travel využíva úzke, husté prostredia na sériu prepojených lokácií a udalostí smerom k cieľu. Keď je jediná cesta vpred, voľba smeru sa mení na rozhodnutia, ako zvládnuť dané scenáre. GM vytvorí prepojenú sériu budov, miestností a spojníc plnú udalostí, prekážok a stretnutí. Predmestia, mestá, metrá a kanály sú na tento štýl ideálne.",
+    "environments": [
+      {
+        "name": "Dizajn lineárneho prostredia",
+        "desc": "Pri lineárnom formáte je kľúčové tempo. Strieda sa intenzita — chvíle na dialóg a budovanie sveta, pomalé časti na prieskum a looting, akčné sekvencie, napäté stealth pasáže, naháňačky, prekážky a hádanky, aby hra plynula a bola zaujímavá."
+      },
+      {
+        "name": "Dizajn témy",
+        "desc": "Akým prostredím hráči prechádzajú? Hlavne vnútri (z budovy do budovy)? Vonku v lesoch, močiaroch, na poliach? Pod zemou — v pivniciach nemocníc, kanáloch, metre?"
+      },
+      {
+        "name": "Dizajn cieľa",
+        "desc": "Čo poháňa hráčov ísť ďalej? Zúfalo potrebujú zásoby? Snažia sa uniknúť alebo dosiahnuť cieľ? Nastavenie stávok ich motivuje napredovať aj v drsných podmienkach."
+      },
+      {
+        "name": "Dizajn bojových stretnutí",
+        "desc": "Sú nepriatelia v Alerte, alebo budú hráči najprv neodhalení? Ľudia, infikovaní, alebo zmes oboch? Tvorba stretnutí je kľúčová na výzvu pre hráčov."
+      }
+    ],
+    "transportation": {
+      "intro": "Po svete TLOU sa dá cestovať aj inak než pešo — každý spôsob má výhody aj nevýhody.",
+      "modes": [
+        {
+          "name": "Kone",
+          "points": [
+            "Prejdú veľké vzdialenosti v open-world a výrazne skrátia čas cesty aj počet stretnutí.",
+            "Vedia cválať a uniknúť nepriateľom, preskočiť barikády a zátarasy.",
+            "Majú len 5 Health — ich životy sú vzácne.",
+            "Unesú dvoch preživších naraz."
+          ]
+        },
+        {
+          "name": "Vozidlá",
+          "points": [
+            "Ak máš šťastie nascavengovať diely (a benzín), prejdeš svetom mimoriadne rýchlo.",
+            "Vyžadujú údržbu a nascavengovaný benzín; spotrebu a dojazd určí GM.",
+            "Pojmú štyroch až šiestich pasažierov podľa modelu.",
+            "Vo vozidle si výrazne chránený pred prichádzajúcimi ranged aj melee útokmi.",
+            "Motory sú hlučné — naštartovanie či prejazd upozorní všetkých nepriateľov nablízku."
+          ]
+        }
+      ]
+    },
+    "buildings": {
+      "intro": "GM môže tieto typy budov použiť na stavbu prostredí. Dajú sa naplniť udalosťami, stretnutiami a lootom.",
+      "list": [
+        "House",
+        "Apartment Complex",
+        "Mall (Outdoor/Indoor)",
+        "University",
+        "Ruins",
+        "Abandoned Building",
+        "School",
+        "Store",
+        "Hotel",
+        "Hospital",
+        "Doctor/Dentist/Vet Office",
+        "Diner",
+        "Restaurant",
+        "Cafe",
+        "Mechanic Garage",
+        "Subway",
+        "Metro",
+        "Zoo",
+        "Museum",
+        "Military Base",
+        "Coin Laundry",
+        "Nursery",
+        "Sports Stadium",
+        "Airport",
+        "Music Store",
+        "Night Club",
+        "Bar",
+        "Warehouse",
+        "Cabin",
+        "Bank",
+        "First Responder Station",
+        "Bunker",
+        "Custom Building"
+      ]
+    },
+    "rooms": {
+      "intro": "Miestnosti sú rozšírením budov — GM v nich plánuje trasy, cesty a udalosti.",
+      "list": [
+        "Garages",
+        "Collapsed Room",
+        "Elevator Shaft",
+        "Office",
+        "Bedroom",
+        "Living Room",
+        "Basement",
+        "Shack",
+        "Bathroom",
+        "Kitchen",
+        "Storage Room",
+        "Control Room",
+        "Lobby",
+        "Stairwell",
+        "Workshop",
+        "Laundry Room",
+        "Bar",
+        "Dining Hall",
+        "Custom Room"
+      ]
+    },
+    "lootLocations": {
+      "intro": "Lootovateľné miesta pomáhajú opísať, čo hráči pri scavengovaní nájdu.",
+      "list": [
+        "Boxes",
+        "Desks",
+        "Cabinets",
+        "Registers",
+        "Filing Cabinets",
+        "Broken Electronics",
+        "Cubicles",
+        "Lockers",
+        "Crates",
+        "Trash Bins",
+        "Cars",
+        "Sinks",
+        "Fridges",
+        "Baskets",
+        "Vending Machines",
+        "Machinery",
+        "Tables",
+        "Couches",
+        "Chairs",
+        "Safes",
+        "Lock Boxes",
+        "Drawers",
+        "Pantries",
+        "Bins",
+        "Rubble",
+        "Cases",
+        "Bags"
+      ]
+    },
+    "connectors": {
+      "intro": "Spojnice sú priechody alebo bariéry, ktoré spájajú jednu budovu či miestnosť s druhou.",
+      "list": [
+        "Junction",
+        "Courtyard",
+        "Alleyway",
+        "Ruined Street",
+        "Hallway",
+        "Entrance",
+        "Exit",
+        "Door",
+        "Cement Barrier",
+        "Damaged Vehicles",
+        "Bridge",
+        "Hidden Entrances (Scavenging DC na nájdenie)",
+        "Hole in Wall",
+        "Pipes",
+        "Vents",
+        "Ladders",
+        "Ledge (treba boost/predmet)",
+        "Scaffolding",
+        "Fire Escape",
+        "Rooftop",
+        "Fence",
+        "Gate",
+        "Plank (treba dosku cez medzeru)",
+        "Roadblock",
+        "Checkpoint",
+        "Tunnel",
+        "Subway",
+        "Sewer"
+      ]
+    },
+    "campaign": {
+      "intro": "Aký príbeh chceš ako GM týmto systémom rozpovedať? Príbeh straty? Vykúpenia? Obnovy dôvery? Nádeje? Keď máš tému, vytvor Campaign Objective — zastrešujúci cieľ pre postavy. Môže byť osobný (sólo cieľ postáv) alebo širší cieľ frakcie. Napríklad pri Firefly kampani môže byť cieľom nájsť liek na infekciu alebo zvrhnúť FEDRA.",
+      "questions": "Dôležité otázky: Kde sa kampaň začína? V osade, v Quarantine Zone, alebo vonku na tvrdej ceste? Prostredie ti pomôže pri tvorbe questov a stretnutí.",
+      "outro": "Máš nekonečnú tvorivú slobodu pre svoju cestu. A vždy pamätaj: keď sa stratíš v tme, pozri do príručky."
+    }
   }
 }

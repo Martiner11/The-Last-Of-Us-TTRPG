@@ -925,7 +925,7 @@ function flashCheck(){const sk=document.getElementById("ckSkill");
    CODEX
    ================================================================= */
 let cxCat="weapons";
-const CX=[["weapons","Zbrane"],["combat","Combat"],["infected","Infikovaní"],["enemies","Nepriatelia"],["items","Predmety"],["factions","Frakcie"],["character","Postava"],["upgrades","Upgrades"],["trauma","Trauma"],["grounded","Grounded"],["skills","Zručnosti"],["dc","DC"],["dice","Kocky"]];
+const CX=[["weapons","Zbrane"],["combat","Combat"],["infected","Infikovaní"],["enemies","Nepriatelia"],["items","Predmety"],["world","World"],["factions","Frakcie"],["character","Postava"],["upgrades","Upgrades"],["trauma","Trauma"],["grounded","Grounded"],["skills","Zručnosti"],["dc","DC"],["dice","Kocky"]];
 function renderCodexTabs(){
   const t=document.getElementById("cxTabs");t.innerHTML="";
   CX.forEach(([k,l])=>{const b=document.createElement("button");b.textContent=l;
@@ -1083,6 +1083,24 @@ function renderCodex(){
       +eb("Quest Items")+sp.questItems.map(x=>`<div class="desc" style="padding:3px 0"><b style="color:var(--amber)">${esc(x.name)}</b> — ${esc(x.desc)}</div>`).join(""));
     sec("Medical Supplies", it.medical.map(x=>hd(x.name,x.desc)).join(""));
     sec("Utility Items", it.utility.map(x=>`<div class="h">${esc(x.name)} <span style="color:var(--amber)">craft ${esc(x.craft)}</span></div><div class="desc" style="margin:0 0 9px">${esc(x.desc)}</div>`).join(""), String(it.utility.length));
+  } else if(cxCat==="world"){
+    const w=DATA.world;
+    const p=t=>`<div class="desc" style="margin:6px 0">${esc(t)}</div>`;
+    const eb=t=>`<div class="eyebrow" style="margin:9px 0 4px">${t}</div>`;
+    const hd=(h,t)=>`<div class="h">${esc(h)}</div><div class="desc" style="margin:0 0 7px">${esc(t)}</div>`;
+    const chips=arr=>`<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">${arr.map(x=>`<span class="pill">${esc(x)}</span>`).join("")}</div>`;
+    const sec=(title,inner,pill)=>{const e=document.createElement("details");e.className="entry";
+      e.innerHTML=`<summary><span class="t">${title}</span>${pill?`<span class="pill amber" style="margin-left:auto">${pill}</span>`:""}<span class="chev">›</span></summary><div class="body" style="padding-top:10px">${inner}</div>`;body.appendChild(e);};
+    sec("Open World Travel", p(w.openWorld.intro)+`<div class="note" style="margin:6px 0 0">${esc(w.openWorld.example)}</div>`);
+    sec("Linear Travel", p(w.linear));
+    sec("Environments", w.environments.map(x=>hd(x.name,x.desc)).join(""));
+    sec("Transportation", p(w.transportation.intro)+w.transportation.modes.map(md=>
+      `<div class="h" style="margin-top:6px">${esc(md.name)}</div>`+md.points.map(pt=>`<div class="desc" style="padding:2px 0">• ${esc(pt)}</div>`).join("")).join(""));
+    sec("Buildings", p(w.buildings.intro)+chips(w.buildings.list), String(w.buildings.list.length));
+    sec("Rooms", p(w.rooms.intro)+chips(w.rooms.list), String(w.rooms.list.length));
+    sec("Loot Locations", p(w.lootLocations.intro)+chips(w.lootLocations.list), String(w.lootLocations.list.length));
+    sec("Connectors", p(w.connectors.intro)+chips(w.connectors.list), String(w.connectors.list.length));
+    sec("Campaign", p(w.campaign.intro)+p(w.campaign.questions)+`<div class="note" style="margin:8px 0 0;color:var(--teal)">${esc(w.campaign.outro)}</div>`);
   } else if(cxCat==="factions"){
     DATA.factions.filter(f=>match(f.name)||match(f.desc)).forEach(f=>{
       const e=document.createElement("details");e.className="entry";
