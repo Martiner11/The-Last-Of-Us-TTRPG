@@ -109,7 +109,7 @@
   "weapons": [
     {
       "name": "Pistol",
-      "cat": "Pištoľ",
+      "cat": "Short Gun",
       "skill": "Aiming",
       "stats": {
         "Damage": "1D8 + 1D6",
@@ -126,7 +126,7 @@
           "rows": [
             [
               "Vie nabiť v tom istom kole, keď minie náboje",
-              "15"
+              "1 / 15"
             ],
             [
               "Vie nabiť a vystreliť 1 náboj v tom istom kole",
@@ -164,7 +164,7 @@
     },
     {
       "name": "Revolver",
-      "cat": "Pištoľ",
+      "cat": "Short Gun",
       "skill": "Aiming",
       "stats": {
         "Damage": "1D12 + 1D8",
@@ -203,42 +203,1066 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Magnum",
+      "cat": "Short Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D20+1D6",
+        "Fire Rate": "1",
+        "Ammo": ".44 Magnum",
+        "Capacity": "5",
+        "Reload": "2 náboje/kolo",
+        "Armor Piercing": "1 strela",
+        "Craft": "250"
+      },
+      "upg": [
+        {
+          "h": "Reload Speed",
+          "rows": [
+            [
+              "Nabije 3 náboje za kolo",
+              "1 / 15"
+            ],
+            [
+              "Nabije 5 nábojov v jednom kole",
+              "4 / 25"
+            ]
+          ]
+        },
+        {
+          "h": "Fire Rate",
+          "rows": [
+            [
+              "Fire Rate na 2",
+              "3 / 30"
+            ],
+            [
+              "Fire Rate na 3",
+              "4 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Armor Piercing",
+          "rows": [
+            [
+              "Prebíja brnenie nepriateľa",
+              "3 / 75"
+            ]
+          ]
+        },
+        {
+          "h": "Scope",
+          "rows": [
+            [
+              "Scope: +2 Aiming pri použití",
+              "2 / 30"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Shorty",
+      "cat": "Short Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D10+1D8+1D6 (blízko; ½ na stred)",
+        "Fire Rate": "1",
+        "Ammo": "Shells",
+        "Capacity": "2",
+        "Reload": "Zásobník",
+        "Armor Piercing": "1 strela",
+        "Craft": "375"
+      },
+      "upg": [
+        {
+          "h": "Capacity",
+          "rows": [
+            [
+              "Zásobník na 4 nábojnice",
+              "2 / 20"
+            ],
+            [
+              "Zásobník na 6 nábojníc",
+              "4 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Reload Speed",
+          "rows": [
+            [
+              "Rýchlejší reload + výstrel v tom istom kole",
+              "3 / 35"
+            ]
+          ]
+        },
+        {
+          "h": "Fire Rate",
+          "rows": [
+            [
+              "Fire Rate na 2",
+              "1 / 30"
+            ],
+            [
+              "Fire Rate na 3",
+              "4 / 50"
+            ]
+          ]
+        },
+        {
+          "h": "Spread",
+          "rows": [
+            [
+              "Grip: +1 Aiming pri použití",
+              "2 / 15"
+            ]
+          ]
+        },
+        {
+          "h": "Recoil",
+          "rows": [
+            [
+              "Bez DMG penalty na strednú vzdialenosť",
+              "2 / 35"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hunting Pistol",
+      "cat": "Short Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D20",
+        "Fire Rate": "1",
+        "Ammo": ".308",
+        "Capacity": "1",
+        "Reload": "1/kolo",
+        "Armor Piercing": "1 strela",
+        "Craft": "340"
+      },
+      "upg": [
+        {
+          "h": "Power",
+          "rows": [
+            [
+              "Damage 1D20+1D10",
+              "3 / 30"
+            ],
+            [
+              "Damage 1D20+1D12",
+              "3 / 40"
+            ],
+            [
+              "Damage 2D20",
+              "4 / 50"
+            ]
+          ]
+        },
+        {
+          "h": "Reload Speed",
+          "rows": [
+            [
+              "Nabíja medzi kolami",
+              "2 / 20"
+            ]
+          ]
+        },
+        {
+          "h": "Armor Piercing",
+          "rows": [
+            [
+              "Prebíja brnenie nepriateľa",
+              "2 / 25"
+            ]
+          ]
+        },
+        {
+          "h": "Scope",
+          "rows": [
+            [
+              "4× scope: +1 Aiming pri použití",
+              "3 / 25"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hunting Rifle",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D20+1D10",
+        "Fire Rate": "1",
+        "Ammo": ".308",
+        "Capacity": "1",
+        "Reload": "Clip/kolo",
+        "Armor Piercing": "1 strela",
+        "Craft": "240"
+      },
+      "upg": [
+        {
+          "h": "Power",
+          "rows": [
+            [
+              "Damage 1D20+1D12",
+              "1 / 15"
+            ],
+            [
+              "Damage 2D20",
+              "3 / 25"
+            ]
+          ]
+        },
+        {
+          "h": "Reload Speed",
+          "rows": [
+            [
+              "Nabíja medzi kolami",
+              "2 / 20"
+            ]
+          ]
+        },
+        {
+          "h": "Clip Capacity",
+          "rows": [
+            [
+              "Clip na 3 náboje",
+              "2 / 30"
+            ],
+            [
+              "Clip na 7 nábojov",
+              "3 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Armor Piercing",
+          "rows": [
+            [
+              "Prebíja brnenie nepriateľa",
+              "2 / 25"
+            ]
+          ]
+        },
+        {
+          "h": "Scope",
+          "rows": [
+            [
+              "Scope: +2 Aiming pri použití",
+              "3 / 35"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pump Shotgun",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D12+1D10+1D8 (blízko; ½ stred)",
+        "Fire Rate": "1",
+        "Ammo": "Shells",
+        "Capacity": "4",
+        "Reload": "1 nábojnica/kolo",
+        "Armor Piercing": "1 strela",
+        "Craft": "400"
+      },
+      "upg": [
+        {
+          "h": "Capacity",
+          "rows": [
+            [
+              "Zásobník na 6",
+              "1 / 20"
+            ],
+            [
+              "Zásobník na 8",
+              "3 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Reload Speed",
+          "rows": [
+            [
+              "Quick Load 3 nábojnice/kolo",
+              "3 / 35"
+            ]
+          ]
+        },
+        {
+          "h": "Fire Rate",
+          "rows": [
+            [
+              "Fire Rate na 2",
+              "4 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Spread",
+          "rows": [
+            [
+              "Shotgun Choke: +1 Aiming",
+              "2 / 15"
+            ],
+            [
+              "Improved Stock: +2 Aiming",
+              "3 / 40"
+            ]
+          ]
+        },
+        {
+          "h": "Range",
+          "rows": [
+            [
+              "Bez DMG penalty na strednú vzdialenosť",
+              "2 / 35"
+            ]
+          ]
+        },
+        {
+          "h": "Power",
+          "rows": [
+            [
+              "Damage na 1D20+1D12+1D8",
+              "4 / 50"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bow",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D20",
+        "Fire Rate": "1",
+        "Ammo": "Arrows",
+        "Capacity": "1",
+        "Reload": "1 šíp/kolo",
+        "Armor Piercing": "4 šípy",
+        "Craft": "195",
+        "Fire Arrow": "1D20+2D6 oheň (šíp+binding+fuel+rag)",
+        "Explosive Arrow": "1D20+2D8 výbuch (šíp+binding+explosive)"
+      },
+      "upg": [
+        {
+          "h": "Quick Draw",
+          "rows": [
+            [
+              "Pripraví ďalší šíp v tom istom kole",
+              "2 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Draw Speed",
+          "rows": [
+            [
+              "Fire Rate na 2",
+              "3 / 25"
+            ]
+          ]
+        },
+        {
+          "h": "Power",
+          "rows": [
+            [
+              "2× damage šípu (oheň/výbuch nezarátané)",
+              "4 / 50"
+            ]
+          ]
+        },
+        {
+          "h": "Rangefinder",
+          "rows": [
+            [
+              "+2 Aiming pri použití",
+              "3 / 35"
+            ]
+          ]
+        },
+        {
+          "h": "Arrow Expert",
+          "rows": [
+            [
+              "Šípy sa dajú zobrať neporušené po kill shote",
+              "1 / 20"
+            ],
+            [
+              "Všetky šípy s aiming hodom 10+ sa dajú zobrať",
+              "2 / 40"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Double Barrel Shotgun",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "2D12",
+        "Fire Rate": "1",
+        "Ammo": "Shells",
+        "Capacity": "2",
+        "Reload": "1 nábojnica/kolo",
+        "Armor Piercing": "1 strela",
+        "Craft": "280"
+      },
+      "upg": [
+        {
+          "h": "Stability",
+          "rows": [
+            [
+              "Weighted stock: +2 Aiming",
+              "3 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Reload Speed",
+          "rows": [
+            [
+              "Nabije obe nábojnice v jednom kole",
+              "2 / 25"
+            ]
+          ]
+        },
+        {
+          "h": "Fire Rate",
+          "rows": [
+            [
+              "Fire Rate na 2",
+              "3 / 35"
+            ]
+          ]
+        },
+        {
+          "h": "Double Trigger",
+          "rows": [
+            [
+              "Vystrelí obe hlavne naraz — dvojnásobný damage",
+              "3 / 25"
+            ]
+          ]
+        },
+        {
+          "h": "Power",
+          "rows": [
+            [
+              "Damage na 3D12",
+              "4 / 20"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Frontier Rifle",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D20+1D4",
+        "Fire Rate": "1",
+        "Ammo": ".45-70 Gov",
+        "Capacity": "4",
+        "Reload": "1 nábojnica/kolo",
+        "Armor Piercing": "2 strely",
+        "Craft": "220"
+      },
+      "upg": [
+        {
+          "h": "Capacity",
+          "rows": [
+            [
+              "Kapacita na 10 nábojov",
+              "2 / 25"
+            ]
+          ]
+        },
+        {
+          "h": "Fire Rate",
+          "rows": [
+            [
+              "Fire Rate na 2",
+              "3 / 20"
+            ],
+            [
+              "Fire Rate na 3",
+              "4 / 35"
+            ]
+          ]
+        },
+        {
+          "h": "Speed Reload",
+          "rows": [
+            [
+              "Nabije 4 náboje za kolo",
+              "2 / 40"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Battle Rifle",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D20+1D8",
+        "Fire Rate": "2",
+        "Ammo": "7.62",
+        "Capacity": "20",
+        "Reload": "Zásobník/kolo",
+        "Armor Piercing": "Automatic",
+        "Craft": "440"
+      },
+      "upg": [
+        {
+          "h": "Scope",
+          "rows": [
+            [
+              "Scope: +2 Aiming pri použití",
+              "3 / 35"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Assault Rifle",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "3D8",
+        "Fire Rate": "1 (3-ranná dávka)",
+        "Ammo": "5.56",
+        "Capacity": "12",
+        "Reload": "Zásobník",
+        "Armor Piercing": "1 dávka",
+        "Craft": "350"
+      },
+      "upg": [
+        {
+          "h": "Stopping Power",
+          "rows": [
+            [
+              "Damage dávky na 3D10",
+              "3 / 35"
+            ],
+            [
+              "Damage dávky na 3D12",
+              "4 / 40"
+            ]
+          ]
+        },
+        {
+          "h": "Reload Speed",
+          "rows": [
+            [
+              "Quick release mag — nabije v kole, keď dôjde",
+              "1 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Fire Rate",
+          "rows": [
+            [
+              "Fire Rate na 2",
+              "2 / 30"
+            ],
+            [
+              "Fire Rate na 3",
+              "3 / 40"
+            ]
+          ]
+        },
+        {
+          "h": "Armor Piercing",
+          "rows": [
+            [
+              "Automaticky prebíja brnenie",
+              "3 / 25"
+            ]
+          ]
+        },
+        {
+          "h": "Optics",
+          "rows": [
+            [
+              "Laser sight: +1 Aiming",
+              "2 / 25"
+            ],
+            [
+              "Holographic: +2 Aiming",
+              "3 / 35"
+            ],
+            [
+              "ACOG: +3 Aiming",
+              "4 / 45"
+            ]
+          ]
+        },
+        {
+          "h": "Capacity",
+          "rows": [
+            [
+              "Rozšírený zásobník na 18 nábojov",
+              "3 / 30"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Semi-Auto Rifle",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D12+1D4",
+        "Fire Rate": "2",
+        "Ammo": "5.56",
+        "Capacity": "8",
+        "Reload": "Zásobník",
+        "Armor Piercing": "2",
+        "Craft": "300"
+      },
+      "upg": [
+        {
+          "h": "Stopping Power",
+          "rows": [
+            [
+              "Damage na 1D12+3D4",
+              "3 / 80"
+            ]
+          ]
+        },
+        {
+          "h": "Fire Rate",
+          "rows": [
+            [
+              "Fire Rate na 3",
+              "2 / 25"
+            ],
+            [
+              "Fire Rate na 5",
+              "3 / 50"
+            ]
+          ]
+        },
+        {
+          "h": "4x Scope",
+          "rows": [
+            [
+              "4× scope: +2 Aiming pri použití",
+              "3 / 80"
+            ]
+          ]
+        },
+        {
+          "h": "Capacity",
+          "rows": [
+            [
+              "Zásobník na 12 nábojov",
+              "2 / 40"
+            ],
+            [
+              "Zásobník na 20 nábojov",
+              "3 / 60"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tactical Shotgun",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "2D10",
+        "Fire Rate": "2",
+        "Ammo": "Shells",
+        "Capacity": "2",
+        "Reload": "2 nábojnice/kolo",
+        "Armor Piercing": "1 strela",
+        "Craft": "270"
+      },
+      "upg": [
+        {
+          "h": "Capacity",
+          "rows": [
+            [
+              "Kapacita na 4 nábojnice",
+              "2 / 25"
+            ],
+            [
+              "Kapacita na 6 nábojníc",
+              "3 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Sight",
+          "rows": [
+            [
+              "Military sight: +1 Aiming pri použití",
+              "3 / 35"
+            ]
+          ]
+        },
+        {
+          "h": "Power",
+          "rows": [
+            [
+              "Damage na 3D10",
+              "4 / 40"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Military Sniper Rifle",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "3D20",
+        "Fire Rate": "1",
+        "Ammo": "7.62",
+        "Capacity": "1",
+        "Reload": "Clip/kolo",
+        "Armor Piercing": "Automatic",
+        "Craft": "520"
+      },
+      "upg": []
+    },
+    {
+      "name": "Flamethrower",
+      "cat": "Long Gun",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D10+1D6+1D4 oheň (zapáli: +1D6/kolo; 2× vs Infikovaní)",
+        "Fire Rate": "1",
+        "Ammo": "Fuel",
+        "Capacity": "3",
+        "Reload": "Fuel kanister/kolo",
+        "Armor Piercing": "Automatic",
+        "Craft": "360"
+      },
+      "upg": [
+        {
+          "h": "Capacity",
+          "rows": [
+            [
+              "Fuel na 5",
+              "1 / 20"
+            ],
+            [
+              "Fuel na 7",
+              "4 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Fire Rate",
+          "rows": [
+            [
+              "Fire Rate na 2",
+              "4 / 40"
+            ]
+          ]
+        },
+        {
+          "h": "Power",
+          "rows": [
+            [
+              "Zapálenie 1D8",
+              "2 / 20"
+            ],
+            [
+              "Zapálenie 1D10",
+              "3 / 35"
+            ],
+            [
+              "Zapálenie 1D12",
+              "4 / 50"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hand to Hand",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D6",
+        "Type": "Blunt"
+      },
+      "upg": [
+        {
+          "h": "Brass Knuckles",
+          "rows": [
+            [
+              "+1D4 damage do Hand to Hand",
+              "1 / 15"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2x4",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D8+1D4",
+        "Type": "Blunt",
+        "Durability": "3 údery",
+        "Armor Piercing": "Nie",
+        "Craft": "50"
+      },
+      "upg": []
+    },
+    {
+      "name": "Hammer and Wrench",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D8",
+        "Type": "Blunt",
+        "Durability": "10 úderov",
+        "Armor Piercing": "4 údery",
+        "Craft": "75",
+        "Bonus": "+1 Maintenance kým je v ruke"
+      },
+      "upg": []
+    },
+    {
+      "name": "Crowbar",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D10+1D4",
+        "Type": "Blunt",
+        "Durability": "7 úderov",
+        "Armor Piercing": "3 údery",
+        "Craft": "100",
+        "Bonus": "Vypáči zamknuté/zaseknuté dvere (–1 durability)"
+      },
+      "upg": []
+    },
+    {
+      "name": "Pipe",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D12+1D4",
+        "Type": "Blunt",
+        "Durability": "9 úderov",
+        "Armor Piercing": "2 údery",
+        "Craft": "130",
+        "Crafting": "Pripevni 1 Blade: +1D6 damage"
+      },
+      "upg": []
+    },
+    {
+      "name": "Bat",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D10+1D8",
+        "Type": "Blunt",
+        "Durability": "6 úderov",
+        "Armor Piercing": "2 údery",
+        "Craft": "150",
+        "Crafting": "Pripevni 1 Blade: +1D6 damage"
+      },
+      "upg": []
+    },
+    {
+      "name": "Sledgehammer",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D20",
+        "Type": "Blunt",
+        "Durability": "4 údery",
+        "Armor Piercing": "1 úder",
+        "Craft": "180"
+      },
+      "upg": []
+    },
+    {
+      "name": "Golf Club",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D8+1D6",
+        "Type": "Blunt",
+        "Durability": "6 úderov",
+        "Armor Piercing": "3 údery",
+        "Crit": "Pri kritickom hode v melee okamžite zabije cieľ — zbraň sa zničí"
+      },
+      "upg": []
+    },
+    {
+      "name": "Riot Shield",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Melee Damage": "1D12",
+        "Durability": "5 zásahov (prijatých)",
+        "Craft": "200",
+        "Special": "Znižuje prijatý damage: −1D12 ranged, −1D20 melee. Nemôžeš držať Long Gun."
+      },
+      "upg": []
+    },
+    {
+      "name": "Shiv",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "Instant Kill",
+        "Type": "Slashing",
+        "Durability": "1 (base)",
+        "Armor Piercing": "Áno",
+        "Crafting": "1 Blade + 1 Binding",
+        "Použitie": "Zabije infikovaného pri neúspešnom Elusive hode (pred jeho útokom); instant kill pri stealth takedowne; odomyká dvere"
+      },
+      "upg": []
+    },
+    {
+      "name": "Switchblade",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D6+1D4",
+        "Type": "Slashing",
+        "Durability": "Nekonečná",
+        "Armor Piercing": "Len stealth",
+        "Craft": "450",
+        "Special": "Pri stealth takedowne funguje ako Shiv"
+      },
+      "upg": []
+    },
+    {
+      "name": "Axe",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D20+1D6",
+        "Type": "Slashing",
+        "Durability": "5 úderov",
+        "Armor Piercing": "1 úder",
+        "Craft": "200"
+      },
+      "upg": []
+    },
+    {
+      "name": "Machete",
+      "cat": "Melee",
+      "skill": "Brutality",
+      "stats": {
+        "Damage": "1D20+1D12",
+        "Type": "Slashing",
+        "Durability": "4 údery",
+        "Armor Piercing": "1 úder",
+        "Craft": "250"
+      },
+      "upg": []
+    },
+    {
+      "name": "Molotov",
+      "cat": "Throwing",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "5D6 oheň (2× vs Infikovaní)",
+        "Crafting": "1 Rag + 1 Fuel"
+      },
+      "upg": [
+        {
+          "h": "Spread",
+          "rows": [
+            [
+              "Vybuchne pri náraze — zasiahne zhluk nepriateľov",
+              "1 / 30"
+            ]
+          ]
+        },
+        {
+          "h": "Burn",
+          "rows": [
+            [
+              "Oheň na 6D6",
+              "2 / 35"
+            ],
+            [
+              "Oheň na 8D6",
+              "4 / 50"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nail Bomb",
+      "cat": "Throwing",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "5D8",
+        "Crafting": "1 Blade + 1 Explosive",
+        "Special": "Mína — aktivuje sa pri priblížení. Dá sa hodiť aj položiť (položenie nevyžaduje Aiming). Hod robí hluk a láka nepriateľov."
+      },
+      "upg": []
+    },
+    {
+      "name": "Smoke Bomb",
+      "cat": "Throwing",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "Stun",
+        "Crafting": "1 Sugar + 1 Explosive",
+        "Special": "Bez damage. Nepriatelia v dosahu omráčení 1 kolo. Blokuje líniu pohľadu — pomáha pri úteku."
+      },
+      "upg": []
+    },
+    {
+      "name": "Pipe Bomb",
+      "cat": "Throwing",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "4D10 výbuch",
+        "Crafting": "2 Explosive",
+        "Special": "Vybuchne pri náraze. Dosah a počet zasiahnutých určí GM."
+      },
+      "upg": []
+    },
+    {
+      "name": "Trap Mine",
+      "cat": "Throwing",
+      "skill": "Aiming",
+      "stats": {
+        "Damage": "1D20+1D12+1D10+1D8+1D6+1D4",
+        "Crafting": "3 Explosive",
+        "Použitie": "Musí byť položená, kým si neodhalený. Detonuje pri stúpení naň."
+      },
+      "upg": []
     }
   ],
-  "weaponStubs": [
-    "Magnum",
-    "Shorty",
-    "Hunting Pistol",
-    "Hunting Rifle",
-    "Pump Shotgun",
-    "Bow",
-    "Double Barrel Shotgun",
-    "Frontier Rifle",
-    "Battle Rifle",
-    "Assault Rifle",
-    "Semi-Auto Rifle",
-    "Tactical Shotgun",
-    "Military Sniper Rifle",
-    "Flamethrower",
-    "Hand to Hand",
-    "2x4",
-    "Hammer and Wrench",
-    "Crowbar",
-    "Pipe",
-    "Bat",
-    "Sledgehammer",
-    "Golf Club",
-    "Riot Shield",
-    "Shiv",
-    "Switchblade",
-    "Axe",
-    "Machete",
-    "Molotov",
-    "Nail Bomb",
-    "Smoke Bomb",
-    "Pipe Bomb",
-    "Trap Mine"
-  ],
+  "weaponStubs": [],
   "infected": [
     {
       "name": "Clicker",
@@ -1109,19 +2133,25 @@
               {
                 "t": 1,
                 "e": "20HP + Medicine hod",
-                "c": 25
+                "c": 25,
+                "val": 20
               },
               {
                 "t": 2,
                 "e": "35HP + Medicine hod",
-                "c": 50
+                "c": 50,
+                "val": 35
               },
               {
                 "t": 3,
                 "e": "50HP + Medicine hod",
-                "c": 75
+                "c": 75,
+                "val": 50
               }
-            ]
+            ],
+            "apply": {
+              "type": "firstaidheal"
+            }
           },
           {
             "name": "Shanks",
@@ -1189,19 +2219,25 @@
               {
                 "t": 1,
                 "e": "Tool Level 2",
-                "c": 50
+                "c": 50,
+                "val": 2
               },
               {
                 "t": 2,
                 "e": "Tool Level 3",
-                "c": 80
+                "c": 80,
+                "val": 3
               },
               {
                 "t": 3,
                 "e": "Tool Level 4",
-                "c": 110
+                "c": 110,
+                "val": 4
               }
-            ]
+            ],
+            "apply": {
+              "type": "tool"
+            }
           },
           {
             "name": "Resilience",
@@ -1438,7 +2474,12 @@
           "-1 Elusive checky",
           "-1 Aiming checky",
           "+2 Dodge checky"
-        ]
+        ],
+        "autoMods": {
+          "brutality": -1,
+          "aiming": -1,
+          "elusive": -1
+        }
       },
       {
         "name": "Stage 2: Traumatized",
@@ -1446,7 +2487,8 @@
           "+3 Elusive checky pri úteku",
           "Neúspešné Brutality a Aiming checky sa rátajú ako kritické zlyhania",
           "-2 ku všetkým hodom proti nepriateľom, čo ťa zranili"
-        ]
+        ],
+        "autoMods": {}
       },
       {
         "name": "Stage 3: Broken",
@@ -1456,7 +2498,12 @@
           "Musíš zabiť všetkých nepriateľov v súboji",
           "-3 Elusive checky",
           "-2 Instinct hody"
-        ]
+        ],
+        "autoMods": {
+          "brutality": 4,
+          "elusive": -3,
+          "instinct": -2
+        }
       }
     ]
   },
@@ -1504,5 +2551,404 @@
         }
       ]
     }
+  },
+  "weaponsOverview": {
+    "intro": "Zbrane sú nástroj na prežitie v zavrhnutom svete. Survivori majú tri typy: Missile (zbrane, luk), Melee (tupé, sečné) a Throwing (výbušniny, oheň, omráčenie). S dostatkom Parts (podľa Tool Level) sa dajú vylepšovať aj craftiť od nuly.",
+    "types": [
+      {
+        "name": "Missile",
+        "sub": "Zbrane, Luk"
+      },
+      {
+        "name": "Melee",
+        "sub": "Tupé, Sečné"
+      },
+      {
+        "name": "Throwing",
+        "sub": "Výbušniny, Oheň, Omráčenie"
+      }
+    ]
+  },
+  "craftables": [
+    {
+      "name": "Holster",
+      "desc": "Craftovateľný predmet — umožní niesť druhú short alebo long gun, na ktorú sa dá v boji prepnúť bez akcie (netreba siahať do batohu).",
+      "variants": [
+        {
+          "name": "Short Gun Holster",
+          "tool": 1,
+          "parts": 75
+        },
+        {
+          "name": "Long Gun Holster",
+          "tool": 1,
+          "parts": 75
+        }
+      ]
+    },
+    {
+      "name": "Silencers",
+      "desc": "Craftovateľný tlmič pre pištole — stealth zbraň, pri streľbe sa vyhneš odhaleniu. Vydrží 3 výstrely. Upgrade Assassin (za pilulky) zvýši odolnosť: T1 5 výstrelov (30), T2 7 (50), T3 10 (70).",
+      "variants": [
+        {
+          "name": "Silencer",
+          "tool": 1,
+          "parts": 50
+        }
+      ]
+    }
+  ],
+  "throwablesIntro": "Bottles a Bricks sú bežné nascavengeované predmety na rozptýlenie, omráčenie alebo zranenie. Hodom rozptýliš nepriateľa a uvoľníš cestu — pri neúspechu proti jeho Hit DC ťa automaticky spozoruje. Zásah hodom omráči na 1 kolo. V melee pridávajú 1D4 blunt damage: Bricks sa rozpadnú po 3 zásahoch, Bottles prasknú pri prvom. Skill: Aiming (hod), Brutality (melee).",
+  "customWeaponGuide": {
+    "intro": "Vlastné zbrane sa dajú zapojiť do kampane, pridať nepriateľom, do loot tabuliek alebo craftiť — menia dynamiku boja proti ľuďom aj infikovaným.",
+    "prompts": [
+      {
+        "k": "Name",
+        "q": "Ako sa zbraň volá?"
+      },
+      {
+        "k": "Weapon Type",
+        "q": "Je to Ranged alebo Melee zbraň?"
+      },
+      {
+        "k": "Durability",
+        "q": "Ak Melee, koľko útokov vydrží, kým sa zlomí?"
+      },
+      {
+        "k": "Damage",
+        "q": "Koľko damage robí?"
+      },
+      {
+        "k": "Armor Piercing",
+        "q": "Koľko zásahov treba na prebitie Combat Armor a heliem?"
+      },
+      {
+        "k": "Firearm Specifics",
+        "q": "Ak strelná: aký typ munície, aká kapacita, koľko nábojov nabije za kolo?"
+      },
+      {
+        "k": "Looting",
+        "q": "Kde sa v post-outbreak svete dá nájsť? Do akých loot tabuliek patrí?"
+      },
+      {
+        "k": "Crafting",
+        "q": "Koľko Parts treba na jej skonštruovanie?"
+      },
+      {
+        "k": "Upgrades",
+        "q": "Aké upgrady má na workbenchi?"
+      }
+    ]
+  },
+  "combat": {
+    "mechanics": {
+      "intro": "Boj riadia hlavne hody postáv. Nepriatelia majú rôzne Dice Challenges (DC), ktoré určujú ich zručnosti.",
+      "enemyStats": [
+        {
+          "name": "Hit DC",
+          "desc": "Koľko musíš hodiť, aby si zasiahol a spôsobil damage vybavenou zbraňou. Zahŕňa Brutality a Aiming."
+        },
+        {
+          "name": "Dodge DC",
+          "desc": "Koľko treba hodiť na Elusive, aby si sa vyhol prichádzajúcemu útoku."
+        },
+        {
+          "name": "Grapple DC",
+          "desc": "Niektorých nepriateľov vieš pretlačiť cez Brutality a zadržať ich (zabrániš im spôsobiť damage). Toto číslo udáva ich silu."
+        },
+        {
+          "name": "Counter DC",
+          "desc": "Keď ľudský nepriateľ útočí v melee, môžeš cez Brutality kontrovať a udrieť prvý vlastnou melee zbraňou."
+        },
+        {
+          "name": "Sneak DC",
+          "desc": "Určuje, ako ťažké je prekradnúť sa okolo nepriateľa."
+        }
+      ],
+      "opportunityAttacks": "Keď si v boji a prejdeš popri melee nepriateľovi (na dosah ruky) alebo cez líniu pohľadu strelca, musíš hodiť Dodge, inak dostaneš voľný opportunity útok.",
+      "overwhelmingOdds": "Keď ťa v melee napadnú dvaja a viac nepriatelia naraz, Dodge je ťažší: za každého ďalšieho nepriateľa útočiaceho na ten istý cieľ +1 k Dodge DC. Dodge musíš hodiť zvlášť na každý útok."
+    },
+    "actions": {
+      "round": "Postava v initiative môže v ťahu použiť Pohyb (Movement) a potom Akciu (Action).",
+      "turnActions": [
+        "Use Weapon — použiť zbraň",
+        "Throw Item — hodiť predmet",
+        "Use Item — použiť predmet",
+        "Reload Weapon — nabiť zbraň",
+        "Craft Item — vyrobiť predmet",
+        "Access Backpack — siahnuť do batohu"
+      ],
+      "initiative": {
+        "intro": "Initiative je svižná, aby zrýchlila hru. V stave Undetected alebo Alert sa hráči hýbu prví; keď dokončia ťah, prídu na rad nepriatelia. Poradie boja určuje strana, ktorá začne — kto spraví prvú agresívnu akciu, ide prvý a jeho strana nasleduje. Poradie v rámci tímu sa dá určiť viacerými spôsobmi:",
+        "methods": [
+          {
+            "name": "Simultaneously",
+            "desc": "Tím nemá pevné poradie — akcie vykrikuje, ako prídu."
+          },
+          {
+            "name": "Strategy",
+            "desc": "Tím si pred konaním vymyslí plán a poradie ťahov."
+          },
+          {
+            "name": "Speed",
+            "desc": "Poradie určujú hody na Elusive."
+          },
+          {
+            "name": "Violence",
+            "desc": "Uprednostňuje násilné postavy — poradie podľa Brutality modifikátora, od najvyššieho po najnižší."
+          }
+        ]
+      },
+      "environmental": "Hráči môžu kreatívne využiť okolie a prostredie; GM rozhodne, aké hody treba. Príklad: nepriateľ stojí na rímse budovy — hráč navrhne hodiť fľašu (Throwable) a zhodiť ho dole, aby ho zabil pád (Aiming)."
+    },
+    "movement": [
+      {
+        "name": "Engage",
+        "desc": "Stiahneš vzdialenosť a priblížiš sa k nepriateľovi. Najlepšie pri melee alebo zbraniach na blízko (Shotgun, Flamethrower)."
+      },
+      {
+        "name": "Take Cover",
+        "desc": "Schováš sa do krytu pred prichádzajúcimi útokmi."
+      },
+      {
+        "name": "Move To",
+        "desc": "Presunieš sa na konkrétne miesto v oblasti."
+      },
+      {
+        "name": "Stealth",
+        "desc": "Pokúsiš sa prekradnúť okolo nepriateľa a vyhnúť sa odhaleniu."
+      }
+    ],
+    "boosting": {
+      "intro": "Boosting je tímová práca na dosiahnutie ríms a výšok, ktoré sú inak nedostupné. Survivor, ktorý podáva boost, hodí Brutality; ten, čo skáče, hodí Elusive. Hody sa kombinujú voči DC od GM.",
+      "reverse": "Pri ťahaní spolubojovníka hore sa roly otočia: dvíhajúci hodí Brutality, vyťahovaný hodí Elusive.",
+      "dc": [
+        {
+          "name": "Unreachable (nedosiahnuteľné)",
+          "dc": 20
+        },
+        {
+          "name": "Regular (bežné)",
+          "dc": 15
+        },
+        {
+          "name": "Easy Reach (na dosah)",
+          "dc": 10
+        }
+      ]
+    },
+    "stealth": {
+      "states": [
+        {
+          "name": "Undetected (neodhalený)",
+          "desc": "Nepriatelia o tebe nevedia — sú nečinní, hliadkujú alebo robia niečo iné. Prekradneš sa cez úspešný Elusive hod, ktorý prekoná ich najvyšší Sneak DC. Pri neúspechu prejdú do Alert a začnú pátrať. Väčšina infikovaných má zostrené zmysly a pri neúspešnom Stealth hode prejde rovno do boja (preskočí Alert)."
+        },
+        {
+          "name": "Alert (v strehu)",
+          "desc": "Nepriatelia vedia, že je tu nebezpečenstvo, ale nepoznajú jeho polohu — pátrajú alebo strážia. Niekedy sú už v Alerte, keď do zóny prídeš. Aj cez Alert sa dá prekradnúť úspešným Sneak DC (Elusive)."
+        },
+        {
+          "name": "Detected (odhalený)",
+          "desc": "Nepriatelia poznajú tvoju polohu a zapoja sa do boja."
+        }
+      ],
+      "reentering": "Po zapojení do boja sa dá vrátiť do stealthu: hodíš Elusive na prerušenie línie pohľadu a potom ďalší Sneak hod, ako ťa nepriatelia prenasledujú. Ak oba uspejú, vrátiš sa do stealthu a nepriatelia sa vrátia do stavu Alert.",
+      "sneaking": "Na prekradnutie okolo jednotlivého nepriateľa hodíš Elusive a prekonáš jeho Sneak DC. GM môže dať výhodu/nevýhodu podľa prostredia a okolností. Ak je viac nepriateľov v línii pohľadu navzájom alebo nahustení v skupine, stačí jeden Elusive hod proti najvyššiemu Sneak DC. V mieste, kde si, môžeš nascavengovať fľašu alebo tehlu ako rozptýlenie (DC určí GM).",
+      "kills": {
+        "melee": "Prejdeš Sneak DC, aby si sa dostal za nepriateľa (nie len okolo neho). GM rozhodne o výhode/nevýhode podľa terénu, hluku, svetla a sutín. Za nepriateľom hodíš Brutality (bodnutie, zaškrtenie, zlomenie krku). Shivy zabíjajú okamžite a netreba hádzať. Ak Brutality zlyhá, začne sa boj.",
+        "missile": "Pokročilejšie. Potrebuješ stealth zbraň (luk alebo tlmenú zbraň). Neodhalený hráč spraví ranged stealth útok — robí dvojnásobný damage v nádeji, že zabije.",
+        "note": "Nepriateľ, ktorý objaví telo, prejde do Alert. Nepriateľ, ktorý vidí stealth kill, prejde rovno do boja."
+      }
+    },
+    "cover": {
+      "intro": "Kryt je nevyhnutný pri prestrelke. Dáva bonus k Dodge hodom, keď po tebe strieľajú. Nejaký kryt sa zvyčajne nájde v každom prostredí.",
+      "flanking": "Nepriateľov v kryte sa dá obísť z boku (flanking). Obídený kryt neguje všetky bonusy z útoku z toho smeru.",
+      "types": [
+        {
+          "name": "Full Cover",
+          "desc": "Plná výška postavy. Pevný a bezpečný (stena, stĺp).",
+          "bonus": "+3 k Dodge proti strelným zbraniam"
+        },
+        {
+          "name": "Semi-Cover",
+          "desc": "3/4 alebo plná výška postavy. Zničiteľný (komody, skrine, stoly, pulty).",
+          "bonus": "+2 k Dodge proti strelným zbraniam"
+        },
+        {
+          "name": "Low-Cover",
+          "desc": "Malé a stredné objekty. Zničiteľný (stoličky, krabice, kopy sutín).",
+          "bonus": "+1 k Dodge proti strelným zbraniam"
+        }
+      ]
+    },
+    "criticals": {
+      "intro": "Kritické úspechy a zlyhania sú výsledky kociek, ktoré výrazne ovplyvnia situáciu — buď výhodne, alebo katastrofálne.",
+      "success": [
+        {
+          "skill": "Brutality",
+          "desc": "Automatický úspech pri veľkých silových výkonoch."
+        },
+        {
+          "skill": "Aiming",
+          "desc": "Automatický úspech na presnosť."
+        },
+        {
+          "skill": "Brutality & Aiming (boj)",
+          "desc": "Pri kritickom hode v boji buď zdvojnásobíš hodený damage, alebo automaticky použiješ maximálny damage kociek."
+        },
+        {
+          "skill": "Medicine",
+          "desc": "Zdvojnásobí Health získaný z First Aid."
+        },
+        {
+          "skill": "Elusive",
+          "desc": "Automatický úspech nad rámec bežných schopností (obratnosť)."
+        },
+        {
+          "skill": "Instinct",
+          "desc": "Úplné povedomie o celom okolí v aktuálnej zóne."
+        },
+        {
+          "skill": "Maintenance",
+          "desc": "Uspeje aj v nemožných mechanických výkonoch."
+        },
+        {
+          "skill": "Dodge",
+          "desc": "Vyhne sa a dá hráčovi voľnú Akciu."
+        },
+        {
+          "skill": "Grapple",
+          "desc": "Odhodí infikovaného a dá voľnú Akciu."
+        },
+        {
+          "skill": "Sneak",
+          "desc": "Stealth je automaticky udelený pri prekrádaní cez aktuálnu zónu."
+        }
+      ],
+      "failure": [
+        {
+          "skill": "Brutality",
+          "desc": "Fumble alebo skolaps pod váhou."
+        },
+        {
+          "skill": "Aiming",
+          "desc": "Katastrofálna presnosť."
+        },
+        {
+          "skill": "Brutality (boj)",
+          "desc": "Zbraň sa zlomí."
+        },
+        {
+          "skill": "Aiming (boj)",
+          "desc": "Nebezpečná presnosť zraní hráča alebo spojenca."
+        },
+        {
+          "skill": "Medicine",
+          "desc": "First Aid Kit nezahojí."
+        },
+        {
+          "skill": "Elusive",
+          "desc": "Postava spadne, potkne sa alebo zlyhá."
+        },
+        {
+          "skill": "Instinct",
+          "desc": "Postava je úplne nevšímavá voči okoliu v zóne."
+        },
+        {
+          "skill": "Maintenance",
+          "desc": "Predmet v hode sa zlomí a nedá sa opraviť."
+        },
+        {
+          "skill": "Dodge",
+          "desc": "Postava nestihne uhnúť a dostane dvojnásobný damage."
+        },
+        {
+          "skill": "Grapple",
+          "desc": "Postava zlyhá v grapple a dostane dvojnásobný damage."
+        },
+        {
+          "skill": "Sneak",
+          "desc": "Postava upozorní všetkých nablízku."
+        }
+      ]
+    },
+    "damage": {
+      "intro": "Boj s infikovanými je nebezpečný, ale ich pohyby sú predvídateľné. Boj s ľuďmi je bezohľadný a oveľa premenlivejší — sú prefíkaní a koordinovaní ako hráči.",
+      "trigger": "Pri boji s ľudskými nepriateľmi: kedykoľvek jeden útok zoberie 15 alebo viac Health, hráč hádže na Damage Chart (d8). Zranenia sa liečia Medicínou (predmety) alebo zručnosťou Medicine.",
+      "melee": [
+        "Smashed Hand — pustíš zbraň",
+        "Fractured Wrist — -3 na Brutality a Aiming, lieči +2 Medicine",
+        "Broken Arm — nemôžeš držať 2H zbrane, lieči +3 Medicine",
+        "Cracked Ribs — nevýhoda na všetky hody, lieči +3 Medicine",
+        "Shattered Knee — -3 na Elusive, lieči +2 Medicine",
+        "Concussion — omráčený 1 kolo",
+        "Cracked Jaw — +1D6 damage",
+        "Gash — infikovaná rana, lieči Medicine"
+      ],
+      "ranged": [
+        "Penetrating Wound — guľku treba vybrať DC 12 medicine hodom, inak sa infikuje, lieči Medicine",
+        "Grazed — +1D6 damage",
+        "Weapon Shot — guľka zlomí práve držanú zbraň",
+        "Exit Wound — infikovaná rana, lieči Medicine",
+        "Headshot — v bezvedomí do konca stretu",
+        "Artery Hit — nemôžeš sa hýbať, lieči First Aid Kit",
+        "Bleeding Out — 1D6 damage každý ťah, kým sa nevylieči, lieči First Aid Kit",
+        "Ricochet — -1 na všetky hody, lieči +1 Medicine"
+      ]
+    },
+    "infection": {
+      "intro": "Keď survivor padne na 0 Health pri boji s infikovaným, ktorý chce hrýzť, hrozí prenos infekcie. Šanca na uhryznutie podľa typu (hod d6):",
+      "chance": [
+        {
+          "type": "Runners",
+          "bitten": "1",
+          "safe": "2-6"
+        },
+        {
+          "type": "Stalkers",
+          "bitten": "1-2",
+          "safe": "3-6"
+        },
+        {
+          "type": "Clickers",
+          "bitten": "1-3",
+          "safe": "4-6"
+        }
+      ],
+      "severityIntro": "Pri uhryznutí sú rôzne stupne závažnosti (hod d10 na miesto). GM a hráči sa môžu rozhodnúť utajiť uhryznutie pred zvyškom tímu.",
+      "severity": [
+        {
+          "tier": "Tier 1: 5-15 minút do infekcie",
+          "locs": [
+            "1. Krk",
+            "2. Tvár",
+            "3. Hlava"
+          ]
+        },
+        {
+          "tier": "Tier 2: 2-6 hodín do infekcie",
+          "locs": [
+            "4. Trup",
+            "5. Paža",
+            "6. Rameno",
+            "7. Dlaň"
+          ]
+        },
+        {
+          "tier": "Tier 3: 12-24 hodín",
+          "locs": [
+            "8. Noha",
+            "9. Chodidlo"
+          ]
+        },
+        {
+          "tier": "Imunita",
+          "locs": [
+            "10. Imúnny voči Cordyceps infekcii"
+          ]
+        }
+      ]
+    },
+    "death": "Keď nepriateľ padne na 0 Health, okamžite zomiera. Keď padne na 0 Health hráč alebo NPC a nikto ho nevylieči, pri ďalšom prijatom damage je brutálne zabitý. Systém smrti má byť tvrdým dôsledkom za rozhodnutia hráčov."
   }
 }
