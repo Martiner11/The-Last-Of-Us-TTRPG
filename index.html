@@ -894,7 +894,7 @@ function flashCheck(){const sk=document.getElementById("ckSkill");
    CODEX
    ================================================================= */
 let cxCat="weapons";
-const CX=[["weapons","Zbrane"],["combat","Combat"],["infected","Infikovaní"],["factions","Frakcie"],["character","Postava"],["upgrades","Upgrades"],["trauma","Trauma"],["grounded","Grounded"],["skills","Zručnosti"],["dc","DC"],["dice","Kocky"]];
+const CX=[["weapons","Zbrane"],["combat","Combat"],["infected","Infikovaní"],["enemies","Nepriatelia"],["items","Predmety"],["factions","Frakcie"],["character","Postava"],["upgrades","Upgrades"],["trauma","Trauma"],["grounded","Grounded"],["skills","Zručnosti"],["dc","DC"],["dice","Kocky"]];
 function renderCodexTabs(){
   const t=document.getElementById("cxTabs");t.innerHTML="";
   CX.forEach(([k,l])=>{const b=document.createElement("button");b.textContent=l;
@@ -996,6 +996,62 @@ function renderCodex(){
     }
     const stubs=DATA.infectedStubs.filter(match);
     if(stubs.length)body.appendChild(stubBlock("Ďalší infikovaní",stubs));
+  } else if(cxCat==="enemies"){
+    const en=DATA.enemies;
+    if(!q){const n=document.createElement("div");n.className="note box";n.style.margin="0 0 10px";n.textContent=en.intro;body.appendChild(n);}
+    en.groups.forEach(g=>{
+      const ms=g.members.filter(mb=>match(mb.name)||match(g.name)||match(mb.weapon)||match(mb.tactic||""));
+      if(!ms.length)return;
+      const det=document.createElement("details");det.className="entry";if(q)det.open=true;
+      let inner="";
+      ms.forEach((mb,idx)=>{
+        const dcs=[`HP ${mb.health}`,`Hit ${mb.hitDC}`,`Sneak ${mb.sneakDC}`,`Dodge ${mb.dodgeDC}`];
+        if(mb.counterDC!=null)dcs.push(`Counter ${mb.counterDC}`);
+        const bd=idx?"border-top:1px solid rgba(255,255,255,.06);":"";
+        inner+=`<div style="padding:10px 0;${bd}">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><span class="t" style="font-size:15px">${esc(mb.name)}</span>${mb.tactic?`<span class="note" style="margin:0;text-align:right">${esc(mb.tactic)}</span>`:""}</div>
+          <div class="desc" style="margin:3px 0 5px"><b style="color:var(--amber)">${esc(mb.weapon)}</b>${mb.gear?` · <span style="color:var(--muted)">${esc(mb.gear)}</span>`:""}</div>
+          <div class="note" style="margin:0;letter-spacing:.3px">${dcs.join(" · ")}</div>
+          <div class="row" style="gap:7px;margin-top:8px">
+            <button class="btn sm grow" onclick="quickCheck('elusive','Dodge',${mb.hitDC})">Dodge vs ${mb.hitDC}</button>
+            <button class="btn sm grow" onclick="quickCheck('aiming','Hit',${mb.dodgeDC})">Hit vs ${mb.dodgeDC}</button>
+          </div></div>`;
+      });
+      det.innerHTML=`<summary><span class="t">${g.name}</span><span class="pill danger" style="margin-left:auto">${g.members.length}</span><span class="chev">›</span></summary><div class="body" style="padding-top:4px">${inner}</div>`;
+      body.appendChild(det);
+    });
+    if(!q && DATA.customEnemyGuide){
+      appendEyebrow(body,"Vlastní nepriatelia");
+      const gd=DATA.customEnemyGuide,e=document.createElement("details");e.className="entry";
+      let pr="";gd.prompts.forEach(p=>{pr+=`<div class="h">${p.k}</div><div class="desc" style="margin:0 0 7px">${esc(p.q)}</div>`;});
+      e.innerHTML=`<summary><span class="t">Custom Enemy</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
+        <div class="body"><div class="note" style="margin:10px 0">${esc(gd.intro)}</div><div class="upg">${pr}</div></div>`;
+      body.appendChild(e);
+    }
+  } else if(cxCat==="items"){
+    const it=DATA.items;
+    const p=t=>`<div class="desc" style="margin:6px 0">${esc(t)}</div>`;
+    const eb=t=>`<div class="eyebrow" style="margin:9px 0 4px">${t}</div>`;
+    const hd=(h,t)=>`<div class="h">${esc(h)}</div><div class="desc" style="margin:0 0 7px">${esc(t)}</div>`;
+    const sec=(title,inner,pill)=>{const e=document.createElement("details");e.className="entry";
+      e.innerHTML=`<summary><span class="t">${title}</span>${pill?`<span class="pill amber" style="margin-left:auto">${pill}</span>`:""}<span class="chev">›</span></summary><div class="body" style="padding-top:10px">${inner}</div>`;body.appendChild(e);};
+    const chart=c=>`<div class="eyebrow" style="margin:8px 0 4px">${esc(c.title)}</div><div class="upg">`+
+      c.rows.map(r=>`<div class="r"><span>${esc(r.t)}</span><span class="c">DC ${r.dc}</span></div>`).join("")+
+      `</div><div class="note" style="margin:5px 0 0">${esc(c.crit)}</div>`;
+    sec("Scavenging", p(it.scavenging.intro)+chart(it.scavenging.difficulty)+chart(it.scavenging.attempts));
+    sec("Looting", p(it.looting.intro)+it.looting.methods.map(x=>hd(x.name,x.desc)).join("")
+      +eb("Drop z nepriateľov")+p(it.looting.enemyDropIntro)
+      +`<div class="upg">`+it.looting.enemyDrops.map((x,i)=>`<div class="r"><span class="c" style="min-width:20px">${i+1}</span><span style="flex:1;text-align:left">${esc(x)}</span></div>`).join("")+`</div>`);
+    sec("General Items (D20)", p(it.generalItems.intro)
+      +it.generalItems.rows.map(r=>`<div class="desc" style="padding:3px 0"><b style="color:var(--amber)">${r.n}.</b> ${esc(r.name)}${r.sub?` <span style="color:var(--muted)">— ${esc(r.sub)}</span>`:""}</div>`).join(""),"20");
+    sec("Item Themes", it.themes.map(t=>`<div class="h">${esc(t.name)}</div><div class="note" style="margin:0 0 3px">${esc(t.where)}</div><div class="desc" style="margin:0 0 9px">${t.items.map(esc).join(" · ")}</div>`).join(""), String(it.themes.length));
+    sec("Crafting recepty", `<div class="upg">`+it.crafting.map(c=>`<div class="r"><span><b>${esc(c.name)}</b></span><span class="c" style="color:var(--teal)">${esc(c.recipe)}</span></div>`).join("")+`</div>`, String(it.crafting.length));
+    const sp=it.specialty;
+    sec("Specialty Items", eb("Loot Rooms")+sp.lootRooms.map(x=>hd(x.name,x.desc)).join("")
+      +eb("Custom Items")+p(sp.customItems)
+      +eb("Quest Items")+sp.questItems.map(x=>`<div class="desc" style="padding:3px 0"><b style="color:var(--amber)">${esc(x.name)}</b> — ${esc(x.desc)}</div>`).join(""));
+    sec("Medical Supplies", it.medical.map(x=>hd(x.name,x.desc)).join(""));
+    sec("Utility Items", it.utility.map(x=>`<div class="h">${esc(x.name)} <span style="color:var(--amber)">craft ${esc(x.craft)}</span></div><div class="desc" style="margin:0 0 9px">${esc(x.desc)}</div>`).join(""), String(it.utility.length));
   } else if(cxCat==="factions"){
     DATA.factions.filter(f=>match(f.name)||match(f.desc)).forEach(f=>{
       const e=document.createElement("details");e.className="entry";

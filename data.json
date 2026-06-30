@@ -3069,5 +3069,1055 @@
         "q": "Odráža silu potrebnú na zadržanie infikovaného, aby nespôsobil damage."
       }
     ]
+  },
+  "enemies": {
+    "intro": "Ľudskí nepriatelia sú zoskupení podľa frakcií. Každý má taktiku, zbraň a DC. Tlačidlá hodia Dodge (proti jeho Hit DC) alebo Hit (proti jeho Dodge DC).",
+    "groups": [
+      {
+        "name": "Survivors",
+        "members": [
+          {
+            "name": "Survivalist",
+            "tactic": "Defensive",
+            "weapon": "Pump Shotgun | 1D20",
+            "health": 20,
+            "hitDC": 6,
+            "sneakDC": 7,
+            "dodgeDC": 7,
+            "gear": "Flashlight"
+          },
+          {
+            "name": "Scavenger",
+            "tactic": "Offensive",
+            "weapon": "Revolver | 1D12",
+            "health": 23,
+            "hitDC": 7,
+            "sneakDC": 7,
+            "dodgeDC": 8
+          },
+          {
+            "name": "Scrounger",
+            "tactic": "Flank",
+            "weapon": "Bow | 1D20",
+            "health": 18,
+            "hitDC": 9,
+            "sneakDC": 8,
+            "dodgeDC": 8,
+            "gear": "Flashlight"
+          },
+          {
+            "name": "Drifter",
+            "tactic": "Take Cover and Shoot",
+            "weapon": "Hunting Rifle | 1D20",
+            "health": 25,
+            "hitDC": 7,
+            "sneakDC": 6,
+            "dodgeDC": 7,
+            "gear": "Flashlight, Gas Mask"
+          },
+          {
+            "name": "Remnant",
+            "tactic": "Offensive",
+            "weapon": "Machete | 1D20",
+            "health": 20,
+            "hitDC": 6,
+            "sneakDC": 7,
+            "dodgeDC": 7,
+            "counterDC": 7
+          }
+        ]
+      },
+      {
+        "name": "FEDRA",
+        "members": [
+          {
+            "name": "Riot Control",
+            "tactic": "Defensive Melee",
+            "weapon": "Baton | 2D8",
+            "health": 20,
+            "hitDC": 8,
+            "sneakDC": 4,
+            "dodgeDC": 6,
+            "counterDC": 8,
+            "gear": "Body Armor, Combat Helmet"
+          },
+          {
+            "name": "Security",
+            "tactic": "Defensive Ranged",
+            "weapon": "Pistol | 2D10",
+            "health": 15,
+            "hitDC": 6,
+            "sneakDC": 8,
+            "dodgeDC": 7
+          },
+          {
+            "name": "Sniper",
+            "tactic": "Defensive Ranged",
+            "weapon": "Military Sniper | 3D20",
+            "health": 17,
+            "hitDC": 9,
+            "sneakDC": 10,
+            "dodgeDC": 9
+          },
+          {
+            "name": "Containment Unit",
+            "tactic": null,
+            "weapon": "Flamethrower | 2D20",
+            "health": 10,
+            "hitDC": 7,
+            "sneakDC": 5,
+            "dodgeDC": 7,
+            "gear": "Infection Scanner, Gas Mask"
+          },
+          {
+            "name": "Soldier",
+            "tactic": "Aggressive Ranged",
+            "weapon": "Assault Rifle | 3D12",
+            "health": 30,
+            "hitDC": 8,
+            "sneakDC": 8,
+            "dodgeDC": 8,
+            "gear": "Combat Helmet, Body Armor, Flashlight, Gas Mask"
+          },
+          {
+            "name": "Patrol",
+            "tactic": "Take Cover and Shoot",
+            "weapon": "Assault Rifle | 3D10",
+            "health": 20,
+            "hitDC": 7,
+            "sneakDC": 7,
+            "dodgeDC": 7,
+            "gear": "Body Armor, Flashlight"
+          },
+          {
+            "name": "Breacher",
+            "tactic": "Aggressive Ranged",
+            "weapon": "Tactical Shotgun | 2D20",
+            "health": 18,
+            "hitDC": 6,
+            "sneakDC": 6,
+            "dodgeDC": 8,
+            "gear": "Body Armor, Combat Helmet"
+          }
+        ]
+      },
+      {
+        "name": "Fireflies",
+        "members": [
+          {
+            "name": "Volunteer",
+            "tactic": "Ranged",
+            "weapon": "Pistol | 1D10",
+            "health": 15,
+            "hitDC": 6,
+            "sneakDC": 6,
+            "dodgeDC": 7,
+            "gear": "Firefly arm band & pendant"
+          },
+          {
+            "name": "Freedom Fighter",
+            "tactic": "Suppressing Fire",
+            "weapon": "Hunting Rifle | 1D20",
+            "health": 20,
+            "hitDC": 7,
+            "sneakDC": 7,
+            "dodgeDC": 7,
+            "gear": "Firefly arm band & pendant"
+          },
+          {
+            "name": "Responder",
+            "tactic": "Ranged",
+            "weapon": "Magnum | 2D12",
+            "health": 25,
+            "hitDC": 8,
+            "sneakDC": 8,
+            "dodgeDC": 8,
+            "gear": "Body Armor, Firefly arm band & pendant"
+          },
+          {
+            "name": "Merc",
+            "tactic": "Flank",
+            "weapon": "Pump Shotgun | 2D20",
+            "health": 30,
+            "hitDC": 8,
+            "sneakDC": 8,
+            "dodgeDC": 8,
+            "gear": "Body Armor"
+          },
+          {
+            "name": "Trooper",
+            "tactic": "Defensive Ranged",
+            "weapon": "Assault Rifle | 3D10",
+            "health": 35,
+            "hitDC": 9,
+            "sneakDC": 8,
+            "dodgeDC": 9
+          },
+          {
+            "name": "Saboteur",
+            "tactic": "Defensive Ranged",
+            "weapon": "Pipe Bomb | 4D10",
+            "health": 17,
+            "hitDC": 6,
+            "sneakDC": 6,
+            "dodgeDC": 7
+          },
+          {
+            "name": "Doctor",
+            "tactic": null,
+            "weapon": "Switch Blade | 1D6",
+            "health": 10,
+            "hitDC": 4,
+            "sneakDC": 5,
+            "dodgeDC": 3,
+            "gear": "First Aid Kit, Medicine"
+          }
+        ]
+      },
+      {
+        "name": "Henchmen",
+        "members": [
+          {
+            "name": "Thug",
+            "tactic": "Melee",
+            "weapon": "2x4 | 1D8",
+            "health": 12,
+            "hitDC": 5,
+            "sneakDC": 6,
+            "dodgeDC": 5,
+            "counterDC": 6
+          },
+          {
+            "name": "Ruffian",
+            "tactic": "Melee",
+            "weapon": "Bat | 1D10",
+            "health": 15,
+            "hitDC": 6,
+            "sneakDC": 6,
+            "dodgeDC": 6,
+            "counterDC": 6
+          },
+          {
+            "name": "Crew",
+            "tactic": "Ranged",
+            "weapon": "Pistol | 1D10",
+            "health": 18,
+            "hitDC": 7,
+            "sneakDC": 6,
+            "dodgeDC": 7
+          },
+          {
+            "name": "Enforcer",
+            "tactic": "Ranged",
+            "weapon": "Revolver | 1D12",
+            "health": 20,
+            "hitDC": 7,
+            "sneakDC": 6,
+            "dodgeDC": 7
+          },
+          {
+            "name": "Brawler",
+            "tactic": "Charge Melee",
+            "weapon": "Bare-Hands | 1D6",
+            "health": 10,
+            "hitDC": 4,
+            "sneakDC": 5,
+            "dodgeDC": 5,
+            "counterDC": 5
+          }
+        ]
+      },
+      {
+        "name": "Bandits",
+        "members": [
+          {
+            "name": "Robber",
+            "tactic": "Melee",
+            "weapon": "Upgraded Pipe | 2D10",
+            "health": 25,
+            "hitDC": 5,
+            "sneakDC": 6,
+            "dodgeDC": 7,
+            "counterDC": 8
+          },
+          {
+            "name": "Highwayman",
+            "tactic": "Ranged",
+            "weapon": "Magnum | 2D20",
+            "health": 28,
+            "hitDC": 8,
+            "sneakDC": 6,
+            "dodgeDC": 7
+          },
+          {
+            "name": "Pillager",
+            "tactic": "Charge Melee",
+            "weapon": "Axe | 2D20",
+            "health": 30,
+            "hitDC": 8,
+            "sneakDC": 6,
+            "dodgeDC": 8,
+            "counterDC": 10,
+            "gear": "Body Armor"
+          },
+          {
+            "name": "Marauder",
+            "tactic": "Charge Ranged",
+            "weapon": "Pump Shotgun | 2D20",
+            "health": 30,
+            "hitDC": 8,
+            "sneakDC": 7,
+            "dodgeDC": 8
+          },
+          {
+            "name": "Psycho",
+            "tactic": "Melee",
+            "weapon": "Machete | 2D20",
+            "health": 33,
+            "hitDC": 7,
+            "sneakDC": 6,
+            "dodgeDC": 8,
+            "counterDC": 9
+          },
+          {
+            "name": "Smoker",
+            "tactic": "Stun and Disorient",
+            "weapon": "Smoke Bombs | Stun & Blind",
+            "health": 15,
+            "hitDC": 6,
+            "sneakDC": 6,
+            "dodgeDC": 9
+          }
+        ]
+      },
+      {
+        "name": "Hunters",
+        "members": [
+          {
+            "name": "Hunter",
+            "tactic": "Take Cover and Shoot",
+            "weapon": "Hunting Rifle | 1D20",
+            "health": 27,
+            "hitDC": 8,
+            "sneakDC": 6,
+            "dodgeDC": 7
+          },
+          {
+            "name": "Raider",
+            "tactic": "Charge Melee",
+            "weapon": "Pipe | 1D20",
+            "health": 20,
+            "hitDC": 7,
+            "sneakDC": 6,
+            "dodgeDC": 8,
+            "counterDC": 9
+          },
+          {
+            "name": "Killer",
+            "tactic": "Rush and Shoot",
+            "weapon": "Pump Shotgun | 2D20",
+            "health": 35,
+            "hitDC": 7,
+            "sneakDC": 6,
+            "dodgeDC": 8
+          },
+          {
+            "name": "Ambusher",
+            "tactic": "Cover and Throw",
+            "weapon": "Brick | 1D4 + Stun",
+            "health": 15,
+            "hitDC": 6,
+            "sneakDC": 8,
+            "dodgeDC": 6
+          },
+          {
+            "name": "Murderer",
+            "tactic": "Melee",
+            "weapon": "Machete | 2D20",
+            "health": 30,
+            "hitDC": 9,
+            "sneakDC": 7,
+            "dodgeDC": 9,
+            "counterDC": 8
+          },
+          {
+            "name": "Brigand",
+            "tactic": "Push Ranged",
+            "weapon": "Revolver | 2D12",
+            "health": 25,
+            "hitDC": 6,
+            "sneakDC": 7,
+            "dodgeDC": 7,
+            "gear": "Gas Mask"
+          },
+          {
+            "name": "Pyro",
+            "tactic": "Throw",
+            "weapon": "Molotov | 6D6",
+            "health": 20,
+            "hitDC": 7,
+            "sneakDC": 5,
+            "dodgeDC": 6
+          }
+        ]
+      },
+      {
+        "name": "Slavers",
+        "members": [
+          {
+            "name": "Conquistador",
+            "tactic": "Aggressive Melee",
+            "weapon": "Machete | 3D20",
+            "health": 40,
+            "hitDC": 8,
+            "sneakDC": 9,
+            "dodgeDC": 9,
+            "counterDC": 10,
+            "gear": "Body Armor, Combat Helmet"
+          },
+          {
+            "name": "Manhunter",
+            "tactic": "Flank",
+            "weapon": "Hunting Rifle | 2D20",
+            "health": 30,
+            "hitDC": 9,
+            "sneakDC": 8,
+            "dodgeDC": 9,
+            "gear": "Body Armor, Combat Helmet"
+          },
+          {
+            "name": "Enslaver",
+            "tactic": "Flank",
+            "weapon": "Axe | 2D20",
+            "health": 30,
+            "hitDC": 8,
+            "sneakDC": 8,
+            "dodgeDC": 8,
+            "counterDC": 9,
+            "gear": "Combat Helmet"
+          },
+          {
+            "name": "Trapper",
+            "tactic": "Aggressive Ranged",
+            "weapon": "Revolver | 3D12",
+            "health": 25,
+            "hitDC": 7,
+            "sneakDC": 8,
+            "dodgeDC": 7,
+            "gear": "Combat Helmet"
+          },
+          {
+            "name": "Predator",
+            "tactic": "Charge Ranged",
+            "weapon": "Pump Shotgun | 2D20",
+            "health": 35,
+            "hitDC": 8,
+            "sneakDC": 6,
+            "dodgeDC": 8,
+            "gear": "Body Armor"
+          },
+          {
+            "name": "Guard Dog",
+            "tactic": "Locate Enemy (zvyčajne priviazaný)",
+            "weapon": "Bark (upozorní nepriateľov na polohu hráča)",
+            "health": 8,
+            "hitDC": 5,
+            "sneakDC": 13,
+            "dodgeDC": 6
+          }
+        ]
+      },
+      {
+        "name": "Cultists",
+        "members": [
+          {
+            "name": "Zealot",
+            "tactic": "Aggressive Melee",
+            "weapon": "Axe | 1D20",
+            "health": 35,
+            "hitDC": 7,
+            "sneakDC": 8,
+            "dodgeDC": 8,
+            "counterDC": 9
+          },
+          {
+            "name": "Savage",
+            "tactic": "Ambush",
+            "weapon": "Axe | 1D20",
+            "health": 25,
+            "hitDC": 6,
+            "sneakDC": 9,
+            "dodgeDC": 8,
+            "counterDC": 8
+          },
+          {
+            "name": "Disciple",
+            "tactic": "Shoot from Cover",
+            "weapon": "Hunting Rifle | 2D20",
+            "health": 25,
+            "hitDC": 7,
+            "sneakDC": 8,
+            "dodgeDC": 6
+          },
+          {
+            "name": "Acolyte",
+            "tactic": "Ranged",
+            "weapon": "Revolver | 1D12",
+            "health": 20,
+            "hitDC": 7,
+            "sneakDC": 8,
+            "dodgeDC": 7
+          },
+          {
+            "name": "Follower",
+            "tactic": "Ambush Ranged",
+            "weapon": "Bow | 1D20",
+            "health": 20,
+            "hitDC": 8,
+            "sneakDC": 9,
+            "dodgeDC": 9
+          },
+          {
+            "name": "The Devoted",
+            "tactic": "Aggressive Melee",
+            "weapon": "Sledgehammer | 2D20",
+            "health": 40,
+            "hitDC": 5,
+            "sneakDC": 5,
+            "dodgeDC": 9,
+            "counterDC": 12
+          }
+        ]
+      },
+      {
+        "name": "Liberation Fronts",
+        "members": [
+          {
+            "name": "Militia",
+            "tactic": "Disciplined",
+            "weapon": "Semi-Auto Rifle | 2D12",
+            "health": 25,
+            "hitDC": 7,
+            "sneakDC": 6,
+            "dodgeDC": 8
+          },
+          {
+            "name": "Anarchist",
+            "tactic": "Aggressive Ranged",
+            "weapon": "Pipe Bomb | 5D10",
+            "health": 23,
+            "hitDC": 7,
+            "sneakDC": 5,
+            "dodgeDC": 7
+          },
+          {
+            "name": "Rioter",
+            "tactic": "Aggressive Melee",
+            "weapon": "Crowbar | 2D10",
+            "health": 20,
+            "hitDC": 8,
+            "sneakDC": 6,
+            "dodgeDC": 9
+          },
+          {
+            "name": "Resistance",
+            "tactic": "Offensive Ranged",
+            "weapon": "Pistol | 2D10",
+            "health": 20,
+            "hitDC": 6,
+            "sneakDC": 7,
+            "dodgeDC": 7
+          },
+          {
+            "name": "Squad Member",
+            "tactic": "Ranged",
+            "weapon": "Assault Rifle | 3D8",
+            "health": 27,
+            "hitDC": 8,
+            "sneakDC": 7,
+            "dodgeDC": 8,
+            "gear": "Body Armor, Flashlight"
+          },
+          {
+            "name": "Revolutionary",
+            "tactic": "Defensive Ranged",
+            "weapon": "Scoped Hunting Rifle | 1D20 + 1D10",
+            "health": 22,
+            "hitDC": 9,
+            "sneakDC": 8,
+            "dodgeDC": 10
+          },
+          {
+            "name": "Liberator",
+            "tactic": "Aggressive Ranged",
+            "weapon": "Pump Shotgun | 2D20",
+            "health": 30,
+            "hitDC": 6,
+            "sneakDC": 6,
+            "dodgeDC": 8
+          }
+        ]
+      }
+    ]
+  },
+  "customEnemyGuide": {
+    "intro": "Je tu priestor pre nespočetne veľa vlastných nepriateľov, ktorí doplnia rady frakcií. Tento rubrik pomôže vytvoriť dokonalý stret.",
+    "prompts": [
+      {
+        "k": "Faction",
+        "q": "Do akej frakcie tento nepriateľ patrí?"
+      },
+      {
+        "k": "Health",
+        "q": "Aký je silný?"
+      },
+      {
+        "k": "Tactic",
+        "q": "Aká je jeho stratégia v boji? Pomáha GM vedieť, ako ho hrať."
+      },
+      {
+        "k": "Weapon",
+        "q": "Akú primárnu zbraň používa? Pokročilejší môžu niesť viac zbraní a throwables."
+      },
+      {
+        "k": "Gear",
+        "q": "Aké špeciálne vybavenie alebo predmety nesie?"
+      },
+      {
+        "k": "Hit DC",
+        "q": "Odráža, aký je mrštný a pohyblivý. Nižší DC = ľahšie ho trafiť."
+      },
+      {
+        "k": "Sneak DC",
+        "q": "Prekradnutie okolo skupiny môže zachrániť tím. Aký je vnímavý a ostražitý?"
+      },
+      {
+        "k": "Dodge DC",
+        "q": "Odráža jeho zdatnosť so zbraňou."
+      },
+      {
+        "k": "Counter DC",
+        "q": "Schopnosť udrieť prvý; vyšší DC = koordinovanejší a zúrivejší úder, ťažšie kontrovať."
+      }
+    ]
+  },
+  "items": {
+    "scavenging": {
+      "intro": "Mimo boja môžeš prehľadávať lootovateľné miesta v miestnosti či prostredí. GM určí, čo sa dá nájsť, alebo ťa nechá hodiť. Hodom Scavenging zistíš, koľko predmetov nájdeš, a potom buď dostaneš zásoby, alebo hádžeš na tabuľkách predmetov.",
+      "difficulty": {
+        "title": "Náročnosť nájdenia predmetu",
+        "rows": [
+          {
+            "dc": 5,
+            "t": "Easy Find"
+          },
+          {
+            "dc": 7,
+            "t": "Normal Find"
+          },
+          {
+            "dc": 9,
+            "t": "Difficult Find"
+          },
+          {
+            "dc": 11,
+            "t": "Impossible Find"
+          }
+        ],
+        "crit": "Kritický hod: nájde predmet navyše"
+      },
+      "attempts": {
+        "title": "Počet pokusov v oblasti (voliteľné)",
+        "rows": [
+          {
+            "dc": 4,
+            "t": "1"
+          },
+          {
+            "dc": 7,
+            "t": "2"
+          },
+          {
+            "dc": 10,
+            "t": "3"
+          }
+        ],
+        "crit": "Kritický hod: 5"
+      }
+    },
+    "looting": {
+      "intro": "Ako GM určí, čo hráč nájde? Má niekoľko metód:",
+      "methods": [
+        {
+          "name": "Random",
+          "desc": "GM alebo hráč hodí na bežnej tabuľke predmetov D20; väčšina je dosiahnuteľná. Pozor na priveľa — hráči môžu dostať silnejšie zbrane a nástroje priskoro."
+        },
+        {
+          "name": "Theme",
+          "desc": "Najbežnejšia metóda — hádže sa na tematických tabuľkách podľa typu prostredia/miestnosti."
+        },
+        {
+          "name": "Determined",
+          "desc": "GM vyhlási, čo hráč nájde, podľa okolností."
+        },
+        {
+          "name": "Player Driven",
+          "desc": "Opýtaj sa hráča, čo hľadá, ešte pred hodom, a potom urči náročnosť získania."
+        }
+      ],
+      "enemyDropIntro": "Nepriatelia automaticky pustia svoju vybavenú zbraň aj utility predmety z inventára. Telo môže olootiť len ten, kto nepriateľa zabil. Hod d6:",
+      "enemyDrops": [
+        "Nič",
+        "D4 munície nepriateľa",
+        "Nič",
+        "D10 Parts",
+        "Nič",
+        "D10 Pills"
+      ]
+    },
+    "generalItems": {
+      "intro": "Hlavná tabuľka predmetov (hod D20). Pri kategóriách s viacerými možnosťami sa hádže ešte raz.",
+      "rows": [
+        {
+          "n": "1",
+          "name": "Parts",
+          "sub": "1) 1 · 2) 3 · 3) 5 · 4) 7 · 5) 10 · 6) 15"
+        },
+        {
+          "n": "2",
+          "name": "Pills",
+          "sub": "1) 3 · 2) 5 · 3) 7 · 4) 9 · 5) 10 · 6) 15"
+        },
+        {
+          "n": "3",
+          "name": "Medicine"
+        },
+        {
+          "n": "4",
+          "name": "Rag"
+        },
+        {
+          "n": "5",
+          "name": "Alcohol"
+        },
+        {
+          "n": "6",
+          "name": "Adhesive"
+        },
+        {
+          "n": "7",
+          "name": "Blades"
+        },
+        {
+          "n": "8",
+          "name": "Sugar"
+        },
+        {
+          "n": "9",
+          "name": "Ammo",
+          "sub": "1) 9mm · 2) .357 · 3) .44 · 4) .308 · 5) 5.56 · 6) Shells · 7) 7.62 · 8) .45-70 · 9) Arrow · 10) Fuel Canister"
+        },
+        {
+          "n": "10",
+          "name": "First Aid Kit"
+        },
+        {
+          "n": "11",
+          "name": "Melee Weapon",
+          "sub": "2x4 · Hammer · Wrench · Crowbar · Pipe · Bat · Sledgehammer · Switchblade · Shiv · Axe · Machete"
+        },
+        {
+          "n": "12",
+          "name": "Throwable",
+          "sub": "Molotov · Pipe Bomb · Nail Bomb · Smoke Bomb"
+        },
+        {
+          "n": "13",
+          "name": "Short Gun",
+          "sub": "1-2) Pistol · 3) Revolver · 4) Magnum · 5) Shorty · 6) Hunting Pistol"
+        },
+        {
+          "n": "14",
+          "name": "Hunting Long Gun",
+          "sub": "1-2) Hunting Rifle · 3) Pump Shotgun · 4) Double Barrel · 5) Frontier Rifle · 6) Bow"
+        },
+        {
+          "n": "15",
+          "name": "Flamethrower"
+        },
+        {
+          "n": "16",
+          "name": "Military Long Gun",
+          "sub": "1) Tactical Shotgun · 2) Battle Rifle · 3) Military Sniper · 4) Assault Rifle"
+        },
+        {
+          "n": "17",
+          "name": "Military Utility",
+          "sub": "1) Body Armor · 2) Combat Helmet · 3-4) Gas Mask"
+        },
+        {
+          "n": "18",
+          "name": "Flashlight"
+        },
+        {
+          "n": "19",
+          "name": "Guitar"
+        },
+        {
+          "n": "20",
+          "name": "Holster",
+          "sub": "Long Gun alebo Short Gun"
+        }
+      ]
+    },
+    "themes": [
+      {
+        "name": "Medical",
+        "where": "Nemocnice, sanitky, triage stany, laboratóriá",
+        "items": [
+          "Pills",
+          "First Aid Kit",
+          "Medicine",
+          "Alcohol",
+          "Rag",
+          "Blades",
+          "Pills (viac)",
+          "Parts"
+        ]
+      },
+      {
+        "name": "Goods",
+        "where": "Obchody, športové potreby",
+        "items": [
+          "Pills",
+          "Parts",
+          "Sugar",
+          "Alcohol",
+          "Rag",
+          "Blades",
+          "Adhesive",
+          "Ammo: Arrow",
+          "Ammo: Shells",
+          "Ammo: .308",
+          "Ammo: .357",
+          "Hunting Long Gun"
+        ]
+      },
+      {
+        "name": "Consumables",
+        "where": "Reštaurácie, kuchyne, bary",
+        "items": [
+          "Pills",
+          "Parts",
+          "Sugar",
+          "Alcohol",
+          "Rag",
+          "Blades"
+        ]
+      },
+      {
+        "name": "Utility",
+        "where": "Dielne, garáže, sklady, stanice",
+        "items": [
+          "Parts",
+          "Wrench",
+          "Hammer",
+          "Crowbar",
+          "Sledgehammer",
+          "Axe",
+          "2x4",
+          "Adhesive",
+          "Blades",
+          "Explosive",
+          "Rag",
+          "Fuel Canister"
+        ]
+      },
+      {
+        "name": "Crafting",
+        "where": "Malé schránky, šuflíky, debny, skrinky",
+        "items": [
+          "Pills",
+          "Parts",
+          "Sugar",
+          "Alcohol",
+          "Rag",
+          "Blades",
+          "Adhesive",
+          "Throwable"
+        ]
+      },
+      {
+        "name": "Military",
+        "where": "Checkpointy, zbrojnice, strážne veže, vojenské vozidlá",
+        "items": [
+          "Body Armor",
+          "Combat Helmet",
+          "Gas Mask",
+          "Parts",
+          "Pills",
+          "Blades",
+          "Explosives",
+          "Ammo (zásobníky)",
+          "Fuel Canister",
+          "Military Long Gun"
+        ]
+      }
+    ],
+    "crafting": [
+      {
+        "name": "Molotov Cocktail",
+        "recipe": "Rag + Fuel"
+      },
+      {
+        "name": "Nail Bomb",
+        "recipe": "Blade + Explosive"
+      },
+      {
+        "name": "Pipe Bomb",
+        "recipe": "2× Explosive"
+      },
+      {
+        "name": "Smoke Bomb",
+        "recipe": "Sugar + Explosive"
+      },
+      {
+        "name": "Trap Mine",
+        "recipe": "3× Explosive"
+      },
+      {
+        "name": "Shiv",
+        "recipe": "Blade + Binding"
+      },
+      {
+        "name": "Arrow",
+        "recipe": "Blade + Binding"
+      },
+      {
+        "name": "Fire Arrow",
+        "recipe": "Arrow + Binding + Rag + Fuel"
+      },
+      {
+        "name": "Explosive Arrow",
+        "recipe": "Arrow + Binding + Explosive"
+      },
+      {
+        "name": "First Aid Kit",
+        "recipe": "Rag + Alcohol"
+      }
+    ],
+    "specialty": {
+      "lootRooms": [
+        {
+          "name": "Loot Building",
+          "desc": "Celá budova venovaná lootu."
+        },
+        {
+          "name": "Loot Room",
+          "desc": "Loot za špeciálnymi alebo bežne zamknutými dverami."
+        },
+        {
+          "name": "Loot Safe",
+          "desc": "Loot v trezore — treba kód."
+        }
+      ],
+      "customItems": "GM môže vytvoriť rôzne vlastné predmety — utility, questové, zbrane či bežné predmety.",
+      "questItems": [
+        {
+          "name": "Gas Container",
+          "desc": "Obmedzené množstvo uskladneného benzínu, ktoré sa dá nájsť a zobrať."
+        },
+        {
+          "name": "Gas Can",
+          "desc": "Prenosná nádoba na transport benzínu do generátorov."
+        },
+        {
+          "name": "Siphon Hose",
+          "desc": "Prenosná hadica na odčerpanie malého množstva benzínu z áut, čerpacích staníc atď."
+        },
+        {
+          "name": "Notes",
+          "desc": "Papierové stopy pre lore; nápovedy k Loot Rooms, kľúčom, trezorom alebo kódy k bránam/dverám."
+        },
+        {
+          "name": "Electrical Panel",
+          "desc": "Keď funguje, ovláda mechanizované dvere/zariadenia. Potrebuje energiu z generátora cez Electric Cable."
+        },
+        {
+          "name": "Electric Cable",
+          "desc": "Napája generátory alebo panely."
+        },
+        {
+          "name": "Generator (Working)",
+          "desc": "Posiela energiu pripojeným veciam — dvere, konzoly, brány, elektrina v miestnosti."
+        },
+        {
+          "name": "Generator (Out of Gas)",
+          "desc": "Bez paliva — potrebuje určité množstvo benzínu."
+        },
+        {
+          "name": "Generator (Damaged)",
+          "desc": "Treba Maintenance zručnosť na opravu, aby fungoval."
+        },
+        {
+          "name": "Key / Keycard",
+          "desc": "Konkrétny kľúč na odomknutie spevnených zámkov alebo tlakových dverí."
+        },
+        {
+          "name": "Plank",
+          "desc": "Dlhý kus dreva ako plošina na preklenutie medzier."
+        },
+        {
+          "name": "Ladder",
+          "desc": "Na šplhanie po stenách a budovách."
+        },
+        {
+          "name": "Dumpster / Cart",
+          "desc": "Pojazdné plošiny na kolieskach — dajú sa posúvať, vyliezť na ne a prekonať steny/rímsy."
+        }
+      ]
+    },
+    "medical": [
+      {
+        "name": "First Aid Kit",
+        "desc": "Základný predmet na prežitie. Doplní Health až po Max Health. Základná kvalita je 10 Health pri použití, plus hod na Medicine. Rany sa nehoja samy — jediná možnosť, ako sa zotaviť z poškodenia, je First Aid Kit."
+      },
+      {
+        "name": "Medicine",
+        "desc": "Mimoriadne cenná, nedá sa craftiť. Lieči choroby a infikované rany (nie CBI — Cordyceps brain infection)."
+      }
+    ],
+    "utility": [
+      {
+        "name": "Gas Mask",
+        "craft": "100",
+        "desc": "Povinná na prežitie v spórach (vdýchnutie infikuje). Kto je vystavený spóram bez masky viac než 3 kolá, okamžite sa infikuje."
+      },
+      {
+        "name": "Body Armor",
+        "craft": "250",
+        "desc": "Znižuje damage o 1D8, ale za cenu pohyblivosti: −3 na všetky Elusive checky. Chráni pred efektmi Cracked Ribs, Penetrating Wound a Exit Wound."
+      },
+      {
+        "name": "Flashlight",
+        "craft": "50",
+        "desc": "Umožní vidieť a dostať sa na miesta v úplnej tme. V tme bez baterky sa Instinct, Survival, Aiming, Scavenging a Maintenance hádžu s nevýhodou."
+      },
+      {
+        "name": "Combat Helmet",
+        "craft": "150",
+        "desc": "Znižuje prichádzajúci damage o 1D4, ale za cenu povedomia (zhoršený výhľad): −2 na Instinct. Chráni pred efektmi Concussion, Cracked Jaw a Headshot."
+      },
+      {
+        "name": "Infection Scanner",
+        "craft": "200",
+        "desc": "Zariadenie, ktoré skenovaním odhalí Cordyceps infekciu u preživších. Pri neinfikovanom bliká nazeleno, pri infikovanom naoranžovo."
+      },
+      {
+        "name": "Guitar",
+        "craft": "300",
+        "desc": "V takom pochmúrnom svete nič neupokojí ako hudba. Počas oddychu zahraj pieseň — dá tímu jedinečný inšpiračný bod, ktorý pridá +3 k ľubovoľnému hodu. Naraz sa dá držať max jeden inšpiračný bod."
+      }
+    ]
   }
 }
