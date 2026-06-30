@@ -119,6 +119,12 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
 .stepper{display:flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
 .stepper button{width:40px;height:40px;font-size:20px;font-family:var(--font-m);color:var(--amber);background:var(--bg2)}
 .stepper input{border:none;border-radius:0;text-align:center;width:46px;background:transparent;font-family:var(--font-m);font-size:17px}
+.resgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.rescell{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px 9px;background:var(--bg2);border:1px solid var(--line);border-radius:9px}
+.resn{font-family:var(--font-m);font-size:12px;color:var(--muted);letter-spacing:.3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.resc{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.resc button{width:28px;height:28px;border-radius:7px;border:1px solid var(--line2);background:var(--panel2);color:var(--amber);font-family:var(--font-m);font-size:17px;line-height:1}
+.resc .rv{min-width:18px;text-align:center;font-family:var(--font-d);font-size:16px;color:var(--ink)}
 
 /* ---------- Dice ---------- */
 .readout{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 16px;text-align:center;position:relative;overflow:hidden;margin-bottom:14px}
@@ -264,6 +270,9 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
     <div class="eyebrow">Upgrades</div>
     <div class="card"><div id="upgList"></div></div>
 
+    <div class="eyebrow">Munícia & materiály</div>
+    <div class="card" style="padding:12px 13px"><div id="resWrap"></div></div>
+
     <div class="eyebrow">Denník</div>
     <div class="card">
       <textarea id="journal" rows="4" placeholder="Poznámky, traumy, kontakty, ciele…" oninput="saveJournal(this.value)"></textarea>
@@ -342,16 +351,26 @@ let DATA = null;
    náhľade sa nemusí udržať medzi reloadmi, na GitHub Pages áno.
    ================================================================= */
 const KEY="tlou_ttrpg_char_v1";
+const AMMO_TYPES=["9mm",".357",".44",".308","5.56","Shells","7.62",".45-70","Arrow","Fuel"];
+const MAT_TYPES=["Rag","Alcohol","Adhesive","Blades","Sugar","Explosive"];
+const zeroMap=arr=>Object.fromEntries(arr.map(k=>[k,0]));
 const blank=()=>({
   name:"", faction:"", cls:"", bio:"",
   skills:Object.fromEntries(DATA.skills.map(s=>[s.key,0])),
   hp:25, hpMax:25, inf:0, morality:"", pills:0,
   inv:[], equip:"Pistol", journal:"", upgrades:{}, skillDice:{},
-  parts:0, toolLevel:1, firstAid:{qty:0,heal:0}, trauma:0, weaponUpgrades:{}, rerollsLeft:0
+  parts:0, toolLevel:1, firstAid:{qty:0,heal:0}, trauma:0, weaponUpgrades:{}, rerollsLeft:0,
+  ammo:zeroMap(AMMO_TYPES), mats:zeroMap(MAT_TYPES)
 });
 let mem=null,C;
-function load(){ try{const r=localStorage.getItem(KEY);return r?{...blank(),...JSON.parse(r)}:(mem||blank());}catch(e){return mem||blank();} }
+function load(){ try{const r=localStorage.getItem(KEY); let c=r?{...blank(),...JSON.parse(r)}:(mem||blank());
+  c.ammo={...zeroMap(AMMO_TYPES),...(c.ammo||{})}; c.mats={...zeroMap(MAT_TYPES),...(c.mats||{})}; return c;
+  }catch(e){return mem||blank();} }
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(C));}catch(e){} mem=C; }
+function resId(kind,key){return "res-"+kind+"-"+key.replace(/[^a-z0-9]/gi,"");}
+function adjRes(kind,key,delta){const obj=kind==="ammo"?C.ammo:C.mats; if(!obj)return;
+  obj[key]=Math.max(0,(obj[key]||0)+delta); save();
+  const el=document.getElementById(resId(kind,key)); if(el)el.textContent=obj[key]; }
 /* C sa naplní v init() po načítaní dát */
 
 /* ---------- vlastné frakcie (ukladané lokálne) ---------- */
@@ -438,6 +457,18 @@ function renderSheet(){
       const it=findUpgrade(n);const tier=it?it.tiers.find(x=>x.t===t):null;
       return `<div class="invrow"><span class="grow">${n}${tier?` <span style="color:var(--faint);font-size:12px">— ${esc(tier.e)}</span>`:""}</span><span class="pill amber">T${t}</span></div>`;
     }).join("");
+  }
+  const rw=document.getElementById("resWrap");
+  if(rw){
+    const cell=(kind,key)=>{const v=((kind==="ammo"?C.ammo:C.mats)||{})[key]||0;
+      return `<div class="rescell"><span class="resn">${esc(key)}</span>
+        <span class="resc"><button onclick="adjRes('${kind}','${key}',-1)">−</button>
+        <span class="rv" id="${resId(kind,key)}">${v}</span>
+        <button onclick="adjRes('${kind}','${key}',1)">+</button></span></div>`;};
+    rw.innerHTML=`<div class="eyebrow" style="margin:0 0 8px">Munícia</div>
+      <div class="resgrid">${AMMO_TYPES.map(k=>cell("ammo",k)).join("")}</div>
+      <div class="eyebrow" style="margin:14px 0 8px">Crafting materiály</div>
+      <div class="resgrid">${MAT_TYPES.map(k=>cell("mats",k)).join("")}</div>`;
   }
 }
 function setEquip(v){C.equip=v;save();}
