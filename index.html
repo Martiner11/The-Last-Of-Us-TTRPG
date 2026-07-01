@@ -715,7 +715,7 @@ function openEdit(rosterId){
    <div class="field"><label>Meno</label><input id="e-name" value="${esc(t.name)}" placeholder="Napr. Ellie"></div>
    <div class="row" style="gap:10px">
      <div class="grow field"><label>Frakcia</label><select id="e-fac">${facOpts}</select></div>
-     <div class="grow field"><label>Trieda</label><input id="e-cls" value="${esc(tr(t.cls))}" placeholder="Napr. Scout"></div>
+     <div class="grow field"><label>Trieda</label><input id="e-cls" value="${esc(tr(t.cls))}" placeholder="Napr. Pašerák"></div>
    </div>
    <div class="field"><label>Bio</label><textarea id="e-bio" rows="2" placeholder="Pár viet o postave…">${esc(t.bio)}</textarea></div>
    <div class="row" style="gap:10px">
@@ -1221,7 +1221,7 @@ function renderCodex(){
       appendEyebrow(body,"Vlastné zbrane");
       const g=DATA.customWeaponGuide,e=document.createElement("details");e.className="entry";
       let pr="";g.prompts.forEach(p=>{pr+=`<div class="h">${p.k}</div><div class="desc" style="margin:0 0 7px">${esc(p.q)}</div>`;});
-      e.innerHTML=`<summary><span class="t">Custom Weapons</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
+      e.innerHTML=`<summary><span class="t">Vlastné zbrane</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
         <div class="body"><div class="note" style="margin:10px 0">${esc(g.intro)}</div><div class="upg">${pr}</div></div>`;
       body.appendChild(e);
     }
@@ -1272,7 +1272,7 @@ function renderCodex(){
       appendEyebrow(body,"Vlastní infikovaní");
       const g=DATA.customInfectedGuide,e=document.createElement("details");e.className="entry";
       let pr="";g.prompts.forEach(p=>{pr+=`<div class="h">${p.k}</div><div class="desc" style="margin:0 0 7px">${esc(p.q)}</div>`;});
-      e.innerHTML=`<summary><span class="t">Custom Infected</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
+      e.innerHTML=`<summary><span class="t">Vlastní infikovaní</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
         <div class="body"><div class="note" style="margin:10px 0">${esc(g.intro)}</div><div class="upg">${pr}</div></div>`;
       body.appendChild(e);
     }
@@ -1306,7 +1306,7 @@ function renderCodex(){
       appendEyebrow(body,"Vlastní nepriatelia");
       const gd=DATA.customEnemyGuide,e=document.createElement("details");e.className="entry";
       let pr="";gd.prompts.forEach(p=>{pr+=`<div class="h">${p.k}</div><div class="desc" style="margin:0 0 7px">${esc(p.q)}</div>`;});
-      e.innerHTML=`<summary><span class="t">Custom Enemy</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
+      e.innerHTML=`<summary><span class="t">Vlastní nepriatelia</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
         <div class="body"><div class="note" style="margin:10px 0">${esc(gd.intro)}</div><div class="upg">${pr}</div></div>`;
       body.appendChild(e);
     }
@@ -1382,7 +1382,7 @@ function renderCodex(){
       const g=DATA.customFactionGuide;
       const guide=document.createElement("details");guide.className="entry";
       let pr="";g.prompts.forEach(p=>{pr+=`<div class="h">${p.k}</div><div class="desc" style="margin:0 0 7px">${esc(p.q)}</div>`;});
-      guide.innerHTML=`<summary><span class="t">Custom Factions</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
+      guide.innerHTML=`<summary><span class="t">Vlastné frakcie</span><span class="pill amber">návod</span><span class="chev">›</span></summary>
         <div class="body"><div class="note" style="margin:10px 0">${esc(g.intro)}</div><div class="upg">${pr}</div></div>`;
       body.appendChild(guide);
       const add=document.createElement("button");
