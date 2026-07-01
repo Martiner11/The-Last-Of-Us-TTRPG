@@ -2826,11 +2826,11 @@
           "desc": "Nepriatelia poznajú tvoju polohu a zapoja sa do boja."
         }
       ],
-      "reentering": "Po zapojení do boja sa dá vrátiť do stealthu: hodíš Elusive na prerušenie línie pohľadu a potom ďalší Sneak hod, ako ťa nepriatelia prenasledujú. Ak oba uspejú, vrátiš sa do stealthu a nepriatelia sa vrátia do stavu Alert.",
+      "reentering": "Po zapojení do boja sa dá vrátiť do plíženia: hodíš Elusive na prerušenie línie pohľadu a potom ďalší Sneak hod, ako ťa nepriatelia prenasledujú. Ak oba uspejú, vrátiš sa do plíženia a nepriatelia sa vrátia do stavu Alert.",
       "sneaking": "Na prekradnutie okolo jednotlivého nepriateľa hodíš Elusive a prekonáš jeho Sneak DC. GM môže dať výhodu/nevýhodu podľa prostredia a okolností. Ak je viac nepriateľov v línii pohľadu navzájom alebo nahustení v skupine, stačí jeden Elusive hod proti najvyššiemu Sneak DC. V mieste, kde si, môžeš nascavengovať fľašu alebo tehlu ako rozptýlenie (DC určí GM).",
       "kills": {
         "melee": "Prejdeš Sneak DC, aby si sa dostal za nepriateľa (nie len okolo neho). GM rozhodne o výhode/nevýhode podľa terénu, hluku, svetla a sutín. Za nepriateľom hodíš Brutality (bodnutie, zaškrtenie, zlomenie krku). Shivy zabíjajú okamžite a netreba hádzať. Ak Brutality zlyhá, začne sa boj.",
-        "missile": "Pokročilejšie. Potrebuješ stealth zbraň (luk alebo tlmenú zbraň). Neodhalený hráč spraví ranged stealth útok — robí dvojnásobný damage v nádeji, že zabije.",
+        "missile": "Pokročilejšie. Potrebuješ tichú zbraň (luk alebo tlmenú zbraň). Neodhalený hráč spraví diaľkový tichý útok — robí dvojnásobné poškodenie v nádeji, že zabije.",
         "note": "Nepriateľ, ktorý objaví telo, prejde do Alert. Nepriateľ, ktorý vidí stealth kill, prejde rovno do boja."
       }
     },
