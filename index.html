@@ -207,6 +207,19 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
 
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms !important}}
 /* ---------- Hra (sólo) ---------- */
+.menu-hero{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:16px;
+  padding:24px 18px 20px;background:radial-gradient(120% 100% at 15% 0%, #262a1c 0%, var(--panel) 55%, var(--bg2) 100%)}
+.menu-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+.menu-hero .eyebrow{margin:0 0 10px}
+.menu-hero h1{font-family:var(--font-d);font-weight:700;font-size:30px;letter-spacing:.01em;line-height:1.08;margin-bottom:9px}
+.menu-hero h1 b{color:var(--amber)}
+.menu-hero p{color:var(--muted);font-size:13.5px;line-height:1.5;max-width:36ch}
+.menu-cta{flex-direction:column;gap:2px;padding:16px;text-align:center}
+.menu-cta .sub{display:block;font-family:var(--font-b);text-transform:none;letter-spacing:0;font-size:11.5px;opacity:.85;font-weight:400}
+.menu-steps{display:flex;flex-direction:column;gap:9px;margin:6px 0 4px}
+.menu-step{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--muted);line-height:1.45}
+.menu-step .n{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:1px solid var(--amber-dim);color:var(--amber);
+  font-family:var(--font-m);font-size:11px;display:flex;align-items:center;justify-content:center;margin-top:1px}
 .gparty{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;margin-bottom:6px}
 .gpc{flex:0 0 auto;min-width:118px;padding:8px 11px;border:1px solid var(--line);border-radius:11px;background:var(--panel);text-align:left}
 .gpc.on{border-color:var(--amber);background:var(--panel2)}
@@ -766,7 +779,7 @@ function applyCreator(){
   const gear=[].concat(tier?tier.equipment:[],tier?tier.weapons:[]);
   const known=DATA.weapons.map(w=>w.name);
   const eqW=(tier?tier.weapons:[]).find(w=>known.includes(w));
-  if(creatorTarget==="roster"){
+  if(creatorTarget==="roster"||creatorTarget==="wizard"){
     const c=blank();c.id=rNewId();
     c.name=name||"Nová postava";c.skills=skills;
     c.hpMax=DATA.character.startHealth;c.hp=c.hpMax;
@@ -774,7 +787,11 @@ function applyCreator(){
     if(cls)c.cls=cls.name;
     c.inv=gear.map(n=>({name:n,q:1}));
     c.equip=eqW||(known[0]||"");
-    ROSTER.push(c);rSave();creatorTarget=null;closeEdit();scnUI="roster";renderScn();
+    ROSTER.push(c);rSave();
+    const fromWizard=creatorTarget==="wizard";
+    creatorTarget=null;closeEdit();
+    if(fromWizard){if(WIZ&&WIZ.partyIds.length<4)WIZ.partyIds.push(c.id);scnUI="wizParty";}else scnUI="roster";
+    renderScn();
     return;
   }
   C.skills=skills;
@@ -1396,7 +1413,8 @@ function quickCheck(skillKey,as,dc){
 /* ================= HRA — sólo hrateľný engine (bez AI) ================= */
 const GKEY="tlou_game_v1";
 let GAME=null;
-let scnUI="menu"; // "menu" | "roster" | "stories" | "game" — čo sa má v tabe Hra zobraziť
+let scnUI="menu"; // "menu" | "roster" | "stories" | "wizDiff" | "wizParty" | "game"
+let WIZ=null; // dočasný stav sprievodcu novou hrou: {storyId, difficulty, permadeath, partyIds:[]}
 
 /* ---------- roster uložených postáv ---------- */
 const RKEY="tlou_roster_v1";
@@ -1442,7 +1460,9 @@ function rAddTemplate(i){const def=LOU_TEMPLATES[i];if(!def)return;
   c.inv=(def.inv||[]).map(x=>({...x}));
   c.ammo={...zeroMap(AMMO_TYPES),...(def.ammo||{})};
   c.firstAid={qty:1,heal:10};
-  ROSTER.push(c);rSave();closeEdit();scnUI="roster";renderScn();}
+  ROSTER.push(c);rSave();closeEdit();
+  if(scnUI==="wizParty"&&WIZ){if(WIZ.partyIds.length<4)WIZ.partyIds.push(c.id);}else scnUI="roster";
+  renderScn();}
 function rDeleteChar(id){if(!confirm("Zmazať túto postavu z rosteru?"))return;
   ROSTER=ROSTER.filter(c=>c.id!==id);rSave();renderScn();}
 function gLoad(){try{const r=localStorage.getItem(GKEY);return r?JSON.parse(r):null;}catch(e){return null;}}
@@ -1467,6 +1487,12 @@ function gMakeChar(name,clsName){
   return c;
 }
 function gAddInv(ch,name,q){const e=ch.inv.find(x=>x.name===name);if(e)e.q=(e.q||1)+(q||1);else ch.inv.push({name,q:q||1});}
+function gDropCheck(ch){if(!ch||ch.hp>0)return; // mimo boja: buď trvalá smrť, alebo okamžité prebratie na nízke HP
+  if(GAME.permadeath){ch.dead=true;ch.hp=0;}else{ch.hp=Math.max(1,Math.round(ch.hpMax*0.25));}
+  gEnsureActiveAlive();}
+function gCombatDownCheck(ch){if(ch.hp<=0&&GAME.permadeath){ch.dead=true;gEnsureActiveAlive();}} // v boji: len označí trvalú smrť, prebratie rieši gPostCombatRevive
+function gEnsureActiveAlive(){if(!GAME)return;const cur=GAME.party[GAME.active];
+  if(cur&&!cur.dead)return;const idx=GAME.party.findIndex(p=>!p.dead);if(idx>=0)GAME.active=idx;}
 function applyFx(fx){const ch=gActive();if(!ch||!fx)return;fx.forEach(f=>{
   if(f.item)gAddInv(ch,f.item,f.q||1);
   if(f.ammo)ch.ammo[f.ammo]=(ch.ammo[f.ammo]||0)+(f.n||0);
@@ -1474,22 +1500,42 @@ function applyFx(fx){const ch=gActive();if(!ch||!fx)return;fx.forEach(f=>{
   if(f.pills)ch.pills=(ch.pills||0)+f.pills;
   if(f.parts)ch.parts=(ch.parts||0)+f.parts;
   if(f.heal)ch.hp=Math.min(ch.hpMax,(ch.hp||0)+f.heal);
-  if(f.dmg)ch.hp=Math.max(0,(ch.hp||0)-f.dmg);
+  if(f.dmg){ch.hp=Math.max(0,(ch.hp||0)-f.dmg);if(ch.hp<=0)gDropCheck(ch);}
   if(f.firstaid){if(!ch.firstAid)ch.firstAid={qty:0,heal:10};ch.firstAid.qty=(ch.firstAid.qty||0)+f.firstaid;if(!ch.firstAid.heal)ch.firstAid.heal=10;}
   if(f.equip)ch.equip=f.equip;
   if(f.flag)GAME.flags[f.flag]=true;
 });}
 function gHasNeed(need){if(!need)return true;if(need.flag&&!GAME.flags[need.flag])return false;if(need.item){const ch=gActive();if(!ch||!ch.inv.some(x=>x.name===need.item))return false;}return true;}
 
-function gNewGame(id){const st=(DATA.stories||[]).find(s=>s.id===id)||(DATA.stories||[])[0];
-  GAME={storyId:st.id,scene:st.start,flags:{},visited:{},party:[],active:0,phase:"setup",banner:null,combat:null};
-  scnUI="game";gSave();renderScn();}
+function wizPickStory(id){WIZ={storyId:id,difficulty:"survivor",permadeath:false,partyIds:[]};scnUI="wizDiff";renderScn();}
+function wizBackToStories(){scnUI="stories";renderScn();}
+function wizBackToDiff(){scnUI="wizDiff";renderScn();}
+function wizToParty(){scnUI="wizParty";renderScn();}
+function wizSetDiff(d){WIZ.difficulty=d;renderScn();}
+function wizTogglePermadeath(){WIZ.permadeath=!WIZ.permadeath;renderScn();}
+function wizToggleChar(id){const i=WIZ.partyIds.indexOf(id);
+  if(i>=0)WIZ.partyIds.splice(i,1);else{if(WIZ.partyIds.length>=4)return;WIZ.partyIds.push(id);}
+  renderScn();}
+function gStartFromWizard(){
+  if(!WIZ||!WIZ.partyIds.length)return;
+  const st=(DATA.stories||[]).find(s=>s.id===WIZ.storyId)||(DATA.stories||[])[0];
+  const party=WIZ.partyIds.map(id=>{const src=ROSTER.find(r=>r.id===id);return src?JSON.parse(JSON.stringify(src)):null;}).filter(Boolean);
+  if(!party.length)return;
+  GAME={storyId:st.id,scene:st.start,flags:{},visited:{},party,active:0,
+    difficulty:WIZ.difficulty,permadeath:WIZ.permadeath,banner:null,combat:null};
+  if(GAME.difficulty==="grounded"){ // rulebook Grounded: nové postavy bez piluliek a bez štartovacej výbavy
+    GAME.party.forEach(p=>{p.pills=0;p.inv=[];p.ammo=zeroMap(AMMO_TYPES);p.mats=zeroMap(MAT_TYPES);
+      p.firstAid={qty:0,heal:(p.firstAid&&p.firstAid.heal)||10};});
+  }
+  WIZ=null;scnUI="game";gGoto(st.start,true);
+}
 function gReset(){GAME=null;try{localStorage.removeItem(GKEY);}catch(e){}scnUI="menu";renderScn();}
 function gBackToMenu(){scnUI="menu";renderScn();}
 function menuBackBtn(){const b=document.createElement("button");b.className="btn ghost sm";b.style.marginBottom="10px";
   b.textContent="‹ Menu";b.onclick=gBackToMenu;return b;}
-function gStart(){if(!GAME.party.length)return;GAME.phase="play";gGoto(curStory().start,true);}
-function gSwitch(i){GAME.active=i;gSave();renderScn();}
+function wizBackBtn(fn,label){const b=document.createElement("button");b.className="btn ghost sm";b.style.marginBottom="10px";
+  b.textContent=label;b.onclick=fn;return b;}
+function gSwitch(i){if(GAME.party[i]&&GAME.party[i].dead)return;GAME.active=i;gSave();renderScn();}
 
 function gGoto(sceneId,first){const st=curStory();const sc=st.scenes[sceneId];if(!sc)return;
   GAME.scene=sceneId;
@@ -1500,9 +1546,12 @@ function gGoto(sceneId,first){const st=curStory();const sc=st.scenes[sceneId];if
 }
 function gChoice(ch){ // ch = choice object
   if(ch.restart){gReset();return;}
-  if(ch.check){const ac=gActive();const r=gCheck(ac,ch.check.skill,ch.check.dc);
+  if(ch.check){const ac=gActive();
+    const diffMod=GAME.difficulty==="grounded"?2:(GAME.difficulty==="story"?-2:0);
+    const dc=Math.max(1,ch.check.dc+diffMod);
+    const r=gCheck(ac,ch.check.skill,dc);
     const sn=(DATA.skills.find(s=>s.key===ch.check.skill)||{}).name||ch.check.skill;
-    GAME.banner={ok:r.success,text:`${sn}: hod ${r.nat}${r.mod>=0?"+":""}${r.mod} = ${r.total} vs DC ${ch.check.dc} — ${r.crit?"KRIT! ":""}${r.success?"úspech":"neúspech"}`};
+    GAME.banner={ok:r.success,text:`${sn}: hod ${r.nat}${r.mod>=0?"+":""}${r.mod} = ${r.total} vs DC ${dc} — ${r.crit?"KRIT! ":""}${r.success?"úspech":"neúspech"}`};
     const tgt=r.success?(r.crit&&ch.crit?ch.crit:ch.to):ch.fail;
     if(ch.fx&&r.success)applyFx(ch.fx);
     gGoto(tgt);return;}
@@ -1512,15 +1561,35 @@ function gChoice(ch){ // ch = choice object
 }
 
 /* ---------- combat ---------- */
+function expandFoes(defs){ // rozvinie {perPlayer:true} podľa veľkosti partie a obtiažnosti
+  const n=(GAME.party||[]).length||1;
+  const count=GAME.difficulty==="story"?Math.max(1,Math.ceil(n/2)):n;
+  const out=[];
+  (defs||[]).forEach(f=>{
+    if(f.perPlayer){for(let i=0;i<count;i++)out.push({type:f.type,name:f.name});}
+    else out.push(f);
+  });
+  return out;
+}
 function mkFoe(f){let stats=null;
   if(f.type==="enemy"){for(const g of DATA.enemies.groups){const m=g.members.find(x=>x.name===f.name);if(m){stats={Health:String(m.health),Damage:m.weapon,"Hit DC":m.hitDC,"Dodge DC":m.dodgeDC};break;}}}
   else{const inf=DATA.infected.find(x=>x.name===f.name);if(inf)stats=inf.stats;}
   stats=stats||{Health:"20",Damage:"2D6","Hit DC":7,"Dodge DC":7};
-  const hp=rollRange(stats.Health);
+  let hp=rollRange(stats.Health);
+  if(GAME.difficulty==="story")hp=Math.max(1,Math.round(hp*0.75)); // Story: slabší nepriatelia
   return {name:f.name,hp,hpMax:hp,dmg:stats.Damage,hitDC:+String(stats["Hit DC"]).replace(/\D/g,"")||7,dodgeDC:+String(stats["Dodge DC"]).replace(/\D/g,"")||7};
 }
+const GROUNDED_DROPS=[null,"Nič","1D4 Ammo","Nič","1D4 Pills","1D6 Parts","Nič","Nič","1D8 Parts"];
+function grDropRoll(ch){const n=1+Math.floor(Math.random()*8);const label=GROUNDED_DROPS[n];
+  if(label==="Nič"){clog("Grounded loot: nič.","");return;}
+  const m=label.match(/(\d+)D(\d+)\s+(\w+)/);if(!m)return;
+  const amt=rollExpr(`${m[1]}D${m[2]}`);const kind=m[3];
+  if(kind==="Ammo"){ch.ammo["9mm"]=(ch.ammo["9mm"]||0)+amt;clog(`Grounded loot: +${amt} 9mm`,"hit");}
+  else if(kind==="Pills"){ch.pills=(ch.pills||0)+amt;clog(`Grounded loot: +${amt} Pilulky`,"hit");}
+  else if(kind==="Parts"){ch.parts=(ch.parts||0)+amt;clog(`Grounded loot: +${amt} Parts`,"hit");}
+}
 function gStartCombat(sc){GAME.combat={title:sc.title,intro:sc.text,win:sc.combat.win,lose:sc.combat.lose,
-  stealthKill:sc.combat.stealthKill||null,surprise:true,foes:sc.combat.foes.map(mkFoe),log:[],result:null};}
+  stealthKill:sc.combat.stealthKill||null,surprise:true,foes:expandFoes(sc.combat.foes).map(mkFoe),log:[],result:null};}
 function aliveFoe(){return GAME.combat.foes.find(f=>f.hp>0);}
 function clog(t,cls){GAME.combat.log.push(`<div class="${cls||""}">${t}</div>`);}
 function gAttack(){const cb=GAME.combat;if(cb.result)return;const ch=gActive();if(ch.hp<=0)return;
@@ -1528,33 +1597,50 @@ function gAttack(){const cb=GAME.combat;if(cb.result)return;const ch=gActive();i
   const w=weaponOf(ch);const wk=(w.skill||"Aiming").toLowerCase();
   const r=gCheck(ch,wk,foe.dodgeDC);
   if(r.success){let dmg=rollExpr(w.stats.Damage);if(r.crit)dmg*=2;foe.hp=Math.max(0,foe.hp-dmg);
-    clog(`${ch.name}: ${w.name} zásah${r.crit?" (KRIT!)":""} za ${dmg} — ${foe.name} ${foe.hp>0?foe.hp+" HP":"PADOL"}`,r.crit?"crit":"hit");}
+    clog(`${ch.name}: ${w.name} zásah${r.crit?" (KRIT!)":""} za ${dmg} — ${foe.name} ${foe.hp>0?foe.hp+" HP":"PADOL"}`,r.crit?"crit":"hit");
+    if(foe.hp<=0&&GAME.difficulty==="grounded")grDropRoll(ch);}
   else clog(`${ch.name}: minul (hod ${r.total} vs Dodge ${foe.dodgeDC})`,"miss");
   if(!aliveFoe()){cb.result="win";clog("Nepriatelia zneškodnení.","hit");gSave();renderScn();return;}
   gEnemyTurn();gSave();renderScn();
 }
 function gEnemyTurn(){const cb=GAME.combat;const ch=gActive();
-  cb.foes.filter(f=>f.hp>0).forEach(foe=>{
+  const attackers=cb.foes.filter(f=>f.hp>0);
+  attackers.forEach((foe,i)=>{
     if(ch.hp<=0)return;
-    const r=gCheck(ch,"elusive",foe.hitDC);
-    if(r.success)clog(`${ch.name} uhol útoku ${foe.name} (hod ${r.total} vs Hit ${foe.hitDC})`,"hit");
-    else{const ed=rollExpr(foe.dmg);ch.hp=Math.max(0,ch.hp-ed);clog(`${foe.name} zasiahol ${ch.name} za ${ed} — ${ch.hp} HP`,"miss");}
+    const oddsBonus=i; // Overwhelming Odds: +1 Dodge DC za každého ďalšieho útočníka na ten istý cieľ
+    const dc=foe.hitDC+oddsBonus;
+    const r=gCheck(ch,"elusive",dc);
+    if(r.success)clog(`${ch.name} uhol útoku ${foe.name} (hod ${r.total} vs Hit ${dc})`,"hit");
+    else{let ed=rollExpr(foe.dmg);if(GAME.difficulty==="grounded")ed*=2;ch.hp=Math.max(0,ch.hp-ed);
+      clog(`${foe.name} zasiahol ${ch.name} za ${ed} — ${ch.hp} HP`,"miss");gCombatDownCheck(ch);}
   });
   if(GAME.party.every(p=>p.hp<=0)){cb.result="lose";clog("Celá partia padla.","miss");}
 }
 function gStealthKill(){const cb=GAME.combat;const foe=aliveFoe();if(!foe)return;
   foe.hp=0;cb.surprise=false;clog(`${gActive().name}: tichý zásah — ${foe.name} padol bez hluku.`,"crit");
+  if(GAME.difficulty==="grounded")grDropRoll(gActive());
   if(!aliveFoe())cb.result="win";gSave();renderScn();}
 function gCombatFirstAid(){const ch=gActive();if(!ch.firstAid||ch.firstAid.qty<=0||ch.hp>=ch.hpMax)return;
   ch.firstAid.qty--;const before=ch.hp;ch.hp=Math.min(ch.hpMax,ch.hp+(ch.firstAid.heal||10));
   clog(`${ch.name} použil lekárničku (+${ch.hp-before} HP).`,"hit");gEnemyTurn();gSave();renderScn();}
+function gPostCombatRevive(){ // po výhre: bez Permadeath sa padnutí prebudia na nízke HP, s Permadeath ostávajú mŕtvi
+  const revived=[],dead=[];
+  GAME.party.forEach(p=>{if(p.hp<=0){
+    if(p.dead||GAME.permadeath){p.dead=true;dead.push(p.name);}
+    else{p.hp=Math.max(1,Math.round(p.hpMax*0.25));revived.push(p.name);}
+  }});
+  gEnsureActiveAlive();
+  if(dead.length)GAME.banner={ok:false,text:`${dead.join(", ")} navždy padli (Permadeath).`};
+  else if(revived.length)GAME.banner={ok:true,text:`${revived.join(", ")} sa prebrali s nízkym HP.`};
+}
 
 /* ---------- render ---------- */
 function renderScn(){const body=document.getElementById("scnBody");body.innerHTML="";
   if(scnUI==="roster"){renderRoster(body);return;}
   if(scnUI==="stories"){renderStoryPicker(body);return;}
+  if(scnUI==="wizDiff"&&WIZ){renderWizDiff(body);return;}
+  if(scnUI==="wizParty"&&WIZ){renderWizParty(body);return;}
   if(scnUI==="game"&&GAME){
-    if(GAME.phase==="setup"){renderSetup(body);return;}
     if(GAME.combat){renderCombat(body);return;}
     renderScene(body);return;
   }
@@ -1563,40 +1649,129 @@ function renderScn(){const body=document.getElementById("scnBody");body.innerHTM
 function partyBar(){const b=document.createElement("div");b.className="gparty";
   GAME.party.forEach((p,i)=>{const c=document.createElement("button");
     c.className="gpc"+(i===GAME.active?" on":"")+(p.hp<=0?" down":"");
-    c.innerHTML=`<div class="nm">${esc(p.name)}</div><div class="hpn">${p.hp}/${p.hpMax} HP${p.cls?" · "+esc(p.cls):""}</div><div class="hpb"><i style="width:${Math.max(0,p.hp/p.hpMax*100)}%"></i></div>`;
-    c.onclick=()=>gSwitch(i);b.appendChild(c);});
+    c.innerHTML=`<div class="nm">${p.dead?"† ":""}${esc(p.name)}</div><div class="hpn">${p.dead?"mŕtvy":p.hp+"/"+p.hpMax+" HP"}${p.cls?" · "+esc(p.cls):""}</div><div class="hpb"><i style="width:${Math.max(0,p.hp/p.hpMax*100)}%"></i></div>`;
+    if(!p.dead)c.onclick=()=>gSwitch(i);b.appendChild(c);});
   return b;}
+function gameDiffPill(){if(!GAME)return"";const nm={story:"Story",survivor:"Survivor",grounded:"Grounded"}[GAME.difficulty]||"Survivor";
+  return `<span class="pill amber" style="margin-left:8px">${nm}${GAME.permadeath?" · Permadeath":""}</span>`;}
 function renderMenu(body){
-  const intro=document.createElement("div");intro.className="gscene";
-  intro.innerHTML=`<h3>Hraj sólo</h3><p class="story">Vytvor si partiu a prejdi nascriptovaný príbeh. Hod kockami je v hre — pri voľbách s <span style="color:var(--teal)">DC</span> sa hádže automaticky. Loot ide do inventára postavy, boj beží cez reálne staty nepriateľov z knihy.</p>`;
-  body.appendChild(intro);
+  const hero=document.createElement("div");hero.className="menu-hero";
+  const eyebrow=GAME?"Rozohraná hra":"Sólo príbeh";
+  hero.innerHTML=`<div class="eyebrow">${eyebrow}</div>
+    <h1>Hraj <b>sólo</b></h1>
+    <p>Vytvor si partiu a prejdi nascriptovaný príbeh — kocky, boj aj loot bežia presne podľa pravidiel z knihy.</p>`;
+  body.appendChild(hero);
+
   if(GAME){
-    const cont=document.createElement("button");cont.className="btn amber full";cont.style.marginBottom="10px";
-    cont.textContent="▸ Pokračovať v hre";cont.onclick=()=>{scnUI="game";renderScn();};
+    const st=curStory(),sc=curScene();
+    const diffNm={story:"Story",survivor:"Survivor",grounded:"Grounded"}[GAME.difficulty]||"Survivor";
+    const sub=`${st?esc(st.title):""}${sc&&sc.title?" — "+esc(sc.title):""} · ${diffNm}${GAME.permadeath?" · Permadeath":""}`;
+    const cont=document.createElement("button");cont.className="btn amber full menu-cta";
+    cont.innerHTML=`<span>▸ Pokračovať v hre</span><span class="sub">${sub}</span>`;
+    cont.onclick=()=>{scnUI="game";renderScn();};
     body.appendChild(cont);
+
+    const row=document.createElement("div");row.className="row";row.style.cssText="gap:8px;margin-top:10px";
+    const nw=document.createElement("button");nw.className="btn grow";nw.textContent="Nová hra";
+    nw.onclick=()=>{scnUI="stories";renderScn();};
+    const ro=document.createElement("button");ro.className="btn grow";ro.textContent=`Postavy${ROSTER.length?" ("+ROSTER.length+")":""}`;
+    ro.onclick=()=>{scnUI="roster";renderScn();};
+    row.appendChild(nw);row.appendChild(ro);body.appendChild(row);
+
+    const gd=document.createElement("button");gd.className="btn ghost full";gd.style.marginTop="8px";
+    gd.textContent="Príručka";gd.onclick=()=>go("codex");body.appendChild(gd);
+
+    const dc=document.createElement("button");dc.className="btn ghost full";
+    dc.style.cssText="margin-top:16px;color:var(--danger);font-size:11px;opacity:.75";
+    dc.textContent="Zahodiť rozohranú hru";dc.onclick=()=>{if(confirm("Zahodiť rozohratú hru?"))gReset();};
+    body.appendChild(dc);
+    return;
   }
-  const nw=document.createElement("button");nw.className="btn full";nw.style.marginBottom="10px";
-  nw.textContent=GAME?"Nová hra":"Nová hra";nw.onclick=()=>{scnUI="stories";renderScn();};
+
+  const nw=document.createElement("button");nw.className="btn amber full menu-cta";
+  nw.innerHTML=`<span>▸ Nová hra</span><span class="sub">Sprievodca ťa prevedie scenárom, obtiažnosťou aj partiou</span>`;
+  nw.onclick=()=>{scnUI="stories";renderScn();};
   body.appendChild(nw);
-  const ro=document.createElement("button");ro.className="btn full";ro.style.marginBottom="10px";
-  ro.textContent=`Postavy${ROSTER.length?" ("+ROSTER.length+")":""}`;ro.onclick=()=>{scnUI="roster";renderScn();};
-  body.appendChild(ro);
-  const gd=document.createElement("button");gd.className="btn ghost full";
-  gd.textContent="Príručka";gd.onclick=()=>go("codex");
-  body.appendChild(gd);
+
+  const row=document.createElement("div");row.className="row";row.style.cssText="gap:8px;margin-top:10px";
+  const ro=document.createElement("button");ro.className="btn grow";ro.textContent=`Postavy${ROSTER.length?" ("+ROSTER.length+")":""}`;
+  ro.onclick=()=>{scnUI="roster";renderScn();};
+  const gd=document.createElement("button");gd.className="btn grow ghost";gd.textContent="Príručka";
+  gd.onclick=()=>go("codex");
+  row.appendChild(ro);row.appendChild(gd);body.appendChild(row);
+
+  if(!ROSTER.length){
+    const eyeb=document.createElement("div");eyeb.className="eyebrow";eyeb.textContent="Prvýkrát tu?";
+    body.appendChild(eyeb);
+    const steps=document.createElement("div");steps.className="menu-steps";
+    steps.innerHTML=[
+      ["1","Ťukni na <b style=\"color:var(--ink)\">Nová hra</b> a vyber scenár + obtiažnosť."],
+      ["2","V kroku Partia si rovno vytvoríš postavu — alebo pridáš hotovú z LoU (Joel, Ellie…)."],
+      ["3","Hraj. Kocky, boj aj loot idú automaticky podľa pravidiel z knihy."]
+    ].map(([n,t])=>`<div class="menu-step"><span class="n">${n}</span><span>${t}</span></div>`).join("");
+    body.appendChild(steps);
+  }
 }
 function renderStoryPicker(body){
   body.appendChild(menuBackBtn());
   const intro=document.createElement("div");intro.className="gscene";
-  intro.innerHTML=`<h3>Vyber scenár</h3><p class="story">Hod kockami je v hre — pri voľbách s <span style="color:var(--teal)">DC</span> sa hádže automaticky.</p>`;
+  intro.innerHTML=`<h3>1/3 — Vyber scenár</h3><p class="story">Hod kockami je v hre — pri voľbách s <span style="color:var(--teal)">DC</span> sa hádže automaticky.</p>`;
   body.appendChild(intro);
   (DATA.stories||[]).forEach(s=>{const card=document.createElement("div");card.className="card";
     card.innerHTML=`<div class="pill amber">Scenár</div><h3 style="margin:8px 0 4px;font-family:var(--font-d);font-size:19px">${esc(s.title)}</h3><p class="desc">${esc(s.blurb)}</p>`;
-    const btn=document.createElement("button");btn.className="btn amber full";btn.style.marginTop="10px";btn.textContent="Nová hra";
-    btn.onclick=()=>gNewGame(s.id);card.appendChild(btn);body.appendChild(card);});
+    const btn=document.createElement("button");btn.className="btn amber full";btn.style.marginTop="10px";btn.textContent="Vybrať ›";
+    btn.onclick=()=>wizPickStory(s.id);card.appendChild(btn);body.appendChild(card);});
   const tip=document.createElement("div");tip.className="note box";tip.style.marginTop="6px";
   tip.textContent="Ďalšie scenáre dopĺňame do tej istej štruktúry — povedz, akú zápletku chceš, a napíšem ju.";
   body.appendChild(tip);
+}
+function renderWizDiff(body){
+  body.appendChild(wizBackBtn(wizBackToStories,"‹ Späť na scenár"));
+  const intro=document.createElement("div");intro.className="gscene";
+  intro.innerHTML=`<h3>2/3 — Obtiažnosť</h3><p class="story">Vyber, ako veľmi má byť svet nemilosrdný.</p>`;
+  body.appendChild(intro);
+  const DIFFS=[
+    {id:"story",name:"Story",desc:"Ľahšia — viac lootu, slabší a menej nepriateľov. Dobrá voľba na prvé zoznámenie."},
+    {id:"survivor",name:"Survivor",desc:"Normál — presne podľa pravidiel z knihy."},
+    {id:"grounded",name:"Grounded",desc:"Ťažká — dvojnásobný damage, prísnejší scavenging, postavy štartujú bez piluliek a výbavy."}
+  ];
+  DIFFS.forEach(d=>{const on=WIZ.difficulty===d.id;
+    const card=document.createElement("button");card.className="btn full"+(on?" amber":"");
+    card.style.cssText="flex-direction:column;align-items:flex-start;text-align:left;padding:13px 14px;margin-bottom:8px;height:auto";
+    card.innerHTML=`<span style="font-family:var(--font-d);text-transform:uppercase;letter-spacing:.06em;font-size:13px">${d.name}</span><span class="note" style="margin-top:3px;${on?"color:#19140a":""}">${d.desc}</span>`;
+    card.onclick=()=>wizSetDiff(d.id);body.appendChild(card);});
+  const pd=document.createElement("button");pd.className="btn full"+(WIZ.permadeath?" amber":"");pd.style.marginTop="10px";
+  pd.innerHTML=`<span style="font-family:var(--font-d);text-transform:uppercase;letter-spacing:.06em;font-size:13px">Permadeath: ${WIZ.permadeath?"Zapnuté":"Vypnuté"}</span>`;
+  pd.onclick=wizTogglePermadeath;body.appendChild(pd);
+  const note=document.createElement("div");note.className="note";note.style.cssText="margin:8px 0 16px";
+  note.textContent="Permadeath zapnuté: padnutá postava ostáva mŕtva navždy. Vypnuté: po boji sa prebudí s nízkym HP.";
+  body.appendChild(note);
+  const next=document.createElement("button");next.className="btn amber full";next.textContent="Ďalej — zostaviť partiu ›";
+  next.onclick=wizToParty;body.appendChild(next);
+}
+function renderWizParty(body){
+  body.appendChild(wizBackBtn(wizBackToDiff,"‹ Späť na obtiažnosť"));
+  const intro=document.createElement("div");intro.className="gscene";
+  intro.innerHTML=`<h3>3/3 — Zostav partiu</h3><p class="story">Vyber 1–4 postavy z rosteru. Môžeš si aj rovno vytvoriť novú, alebo pridať hotovú LoU postavu.</p>`;
+  body.appendChild(intro);
+  const row=document.createElement("div");row.className="row";row.style.cssText="gap:8px;margin-bottom:14px";
+  const mk=document.createElement("button");mk.className="btn grow";mk.textContent="+ Vytvoriť postavu";
+  mk.onclick=()=>openCreator("wizard");
+  const lou=document.createElement("button");lou.className="btn grow";lou.textContent="+ LoU postava";
+  lou.onclick=gOpenLouPicker;
+  row.appendChild(mk);row.appendChild(lou);body.appendChild(row);
+  if(!ROSTER.length){const n=document.createElement("div");n.className="note box";n.style.marginBottom="12px";
+    n.textContent="Roster je prázdny — vytvor si prvú postavu vyššie.";body.appendChild(n);}
+  ROSTER.forEach(c=>{const picked=WIZ.partyIds.includes(c.id);
+    const card=document.createElement("button");card.className="pick";card.style.width="100%";
+    card.innerHTML=`<input type="checkbox" ${picked?"checked":""} style="pointer-events:none">
+      <span class="grow"><b>${esc(c.name||"Bez mena")}</b><br><span class="note" style="margin:0">${esc(c.cls||"bez triedy")}${c.faction?" · "+esc(c.faction):""} · ${c.hpMax} HP</span></span>`;
+    card.onclick=()=>wizToggleChar(c.id);body.appendChild(card);});
+  const cnt=document.createElement("div");cnt.className="note";cnt.style.cssText="margin:10px 0;text-align:center";
+  cnt.textContent=`Vybraných: ${WIZ.partyIds.length}/4`;body.appendChild(cnt);
+  const startBtn=document.createElement("button");startBtn.className="btn amber full";
+  startBtn.textContent="Začať hru ›";if(!WIZ.partyIds.length)startBtn.style.opacity=".5";
+  startBtn.onclick=gStartFromWizard;body.appendChild(startBtn);
 }
 function renderRoster(body){
   body.appendChild(menuBackBtn());
@@ -1634,35 +1809,12 @@ function gOpenLouPicker(){
       <button class="btn amber full" onclick="rAddTemplate(${i})">Pridať do rosteru</button></div>`;});
   m.innerHTML=h;document.getElementById("scrim").classList.add("on");
 }
-function classPicker(idPrefix){return DATA.character.classes.map((c,i)=>
-  `<label class="pick"><input type="radio" name="${idPrefix}cls" value="${esc(c.name)}" ${i===0?"checked":""}><b>${esc(c.name)}</b> <span class="note" style="margin:0">+${c.skills.map(k=>(DATA.skills.find(s=>s.key===k)||{}).name||k).join(", +")}</span></label>`).join("");}
-function renderSetup(body){
-  body.appendChild(menuBackBtn());
-  const h=document.createElement("div");h.className="gscene";
-  h.innerHTML=`<h3>${esc(curStory().title)}</h3><p class="story">Zostav partiu (1–4 postavy). Každá má vlastné HP, zručnosti a inventár — počas hry medzi nimi prepínaš ťuknutím.</p>`;
-  body.appendChild(h);
-  if(GAME.party.length){const bar=partyBar();body.appendChild(bar);}
-  const add=document.createElement("button");add.className="btn full";add.style.marginBottom="10px";
-  add.textContent="+ Pridať postavu";add.onclick=gOpenAddChar;body.appendChild(add);
-  if(GAME.party.length){const go=document.createElement("button");go.className="btn amber full";
-    go.textContent="Začať príbeh ›";go.onclick=gStart;body.appendChild(go);}
-  const back=document.createElement("button");back.className="btn ghost full";back.style.marginTop="8px";
-  back.textContent="Zrušiť hru";back.onclick=()=>{if(confirm("Zahodiť rozohratú hru?"))gReset();};body.appendChild(back);
-}
-function gOpenAddChar(){const m=document.getElementById("modal");
-  m.innerHTML=`<div class="grabber"></div><h3>Nová postava <span class="x" onclick="closeEdit()">×</span></h3>
-   <div class="field"><label>Meno</label><input id="g-name" placeholder="Napr. Ellie"></div>
-   <div class="field"><label>Trieda (dá +1/+1 k zručnostiam)</label><div class="picks" id="g-cls">${classPicker("g-")}</div></div>
-   <button class="btn amber full" onclick="gConfirmAddChar()" style="margin-top:6px">Pridať do partie</button>`;
-  document.getElementById("scrim").classList.add("on");
-}
-function gConfirmAddChar(){const name=(document.getElementById("g-name").value||"").trim()||"Survivor";
-  const cls=(document.querySelector('input[name="g-cls"]:checked')||{}).value||"";
-  GAME.party.push(gMakeChar(name,cls));if(GAME.party.length===1)GAME.active=0;gSave();closeEdit();renderScn();}
 
 function renderScene(body){
   const sc=curScene();if(!sc){scnUI="menu";renderMenu(body);return;}
-  body.appendChild(menuBackBtn());
+  const topRow=document.createElement("div");topRow.style.cssText="display:flex;align-items:center;gap:0;margin-bottom:2px";
+  topRow.appendChild(menuBackBtn());topRow.insertAdjacentHTML("beforeend",gameDiffPill());
+  body.appendChild(topRow);
   body.appendChild(partyBar());
   if(GAME.banner){const bn=document.createElement("div");bn.className="gbanner "+(GAME.banner.ok?"ok":"bad");bn.textContent=GAME.banner.text;body.appendChild(bn);GAME.banner=null;}
   const sceneEl=document.createElement("div");sceneEl.className="gscene";
@@ -1690,7 +1842,10 @@ function invDrawer(){const ch=gActive();const det=document.createElement("detail
      <div class="note" style="margin-top:8px">Munícia: ${ammo}</div>
      <div class="note" style="margin-top:3px">Materiály: ${mats}</div></div>`;
   return det;}
-function renderCombat(body){const cb=GAME.combat;body.appendChild(menuBackBtn());body.appendChild(partyBar());
+function renderCombat(body){const cb=GAME.combat;
+  const topRow=document.createElement("div");topRow.style.cssText="display:flex;align-items:center;gap:0;margin-bottom:2px";
+  topRow.appendChild(menuBackBtn());topRow.insertAdjacentHTML("beforeend",gameDiffPill());
+  body.appendChild(topRow);body.appendChild(partyBar());
   const head=document.createElement("div");head.className="gscene";
   head.innerHTML=`<h3>${esc(cb.title||"Boj")}</h3>${cb.surprise?`<p class="story">${esc(cb.intro||"")}</p>`:""}`;
   body.appendChild(head);
@@ -1698,9 +1853,12 @@ function renderCombat(body){const cb=GAME.combat;body.appendChild(menuBackBtn())
     el.innerHTML=`<span class="fn">${esc(f.name)}</span><span class="fhp">${f.hp>0?f.hp+"/"+f.hpMax+" HP":"mŕtvy"}</span>`;body.appendChild(el);});
   if(cb.log.length){const lg=document.createElement("div");lg.className="glog";lg.innerHTML=cb.log.slice().reverse().join("");body.appendChild(lg);}
   const ch=gActive();
-  if(cb.result==="win"){const b=document.createElement("button");b.className="btn amber full";b.textContent="Pokračovať ›";b.onclick=()=>{const w=cb.win;GAME.combat=null;gGoto(w);};body.appendChild(b);return;}
+  if(cb.result==="win"){const b=document.createElement("button");b.className="btn amber full";b.textContent="Pokračovať ›";
+    b.onclick=()=>{gPostCombatRevive();const w=cb.win;GAME.combat=null;gGoto(w);};body.appendChild(b);return;}
   if(cb.result==="lose"){const b=document.createElement("button");b.className="btn full";b.style.color="var(--danger)";b.textContent="Ďalej ›";b.onclick=()=>{const l=cb.lose;GAME.combat=null;gGoto(l);};body.appendChild(b);return;}
-  if(ch.hp<=0){const n=document.createElement("div");n.className="gbanner bad";n.textContent=`${ch.name} je v bezvedomí — prepni sa na inú postavu v partii.`;body.appendChild(n);return;}
+  if(ch.hp<=0){const n=document.createElement("div");n.className="gbanner bad";
+    n.textContent=ch.dead?`${ch.name} je mŕtvy (Permadeath) — prepni sa na inú postavu.`:`${ch.name} je v bezvedomí — prepni sa na inú postavu v partii.`;
+    body.appendChild(n);return;}
   // stealth-kill option
   if(cb.surprise&&cb.stealthKill&&gHasNeed({flag:cb.stealthKill})){
     const sk=document.createElement("button");sk.className="btn full";sk.style.borderColor="var(--teal)";sk.style.color="var(--teal)";

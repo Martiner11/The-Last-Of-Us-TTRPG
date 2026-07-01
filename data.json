@@ -4454,7 +4454,8 @@
             "foes": [
               {
                 "type": "infected",
-                "name": "Runner"
+                "name": "Runner",
+                "perPlayer": true
               }
             ],
             "win": "exit",
