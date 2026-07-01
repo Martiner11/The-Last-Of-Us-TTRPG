@@ -258,7 +258,7 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
 
 <main>
   <!-- ========== SHEET ========== -->
-  <section class="tab on" id="t-sheet">
+  <section class="tab" id="t-sheet">
     <div class="eyebrow">Survivor</div>
     <div class="row" style="align-items:center;gap:12px">
       <div class="grow">
@@ -367,7 +367,7 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
   </section>
 
   <!-- ========== SCENARIOS ========== -->
-  <section class="tab" id="t-scn">
+  <section class="tab on" id="t-scn">
     <div class="eyebrow">Scenáre</div>
     <div id="scnBody"></div>
   </section>
@@ -434,7 +434,7 @@ TABS.forEach((t,i)=>{
   const b=document.createElement("button");
   b.innerHTML=`<svg class="ic" viewBox="0 0 24 24">${t.ic}</svg>${t.label}`;
   b.onclick=()=>go(t.id);
-  if(i===0)b.classList.add("on");
+  if(t.id==="scn")b.classList.add("on");
   nav.appendChild(b);
 });
 function go(id){
@@ -1896,6 +1896,7 @@ async function init(){
   customFactions=loadCustomFactions();
   document.querySelectorAll("#rollSeg button").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
   renderSheet();renderDice();renderCodexTabs();renderCodex();renderScn();
+  go("scn"); // appka pristáva na menu (tab Hra), nie na karte postavy
 }
 init();
 
