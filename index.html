@@ -596,7 +596,7 @@ const blank=()=>({
   ammo:zeroMap(AMMO_TYPES), mats:zeroMap(MAT_TYPES)
 });
 let mem=null,C;
-function SC(){return GAME?gActive():C;} // "Sheet Character" — v hre aktívna postava z partie, mimo hry osobná karta C
+function SC(){return (GAME&&gActive())||C;} // "Sheet Character" — v hre aktívna postava z partie, mimo hry (alebo pri poškodenej hre) osobná karta C
 function sheetSave(){if(GAME)gSave();else save();}
 function load(){ try{const r=localStorage.getItem(KEY); let c=r?{...blank(),...JSON.parse(r)}:(mem||blank());
   c.ammo={...zeroMap(AMMO_TYPES),...(c.ammo||{})}; c.mats={...zeroMap(MAT_TYPES),...(c.mats||{})}; return c;
@@ -640,7 +640,7 @@ function closeOverlay(){
 
 /* ---------- sheet render ---------- */
 function renderSheet(){
-  const S=SC();
+  const S=SC();if(!S)return;
   const nm=S.name||"Nová postava";
   document.getElementById("charName").textContent=nm;
   document.getElementById("who").textContent=nm;
@@ -1667,7 +1667,14 @@ function rAddTemplate(i){const def=LOU_TEMPLATES[i];if(!def)return;
   renderScn();}
 function rDeleteChar(id){if(!confirm("Zmazať túto postavu z rosteru?"))return;
   ROSTER=ROSTER.filter(c=>c.id!==id);rSave();renderScn();}
-function gLoad(){try{const r=localStorage.getItem(GKEY);return r?JSON.parse(r):null;}catch(e){return null;}}
+function gLoad(){try{const r=localStorage.getItem(GKEY);if(!r)return null;
+  const g=JSON.parse(r);
+  if(!g||!Array.isArray(g.party)||!g.party.length||!g.party[g.active]){
+    try{localStorage.removeItem(GKEY);}catch(e){} // poškodená/stará rozohraná hra (napr. prázdna partia) — zahodiť namiesto pádu appky
+    return null;
+  }
+  return g;
+  }catch(e){try{localStorage.removeItem(GKEY);}catch(e2){} return null;}}
 function gSave(){try{localStorage.setItem(GKEY,JSON.stringify(GAME));}catch(e){}}
 function gActive(){return GAME&&GAME.party[GAME.active];}
 function curStory(){return (DATA.stories||[]).find(s=>s.id===GAME.storyId)||(DATA.stories||[])[0];}
