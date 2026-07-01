@@ -49,22 +49,26 @@ header.app{
 .wordmark b{color:var(--ink);font-weight:600}
 .who{margin-left:auto;font-size:11px;color:var(--faint);font-family:var(--font-d);letter-spacing:.08em;text-transform:uppercase;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:48%}
-main{padding:4px 16px calc(var(--nav-h) + env(safe-area-inset-bottom) + 18px)}
+main{padding:4px 16px calc(env(safe-area-inset-bottom) + 20px)}
 .tab{display:none;animation:fade .25s ease}
 .tab.on{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-nav.bar{
-  position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(var(--nav-h) + env(safe-area-inset-bottom));
-  padding-bottom:env(safe-area-inset-bottom);
-  background:rgba(0,0,0,.96);border-top:1px solid var(--line);
-  display:grid;grid-template-columns:repeat(4,1fr)
-}
-nav.bar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-  color:var(--faint);font-family:var(--font-d);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;position:relative}
-nav.bar button .ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5}
-nav.bar button.on{color:var(--ink)}
-nav.bar button.on::before{content:"";position:absolute;top:0;width:22px;height:2px;background:var(--amber)}
+.overlay-tab{position:fixed;inset:0;z-index:50;background:var(--bg);
+  transform:translateY(100%);transition:transform .25s ease;visibility:hidden;overflow-y:auto;
+  padding:calc(env(safe-area-inset-top) + 10px) 16px calc(env(safe-area-inset-bottom) + 24px)}
+.overlay-tab.on{transform:translateY(0);visibility:visible}
+.ov-head{display:flex;align-items:center;gap:10px;margin:0 0 12px;position:sticky;top:0;background:var(--bg);
+  padding:0 0 10px;z-index:2}
+.ov-head b{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.16em;font-size:12.5px;color:var(--muted)}
+.ov-close{margin-left:auto;color:var(--ink);font-family:var(--font-d);text-transform:uppercase;letter-spacing:.06em;
+  font-size:11.5px;padding:7px 12px;border:1px solid var(--line2);border-radius:3px}
+.gutil{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:2px}
+.gutil button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;color:var(--muted);
+  font-family:var(--font-d);font-size:10px;letter-spacing:.06em;text-transform:uppercase;border-right:1px solid var(--line)}
+.gutil button:last-child{border-right:none}
+.gutil button .ic{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.5}
+.gutil button:active{color:var(--amber)}
 
 /* ---------- Generic bits ---------- */
 .eyebrow{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.18em;font-size:11.5px;color:var(--ink);font-weight:600;margin:26px 0 4px;display:flex;align-items:center;gap:10px}
@@ -285,7 +289,8 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
 
 <main>
   <!-- ========== SHEET ========== -->
-  <section class="tab" id="t-sheet">
+  <section class="overlay-tab" id="t-sheet">
+    <div class="ov-head"><b>Postava</b><button class="ov-close" onclick="closeOverlay()">Zavrieť ×</button></div>
     <div class="eyebrow">Survivor</div>
     <div class="row" style="align-items:center;gap:12px">
       <div class="grow">
@@ -356,7 +361,8 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
   </section>
 
   <!-- ========== DICE ========== -->
-  <section class="tab" id="t-dice">
+  <section class="overlay-tab" id="t-dice">
+    <div class="ov-head"><b>Kocky</b><button class="ov-close" onclick="closeOverlay()">Zavrieť ×</button></div>
     <div class="eyebrow">Kockáreň</div>
     <div class="seg" id="rollSeg">
       <button data-m="digital">V appke<span class="sub">appka hodí za teba</span></button>
@@ -386,7 +392,8 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
   </section>
 
   <!-- ========== CODEX ========== -->
-  <section class="tab" id="t-codex">
+  <section class="overlay-tab" id="t-codex">
+    <div class="ov-head"><b>Kódex</b><button class="ov-close" onclick="closeOverlay()">Zavrieť ×</button></div>
     <div class="eyebrow">Kódex</div>
     <div class="search"><input id="cxSearch" placeholder="Hľadať…" oninput="renderCodex()"></div>
     <div class="tabsmini" id="cxTabs"></div>
@@ -399,8 +406,6 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
     <div id="scnBody"></div>
   </section>
 </main>
-
-<nav class="bar" id="nav"></nav>
 
 <!-- edit modal -->
 <div class="scrim" id="scrim" onclick="if(event.target===this)closeEdit()">
@@ -521,6 +526,8 @@ const SK_TR={
   "Cover Fire":"Krycia paľba","Extra Kick":"Extra sila","Last Chance":"Posledná šanca",
   // trauma
   "Stage 1: Shaken":"Stupeň 1: Otrasený","Stage 2: Traumatized":"Stupeň 2: Traumatizovaný","Stage 3: Broken":"Stupeň 3: Zlomený",
+  "Location":"Poloha","Structure":"Štruktúra","Resources":"Zdroje","Size":"Veľkosť",
+  "Characteristics":"Charakteristika","Goal":"Cieľ","Hostility":"Nepriateľskosť",
   // vylepšenia zbraní (upg[].h)
   "4x Scope":"4x Zameriavač","Arrow Expert":"Expert na šípy","Brass Knuckles":"Boxer","Burn":"Zapálenie",
   "Clip Capacity":"Kapacita zásobníka","Double Trigger":"Dvojitá spúšť","Draw Speed":"Rýchlosť tasenia",
@@ -589,13 +596,15 @@ const blank=()=>({
   ammo:zeroMap(AMMO_TYPES), mats:zeroMap(MAT_TYPES)
 });
 let mem=null,C;
+function SC(){return GAME?gActive():C;} // "Sheet Character" — v hre aktívna postava z partie, mimo hry osobná karta C
+function sheetSave(){if(GAME)gSave();else save();}
 function load(){ try{const r=localStorage.getItem(KEY); let c=r?{...blank(),...JSON.parse(r)}:(mem||blank());
   c.ammo={...zeroMap(AMMO_TYPES),...(c.ammo||{})}; c.mats={...zeroMap(MAT_TYPES),...(c.mats||{})}; return c;
   }catch(e){return mem||blank();} }
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(C));}catch(e){} mem=C; }
 function resId(kind,key){return "res-"+kind+"-"+key.replace(/[^a-z0-9]/gi,"");}
-function adjRes(kind,key,delta){const obj=kind==="ammo"?C.ammo:C.mats; if(!obj)return;
-  obj[key]=Math.max(0,(obj[key]||0)+delta); save();
+function adjRes(kind,key,delta){const obj=kind==="ammo"?SC().ammo:SC().mats; if(!obj)return;
+  obj[key]=Math.max(0,(obj[key]||0)+delta); sheetSave();
   const el=document.getElementById(resId(kind,key)); if(el)el.textContent=obj[key]; }
 /* C sa naplní v init() po načítaní dát */
 
@@ -606,41 +615,44 @@ function loadCustomFactions(){try{return JSON.parse(localStorage.getItem(CFKEY))
 function saveCustomFactions(){try{localStorage.setItem(CFKEY,JSON.stringify(customFactions));}catch(e){}}
 function allFactionNames(){return DATA.factions.map(f=>f.name).concat(customFactions.map(f=>f.name));}
 
-/* ---------- nav ---------- */
-const TABS=[
-  {id:"sheet",label:"Postava",ic:'<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>'},
-  {id:"dice", label:"Kocky", ic:'<rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.1" fill="currentColor" stroke="none"/>'},
-  {id:"codex",label:"Kódex", ic:'<path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Z"/><path d="M5 18a2 2 0 0 1 2-2h11"/>'},
-  {id:"scn",  label:"Hra",ic:'<path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0Z"/><path d="M8 12h3v3M16 9l-3 3"/>'}
-];
-const nav=document.getElementById("nav");
-TABS.forEach((t,i)=>{
-  const b=document.createElement("button");
-  b.innerHTML=`<svg class="ic" viewBox="0 0 24 24">${t.ic}</svg>${t.label}`;
-  b.onclick=()=>go(t.id);
-  if(t.id==="scn")b.classList.add("on");
-  nav.appendChild(b);
-});
-function go(id){
-  document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+id));
-  [...nav.children].forEach((b,i)=>b.classList.toggle("on",TABS[i].id===id));
-  window.scrollTo(0,0);
+/* ---------- prekrytia (Postava/Kocky/Kódex sa otvárajú nad hrou, nie ako samostatné taby) ---------- */
+const OV_ICONS={
+  sheet:'<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>',
+  dice:'<rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.1" fill="currentColor" stroke="none"/>',
+  codex:'<path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Z"/><path d="M5 18a2 2 0 0 1 2-2h11"/>'
+};
+let activeOverlay=null;
+function openOverlay(id){
+  activeOverlay=id;
+  document.querySelectorAll(".overlay-tab").forEach(s=>s.classList.remove("on"));
+  const sec=document.getElementById("t-"+id);if(!sec)return;
+  if(id==="sheet")renderSheet();
+  else if(id==="dice")renderDice();
+  else if(id==="codex"){renderCodexTabs();renderCodex();}
+  sec.classList.add("on");sec.scrollTop=0;
+  document.body.style.overflow="hidden";
+}
+function closeOverlay(){
+  document.querySelectorAll(".overlay-tab").forEach(s=>s.classList.remove("on"));
+  activeOverlay=null;
+  document.body.style.overflow="";
 }
 
 /* ---------- sheet render ---------- */
 function renderSheet(){
-  const nm=C.name||"Nová postava";
+  const S=SC();
+  const nm=S.name||"Nová postava";
   document.getElementById("charName").textContent=nm;
   document.getElementById("who").textContent=nm;
-  document.getElementById("charLine").textContent=(tr(C.faction)||"Bez frakcie")+" · "+(tr(C.cls)||"bez triedy");
-  document.getElementById("vHp").textContent=C.hp;
-  document.getElementById("barHp").style.width=Math.max(0,Math.min(100,C.hp/C.hpMax*100))+"%";
-  document.getElementById("vInf").textContent=C.inf+"%";
-  document.getElementById("barInf").style.width=Math.min(100,C.inf)+"%";
-  document.getElementById("vPills").textContent=C.pills||0;
-  document.getElementById("vParts").textContent=C.parts||0;
-  document.getElementById("vTool").textContent=C.toolLevel||1;
-  const fa=C.firstAid||{qty:0,heal:0};
+  document.getElementById("charLine").textContent=(tr(S.faction)||"Bez frakcie")+" · "+(tr(S.cls)||"bez triedy");
+  document.getElementById("vHp").textContent=S.hp;
+  document.getElementById("barHp").style.width=Math.max(0,Math.min(100,S.hp/S.hpMax*100))+"%";
+  document.getElementById("vInf").textContent=S.inf+"%";
+  document.getElementById("barInf").style.width=Math.min(100,S.inf)+"%";
+  document.getElementById("vPills").textContent=S.pills||0;
+  document.getElementById("vParts").textContent=S.parts||0;
+  document.getElementById("vTool").textContent=S.toolLevel||1;
+  const fa=S.firstAid||{qty:0,heal:0};
   document.getElementById("vFirst").textContent=fa.qty||0;
   const fac=document.getElementById("firstAidCard");
   if(fac){
@@ -649,33 +661,33 @@ function renderSheet(){
     else fac.style.display="none";
   }
   const morEl=document.getElementById("charMor");
-  if(C.morality){const mo=(DATA.character.morality?.options||[]).find(o=>o.name===C.morality);
-    morEl.style.display="";morEl.innerHTML=`Morálka: <b style="color:var(--teal)">${esc(C.morality)}</b>${mo?` <span style="color:var(--faint)">(+1 ${skName(mo.skill)})</span>`:""}`;}
+  if(S.morality){const mo=(DATA.character.morality?.options||[]).find(o=>o.name===S.morality);
+    morEl.style.display="";morEl.innerHTML=`Morálka: <b style="color:var(--teal)">${esc(S.morality)}</b>${mo?` <span style="color:var(--faint)">(+1 ${skName(mo.skill)})</span>`:""}`;}
   else morEl.style.display="none";
 
   const g=document.getElementById("skillGrid"); g.innerHTML="";
   DATA.skills.forEach(s=>{
     const b=document.createElement("button"); b.className="skill";
-    b.innerHTML=`<span class="val">${C.skills[s.key]}</span>
+    b.innerHTML=`<span class="val">${S.skills[s.key]}</span>
       <span class="nm">${tr(s.name)}${skillDie(s.key)==="d12"?' <span style="color:var(--teal);font-size:10px;font-family:var(--font-m)">D12</span>':''}<small>${trAll(s.role)}</small></span><span class="go">HOD ›</span>`;
-    b.onclick=()=>{ go("dice"); document.getElementById("ckSkill").value=s.key; syncDie(); flashCheck(); };
+    b.onclick=()=>{ openOverlay("dice"); document.getElementById("ckSkill").value=s.key; syncDie(); flashCheck(); };
     g.appendChild(b);
   });
 
   const eq=document.getElementById("equip"); eq.innerHTML="";
   DATA.weapons.forEach(w=>{const o=document.createElement("option");o.value=w.name;o.textContent=tr(w.name);eq.appendChild(o);});
-  eq.value=C.equip;
+  eq.value=S.equip;
 
   const il=document.getElementById("invList"); il.innerHTML="";
-  if(!C.inv.length) il.innerHTML='<div class="note">Inventár je prázdny.</div>';
-  C.inv.forEach((it,i)=>{
+  if(!S.inv.length) il.innerHTML='<div class="note">Inventár je prázdny.</div>';
+  S.inv.forEach((it,i)=>{
     const r=document.createElement("div"); r.className="invrow";
     r.innerHTML=`<span class="q">${it.q||1}×</span><span class="grow">${tr(it.name)}</span><button class="x" aria-label="Odstrániť">×</button>`;
-    r.querySelector(".x").onclick=()=>{C.inv.splice(i,1);save();renderSheet();};
+    r.querySelector(".x").onclick=()=>{S.inv.splice(i,1);sheetSave();renderSheet();};
     il.appendChild(r);
   });
-  document.getElementById("journal").value=C.journal||"";
-  const ups=Object.entries(C.upgrades||{});
+  document.getElementById("journal").value=S.journal||"";
+  const ups=Object.entries(S.upgrades||{});
   const ul=document.getElementById("upgList");
   if(ul){
     if(!ups.length)ul.innerHTML='<div class="note">Žiadne. Kúp ich v Kódexe → Upgrades (za pilulky).</div>';
@@ -686,7 +698,7 @@ function renderSheet(){
   }
   const rw=document.getElementById("resWrap");
   if(rw){
-    const cell=(kind,key)=>{const v=((kind==="ammo"?C.ammo:C.mats)||{})[key]||0;
+    const cell=(kind,key)=>{const v=((kind==="ammo"?S.ammo:S.mats)||{})[key]||0;
       return `<div class="rescell"><span class="resn">${esc(tr(key))}</span>
         <span class="resc"><button onclick="adjRes('${kind}','${key}',-1)">−</button>
         <span class="rv" id="${resId(kind,key)}">${v}</span>
@@ -697,10 +709,10 @@ function renderSheet(){
       <div class="resgrid">${MAT_TYPES.map(k=>cell("mats",k)).join("")}</div>`;
   }
 }
-function setEquip(v){C.equip=v;save();}
+function setEquip(v){SC().equip=v;sheetSave();}
 function addItem(){const n=document.getElementById("invName").value.trim();if(!n)return;
-  C.inv.push({name:n,q:1});document.getElementById("invName").value="";save();renderSheet();}
-function saveJournal(v){C.journal=v;save();}
+  SC().inv.push({name:n,q:1});document.getElementById("invName").value="";sheetSave();renderSheet();}
+function saveJournal(v){SC().journal=v;sheetSave();}
 
 /* ---------- edit modal ---------- */
 let editRosterId=null; // ak nastavené, openEdit/commitEdit upravujú postavu v ROSTER namiesto C
@@ -760,7 +772,7 @@ function openFactionForm(editId){
   g.prompts.forEach(p=>{
     if(p.k==="Name")return;
     const v=ex?(ex.fields[p.k]||""):"";
-    fields+=`<div class="field"><label>${p.k}</label>
+    fields+=`<div class="field"><label>${tr(p.k)}</label>
       <textarea id="cf-${p.k}" rows="2" placeholder="${esc(p.q)}">${esc(v)}</textarea></div>`;
   });
   m.innerHTML=`<div class="grabber"></div>
@@ -791,7 +803,7 @@ function deleteCustomFaction(id){
 }
 
 /* ---------- Survival Upgrades: obchod + efekty ---------- */
-function skillDie(key){return (C.skillDice&&C.skillDice[key])||"d10";}
+function skillDie(key){return (SC().skillDice&&SC().skillDice[key])||"d10";}
 function syncDie(){const s=document.getElementById("ckSkill"),die=document.getElementById("ckDie");
   if(s&&die)die.value=skillDie(s.value);}
 function findUpgrade(name){
@@ -799,53 +811,53 @@ function findUpgrade(name){
   return null;
 }
 function applyUpgradeEffect(item,tier){
-  const ap=item.apply;if(!ap)return;
-  if(ap.type==="mod")C.skills[ap.skill]=(C.skills[ap.skill]||0)+1;
-  else if(ap.type==="dice"){if(!C.skillDice)C.skillDice={};C.skillDice[ap.skill]=ap.die;}
-  else if(ap.type==="maxhp"){const tv=(item.tiers.find(t=>t.t===tier)||{}).val;if(tv)C.hpMax=tv;}
-  else if(ap.type==="tool"){const tv=(item.tiers.find(t=>t.t===tier)||{}).val;if(tv)C.toolLevel=tv;}
-  else if(ap.type==="firstaidheal"){const tv=(item.tiers.find(t=>t.t===tier)||{}).val;if(tv){if(!C.firstAid)C.firstAid={qty:0,heal:0};C.firstAid.heal=tv;}}
+  const S=SC();const ap=item.apply;if(!ap)return;
+  if(ap.type==="mod")S.skills[ap.skill]=(S.skills[ap.skill]||0)+1;
+  else if(ap.type==="dice"){if(!S.skillDice)S.skillDice={};S.skillDice[ap.skill]=ap.die;}
+  else if(ap.type==="maxhp"){const tv=(item.tiers.find(t=>t.t===tier)||{}).val;if(tv)S.hpMax=tv;}
+  else if(ap.type==="tool"){const tv=(item.tiers.find(t=>t.t===tier)||{}).val;if(tv)S.toolLevel=tv;}
+  else if(ap.type==="firstaidheal"){const tv=(item.tiers.find(t=>t.t===tier)||{}).val;if(tv){if(!S.firstAid)S.firstAid={qty:0,heal:0};S.firstAid.heal=tv;}}
 }
 function reverseUpgradeEffect(item,tier){
-  const ap=item.apply;if(!ap)return;
+  const S=SC();const ap=item.apply;if(!ap)return;
   const prev=item.tiers.find(t=>t.t===tier-1);
-  if(ap.type==="mod")C.skills[ap.skill]=Math.max(0,(C.skills[ap.skill]||0)-1);
-  else if(ap.type==="dice"){if(C.skillDice)delete C.skillDice[ap.skill];}
-  else if(ap.type==="maxhp"){C.hpMax=prev?prev.val:DATA.character.startHealth;if(C.hp>C.hpMax)C.hp=C.hpMax;}
-  else if(ap.type==="tool"){C.toolLevel=prev?prev.val:1;}
-  else if(ap.type==="firstaidheal"){if(!C.firstAid)C.firstAid={qty:0,heal:0};C.firstAid.heal=prev?prev.val:0;}
+  if(ap.type==="mod")S.skills[ap.skill]=Math.max(0,(S.skills[ap.skill]||0)-1);
+  else if(ap.type==="dice"){if(S.skillDice)delete S.skillDice[ap.skill];}
+  else if(ap.type==="maxhp"){S.hpMax=prev?prev.val:DATA.character.startHealth;if(S.hp>S.hpMax)S.hp=S.hpMax;}
+  else if(ap.type==="tool"){S.toolLevel=prev?prev.val:1;}
+  else if(ap.type==="firstaidheal"){if(!S.firstAid)S.firstAid={qty:0,heal:0};S.firstAid.heal=prev?prev.val:0;}
 }
 function buyUpgrade(name){
-  const item=findUpgrade(name);if(!item)return;
-  if(!C.upgrades)C.upgrades={};
-  const owned=C.upgrades[name]||0;
+  const S=SC();const item=findUpgrade(name);if(!item)return;
+  if(!S.upgrades)S.upgrades={};
+  const owned=S.upgrades[name]||0;
   const next=item.tiers.find(t=>t.t===owned+1);
-  if(!next||next.c==null||(C.pills||0)<next.c)return;
-  C.pills-=next.c;C.upgrades[name]=owned+1;applyUpgradeEffect(item,owned+1);
-  save();renderCodex();renderSheet();renderDice();
+  if(!next||next.c==null||(S.pills||0)<next.c)return;
+  S.pills-=next.c;S.upgrades[name]=owned+1;applyUpgradeEffect(item,owned+1);
+  sheetSave();renderCodex();renderSheet();renderDice();
 }
 function refundUpgrade(name){
-  const item=findUpgrade(name);if(!item||!C.upgrades)return;
-  const owned=C.upgrades[name]||0;if(owned<1)return;
+  const S=SC();const item=findUpgrade(name);if(!item||!S.upgrades)return;
+  const owned=S.upgrades[name]||0;if(owned<1)return;
   const t=item.tiers.find(x=>x.t===owned);
   reverseUpgradeEffect(item,owned);
-  if(t&&t.c!=null)C.pills=(C.pills||0)+t.c;
-  C.upgrades[name]=owned-1;if(C.upgrades[name]===0)delete C.upgrades[name];
-  save();renderCodex();renderSheet();renderDice();
+  if(t&&t.c!=null)S.pills=(S.pills||0)+t.c;
+  S.upgrades[name]=owned-1;if(S.upgrades[name]===0)delete S.upgrades[name];
+  sheetSave();renderCodex();renderSheet();renderDice();
 }
-function addPills(n){C.pills=Math.max(0,(C.pills||0)+n);save();renderCodex();renderSheet();}
+function addPills(n){SC().pills=Math.max(0,(SC().pills||0)+n);sheetSave();renderCodex();renderSheet();}
 
 /* ---------- vychytávky: adrenalín, trauma, re-rolly, parts, weapon upg, lekárnička ---------- */
-function ownedTier(name){return (C.upgrades&&C.upgrades[name])||0;}
+function ownedTier(name){return (SC().upgrades&&SC().upgrades[name])||0;}
 function adrenalineDie(){const t=ownedTier("Adrenaline Rush");return t===1?"d4":t===2?"d6":t===3?"d8":null;}
 function maxRerolls(){return ownedTier("Resilience");}
-function traumaMod(key){const st=DATA.trauma.stages[(C.trauma||0)-1];return st&&st.autoMods?(st.autoMods[key]||0):0;}
-function addParts(n){C.parts=Math.max(0,(C.parts||0)+n);save();renderCodex();renderSheet();}
-function newDay(){C.rerollsLeft=maxRerolls();save();renderRerollBar();}
+function traumaMod(key){const st=DATA.trauma.stages[(SC().trauma||0)-1];return st&&st.autoMods?(st.autoMods[key]||0):0;}
+function addParts(n){SC().parts=Math.max(0,(SC().parts||0)+n);sheetSave();renderCodex();renderSheet();}
+function newDay(){SC().rerollsLeft=maxRerolls();sheetSave();renderRerollBar();}
 let lastCheck=null;
 function rerollLast(){
-  if(!lastCheck||(C.rerollsLeft||0)<1||rollMode==="manual")return;
-  C.rerollsLeft--;save();
+  if(!lastCheck||(SC().rerollsLeft||0)<1||rollMode==="manual")return;
+  SC().rerollsLeft--;sheetSave();
   const skill=DATA.skills.find(s=>s.key===lastCheck.skillKey),die=lastCheck.die,dc=lastCheck.dc;
   const raw=1+Math.floor(Math.random()*sides(die)),r=resolveCheck(skill,die,raw,dc);
   document.getElementById("rLabel").textContent=`${skill.name} · ${die} + ${r.mod} vs DC ${dc} (re-roll)`;
@@ -856,7 +868,7 @@ function renderRerollBar(){
   const max=maxRerolls();
   if(max<1){el.style.display="none";return;}
   el.style.display="";
-  const left=C.rerollsLeft||0,can=left>0&&lastCheck&&rollMode!=="manual";
+  const left=SC().rerollsLeft||0,can=left>0&&lastCheck&&rollMode!=="manual";
   el.innerHTML=`<span class="lbl">Re-rolly</span> <b class="mono">${left}/${max}</b>
     <span style="margin-left:auto;display:flex;gap:7px">
       <button class="do" onclick="newDay()">Nový deň</button>
@@ -864,38 +876,39 @@ function renderRerollBar(){
 }
 function renderTraumaWarn(){
   const el=document.getElementById("traumaWarn");if(!el)return;
-  const st=DATA.trauma.stages[(C.trauma||0)-1];
+  const st=DATA.trauma.stages[(SC().trauma||0)-1];
   if(!st){el.style.display="none";return;}
   el.style.display="";
-  el.innerHTML=`<b style="color:var(--danger)">Trauma — ${st.name}</b><br>${st.effects.map(esc).join(" · ")}`;
+  el.innerHTML=`<b style="color:var(--danger)">Trauma — ${trAll(st.name)}</b><br>${st.effects.map(x=>esc(trAll(x))).join(" · ")}`;
 }
 function parseCost(s){s=String(s);if(s.includes("/")){const p=s.split("/");return {tool:parseInt(p[0])||1,parts:parseInt(p[1])||0};}return {tool:1,parts:parseInt(s)||0};}
-function wuOwned(weapon,gi){return (C.weaponUpgrades&&C.weaponUpgrades[weapon]&&C.weaponUpgrades[weapon][gi])||0;}
+function wuOwned(weapon,gi){return (SC().weaponUpgrades&&SC().weaponUpgrades[weapon]&&SC().weaponUpgrades[weapon][gi])||0;}
 function buyWeaponUpgrade(weapon,gi){
-  const w=DATA.weapons.find(x=>x.name===weapon);if(!w||!w.upg[gi])return;
+  const S=SC();const w=DATA.weapons.find(x=>x.name===weapon);if(!w||!w.upg[gi])return;
   const owned=wuOwned(weapon,gi),row=w.upg[gi].rows[owned];if(!row)return;
   const cost=parseCost(row[1]);
-  if((C.toolLevel||1)<cost.tool||(C.parts||0)<cost.parts)return;
-  C.parts-=cost.parts;
-  if(!C.weaponUpgrades)C.weaponUpgrades={};
-  if(!C.weaponUpgrades[weapon])C.weaponUpgrades[weapon]={};
-  C.weaponUpgrades[weapon][gi]=owned+1;
-  save();renderCodex();renderSheet();
+  if((S.toolLevel||1)<cost.tool||(S.parts||0)<cost.parts)return;
+  S.parts-=cost.parts;
+  if(!S.weaponUpgrades)S.weaponUpgrades={};
+  if(!S.weaponUpgrades[weapon])S.weaponUpgrades[weapon]={};
+  S.weaponUpgrades[weapon][gi]=owned+1;
+  sheetSave();renderCodex();renderSheet();
 }
 function refundWeaponUpgrade(weapon,gi){
-  const w=DATA.weapons.find(x=>x.name===weapon);if(!w)return;
+  const S=SC();const w=DATA.weapons.find(x=>x.name===weapon);if(!w)return;
   const owned=wuOwned(weapon,gi);if(owned<1)return;
   const cost=parseCost(w.upg[gi].rows[owned-1][1]);
-  C.parts=(C.parts||0)+cost.parts;
-  C.weaponUpgrades[weapon][gi]=owned-1;
-  save();renderCodex();renderSheet();
+  S.parts=(S.parts||0)+cost.parts;
+  S.weaponUpgrades[weapon][gi]=owned-1;
+  sheetSave();renderCodex();renderSheet();
 }
 function useFirstAid(){
-  if(!C.firstAid||C.firstAid.qty<1)return;
-  C.firstAid.qty--;
-  C.hp=Math.min(C.hpMax,(C.hp||0)+(C.firstAid.heal||0));
-  save();renderSheet();
-  go("dice");const s=document.getElementById("ckSkill");if(s){s.value="medicine";syncDie();}flashCheck();
+  const S=SC();
+  if(!S.firstAid||S.firstAid.qty<1)return;
+  S.firstAid.qty--;
+  S.hp=Math.min(S.hpMax,(S.hp||0)+(S.firstAid.heal||0));
+  sheetSave();renderSheet();
+  openOverlay("dice");const s=document.getElementById("ckSkill");if(s){s.value="medicine";syncDie();}flashCheck();
 }
 
 /* ---------- sprievodca tvorby postavy ---------- */
@@ -909,7 +922,7 @@ function openCreator(target){
   let h=`<div class="grabber"></div>
     <h3>Tvorba postavy <span class="x" onclick="closeEdit()">×</span></h3>
     <div class="note" style="margin-bottom:12px">${esc(ch.intro)}</div>
-    <div class="field"><label>Meno</label><input id="cr-name" value="${creatorTarget?"":esc(C.name||"")}" placeholder="Meno postavy"></div>
+    <div class="field"><label>Meno</label><input id="cr-name" value="${creatorTarget?"":esc(SC().name||"")}" placeholder="Meno postavy"></div>
     <div class="field"><label>${esc(ch.bio.age.q)}</label>
       <select id="cr-age" onchange="updateCreator()">${ch.bio.age.options.map(skOpt).join("")}</select></div>`;
   ch.bio.personality.forEach((p,i)=>{
@@ -978,15 +991,16 @@ function applyCreator(){
     renderScn();
     return;
   }
-  C.skills=skills;
-  C.hpMax=DATA.character.startHealth;C.hp=DATA.character.startHealth;
-  C.pills=tier?tier.pills:0;
-  C.morality=morName||"";
-  if(name)C.name=name;
-  if(cls)C.cls=cls.name;
-  C.inv=gear.map(n=>({name:n,q:1}));
-  C.equip=eqW||C.equip||(known[0]||"");
-  save();renderSheet();renderDice();closeEdit();go("sheet");
+  const S=SC();
+  S.skills=skills;
+  S.hpMax=DATA.character.startHealth;S.hp=DATA.character.startHealth;
+  S.pills=tier?tier.pills:0;
+  S.morality=morName||"";
+  if(name)S.name=name;
+  if(cls)S.cls=cls.name;
+  S.inv=gear.map(n=>({name:n,q:1}));
+  S.equip=eqW||S.equip||(known[0]||"");
+  sheetSave();renderSheet();renderDice();closeEdit();openOverlay("sheet");
 }
 
 /* ---------- pomocné pre Kódex: Postava ---------- */
@@ -1022,14 +1036,17 @@ function bump(id,d,min,max){const el=document.getElementById(id);let v=(parseInt
 
 /* ---------- export / import / reset ---------- */
 function exportChar(){
-  const blob=new Blob([JSON.stringify(C,null,2)],{type:"application/json"});
+  const blob=new Blob([JSON.stringify(SC(),null,2)],{type:"application/json"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);
-  a.download=(C.name||"postava").replace(/\s+/g,"_")+".tlou.json";a.click();
+  a.download=(SC().name||"postava").replace(/\s+/g,"_")+".tlou.json";a.click();
 }
 function importChar(file){if(!file)return;const r=new FileReader();
-  r.onload=()=>{try{C={...blank(),...JSON.parse(r.result)};save();renderSheet();renderDice();go("sheet");}catch(e){alert("Neplatný súbor.");}};
+  r.onload=()=>{try{const data={...blank(),...JSON.parse(r.result)};
+    if(GAME){Object.assign(gActive(),data);}else{C=data;}
+    sheetSave();renderSheet();renderDice();openOverlay("sheet");}catch(e){alert("Neplatný súbor.");}};
   r.readAsText(file);}
-function resetChar(){if(confirm("Naozaj začať novú postavu? Túto to zmaže."))
+function resetChar(){if(GAME){alert("V hre sa dá postava upraviť alebo vymeniť cez Roster — reset tu nie je k dispozícii.");return;}
+  if(confirm("Naozaj začať novú postavu? Túto to zmaže."))
   {C=blank();save();renderSheet();renderDice();}}
 
 /* =================================================================
@@ -1047,7 +1064,7 @@ function renderCheckCard(){
   const pSk=document.getElementById("ckSkill")?.value;
   const pDie=document.getElementById("ckDie")?.value;
   const pDC=document.getElementById("ckDC")?.value;
-  const skillOpts=DATA.skills.map(s=>`<option value="${s.key}">${tr(s.name)} (${C.skills[s.key]})</option>`).join("");
+  const skillOpts=DATA.skills.map(s=>`<option value="${s.key}">${tr(s.name)} (${SC().skills[s.key]})</option>`).join("");
   const dieOpts=["d10","d12","d8","d6","d20","d4"].map(d=>`<option>${d}</option>`).join("");
   let action,note;
   if(rollMode==="manual"){
@@ -1109,15 +1126,16 @@ function rollDie(die){
 }
 function resolveCheck(skill,die,raw,dc){
   const key=skill.key, n=sides(die);
-  const mod=C.skills[key]||0, tmod=traumaMod(key);
+  const S=SC();
+  const mod=S.skills[key]||0, tmod=traumaMod(key);
   const adDie=adrenalineDie();
   let adRoll=0;
-  if(adDie && (C.hp||0)<=10) adRoll=1+Math.floor(Math.random()*sides(adDie));
+  if(adDie && (S.hp||0)<=10) adRoll=1+Math.floor(Math.random()*sides(adDie));
   const total=raw+mod+tmod+adRoll, ok=total>=dc;
   let cls,label;
-  if(raw===n){cls="crit";label="CRITICAL";}
-  else if(raw===1){cls="fumble";label="FUMBLE";}
-  else {cls=ok?"ok":"no";label=ok?"SUCCESS":"FAILURE";}
+  if(raw===n){cls="crit";label="KRITICKÝ";}
+  else if(raw===1){cls="fumble";label="KATASTROFA";}
+  else {cls=ok?"ok":"no";label=ok?"ÚSPECH":"NEÚSPECH";}
   return {mod,tmod,adDie:(adRoll?adDie:null),adRoll,total,ok,cls,label,n};
 }
 function showResult(skill,die,raw,dc,r){
@@ -1127,7 +1145,7 @@ function showResult(skill,die,raw,dc,r){
   detail+=` = ${r.total}  vs DC ${dc}`;
   document.getElementById("rDetail").textContent=detail;
   document.getElementById("rStamp").innerHTML=`<span class="stamp ${r.cls}">${r.label}</span>`;
-  pushLog({die,roll:raw,n:r.n,skill:skill.name,mod:r.mod+r.tmod+r.adRoll,dc,total:r.total,ok:r.ok});
+  pushLog({die,roll:raw,n:r.n,skill:tr(skill.name),mod:r.mod+r.tmod+r.adRoll,dc,total:r.total,ok:r.ok});
   renderRerollBar();
 }
 function ckContext(){
@@ -1356,7 +1374,7 @@ function renderCodex(){
     DATA.factions.filter(f=>match(f.name)||match(f.desc)).forEach(f=>{
       const e=document.createElement("details");e.className="entry";
       e.innerHTML=`<summary><span class="t">${tr(f.name)}</span>
-        ${C.faction===f.name?'<span class="pill amber">tvoja</span>':''}<span class="chev">›</span></summary>
+        ${SC().faction===f.name?'<span class="pill amber">tvoja</span>':''}<span class="chev">›</span></summary>
         <div class="body">${f.motto?`<div class="note" style="font-style:italic;margin:10px 0 2px;color:var(--amber-dim)">„${f.motto}"</div>`:''}
         <div class="desc">${f.desc}</div></div>`;
       body.appendChild(e);
@@ -1366,10 +1384,10 @@ function renderCodex(){
       const e=document.createElement("details");e.className="entry";
       let rows="";DATA.customFactionGuide.prompts.forEach(p=>{
         if(p.k==="Name")return;const v=f.fields[p.k];
-        if(v)rows+=`<div class="h">${p.k}</div><div class="desc" style="margin:0 0 6px">${esc(v)}</div>`;
+        if(v)rows+=`<div class="h">${tr(p.k)}</div><div class="desc" style="margin:0 0 6px">${esc(v)}</div>`;
       });
       e.innerHTML=`<summary><span class="t">${esc(f.name)}</span>
-        <span class="pill teal">vlastná</span>${C.faction===f.name?'<span class="pill amber">tvoja</span>':''}<span class="chev">›</span></summary>
+        <span class="pill teal">vlastná</span>${SC().faction===f.name?'<span class="pill amber">tvoja</span>':''}<span class="chev">›</span></summary>
         <div class="body"><div class="upg" style="margin-top:10px">${rows||'<div class="note">Žiadne detaily.</div>'}</div>
         <div class="row" style="gap:7px;margin-top:11px">
           <button class="btn sm grow" onclick="openFactionForm('${f.id}')">Upraviť</button>
@@ -1431,13 +1449,13 @@ function renderCodex(){
         <div class="body"><div class="desc" style="margin-top:10px">${g.v}</div></div>`;
       body.appendChild(e);});}
     if(!q){appendEyebrow(body,"Survivor's Journal");
-      const e=document.createElement("div");e.className="card";e.innerHTML=`<div class="desc">${ch.journalIntro}</div>`;body.appendChild(e);}
+      const e=document.createElement("div");e.className="card";e.innerHTML=`<div class="desc">${trAll(ch.journalIntro)}</div>`;body.appendChild(e);}
   } else if(cxCat==="upgrades"){
     const su=DATA.survivalUpgrades;
     const ph=document.createElement("div");ph.className="card";
     ph.style.cssText="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap";
     ph.innerHTML=`<div style="margin-right:auto"><div class="eyebrow" style="margin:0 0 1px">Pilulky</div>
-        <span class="mono" style="font-size:22px;color:var(--teal)">${C.pills||0}</span></div>
+        <span class="mono" style="font-size:22px;color:var(--teal)">${SC().pills||0}</span></div>
       <button class="btn sm ghost" onclick="addPills(10)">+10</button>
       <button class="btn sm ghost" onclick="addPills(50)">+50</button>
       <button class="btn sm ghost" onclick="addPills(100)">+100</button>`;
@@ -1449,13 +1467,13 @@ function renderCodex(){
       appendEyebrow(body,tr(cat.name)+" upgrady");
       if(cat.note&&!q){const nn=document.createElement("div");nn.className="note";nn.style.cssText="margin:0 0 8px";nn.textContent=trAll(cat.note);body.appendChild(nn);}
       items.forEach(it=>{
-        const owned=(C.upgrades&&C.upgrades[it.name])||0;
+        const owned=(SC().upgrades&&SC().upgrades[it.name])||0;
         const e=document.createElement("details");e.className="entry";
         const rows=it.tiers.map(t=>`<div class="r"><span>${t.t<=owned?"✓ ":""}T${t.t}: ${esc(t.e)}</span><span class="c">${t.c==null?"?":t.c+" pilulky"}</span></div>`).join("");
         const next=it.tiers.find(t=>t.t===owned+1);
         let acts="";
         if(next){
-          const can=next.c!=null&&(C.pills||0)>=next.c;
+          const can=next.c!=null&&(SC().pills||0)>=next.c;
           const lbl=`Kúpiť T${next.t}${next.c!=null?" · "+next.c:" · ?"}`;
           acts+=can?`<button class="btn sm amber" onclick="buyUpgrade('${it.name}')">${lbl}</button>`
                    :`<button class="btn sm ghost" disabled style="opacity:.45">${lbl}</button>`;
@@ -1510,7 +1528,7 @@ function renderCodex(){
     DATA.skills.filter(s=>match(s.name)||match(s.role)||match(s.desc||"")).forEach(s=>{
       const e=document.createElement("details");e.className="entry";
       e.innerHTML=`<summary><span class="t">${tr(s.name)}</span>
-        <span class="pill amber" style="margin-left:auto">${C.skills?C.skills[s.key]:""}</span><span class="chev">›</span></summary>
+        <span class="pill amber" style="margin-left:auto">${SC().skills?SC().skills[s.key]:""}</span><span class="chev">›</span></summary>
         <div class="body">
           <div class="desc" style="margin-top:10px">${trAll(s.desc||s.role+".")}</div>
           <div class="note" style="margin-top:9px"><b style="color:var(--muted)">Pokrýva:</b> ${trAll(s.role)}</div>
@@ -1551,7 +1569,7 @@ function weaponEntry(w){
     const next=u.rows[owned];let acts="";
     if(next){
       const c=parseCost(next[1]);
-      const can=(C.toolLevel||1)>=c.tool&&(C.parts||0)>=c.parts;
+      const can=(SC().toolLevel||1)>=c.tool&&(SC().parts||0)>=c.parts;
       const lbl=`Kúpiť · ${c.parts}p`;
       acts+=can?`<button class="btn sm amber" onclick="buyWeaponUpgrade('${w.name}',${gi})">${lbl}</button>`
                :`<button class="btn sm ghost" disabled style="opacity:.45">${lbl} (T.Lvl ${c.tool})</button>`;
@@ -1562,7 +1580,7 @@ function weaponEntry(w){
   e.innerHTML=`<summary><span class="t">${tr(w.name)}</span><span class="pill teal">${tr(w.cat)}</span><span class="chev">›</span></summary>
     <div class="body">
       <div class="statgrid"><div class="s"><span class="k">${tr("Skill")}</span><span class="v">${tr(w.skill)}</span></div>${st}</div>
-      <div class="note" style="margin:8px 0 2px">Tvoje diely: <b style="color:var(--ink)">${C.parts||0}</b> · Úroveň nástrojov: <b style="color:var(--ink)">${C.toolLevel||1}</b></div>
+      <div class="note" style="margin:8px 0 2px">Tvoje diely: <b style="color:var(--ink)">${SC().parts||0}</b> · Úroveň nástrojov: <b style="color:var(--ink)">${SC().toolLevel||1}</b></div>
       <div class="upg" style="margin-top:6px">${up}</div>
       <button class="btn sm amber roll-inline" onclick="quickCheck('${(w.skill||'aiming').toLowerCase()}','Hit')">Hod na Hit (${tr(w.skill)})</button>
     </div>`;
@@ -1587,7 +1605,7 @@ function stubBlock(title,arr){
   return e;
 }
 function quickCheck(skillKey,as,dc){
-  go("dice");document.getElementById("ckSkill").value=skillKey;syncDie();
+  openOverlay("dice");document.getElementById("ckSkill").value=skillKey;syncDie();
   if(dc)document.getElementById("ckDC").value=dc;flashCheck();
 }
 
@@ -1711,15 +1729,15 @@ function gStartFromWizard(){
     GAME.party.forEach(p=>{p.pills=0;p.inv=[];p.ammo=zeroMap(AMMO_TYPES);p.mats=zeroMap(MAT_TYPES);
       p.firstAid={qty:0,heal:(p.firstAid&&p.firstAid.heal)||10};});
   }
-  WIZ=null;scnUI="game";gGoto(st.start,true);
+  WIZ=null;scnUI="game";renderSheet();gGoto(st.start,true);
 }
-function gReset(){GAME=null;try{localStorage.removeItem(GKEY);}catch(e){}scnUI="menu";renderScn();}
+function gReset(){GAME=null;try{localStorage.removeItem(GKEY);}catch(e){}scnUI="menu";renderSheet();renderScn();}
 function gBackToMenu(){scnUI="menu";renderScn();}
 function menuBackBtn(){const b=document.createElement("button");b.className="btn ghost sm";b.style.marginBottom="10px";
   b.textContent="‹ Menu";b.onclick=gBackToMenu;return b;}
 function wizBackBtn(fn,label){const b=document.createElement("button");b.className="btn ghost sm";b.style.marginBottom="10px";
   b.textContent=label;b.onclick=fn;return b;}
-function gSwitch(i){if(GAME.party[i]&&GAME.party[i].dead)return;GAME.active=i;gSave();renderScn();}
+function gSwitch(i){if(GAME.party[i]&&GAME.party[i].dead)return;GAME.active=i;gSave();renderSheet();renderScn();}
 
 function gGoto(sceneId,first){const st=curStory();const sc=st.scenes[sceneId];if(!sc)return;
   GAME.scene=sceneId;
@@ -1834,7 +1852,12 @@ function partyBar(){const b=document.createElement("div");b.className="gparty";
   GAME.party.forEach((p,i)=>{const c=document.createElement("button");
     c.className="gpc"+(i===GAME.active?" on":"")+(p.hp<=0?" down":"");
     c.innerHTML=`<div class="nm">${p.dead?"† ":""}${esc(p.name)}</div><div class="hpn">${p.dead?"mŕtvy":p.hp+"/"+p.hpMax+" HP"}${p.cls?" · "+esc(tr(p.cls)):""}</div><div class="hpb"><i style="width:${Math.max(0,p.hp/p.hpMax*100)}%"></i></div>`;
-    if(!p.dead)c.onclick=()=>gSwitch(i);b.appendChild(c);});
+    if(!p.dead)c.onclick=()=>{if(i===GAME.active)openOverlay("sheet");else gSwitch(i);};b.appendChild(c);});
+  return b;}
+function gameUtilBar(){const b=document.createElement("div");b.className="gutil";
+  b.innerHTML=`<button onclick="openOverlay('sheet')"><svg class="ic" viewBox="0 0 24 24">${OV_ICONS.sheet}</svg>Postava</button>
+    <button onclick="openOverlay('dice')"><svg class="ic" viewBox="0 0 24 24">${OV_ICONS.dice}</svg>Kocky</button>
+    <button onclick="openOverlay('codex')"><svg class="ic" viewBox="0 0 24 24">${OV_ICONS.codex}</svg>Kódex</button>`;
   return b;}
 function gameDiffPill(){if(!GAME)return"";const nm={story:"Story",survivor:"Survivor",grounded:"Grounded"}[GAME.difficulty]||"Survivor";
   return `<span class="pill amber" style="margin-left:8px">${nm}${GAME.permadeath?" · Permadeath":""}</span>`;}
@@ -1863,7 +1886,7 @@ function renderMenu(body){
     row.appendChild(nw);row.appendChild(ro);body.appendChild(row);
 
     const gd=document.createElement("button");gd.className="btn ghost full";gd.style.marginTop="8px";
-    gd.textContent="Príručka";gd.onclick=()=>go("codex");body.appendChild(gd);
+    gd.textContent="Príručka";gd.onclick=()=>openOverlay("codex");body.appendChild(gd);
 
     const dc=document.createElement("button");dc.className="btn ghost full";
     dc.style.cssText="margin-top:16px;color:var(--danger);font-size:11px;opacity:.75";
@@ -1881,7 +1904,7 @@ function renderMenu(body){
   const ro=document.createElement("button");ro.className="btn grow";ro.textContent=`Postavy${ROSTER.length?" ("+ROSTER.length+")":""}`;
   ro.onclick=()=>{scnUI="roster";renderScn();};
   const gd=document.createElement("button");gd.className="btn grow ghost";gd.textContent="Príručka";
-  gd.onclick=()=>go("codex");
+  gd.onclick=()=>openOverlay("codex");
   row.appendChild(ro);row.appendChild(gd);body.appendChild(row);
 
   if(!ROSTER.length){
@@ -2002,6 +2025,7 @@ function renderScene(body){
   topRow.appendChild(menuBackBtn());topRow.insertAdjacentHTML("beforeend",gameDiffPill());
   body.appendChild(topRow);
   body.appendChild(partyBar());
+  body.appendChild(gameUtilBar());
   if(GAME.banner){const bn=document.createElement("div");bn.className="gbanner "+(GAME.banner.ok?"ok":"bad");bn.textContent=GAME.banner.text;body.appendChild(bn);GAME.banner=null;}
   const sceneEl=document.createElement("div");sceneEl.className="gscene";
   sceneEl.innerHTML=`<h3>${esc(sc.title||"")}</h3><p class="story">${esc(sc.text||"")}</p>`;
@@ -2009,7 +2033,7 @@ function renderScene(body){
   (sc.choices||[]).forEach(c=>{
     if(!gHasNeed(c.need))return;
     const b=document.createElement("button");b.className="btn gchoice";
-    let dc="";if(c.check){const sn=(DATA.skills.find(s=>s.key===c.check.skill)||{}).name||c.check.skill;dc=`<span class="dc">${sn} DC ${c.check.dc}</span>`;}
+    let dc="";if(c.check){const sn=tr((DATA.skills.find(s=>s.key===c.check.skill)||{}).name||c.check.skill);dc=`<span class="dc">${sn} DC ${c.check.dc}</span>`;}
     b.innerHTML=`<span>${esc(c.t)}</span>${dc}`;
     b.onclick=()=>gChoice(c);body.appendChild(b);
   });
@@ -2031,7 +2055,7 @@ function invDrawer(){const ch=gActive();const det=document.createElement("detail
 function renderCombat(body){const cb=GAME.combat;
   const topRow=document.createElement("div");topRow.style.cssText="display:flex;align-items:center;gap:0;margin-bottom:2px";
   topRow.appendChild(menuBackBtn());topRow.insertAdjacentHTML("beforeend",gameDiffPill());
-  body.appendChild(topRow);body.appendChild(partyBar());
+  body.appendChild(topRow);body.appendChild(partyBar());body.appendChild(gameUtilBar());
   const head=document.createElement("div");head.className="gscene";
   head.innerHTML=`<h3>${esc(cb.title||"Boj")}</h3>${cb.surprise?`<p class="story">${esc(cb.intro||"")}</p>`:""}`;
   body.appendChild(head);
@@ -2081,8 +2105,7 @@ async function init(){
   ROSTER=rLoad();
   customFactions=loadCustomFactions();
   document.querySelectorAll("#rollSeg button").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
-  renderSheet();renderDice();renderCodexTabs();renderCodex();renderScn();
-  go("scn"); // appka pristáva na menu (tab Hra), nie na karte postavy
+  renderSheet();renderScn();
 }
 init();
 
