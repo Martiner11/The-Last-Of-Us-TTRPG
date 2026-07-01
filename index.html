@@ -300,7 +300,7 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
     </div>
 
     <div class="vitals">
-      <div class="vital hp"><div class="k">Health</div><div class="v" id="vHp">25</div>
+      <div class="vital hp"><div class="k">Zdravie</div><div class="v" id="vHp">25</div>
         <div class="bar"><i id="barHp" style="width:100%"></i></div></div>
       <div class="vital inf"><div class="k">Infekcia</div><div class="v" id="vInf">0%</div>
         <div class="bar red"><i id="barInf" style="width:0%"></i></div></div>
@@ -308,8 +308,8 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
     </div>
 
     <div class="vitals">
-      <div class="vital"><div class="k">Parts</div><div class="v" id="vParts" style="color:var(--muted)">0</div></div>
-      <div class="vital"><div class="k">Tool Level</div><div class="v" id="vTool" style="color:var(--muted)">1</div></div>
+      <div class="vital"><div class="k">Diely</div><div class="v" id="vParts" style="color:var(--muted)">0</div></div>
+      <div class="vital"><div class="k">Nástroje</div><div class="v" id="vTool" style="color:var(--muted)">1</div></div>
       <div class="vital"><div class="k">Lekárničky</div><div class="v" id="vFirst" style="color:var(--amber)">0</div></div>
     </div>
     <div class="card" id="firstAidCard" style="display:none;padding:11px 14px">
@@ -348,8 +348,8 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
     </div>
 
     <div class="row" style="gap:8px;margin-top:6px">
-      <button class="btn sm ghost grow" onclick="exportChar()">Export JSON</button>
-      <button class="btn sm ghost grow" onclick="document.getElementById('imp').click()">Import</button>
+      <button class="btn sm ghost grow" onclick="exportChar()">Exportovať JSON</button>
+      <button class="btn sm ghost grow" onclick="document.getElementById('imp').click()">Importovať</button>
       <input type="file" id="imp" accept="application/json" hidden onchange="importChar(this.files[0])">
     </div>
     <button class="btn sm ghost full" style="margin-top:8px;color:var(--danger);border-color:#5a2c22" onclick="resetChar()">Nová postava (zmaže túto)</button>
@@ -415,6 +415,82 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
    ================================================================= */
 let DATA = null;
 
+/* ---------- preklad zobrazovaných anglických názvov (nemení kľúče v data.json!) ---------- */
+const SK_TR={
+  "Brutality":"Brutalita","Aiming":"Streľba","Elusive":"Vyhýbanie","Instinct":"Inštinkt",
+  "Scavenging":"Zháňanie","Survival":"Prežitie","Maintenance":"Údržba","Medicine":"Liečenie",
+  "Citizen":"Občan","Smuggler":"Pašerák","Survivor":"Preživší","Soldier":"Vojak","Renegade":"Odpadlík",
+  "Survivors":"Preživší","Smugglers":"Pašeráci","Hunters":"Lovci","Bandits":"Bandy",
+  "Cannibals":"Kanibali","Rebels":"Rebeli","Cultists":"Kultisti","Liberation Front":"Oslobodzovací front",
+  "Liberation Fronts":"Oslobodzovacie fronty","Slavers":"Otrokári","Henchmen":"Poskokovia",
+  "Damage":"Poškodenie","Health":"Zdravie","Skill":"Zručnosť",
+  // staty zbraní/infikovaných (kľúče v stats{} — displej-only, nemení sa dátový kľúč)
+  "Ammo":"Munícia","Armor Piercing":"Prieraznosť","Bonus":"Bonus","Capacity":"Kapacita",
+  "Craft":"Výroba","Crafting":"Výroba","Crit":"Kritický zásah","Durability":"Odolnosť",
+  "Explosive Arrow":"Výbušný šíp","Fire Arrow":"Zápalný šíp","Fire Rate":"Kadencia",
+  "Melee Damage":"Poškodenie zblízka","Number of Attacks":"Počet útokov","Reload":"Nabíjanie",
+  "Special":"Špeciál","Speed (Detected)":"Rýchlosť (odhalený)","Speed (Undetected)":"Rýchlosť (neodhalený)",
+  "Type":"Typ","Slow":"Pomalá","Fast":"Rýchla",
+  "Common":"Bežný","Uncommon":"Zriedkavejší","Rare":"Zriedkavý","Very Rare":"Veľmi zriedkavý",
+  // zbrane (34) — zobrazenie only, DATA.weapons[].name ostáva anglicky kvôli vyhľadávaniu
+  "Pistol":"Pištoľ","Revolver":"Revolver","Magnum":"Magnum","Shorty":"Odrezaná brokovnica","Hunting Pistol":"Loveská pištoľ",
+  "Hunting Rifle":"Loveská puška","Pump Shotgun":"Brokovnica s pumpou","Bow":"Luk","Double Barrel Shotgun":"Dvojhlavňová brokovnica",
+  "Frontier Rifle":"Frontier puška","Battle Rifle":"Bojová puška","Assault Rifle":"Útočná puška",
+  "Semi-Auto Rifle":"Poloautomatická puška","Tactical Shotgun":"Taktická brokovnica","Military Sniper Rifle":"Vojenská odstreľovacia puška",
+  "Flamethrower":"Plameňomet","Hand to Hand":"Voľné ruky","Hammer and Wrench":"Kladivo a kľúč","Crowbar":"Páčidlo",
+  "Pipe":"Rúra","Bat":"Pálka","Sledgehammer":"Perlík","Golf Club":"Golfová palica","Riot Shield":"Protiútočný štít",
+  "Shiv":"Čepieľ","Switchblade":"Vystreľovací nôž","Axe":"Sekera","Machete":"Mačeta",
+  "Molotov":"Molotov","Nail Bomb":"Klincová bomba","Smoke Bomb":"Dymová bomba","Pipe Bomb":"Rúrová bomba","Trap Mine":"Nášľapná mína",
+  // materiály a munícia (zobrazenie; MAT_TYPES/AMMO_TYPES kľúče ostávajú nezmenené)
+  "Rag":"Handra","Alcohol":"Alkohol","Adhesive":"Lepidlo","Blades":"Čepele","Sugar":"Cukor","Explosive":"Výbušnina",
+  "Shells":"Náboje do brokovnice","Arrow":"Šíp","Fuel":"Palivo","Fuel Canister":"Palivová nádoba",
+  "Hammer":"Kladivo","Wrench":"Kľúč",
+  // vylepšenia zbraní (upg[].h)
+  "4x Scope":"4x Zameriavač","Arrow Expert":"Expert na šípy","Brass Knuckles":"Boxer","Burn":"Zapálenie",
+  "Clip Capacity":"Kapacita zásobníka","Double Trigger":"Dvojitá spúšť","Draw Speed":"Rýchlosť tasenia",
+  "Optics":"Optika","Power":"Sila","Quick Draw":"Rýchle tasenie","Range":"Dostrel","Rangefinder":"Diaľkomer",
+  "Recoil":"Spätný ráz","Reload Speed":"Rýchlosť nabíjania","Scope":"Zameriavač","Sight":"Mieridlá",
+  "Speed Reload":"Rýchle nabíjanie","Spread":"Rozptyl","Stability":"Stabilita","Stopping Power":"Zastavovacia sila",
+  // taktiky nepriateľov
+  "Aggressive Melee":"Agresívne zblízka","Aggressive Ranged":"Agresívne na diaľku","Ambush":"Prepad",
+  "Ambush Ranged":"Prepad na diaľku","Charge Melee":"Výpad zblízka","Charge Ranged":"Výpad na diaľku",
+  "Cover and Throw":"Kryje sa a hádže","Defensive":"Obranná","Defensive Melee":"Obranná zblízka",
+  "Defensive Ranged":"Obranná na diaľku","Disciplined":"Disciplinovaná","Flank":"Obchvat",
+  "Locate Enemy (zvyčajne priviazaný)":"Vyhľadá nepriateľa (zvyčajne priviazaný)","Melee":"Zblízka",
+  "Offensive":"Útočná","Offensive Ranged":"Útočná na diaľku","Push Ranged":"Tlak na diaľku","Ranged":"Na diaľku",
+  "Rush and Shoot":"Vrhne sa a strieľa","Shoot from Cover":"Strieľa z krytu","Stun and Disorient":"Omráči a zmätie",
+  "Suppressing Fire":"Potláčacia paľba","Take Cover and Shoot":"Kryje sa a strieľa","Throw":"Hádže",
+  // výbava nepriateľov (gear)
+  "Body Armor":"Nepriestrelná vesta","Body Armor, Combat Helmet":"Nepriestrelná vesta, bojová prilba",
+  "Body Armor, Firefly arm band & pendant":"Nepriestrelná vesta, páska a prívesok Fireflies",
+  "Body Armor, Flashlight":"Nepriestrelná vesta, baterka",
+  "Combat Helmet":"Bojová prilba",
+  "Combat Helmet, Body Armor, Flashlight, Gas Mask":"Bojová prilba, nepriestrelná vesta, baterka, plynová maska",
+  "Firefly arm band & pendant":"Páska a prívesok Fireflies","First Aid Kit, Medicine":"Lekárnička, lieky",
+  "Flashlight":"Baterka","Flashlight, Gas Mask":"Baterka, plynová maska","Gas Mask":"Plynová maska",
+  "Infection Scanner, Gas Mask":"Skener infekcie, plynová maska",
+  // typy nepriateľov (podľa frakcií)
+  "Survivalist":"Vytrvalec","Scavenger":"Zberač","Scrounger":"Zháňač","Drifter":"Tulák","Remnant":"Pozostatok",
+  "Riot Control":"Poriadková jednotka","Security":"Ochranka","Sniper":"Odstrelovač","Containment Unit":"Karanténna jednotka",
+  "Patrol":"Hliadka","Breacher":"Vlamač",
+  "Volunteer":"Dobrovoľník","Freedom Fighter":"Bojovník za slobodu","Responder":"Záchranár","Merc":"Žoldnier",
+  "Trooper":"Bojovník","Saboteur":"Sabotér","Doctor":"Doktor",
+  "Thug":"Grázeľ","Ruffian":"Výtržník","Crew":"Parta","Enforcer":"Vymáhač","Brawler":"Bitkár",
+  "Robber":"Lupič","Highwayman":"Cestný lupič","Pillager":"Plieniteľ","Marauder":"Nájazdník",
+  "Psycho":"Psychopat","Smoker":"Podpaľač",
+  "Hunter":"Lovec","Raider":"Nájazdník","Killer":"Vrah","Ambusher":"Prepadávač","Murderer":"Zabijak",
+  "Brigand":"Zbojník","Pyro":"Žhár",
+  "Conquistador":"Dobyvateľ","Manhunter":"Lovec ľudí","Enslaver":"Zotročovateľ","Trapper":"Pascár",
+  "Predator":"Predátor","Guard Dog":"Strážny pes",
+  "Zealot":"Fanatik","Savage":"Divoch","Disciple":"Učeník","Acolyte":"Novic","Follower":"Nasledovník","The Devoted":"Oddaný",
+  "Militia":"Milícia","Anarchist":"Anarchista","Rioter":"Výtržník","Resistance":"Odboj","Squad Member":"Člen jednotky",
+  "Revolutionary":"Revolucionár","Liberator":"Oslobodzovateľ"
+};
+function tr(s){return SK_TR[s]||s;}
+function trAll(s){if(!s)return s;let out=s;
+  Object.keys(SK_TR).sort((a,b)=>b.length-a.length).forEach(k=>{if(out.indexOf(k)!==-1)out=out.split(k).join(SK_TR[k]);});
+  return out;}
+
 /* =================================================================
    STATE  — postava sa ukladá lokálne (localStorage). V claude.ai
    náhľade sa nemusí udržať medzi reloadmi, na GitHub Pages áno.
@@ -475,7 +551,7 @@ function renderSheet(){
   const nm=C.name||"Nová postava";
   document.getElementById("charName").textContent=nm;
   document.getElementById("who").textContent=nm;
-  document.getElementById("charLine").textContent=(C.faction||"Bez frakcie")+" · "+(C.cls||"bez triedy");
+  document.getElementById("charLine").textContent=(tr(C.faction)||"Bez frakcie")+" · "+(tr(C.cls)||"bez triedy");
   document.getElementById("vHp").textContent=C.hp;
   document.getElementById("barHp").style.width=Math.max(0,Math.min(100,C.hp/C.hpMax*100))+"%";
   document.getElementById("vInf").textContent=C.inf+"%";
@@ -500,20 +576,20 @@ function renderSheet(){
   DATA.skills.forEach(s=>{
     const b=document.createElement("button"); b.className="skill";
     b.innerHTML=`<span class="val">${C.skills[s.key]}</span>
-      <span class="nm">${s.name}${skillDie(s.key)==="d12"?' <span style="color:var(--teal);font-size:10px;font-family:var(--font-m)">D12</span>':''}<small>${s.role}</small></span><span class="go">HOD ›</span>`;
+      <span class="nm">${tr(s.name)}${skillDie(s.key)==="d12"?' <span style="color:var(--teal);font-size:10px;font-family:var(--font-m)">D12</span>':''}<small>${s.role}</small></span><span class="go">HOD ›</span>`;
     b.onclick=()=>{ go("dice"); document.getElementById("ckSkill").value=s.key; syncDie(); flashCheck(); };
     g.appendChild(b);
   });
 
   const eq=document.getElementById("equip"); eq.innerHTML="";
-  DATA.weapons.forEach(w=>{const o=document.createElement("option");o.value=w.name;o.textContent=w.name;eq.appendChild(o);});
+  DATA.weapons.forEach(w=>{const o=document.createElement("option");o.value=w.name;o.textContent=tr(w.name);eq.appendChild(o);});
   eq.value=C.equip;
 
   const il=document.getElementById("invList"); il.innerHTML="";
   if(!C.inv.length) il.innerHTML='<div class="note">Inventár je prázdny.</div>';
   C.inv.forEach((it,i)=>{
     const r=document.createElement("div"); r.className="invrow";
-    r.innerHTML=`<span class="q">${it.q||1}×</span><span class="grow">${it.name}</span><button class="x" aria-label="Odstrániť">×</button>`;
+    r.innerHTML=`<span class="q">${it.q||1}×</span><span class="grow">${tr(it.name)}</span><button class="x" aria-label="Odstrániť">×</button>`;
     r.querySelector(".x").onclick=()=>{C.inv.splice(i,1);save();renderSheet();};
     il.appendChild(r);
   });
@@ -530,13 +606,13 @@ function renderSheet(){
   const rw=document.getElementById("resWrap");
   if(rw){
     const cell=(kind,key)=>{const v=((kind==="ammo"?C.ammo:C.mats)||{})[key]||0;
-      return `<div class="rescell"><span class="resn">${esc(key)}</span>
+      return `<div class="rescell"><span class="resn">${esc(tr(key))}</span>
         <span class="resc"><button onclick="adjRes('${kind}','${key}',-1)">−</button>
         <span class="rv" id="${resId(kind,key)}">${v}</span>
         <button onclick="adjRes('${kind}','${key}',1)">+</button></span></div>`;};
     rw.innerHTML=`<div class="eyebrow" style="margin:0 0 8px">Munícia</div>
       <div class="resgrid">${AMMO_TYPES.map(k=>cell("ammo",k)).join("")}</div>
-      <div class="eyebrow" style="margin:14px 0 8px">Crafting materiály</div>
+      <div class="eyebrow" style="margin:14px 0 8px">Materiály na výrobu</div>
       <div class="resgrid">${MAT_TYPES.map(k=>cell("mats",k)).join("")}</div>`;
   }
 }
@@ -552,18 +628,18 @@ function openEdit(rosterId){
   const t=editRosterId?ROSTER.find(r=>r.id===editRosterId):C;
   if(!t)return;
   const m=document.getElementById("modal");
-  const facOpts=['<option value="">— frakcia —</option>'].concat(allFactionNames().map(n=>`<option ${t.faction===n?"selected":""}>${esc(n)}</option>`)).join("");
+  const facOpts=['<option value="">— frakcia —</option>'].concat(allFactionNames().map(n=>`<option value="${esc(n)}" ${t.faction===n?"selected":""}>${esc(tr(n))}</option>`)).join("");
   m.innerHTML=`<div class="grabber"></div>
    <h3>Upraviť postavu <span class="x" onclick="closeEdit()">×</span></h3>
    <div class="field"><label>Meno</label><input id="e-name" value="${esc(t.name)}" placeholder="Napr. Ellie"></div>
    <div class="row" style="gap:10px">
      <div class="grow field"><label>Frakcia</label><select id="e-fac">${facOpts}</select></div>
-     <div class="grow field"><label>Trieda</label><input id="e-cls" value="${esc(t.cls)}" placeholder="Napr. Scout"></div>
+     <div class="grow field"><label>Trieda</label><input id="e-cls" value="${esc(tr(t.cls))}" placeholder="Napr. Scout"></div>
    </div>
    <div class="field"><label>Bio</label><textarea id="e-bio" rows="2" placeholder="Pár viet o postave…">${esc(t.bio)}</textarea></div>
    <div class="row" style="gap:10px">
-     <div class="grow field"><label>Health max</label>${stepperHTML("e-hpmax",t.hpMax,5,500)}</div>
-     <div class="grow field"><label>Health teraz</label>${stepperHTML("e-hp",t.hp,0,500)}</div>
+     <div class="grow field"><label>Zdravie max</label>${stepperHTML("e-hpmax",t.hpMax,5,500)}</div>
+     <div class="grow field"><label>Zdravie teraz</label>${stepperHTML("e-hp",t.hp,0,500)}</div>
    </div>
    <div class="row" style="gap:10px">
      <div class="grow field"><label>Infekcia %</label>${stepperHTML("e-inf",t.inf,0,100,5)}</div>
@@ -572,8 +648,8 @@ function openEdit(rosterId){
    <div class="field"><label>Morálka (archetyp)</label>
      <select id="e-mor"><option value="">— žiadna —</option>${(DATA.character.morality?.options||[]).map(o=>`<option ${t.morality===o.name?"selected":""}>${o.name}</option>`).join("")}</select></div>
    <div class="row" style="gap:10px">
-     <div class="grow field"><label>Parts</label>${stepperHTML("e-parts",t.parts||0,0,9999,5)}</div>
-     <div class="grow field"><label>Tool Level</label>${stepperHTML("e-tool",t.toolLevel||1,1,4)}</div>
+     <div class="grow field"><label>Diely</label>${stepperHTML("e-parts",t.parts||0,0,9999,5)}</div>
+     <div class="grow field"><label>Úroveň nástrojov</label>${stepperHTML("e-tool",t.toolLevel||1,1,4)}</div>
    </div>
    <div class="row" style="gap:10px">
      <div class="grow field"><label>Lekárničky (ks)</label>${stepperHTML("e-faqty",(t.firstAid&&t.firstAid.qty)||0,0,99)}</div>
@@ -587,7 +663,7 @@ function openEdit(rosterId){
   const es=m.querySelector("#e-skills");
   DATA.skills.forEach(s=>{
     const row=document.createElement("div");row.className="row";row.style.cssText="align-items:center;gap:10px;margin-bottom:9px";
-    row.innerHTML=`<span class="grow" style="font-family:var(--font-d);text-transform:uppercase;letter-spacing:.04em;font-size:13px">${s.name}</span>${stepperHTML("e-sk-"+s.key,t.skills[s.key],0,20)}`;
+    row.innerHTML=`<span class="grow" style="font-family:var(--font-d);text-transform:uppercase;letter-spacing:.04em;font-size:13px">${tr(s.name)}</span>${stepperHTML("e-sk-"+s.key,t.skills[s.key],0,20)}`;
     es.appendChild(row);
   });
   document.getElementById("scrim").classList.add("on");
@@ -742,7 +818,7 @@ function useFirstAid(){
 }
 
 /* ---------- sprievodca tvorby postavy ---------- */
-function skName(key){const s=DATA.skills.find(x=>x.key===key);return s?s.name:key;}
+function skName(key){const s=DATA.skills.find(x=>x.key===key);return s?tr(s.name):key;}
 function gv(id){const e=document.getElementById(id);return e?e.value:null;}
 let creatorTarget=null; // null = upravuje C (aktuálna postava), "roster" = vytvorí novú postavu do rosteru
 function openCreator(target){
@@ -764,7 +840,7 @@ function openCreator(target){
     <div class="field"><label>${esc(ch.bio.motivation.q)}</label>
       <select id="cr-mot" onchange="updateCreator()">${ch.bio.motivation.options.map(skOpt).join("")}</select></div>
     <div class="field"><label>Trieda</label>
-      <select id="cr-class" onchange="updateCreator()">${ch.classes.map((c,i)=>`<option value="${i}">${esc(c.name)} (+1 ${skName(c.skills[0])}, +1 ${skName(c.skills[1])})</option>`).join("")}</select></div>
+      <select id="cr-class" onchange="updateCreator()">${ch.classes.map((c,i)=>`<option value="${i}">${esc(tr(c.name))} (+1 ${skName(c.skills[0])}, +1 ${skName(c.skills[1])})</option>`).join("")}</select></div>
     <div class="field"><label>Štartovací stupeň</label>
       <select id="cr-tier" onchange="updateCreator()">${ch.startingTiers.map((t,i)=>`<option value="${i}">${esc(t.name)} · ${t.pills} pills</option>`).join("")}</select></div>
     <div class="field"><label>Morálka (voliteľné)</label>
@@ -793,8 +869,8 @@ function computeCreator(){
 }
 function updateCreator(){
   const {skills,tier}=computeCreator();
-  const sk=DATA.skills.map(s=>`<div class="s"><span class="k">${s.name}</span><span class="v">${skills[s.key]}</span></div>`).join("");
-  const gear=tier?tier.equipment.concat(tier.weapons).map(x=>`<span class="pill">${esc(x)}</span>`).join(" "):"";
+  const sk=DATA.skills.map(s=>`<div class="s"><span class="k">${tr(s.name)}</span><span class="v">${skills[s.key]}</span></div>`).join("");
+  const gear=tier?tier.equipment.concat(tier.weapons).map(x=>`<span class="pill">${esc(trAll(x))}</span>`).join(" "):"";
   document.getElementById("cr-preview").innerHTML=
     `<div class="statgrid">${sk}</div>
      <div class="note" style="margin-top:6px"><b style="color:var(--muted)">Health:</b> ${DATA.character.startHealth} · <b style="color:var(--muted)">Pilulky:</b> ${tier?tier.pills:0}</div>
@@ -890,7 +966,7 @@ function renderCheckCard(){
   const pSk=document.getElementById("ckSkill")?.value;
   const pDie=document.getElementById("ckDie")?.value;
   const pDC=document.getElementById("ckDC")?.value;
-  const skillOpts=DATA.skills.map(s=>`<option value="${s.key}">${s.name} (${C.skills[s.key]})</option>`).join("");
+  const skillOpts=DATA.skills.map(s=>`<option value="${s.key}">${tr(s.name)} (${C.skills[s.key]})</option>`).join("");
   const dieOpts=["d10","d12","d8","d6","d20","d4"].map(d=>`<option>${d}</option>`).join("");
   let action,note;
   if(rollMode==="manual"){
@@ -1047,7 +1123,7 @@ function renderCodex(){
       body.appendChild(e);
     });
     const catOrder=["Short Gun","Long Gun","Melee","Throwing"];
-    const catLabel={"Short Gun":"Short Guns","Long Gun":"Long Guns","Melee":"Melee","Throwing":"Throwables"};
+    const catLabel={"Short Gun":"Krátke zbrane","Long Gun":"Dlhé zbrane","Melee":"Na blízko","Throwing":"Hádzacie"};
     const shown=DATA.weapons.filter(w=>match(w.name));
     catOrder.forEach(cat=>{
       const ws=shown.filter(w=>w.cat===cat);
@@ -1134,15 +1210,15 @@ function renderCodex(){
         if(mb.counterDC!=null)dcs.push(`Counter ${mb.counterDC}`);
         const bd=idx?"border-top:1px solid rgba(255,255,255,.06);":"";
         inner+=`<div style="padding:10px 0;${bd}">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><span class="t" style="font-size:15px">${esc(mb.name)}</span>${mb.tactic?`<span class="note" style="margin:0;text-align:right">${esc(mb.tactic)}</span>`:""}</div>
-          <div class="desc" style="margin:3px 0 5px"><b style="color:var(--amber)">${esc(mb.weapon)}</b>${mb.gear?` · <span style="color:var(--muted)">${esc(mb.gear)}</span>`:""}</div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><span class="t" style="font-size:15px">${esc(tr(mb.name))}</span>${mb.tactic?`<span class="note" style="margin:0;text-align:right">${esc(tr(mb.tactic))}</span>`:""}</div>
+          <div class="desc" style="margin:3px 0 5px"><b style="color:var(--amber)">${esc(mb.weapon)}</b>${mb.gear?` · <span style="color:var(--muted)">${esc(tr(mb.gear))}</span>`:""}</div>
           <div class="note" style="margin:0;letter-spacing:.3px">${dcs.join(" · ")}</div>
           <div class="row" style="gap:7px;margin-top:8px">
             <button class="btn sm grow" onclick="quickCheck('elusive','Dodge',${mb.hitDC})">Dodge vs ${mb.hitDC}</button>
             <button class="btn sm grow" onclick="quickCheck('aiming','Hit',${mb.dodgeDC})">Hit vs ${mb.dodgeDC}</button>
           </div></div>`;
       });
-      det.innerHTML=`<summary><span class="t">${g.name}</span><span class="pill danger" style="margin-left:auto">${g.members.length}</span><span class="chev">›</span></summary><div class="body" style="padding-top:4px">${inner}</div>`;
+      det.innerHTML=`<summary><span class="t">${tr(g.name)}</span><span class="pill danger" style="margin-left:auto">${g.members.length}</span><span class="chev">›</span></summary><div class="body" style="padding-top:4px">${inner}</div>`;
       body.appendChild(det);
     });
     if(!q && DATA.customEnemyGuide){
@@ -1163,20 +1239,20 @@ function renderCodex(){
     const chart=c=>`<div class="eyebrow" style="margin:8px 0 4px">${esc(c.title)}</div><div class="upg">`+
       c.rows.map(r=>`<div class="r"><span>${esc(r.t)}</span><span class="c">DC ${r.dc}</span></div>`).join("")+
       `</div><div class="note" style="margin:5px 0 0">${esc(c.crit)}</div>`;
-    sec("Scavenging", p(it.scavenging.intro)+chart(it.scavenging.difficulty)+chart(it.scavenging.attempts));
-    sec("Looting", p(it.looting.intro)+it.looting.methods.map(x=>hd(x.name,x.desc)).join("")
+    sec("Zháňanie zdrojov", p(it.scavenging.intro)+chart(it.scavenging.difficulty)+chart(it.scavenging.attempts));
+    sec("Plienenie", p(it.looting.intro)+it.looting.methods.map(x=>hd(trAll(x.name),x.desc)).join("")
       +eb("Drop z nepriateľov")+p(it.looting.enemyDropIntro)
-      +`<div class="upg">`+it.looting.enemyDrops.map((x,i)=>`<div class="r"><span class="c" style="min-width:20px">${i+1}</span><span style="flex:1;text-align:left">${esc(x)}</span></div>`).join("")+`</div>`);
-    sec("General Items (D20)", p(it.generalItems.intro)
-      +it.generalItems.rows.map(r=>`<div class="desc" style="padding:3px 0"><b style="color:var(--amber)">${r.n}.</b> ${esc(r.name)}${r.sub?` <span style="color:var(--muted)">— ${esc(r.sub)}</span>`:""}</div>`).join(""),"20");
-    sec("Item Themes", it.themes.map(t=>`<div class="h">${esc(t.name)}</div><div class="note" style="margin:0 0 3px">${esc(t.where)}</div><div class="desc" style="margin:0 0 9px">${t.items.map(esc).join(" · ")}</div>`).join(""), String(it.themes.length));
-    sec("Crafting recepty", `<div class="upg">`+it.crafting.map(c=>`<div class="r"><span><b>${esc(c.name)}</b></span><span class="c" style="color:var(--teal)">${esc(c.recipe)}</span></div>`).join("")+`</div>`, String(it.crafting.length));
+      +`<div class="upg">`+it.looting.enemyDrops.map((x,i)=>`<div class="r"><span class="c" style="min-width:20px">${i+1}</span><span style="flex:1;text-align:left">${esc(trAll(x))}</span></div>`).join("")+`</div>`);
+    sec("Všeobecné predmety (D20)", p(it.generalItems.intro)
+      +it.generalItems.rows.map(r=>`<div class="desc" style="padding:3px 0"><b style="color:var(--amber)">${r.n}.</b> ${esc(trAll(r.name))}${r.sub?` <span style="color:var(--muted)">— ${esc(trAll(r.sub))}</span>`:""}</div>`).join(""),"20");
+    sec("Tematické sady predmetov", it.themes.map(t=>`<div class="h">${esc(t.name)}</div><div class="note" style="margin:0 0 3px">${esc(t.where)}</div><div class="desc" style="margin:0 0 9px">${t.items.map(x=>trAll(esc(x))).join(" · ")}</div>`).join(""), String(it.themes.length));
+    sec("Crafting recepty", `<div class="upg">`+it.crafting.map(c=>`<div class="r"><span><b>${esc(trAll(c.name))}</b></span><span class="c" style="color:var(--teal)">${esc(trAll(c.recipe))}</span></div>`).join("")+`</div>`, String(it.crafting.length));
     const sp=it.specialty;
-    sec("Specialty Items", eb("Loot Rooms")+sp.lootRooms.map(x=>hd(x.name,x.desc)).join("")
-      +eb("Custom Items")+p(sp.customItems)
-      +eb("Quest Items")+sp.questItems.map(x=>`<div class="desc" style="padding:3px 0"><b style="color:var(--amber)">${esc(x.name)}</b> — ${esc(x.desc)}</div>`).join(""));
-    sec("Medical Supplies", it.medical.map(x=>hd(x.name,x.desc)).join(""));
-    sec("Utility Items", it.utility.map(x=>`<div class="h">${esc(x.name)} <span style="color:var(--amber)">craft ${esc(x.craft)}</span></div><div class="desc" style="margin:0 0 9px">${esc(x.desc)}</div>`).join(""), String(it.utility.length));
+    sec("Špeciálne predmety", eb("Miestnosti s koristou")+sp.lootRooms.map(x=>hd(trAll(x.name),x.desc)).join("")
+      +eb("Vlastné predmety")+p(sp.customItems)
+      +eb("Questové predmety")+sp.questItems.map(x=>`<div class="desc" style="padding:3px 0"><b style="color:var(--amber)">${esc(trAll(x.name))}</b> — ${esc(x.desc)}</div>`).join(""));
+    sec("Zdravotnícke potreby", it.medical.map(x=>hd(trAll(x.name),x.desc)).join(""));
+    sec("Úžitkové predmety", it.utility.map(x=>`<div class="h">${esc(trAll(x.name))} <span style="color:var(--amber)">craft ${esc(x.craft)}</span></div><div class="desc" style="margin:0 0 9px">${esc(x.desc)}</div>`).join(""), String(it.utility.length));
   } else if(cxCat==="world"){
     const w=DATA.world;
     const p=t=>`<div class="desc" style="margin:6px 0">${esc(t)}</div>`;
@@ -1198,7 +1274,7 @@ function renderCodex(){
   } else if(cxCat==="factions"){
     DATA.factions.filter(f=>match(f.name)||match(f.desc)).forEach(f=>{
       const e=document.createElement("details");e.className="entry";
-      e.innerHTML=`<summary><span class="t">${f.name}</span>
+      e.innerHTML=`<summary><span class="t">${tr(f.name)}</span>
         ${C.faction===f.name?'<span class="pill amber">tvoja</span>':''}<span class="chev">›</span></summary>
         <div class="body">${f.motto?`<div class="note" style="font-style:italic;margin:10px 0 2px;color:var(--amber-dim)">„${f.motto}"</div>`:''}
         <div class="desc">${f.desc}</div></div>`;
@@ -1358,7 +1434,7 @@ function renderCodex(){
           <div class="desc" style="margin-top:10px">${s.desc||s.role+"."}</div>
           <div class="note" style="margin-top:9px"><b style="color:var(--muted)">Pokrýva:</b> ${s.role}</div>
           <div class="note" style="margin-top:2px"><b style="color:var(--muted)">Checky:</b> ${s.dc}</div>
-          <button class="btn sm amber roll-inline" onclick="quickCheck('${s.key}','${s.name}')">Hod na ${s.name}</button>
+          <button class="btn sm amber roll-inline" onclick="quickCheck('${s.key}','${s.name}')">Hod na ${tr(s.name)}</button>
         </div>`;
       body.appendChild(e);
     });
@@ -1382,11 +1458,11 @@ function renderCodex(){
 }
 function weaponEntry(w){
   const e=document.createElement("details");e.className="entry";
-  let st="";for(const[k,v]of Object.entries(w.stats))st+=`<div class="s"><span class="k">${k}</span><span class="v">${v}</span></div>`;
+  let st="";for(const[k,v]of Object.entries(w.stats))st+=`<div class="s"><span class="k">${tr(k)}</span><span class="v">${tr(v)}</span></div>`;
   let up="";
   w.upg.forEach((u,gi)=>{
     const owned=wuOwned(w.name,gi);
-    up+=`<div class="h">${u.h}</div>`;
+    up+=`<div class="h">${tr(u.h)}</div>`;
     u.rows.forEach((r,ti)=>{
       const c=parseCost(r[1]);
       up+=`<div class="r"><span>${ti<owned?"✓ ":""}${r[0]}</span><span class="c">T.Lvl ${c.tool} · ${c.parts}p</span></div>`;
@@ -1402,19 +1478,19 @@ function weaponEntry(w){
     if(owned>0)acts+=`<button class="btn sm ghost" onclick="refundWeaponUpgrade('${w.name}',${gi})">Vrátiť</button>`;
     if(acts)up+=`<div class="row" style="gap:7px;margin:4px 0 12px;flex-wrap:wrap">${acts}</div>`;
   });
-  e.innerHTML=`<summary><span class="t">${w.name}</span><span class="pill teal">${w.cat}</span><span class="chev">›</span></summary>
+  e.innerHTML=`<summary><span class="t">${tr(w.name)}</span><span class="pill teal">${tr(w.cat)}</span><span class="chev">›</span></summary>
     <div class="body">
-      <div class="statgrid"><div class="s"><span class="k">Skill</span><span class="v">${w.skill}</span></div>${st}</div>
-      <div class="note" style="margin:8px 0 2px">Tvoje Parts: <b style="color:var(--ink)">${C.parts||0}</b> · Tool Level: <b style="color:var(--ink)">${C.toolLevel||1}</b></div>
+      <div class="statgrid"><div class="s"><span class="k">${tr("Skill")}</span><span class="v">${tr(w.skill)}</span></div>${st}</div>
+      <div class="note" style="margin:8px 0 2px">Tvoje diely: <b style="color:var(--ink)">${C.parts||0}</b> · Úroveň nástrojov: <b style="color:var(--ink)">${C.toolLevel||1}</b></div>
       <div class="upg" style="margin-top:6px">${up}</div>
-      <button class="btn sm amber roll-inline" onclick="quickCheck('${(w.skill||'aiming').toLowerCase()}','Hit')">Hod na Hit (${w.skill})</button>
+      <button class="btn sm amber roll-inline" onclick="quickCheck('${(w.skill||'aiming').toLowerCase()}','Hit')">Hod na Hit (${tr(w.skill)})</button>
     </div>`;
   return e;
 }
 function infectedEntry(i){
   const e=document.createElement("details");e.className="entry";
-  let st="";for(const[k,v]of Object.entries(i.stats))st+=`<div class="s"><span class="k">${k}</span><span class="v">${v}</span></div>`;
-  e.innerHTML=`<summary><span class="t">${i.name}</span><span class="pill danger">${i.rarity}</span><span class="chev">›</span></summary>
+  let st="";for(const[k,v]of Object.entries(i.stats))st+=`<div class="s"><span class="k">${tr(k)}</span><span class="v">${tr(v)}</span></div>`;
+  e.innerHTML=`<summary><span class="t">${i.name}</span><span class="pill danger">${tr(i.rarity)}</span><span class="chev">›</span></summary>
     <div class="body"><div class="statgrid">${st}</div><div class="desc">${i.desc}</div>
       <div class="row" style="gap:7px;margin-top:11px">
         <button class="btn sm grow" onclick="quickCheck('elusive','Dodge',${parseInt(i.stats['Hit DC'])||9})">Dodge vs ${i.stats['Hit DC']}</button>
@@ -1608,12 +1684,12 @@ function mkFoe(f){let stats=null;
 }
 const GROUNDED_DROPS=[null,"Nič","1D4 Ammo","Nič","1D4 Pills","1D6 Parts","Nič","Nič","1D8 Parts"];
 function grDropRoll(ch){const n=1+Math.floor(Math.random()*8);const label=GROUNDED_DROPS[n];
-  if(label==="Nič"){clog("Grounded loot: nič.","");return;}
+  if(label==="Nič"){clog("Korisť: nič.","");return;}
   const m=label.match(/(\d+)D(\d+)\s+(\w+)/);if(!m)return;
   const amt=rollExpr(`${m[1]}D${m[2]}`);const kind=m[3];
-  if(kind==="Ammo"){ch.ammo["9mm"]=(ch.ammo["9mm"]||0)+amt;clog(`Grounded loot: +${amt} 9mm`,"hit");}
-  else if(kind==="Pills"){ch.pills=(ch.pills||0)+amt;clog(`Grounded loot: +${amt} Pilulky`,"hit");}
-  else if(kind==="Parts"){ch.parts=(ch.parts||0)+amt;clog(`Grounded loot: +${amt} Parts`,"hit");}
+  if(kind==="Ammo"){ch.ammo["9mm"]=(ch.ammo["9mm"]||0)+amt;clog(`Korisť: +${amt} 9mm`,"hit");}
+  else if(kind==="Pills"){ch.pills=(ch.pills||0)+amt;clog(`Korisť: +${amt} Pilulky`,"hit");}
+  else if(kind==="Parts"){ch.parts=(ch.parts||0)+amt;clog(`Korisť: +${amt} Diely`,"hit");}
 }
 function gStartCombat(sc){GAME.combat={title:sc.title,intro:sc.text,win:sc.combat.win,lose:sc.combat.lose,
   stealthKill:sc.combat.stealthKill||null,surprise:true,foes:expandFoes(sc.combat.foes).map(mkFoe),log:[],result:null};}
@@ -1624,7 +1700,7 @@ function gAttack(){const cb=GAME.combat;if(cb.result)return;const ch=gActive();i
   const w=weaponOf(ch);const wk=(w.skill||"Aiming").toLowerCase();
   const r=gCheck(ch,wk,foe.dodgeDC);
   if(r.success){let dmg=rollExpr(w.stats.Damage);if(r.crit)dmg*=2;foe.hp=Math.max(0,foe.hp-dmg);
-    clog(`${ch.name}: ${w.name} zásah${r.crit?" (KRIT!)":""} za ${dmg} — ${foe.name} ${foe.hp>0?foe.hp+" HP":"PADOL"}`,r.crit?"crit":"hit");
+    clog(`${ch.name}: ${tr(w.name)} zásah${r.crit?" (KRIT!)":""} za ${dmg} — ${foe.name} ${foe.hp>0?foe.hp+" HP":"PADOL"}`,r.crit?"crit":"hit");
     if(foe.hp<=0&&GAME.difficulty==="grounded")grDropRoll(ch);}
   else clog(`${ch.name}: minul (hod ${r.total} vs Dodge ${foe.dodgeDC})`,"miss");
   if(!aliveFoe()){cb.result="win";clog("Nepriatelia zneškodnení.","hit");gSave();renderScn();return;}
@@ -1676,7 +1752,7 @@ function renderScn(){const body=document.getElementById("scnBody");body.innerHTM
 function partyBar(){const b=document.createElement("div");b.className="gparty";
   GAME.party.forEach((p,i)=>{const c=document.createElement("button");
     c.className="gpc"+(i===GAME.active?" on":"")+(p.hp<=0?" down":"");
-    c.innerHTML=`<div class="nm">${p.dead?"† ":""}${esc(p.name)}</div><div class="hpn">${p.dead?"mŕtvy":p.hp+"/"+p.hpMax+" HP"}${p.cls?" · "+esc(p.cls):""}</div><div class="hpb"><i style="width:${Math.max(0,p.hp/p.hpMax*100)}%"></i></div>`;
+    c.innerHTML=`<div class="nm">${p.dead?"† ":""}${esc(p.name)}</div><div class="hpn">${p.dead?"mŕtvy":p.hp+"/"+p.hpMax+" HP"}${p.cls?" · "+esc(tr(p.cls)):""}</div><div class="hpb"><i style="width:${Math.max(0,p.hp/p.hpMax*100)}%"></i></div>`;
     if(!p.dead)c.onclick=()=>gSwitch(i);b.appendChild(c);});
   return b;}
 function gameDiffPill(){if(!GAME)return"";const nm={story:"Story",survivor:"Survivor",grounded:"Grounded"}[GAME.difficulty]||"Survivor";
@@ -1790,7 +1866,7 @@ function renderWizParty(body){
     n.textContent="Roster je prázdny — vytvor si prvú postavu vyššie.";body.appendChild(n);}
   ROSTER.forEach(c=>{const picked=WIZ.partyIds.includes(c.id);
     const row=document.createElement("button");row.className="hudrow"+(picked?" on":"");row.style.width="100%";
-    row.innerHTML=`<span class="lbl"><b>${esc(c.name||"Bez mena")}</b><small>${esc(c.cls||"bez triedy")}${c.faction?" · "+esc(c.faction):""} · ${c.hpMax} HP</small></span>
+    row.innerHTML=`<span class="lbl"><b>${esc(c.name||"Bez mena")}</b><small>${esc(tr(c.cls)||"bez triedy")}${c.faction?" · "+esc(tr(c.faction)):""} · ${c.hpMax} HP</small></span>
       <span class="val"><span class="dot${picked?" on":""}"></span></span>`;
     row.onclick=()=>wizToggleChar(c.id);body.appendChild(row);});
   const cnt=document.createElement("div");cnt.className="note";cnt.style.cssText="margin:10px 0;text-align:center";
@@ -1818,7 +1894,7 @@ function renderRoster(body){
   ROSTER.forEach(c=>{
     const card=document.createElement("div");card.className="card";
     card.innerHTML=`<div style="font-family:var(--font-d);font-weight:600;font-size:17px">${esc(c.name||"Bez mena")}</div>
-      <div class="note" style="margin:2px 0 10px">${esc(c.cls||"bez triedy")}${c.faction?" · "+esc(c.faction):""} · ${c.hpMax} HP</div>
+      <div class="note" style="margin:2px 0 10px">${esc(tr(c.cls)||"bez triedy")}${c.faction?" · "+esc(tr(c.faction)):""} · ${c.hpMax} HP</div>
       <div class="row" style="gap:8px">
         <button class="btn sm ghost grow" data-act="edit">Upraviť</button>
         <button class="btn sm ghost grow" data-act="del" style="color:var(--danger);border-color:#5a2c22">Zmazať</button>
@@ -1834,7 +1910,7 @@ function gOpenLouPicker(){
    <div class="note" style="margin-bottom:12px">Hotové postavy z knihy — so zručnosťami, výbavou aj frakciou.</div>`;
   LOU_TEMPLATES.forEach((t,i)=>{h+=`<div class="card" style="margin-bottom:10px">
       <div style="font-family:var(--font-d);font-weight:600;font-size:16px">${esc(t.name)}</div>
-      <div class="note" style="margin:2px 0 8px">${esc(t.cls)}${t.faction?" · "+esc(t.faction):""}</div>
+      <div class="note" style="margin:2px 0 8px">${esc(tr(t.cls))}${t.faction?" · "+esc(tr(t.faction)):""}</div>
       <button class="btn amber full" onclick="rAddTemplate(${i})">Pridať do rosteru</button></div>`;});
   m.innerHTML=h;document.getElementById("scrim").classList.add("on");
 }
@@ -1861,12 +1937,12 @@ function renderScene(body){
     r.textContent="Koniec scenára. Ďalšie kapitoly pridáme do hry.";body.appendChild(r);}
 }
 function invDrawer(){const ch=gActive();const det=document.createElement("details");det.className="entry";det.style.marginTop="10px";
-  const items=ch.inv.length?ch.inv.map(i=>`<div class="invrow"><span class="q">${i.q||1}×</span><span class="grow">${esc(i.name)}</span></div>`).join(""):'<div class="note">Prázdny.</div>';
-  const ammo=Object.entries(ch.ammo).filter(([k,v])=>v>0).map(([k,v])=>`${k}: ${v}`).join(" · ")||"—";
-  const mats=Object.entries(ch.mats).filter(([k,v])=>v>0).map(([k,v])=>`${k}: ${v}`).join(" · ")||"—";
+  const items=ch.inv.length?ch.inv.map(i=>`<div class="invrow"><span class="q">${i.q||1}×</span><span class="grow">${esc(tr(i.name))}</span></div>`).join(""):'<div class="note">Prázdny.</div>';
+  const ammo=Object.entries(ch.ammo).filter(([k,v])=>v>0).map(([k,v])=>`${tr(k)}: ${v}`).join(" · ")||"—";
+  const mats=Object.entries(ch.mats).filter(([k,v])=>v>0).map(([k,v])=>`${tr(k)}: ${v}`).join(" · ")||"—";
   det.innerHTML=`<summary><span class="t">${esc(ch.name)} — inventár</span><span class="pill amber" style="margin-left:auto">${ch.hp}/${ch.hpMax} HP</span><span class="chev">›</span></summary>
     <div class="body" style="padding-top:8px">
-     <div class="note" style="margin:0 0 6px">Zbraň: <b style="color:var(--amber)">${esc(ch.equip)}</b> · Pilulky: ${ch.pills} · Lekárničky: ${(ch.firstAid||{}).qty||0}</div>
+     <div class="note" style="margin:0 0 6px">Zbraň: <b style="color:var(--amber)">${esc(tr(ch.equip))}</b> · Pilulky: ${ch.pills} · Lekárničky: ${(ch.firstAid||{}).qty||0}</div>
      <div class="ginv">${items}</div>
      <div class="note" style="margin-top:8px">Munícia: ${ammo}</div>
      <div class="note" style="margin-top:3px">Materiály: ${mats}</div></div>`;
@@ -1893,7 +1969,7 @@ function renderCombat(body){const cb=GAME.combat;
     const sk=document.createElement("button");sk.className="btn full";sk.style.borderColor="var(--teal)";sk.style.color="var(--teal)";
     sk.innerHTML="🔪 Tichý zásah (Shiv) — okamžitá smrť";sk.onclick=gStealthKill;body.appendChild(sk);}
   const atk=document.createElement("button");atk.className="btn amber full";atk.style.marginTop="8px";
-  const w=weaponOf(ch);atk.innerHTML=`Zaútoč — ${esc(w.name)} (${esc(w.stats.Damage)})`;atk.onclick=gAttack;body.appendChild(atk);
+  const w=weaponOf(ch);atk.innerHTML=`Zaútoč — ${esc(tr(w.name))} (${esc(w.stats.Damage)})`;atk.onclick=gAttack;body.appendChild(atk);
   if((ch.firstAid||{}).qty>0&&ch.hp<ch.hpMax){const fa=document.createElement("button");fa.className="btn full";fa.style.marginTop="8px";
     fa.textContent=`Lekárnička (+${ch.firstAid.heal} HP)`;fa.onclick=gCombatFirstAid;body.appendChild(fa);}
   body.appendChild(invDrawer());
