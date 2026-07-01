@@ -506,49 +506,53 @@ function addItem(){const n=document.getElementById("invName").value.trim();if(!n
 function saveJournal(v){C.journal=v;save();}
 
 /* ---------- edit modal ---------- */
-function openEdit(){
+let editRosterId=null; // ak nastavené, openEdit/commitEdit upravujú postavu v ROSTER namiesto C
+function openEdit(rosterId){
+  editRosterId=rosterId||null;
+  const t=editRosterId?ROSTER.find(r=>r.id===editRosterId):C;
+  if(!t)return;
   const m=document.getElementById("modal");
-  const facOpts=['<option value="">— frakcia —</option>'].concat(allFactionNames().map(n=>`<option ${C.faction===n?"selected":""}>${esc(n)}</option>`)).join("");
+  const facOpts=['<option value="">— frakcia —</option>'].concat(allFactionNames().map(n=>`<option ${t.faction===n?"selected":""}>${esc(n)}</option>`)).join("");
   m.innerHTML=`<div class="grabber"></div>
    <h3>Upraviť postavu <span class="x" onclick="closeEdit()">×</span></h3>
-   <div class="field"><label>Meno</label><input id="e-name" value="${esc(C.name)}" placeholder="Napr. Ellie"></div>
+   <div class="field"><label>Meno</label><input id="e-name" value="${esc(t.name)}" placeholder="Napr. Ellie"></div>
    <div class="row" style="gap:10px">
      <div class="grow field"><label>Frakcia</label><select id="e-fac">${facOpts}</select></div>
-     <div class="grow field"><label>Trieda</label><input id="e-cls" value="${esc(C.cls)}" placeholder="Napr. Scout"></div>
+     <div class="grow field"><label>Trieda</label><input id="e-cls" value="${esc(t.cls)}" placeholder="Napr. Scout"></div>
    </div>
-   <div class="field"><label>Bio</label><textarea id="e-bio" rows="2" placeholder="Pár viet o postave…">${esc(C.bio)}</textarea></div>
+   <div class="field"><label>Bio</label><textarea id="e-bio" rows="2" placeholder="Pár viet o postave…">${esc(t.bio)}</textarea></div>
    <div class="row" style="gap:10px">
-     <div class="grow field"><label>Health max</label>${stepperHTML("e-hpmax",C.hpMax,5,500)}</div>
-     <div class="grow field"><label>Health teraz</label>${stepperHTML("e-hp",C.hp,0,500)}</div>
+     <div class="grow field"><label>Health max</label>${stepperHTML("e-hpmax",t.hpMax,5,500)}</div>
+     <div class="grow field"><label>Health teraz</label>${stepperHTML("e-hp",t.hp,0,500)}</div>
    </div>
    <div class="row" style="gap:10px">
-     <div class="grow field"><label>Infekcia %</label>${stepperHTML("e-inf",C.inf,0,100,5)}</div>
-     <div class="grow field"><label>Pilulky</label>${stepperHTML("e-pills",C.pills||0,0,9999,10)}</div>
+     <div class="grow field"><label>Infekcia %</label>${stepperHTML("e-inf",t.inf,0,100,5)}</div>
+     <div class="grow field"><label>Pilulky</label>${stepperHTML("e-pills",t.pills||0,0,9999,10)}</div>
    </div>
    <div class="field"><label>Morálka (archetyp)</label>
-     <select id="e-mor"><option value="">— žiadna —</option>${(DATA.character.morality?.options||[]).map(o=>`<option ${C.morality===o.name?"selected":""}>${o.name}</option>`).join("")}</select></div>
+     <select id="e-mor"><option value="">— žiadna —</option>${(DATA.character.morality?.options||[]).map(o=>`<option ${t.morality===o.name?"selected":""}>${o.name}</option>`).join("")}</select></div>
    <div class="row" style="gap:10px">
-     <div class="grow field"><label>Parts</label>${stepperHTML("e-parts",C.parts||0,0,9999,5)}</div>
-     <div class="grow field"><label>Tool Level</label>${stepperHTML("e-tool",C.toolLevel||1,1,4)}</div>
+     <div class="grow field"><label>Parts</label>${stepperHTML("e-parts",t.parts||0,0,9999,5)}</div>
+     <div class="grow field"><label>Tool Level</label>${stepperHTML("e-tool",t.toolLevel||1,1,4)}</div>
    </div>
    <div class="row" style="gap:10px">
-     <div class="grow field"><label>Lekárničky (ks)</label>${stepperHTML("e-faqty",(C.firstAid&&C.firstAid.qty)||0,0,99)}</div>
-     <div class="grow field"><label>Lieči (HP)</label>${stepperHTML("e-faheal",(C.firstAid&&C.firstAid.heal)||0,0,200,5)}</div>
+     <div class="grow field"><label>Lekárničky (ks)</label>${stepperHTML("e-faqty",(t.firstAid&&t.firstAid.qty)||0,0,99)}</div>
+     <div class="grow field"><label>Lieči (HP)</label>${stepperHTML("e-faheal",(t.firstAid&&t.firstAid.heal)||0,0,200,5)}</div>
    </div>
    <div class="field"><label>Trauma (stupeň)</label>
-     <select id="e-trauma"><option value="0">— žiadna —</option>${DATA.trauma.stages.map((s,i)=>`<option value="${i+1}" ${(C.trauma||0)===i+1?"selected":""}>${s.name}</option>`).join("")}</select></div>
+     <select id="e-trauma"><option value="0">— žiadna —</option>${DATA.trauma.stages.map((s,i)=>`<option value="${i+1}" ${(t.trauma||0)===i+1?"selected":""}>${s.name}</option>`).join("")}</select></div>
    <div class="eyebrow" style="margin-top:6px">Zručnosti</div>
    <div id="e-skills"></div>
    <button class="btn amber full" style="margin-top:14px" onclick="commitEdit()">Uložiť</button>`;
   const es=m.querySelector("#e-skills");
   DATA.skills.forEach(s=>{
     const row=document.createElement("div");row.className="row";row.style.cssText="align-items:center;gap:10px;margin-bottom:9px";
-    row.innerHTML=`<span class="grow" style="font-family:var(--font-d);text-transform:uppercase;letter-spacing:.04em;font-size:13px">${s.name}</span>${stepperHTML("e-sk-"+s.key,C.skills[s.key],0,20)}`;
+    row.innerHTML=`<span class="grow" style="font-family:var(--font-d);text-transform:uppercase;letter-spacing:.04em;font-size:13px">${s.name}</span>${stepperHTML("e-sk-"+s.key,t.skills[s.key],0,20)}`;
     es.appendChild(row);
   });
   document.getElementById("scrim").classList.add("on");
 }
-function closeEdit(){document.getElementById("scrim").classList.remove("on");}
+function closeEdit(){document.getElementById("scrim").classList.remove("on");editRosterId=null;}
 
 /* ---------- builder vlastnej frakcie ---------- */
 function openFactionForm(editId){
@@ -700,13 +704,15 @@ function useFirstAid(){
 /* ---------- sprievodca tvorby postavy ---------- */
 function skName(key){const s=DATA.skills.find(x=>x.key===key);return s?s.name:key;}
 function gv(id){const e=document.getElementById(id);return e?e.value:null;}
-function openCreator(){
+let creatorTarget=null; // null = upravuje C (aktuálna postava), "roster" = vytvorí novú postavu do rosteru
+function openCreator(target){
+  creatorTarget=target||null;
   const ch=DATA.character,m=document.getElementById("modal");
   const skOpt=o=>`<option value="${o.skill}">${esc(o.label)} (+1 ${skName(o.skill)})</option>`;
   let h=`<div class="grabber"></div>
     <h3>Tvorba postavy <span class="x" onclick="closeEdit()">×</span></h3>
     <div class="note" style="margin-bottom:12px">${esc(ch.intro)}</div>
-    <div class="field"><label>Meno</label><input id="cr-name" value="${esc(C.name||"")}" placeholder="Meno postavy"></div>
+    <div class="field"><label>Meno</label><input id="cr-name" value="${creatorTarget?"":esc(C.name||"")}" placeholder="Meno postavy"></div>
     <div class="field"><label>${esc(ch.bio.age.q)}</label>
       <select id="cr-age" onchange="updateCreator()">${ch.bio.age.options.map(skOpt).join("")}</select></div>`;
   ch.bio.personality.forEach((p,i)=>{
@@ -726,7 +732,7 @@ function openCreator(){
     <div class="eyebrow" style="margin-top:8px">Výsledok</div>
     <div id="cr-preview" class="card"></div>
     <button class="btn amber full" style="margin-top:6px" onclick="applyCreator()">Vytvoriť postavu</button>
-    <div class="note" style="margin-top:8px;text-align:center">Prepíše aktuálnu postavu novými hodnotami a výbavou.</div>`;
+    <div class="note" style="margin-top:8px;text-align:center">${creatorTarget?"Vytvorí novú postavu v rosteri.":"Prepíše aktuálnu postavu novými hodnotami a výbavou."}</div>`;
   m.innerHTML=h;
   document.getElementById("scrim").classList.add("on");
   updateCreator();
@@ -757,16 +763,27 @@ function updateCreator(){
 function applyCreator(){
   const {skills,cls,tier,morName}=computeCreator();
   const name=val("cr-name");
+  const gear=[].concat(tier?tier.equipment:[],tier?tier.weapons:[]);
+  const known=DATA.weapons.map(w=>w.name);
+  const eqW=(tier?tier.weapons:[]).find(w=>known.includes(w));
+  if(creatorTarget==="roster"){
+    const c=blank();c.id=rNewId();
+    c.name=name||"Nová postava";c.skills=skills;
+    c.hpMax=DATA.character.startHealth;c.hp=c.hpMax;
+    c.pills=tier?tier.pills:0;c.morality=morName||"";
+    if(cls)c.cls=cls.name;
+    c.inv=gear.map(n=>({name:n,q:1}));
+    c.equip=eqW||(known[0]||"");
+    ROSTER.push(c);rSave();creatorTarget=null;closeEdit();scnUI="roster";renderScn();
+    return;
+  }
   C.skills=skills;
   C.hpMax=DATA.character.startHealth;C.hp=DATA.character.startHealth;
   C.pills=tier?tier.pills:0;
   C.morality=morName||"";
   if(name)C.name=name;
   if(cls)C.cls=cls.name;
-  const gear=[].concat(tier?tier.equipment:[],tier?tier.weapons:[]);
   C.inv=gear.map(n=>({name:n,q:1}));
-  const known=DATA.weapons.map(w=>w.name);
-  const eqW=(tier?tier.weapons:[]).find(w=>known.includes(w));
   C.equip=eqW||C.equip||(known[0]||"");
   save();renderSheet();renderDice();closeEdit();go("sheet");
 }
@@ -782,13 +799,17 @@ function bioTable(title,options){
   return c;
 }
 function commitEdit(){
-  C.name=val("e-name");C.faction=sel("e-fac");C.cls=val("e-cls");C.bio=val("e-bio");
-  C.hpMax=num("e-hpmax",30);C.hp=Math.min(num("e-hp",30),C.hpMax);C.inf=num("e-inf",0);C.morality=sel("e-mor");C.pills=num("e-pills",0);
-  C.parts=num("e-parts",0);C.toolLevel=num("e-tool",1);
-  C.firstAid={qty:num("e-faqty",0),heal:num("e-faheal",0)};
-  C.trauma=parseInt(sel("e-trauma"))||0;
-  DATA.skills.forEach(s=>C.skills[s.key]=num("e-sk-"+s.key,2));
-  save();renderSheet();renderDice();closeEdit();
+  const rid=editRosterId;
+  const t=rid?ROSTER.find(r=>r.id===rid):C;
+  if(!t)return;
+  t.name=val("e-name");t.faction=sel("e-fac");t.cls=val("e-cls");t.bio=val("e-bio");
+  t.hpMax=num("e-hpmax",30);t.hp=Math.min(num("e-hp",30),t.hpMax);t.inf=num("e-inf",0);t.morality=sel("e-mor");t.pills=num("e-pills",0);
+  t.parts=num("e-parts",0);t.toolLevel=num("e-tool",1);
+  t.firstAid={qty:num("e-faqty",0),heal:num("e-faheal",0)};
+  t.trauma=parseInt(sel("e-trauma"))||0;
+  DATA.skills.forEach(s=>t.skills[s.key]=num("e-sk-"+s.key,2));
+  if(rid){rSave();closeEdit();renderScn();}
+  else{save();renderSheet();renderDice();closeEdit();}
 }
 function stepperHTML(id,v,min,max,step=1){
   return `<div class="stepper"><button onclick="bump('${id}',${-step},${min},${max})">–</button>
@@ -1375,6 +1396,55 @@ function quickCheck(skillKey,as,dc){
 /* ================= HRA — sólo hrateľný engine (bez AI) ================= */
 const GKEY="tlou_game_v1";
 let GAME=null;
+let scnUI="menu"; // "menu" | "roster" | "stories" | "game" — čo sa má v tabe Hra zobraziť
+
+/* ---------- roster uložených postáv ---------- */
+const RKEY="tlou_roster_v1";
+let ROSTER=[];
+function rNewId(){return "r"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function rLoad(){try{const r=JSON.parse(localStorage.getItem(RKEY))||[];
+  return r.map(c=>({...blank(),...c,ammo:{...zeroMap(AMMO_TYPES),...(c.ammo||{})},mats:{...zeroMap(MAT_TYPES),...(c.mats||{})}}));
+  }catch(e){return [];}}
+function rSave(){try{localStorage.setItem(RKEY,JSON.stringify(ROSTER));}catch(e){}}
+
+/* ---------- hotové LoU postavy (šablóny do rosteru) ---------- */
+const LOU_TEMPLATES=[
+  {name:"Joel Miller",cls:"Smuggler",faction:"Smugglers",
+   skills:{brutality:2,aiming:3,elusive:3,instinct:3,scavenging:2,survival:3,maintenance:2,medicine:2},
+   equip:"Revolver",ammo:{".357":6},
+   inv:[{name:"Revolver",q:1},{name:"Shiv",q:1},{name:"Bandáž",q:2}],
+   bio:"Pašerák z bostonskej karanténnej zóny. Tvrdý, opatrný, chráni tých, na ktorých mu záleží."},
+  {name:"Ellie Williams",cls:"Survivor",faction:"Survivors",
+   skills:{brutality:3,aiming:2,elusive:3,instinct:2,scavenging:3,survival:3,maintenance:2,medicine:2},
+   equip:"Switchblade",ammo:{"9mm":5},
+   inv:[{name:"Switchblade",q:1},{name:"Pistol",q:1},{name:"Bandáž",q:2}],
+   bio:"Mladá, rýchla a nebojácna. Vyrastala vo svete plnom infikovaných — a naučila sa v ňom prežiť."},
+  {name:"Tess Servopoulos",cls:"Smuggler",faction:"Smugglers",
+   skills:{brutality:3,aiming:3,elusive:3,instinct:3,scavenging:2,survival:2,maintenance:2,medicine:2},
+   equip:"Pistol",ammo:{"9mm":6},
+   inv:[{name:"Pistol",q:1},{name:"Hand to Hand",q:1},{name:"Bandáž",q:2}],
+   bio:"Joelova partnerka a spoločníčka. Nekompromisná vyjednávačka aj bojovníčka."},
+  {name:"Tommy Miller",cls:"Soldier",faction:"Fireflies",
+   skills:{brutality:3,aiming:3,elusive:2,instinct:2,scavenging:2,survival:3,maintenance:3,medicine:2},
+   equip:"Assault Rifle",ammo:{"5.56":8},
+   inv:[{name:"Assault Rifle",q:1},{name:"Pipe",q:1},{name:"Bandáž",q:2}],
+   bio:"Joelov brat, bývalý vojak aj Firefly. Dnes buduje bezpečné miesto v Jacksone."},
+  {name:"Abby Anderson",cls:"Renegade",faction:"Liberation Front",
+   skills:{brutality:3,aiming:3,elusive:2,instinct:3,scavenging:2,survival:2,maintenance:2,medicine:3},
+   equip:"Semi-Auto Rifle",ammo:{"5.56":6},
+   inv:[{name:"Semi-Auto Rifle",q:1},{name:"Hammer and Wrench",q:1},{name:"Bandáž",q:2}],
+   bio:"Vojačka Washingtonského oslobodzovacieho frontu (WLF). Silná, disciplinovaná, poháňaná pomstou aj vernosťou."}
+];
+function rAddTemplate(i){const def=LOU_TEMPLATES[i];if(!def)return;
+  const c=blank();c.id=rNewId();c.name=def.name;c.cls=def.cls;c.faction=def.faction||"";c.bio=def.bio||"";
+  DATA.skills.forEach(s=>c.skills[s.key]=def.skills[s.key]||2);
+  c.hp=25;c.hpMax=25;c.pills=100;c.equip=def.equip;
+  c.inv=(def.inv||[]).map(x=>({...x}));
+  c.ammo={...zeroMap(AMMO_TYPES),...(def.ammo||{})};
+  c.firstAid={qty:1,heal:10};
+  ROSTER.push(c);rSave();closeEdit();scnUI="roster";renderScn();}
+function rDeleteChar(id){if(!confirm("Zmazať túto postavu z rosteru?"))return;
+  ROSTER=ROSTER.filter(c=>c.id!==id);rSave();renderScn();}
 function gLoad(){try{const r=localStorage.getItem(GKEY);return r?JSON.parse(r):null;}catch(e){return null;}}
 function gSave(){try{localStorage.setItem(GKEY,JSON.stringify(GAME));}catch(e){}}
 function gActive(){return GAME&&GAME.party[GAME.active];}
@@ -1412,8 +1482,12 @@ function applyFx(fx){const ch=gActive();if(!ch||!fx)return;fx.forEach(f=>{
 function gHasNeed(need){if(!need)return true;if(need.flag&&!GAME.flags[need.flag])return false;if(need.item){const ch=gActive();if(!ch||!ch.inv.some(x=>x.name===need.item))return false;}return true;}
 
 function gNewGame(id){const st=(DATA.stories||[]).find(s=>s.id===id)||(DATA.stories||[])[0];
-  GAME={storyId:st.id,scene:st.start,flags:{},visited:{},party:[],active:0,phase:"setup",banner:null,combat:null};gSave();renderScn();}
-function gReset(){GAME=null;try{localStorage.removeItem(GKEY);}catch(e){}renderScn();}
+  GAME={storyId:st.id,scene:st.start,flags:{},visited:{},party:[],active:0,phase:"setup",banner:null,combat:null};
+  scnUI="game";gSave();renderScn();}
+function gReset(){GAME=null;try{localStorage.removeItem(GKEY);}catch(e){}scnUI="menu";renderScn();}
+function gBackToMenu(){scnUI="menu";renderScn();}
+function menuBackBtn(){const b=document.createElement("button");b.className="btn ghost sm";b.style.marginBottom="10px";
+  b.textContent="‹ Menu";b.onclick=gBackToMenu;return b;}
 function gStart(){if(!GAME.party.length)return;GAME.phase="play";gGoto(curStory().start,true);}
 function gSwitch(i){GAME.active=i;gSave();renderScn();}
 
@@ -1477,10 +1551,14 @@ function gCombatFirstAid(){const ch=gActive();if(!ch.firstAid||ch.firstAid.qty<=
 
 /* ---------- render ---------- */
 function renderScn(){const body=document.getElementById("scnBody");body.innerHTML="";
-  if(!GAME){renderHome(body);return;}
-  if(GAME.phase==="setup"){renderSetup(body);return;}
-  if(GAME.combat){renderCombat(body);return;}
-  renderScene(body);
+  if(scnUI==="roster"){renderRoster(body);return;}
+  if(scnUI==="stories"){renderStoryPicker(body);return;}
+  if(scnUI==="game"&&GAME){
+    if(GAME.phase==="setup"){renderSetup(body);return;}
+    if(GAME.combat){renderCombat(body);return;}
+    renderScene(body);return;
+  }
+  renderMenu(body);
 }
 function partyBar(){const b=document.createElement("div");b.className="gparty";
   GAME.party.forEach((p,i)=>{const c=document.createElement("button");
@@ -1488,9 +1566,29 @@ function partyBar(){const b=document.createElement("div");b.className="gparty";
     c.innerHTML=`<div class="nm">${esc(p.name)}</div><div class="hpn">${p.hp}/${p.hpMax} HP${p.cls?" · "+esc(p.cls):""}</div><div class="hpb"><i style="width:${Math.max(0,p.hp/p.hpMax*100)}%"></i></div>`;
     c.onclick=()=>gSwitch(i);b.appendChild(c);});
   return b;}
-function renderHome(body){
+function renderMenu(body){
   const intro=document.createElement("div");intro.className="gscene";
-  intro.innerHTML=`<h3>Hraj sólo</h3><p class="story">Vytvor si postavu (alebo partiu) a prejdi nascriptovaný príbeh. Hod kockami je v hre — pri voľbách s <span style="color:var(--teal)">DC</span> sa hádže automaticky. Loot ide do inventára postavy, boj beží cez reálne staty nepriateľov z knihy.</p>`;
+  intro.innerHTML=`<h3>Hraj sólo</h3><p class="story">Vytvor si partiu a prejdi nascriptovaný príbeh. Hod kockami je v hre — pri voľbách s <span style="color:var(--teal)">DC</span> sa hádže automaticky. Loot ide do inventára postavy, boj beží cez reálne staty nepriateľov z knihy.</p>`;
+  body.appendChild(intro);
+  if(GAME){
+    const cont=document.createElement("button");cont.className="btn amber full";cont.style.marginBottom="10px";
+    cont.textContent="▸ Pokračovať v hre";cont.onclick=()=>{scnUI="game";renderScn();};
+    body.appendChild(cont);
+  }
+  const nw=document.createElement("button");nw.className="btn full";nw.style.marginBottom="10px";
+  nw.textContent=GAME?"Nová hra":"Nová hra";nw.onclick=()=>{scnUI="stories";renderScn();};
+  body.appendChild(nw);
+  const ro=document.createElement("button");ro.className="btn full";ro.style.marginBottom="10px";
+  ro.textContent=`Postavy${ROSTER.length?" ("+ROSTER.length+")":""}`;ro.onclick=()=>{scnUI="roster";renderScn();};
+  body.appendChild(ro);
+  const gd=document.createElement("button");gd.className="btn ghost full";
+  gd.textContent="Príručka";gd.onclick=()=>go("codex");
+  body.appendChild(gd);
+}
+function renderStoryPicker(body){
+  body.appendChild(menuBackBtn());
+  const intro=document.createElement("div");intro.className="gscene";
+  intro.innerHTML=`<h3>Vyber scenár</h3><p class="story">Hod kockami je v hre — pri voľbách s <span style="color:var(--teal)">DC</span> sa hádže automaticky.</p>`;
   body.appendChild(intro);
   (DATA.stories||[]).forEach(s=>{const card=document.createElement("div");card.className="card";
     card.innerHTML=`<div class="pill amber">Scenár</div><h3 style="margin:8px 0 4px;font-family:var(--font-d);font-size:19px">${esc(s.title)}</h3><p class="desc">${esc(s.blurb)}</p>`;
@@ -1500,9 +1598,46 @@ function renderHome(body){
   tip.textContent="Ďalšie scenáre dopĺňame do tej istej štruktúry — povedz, akú zápletku chceš, a napíšem ju.";
   body.appendChild(tip);
 }
+function renderRoster(body){
+  body.appendChild(menuBackBtn());
+  const intro=document.createElement("div");intro.className="gscene";
+  intro.innerHTML=`<h3>Postavy</h3><p class="story">Uložené postavy môžeš neskôr pridať do partie. Vytvor si vlastnú, alebo pridaj hotovú postavu z LoU.</p>`;
+  body.appendChild(intro);
+  const row=document.createElement("div");row.className="row";row.style.cssText="gap:8px;margin-bottom:14px";
+  const mk=document.createElement("button");mk.className="btn amber grow";mk.textContent="+ Vytvoriť postavu";
+  mk.onclick=()=>openCreator("roster");
+  const lou=document.createElement("button");lou.className="btn grow";lou.textContent="+ LoU postava";
+  lou.onclick=gOpenLouPicker;
+  row.appendChild(mk);row.appendChild(lou);body.appendChild(row);
+  if(!ROSTER.length){const n=document.createElement("div");n.className="note";n.style.textAlign="center";
+    n.textContent="Zatiaľ žiadne uložené postavy.";body.appendChild(n);return;}
+  ROSTER.forEach(c=>{
+    const card=document.createElement("div");card.className="card";
+    card.innerHTML=`<div style="font-family:var(--font-d);font-weight:600;font-size:17px">${esc(c.name||"Bez mena")}</div>
+      <div class="note" style="margin:2px 0 10px">${esc(c.cls||"bez triedy")}${c.faction?" · "+esc(c.faction):""} · ${c.hpMax} HP</div>
+      <div class="row" style="gap:8px">
+        <button class="btn sm ghost grow" data-act="edit">Upraviť</button>
+        <button class="btn sm ghost grow" data-act="del" style="color:var(--danger);border-color:#5a2c22">Zmazať</button>
+      </div>`;
+    card.querySelector('[data-act="edit"]').onclick=()=>openEdit(c.id);
+    card.querySelector('[data-act="del"]').onclick=()=>rDeleteChar(c.id);
+    body.appendChild(card);
+  });
+}
+function gOpenLouPicker(){
+  const m=document.getElementById("modal");
+  let h=`<div class="grabber"></div><h3>Pridať LoU postavu <span class="x" onclick="closeEdit()">×</span></h3>
+   <div class="note" style="margin-bottom:12px">Hotové postavy z knihy — so zručnosťami, výbavou aj frakciou.</div>`;
+  LOU_TEMPLATES.forEach((t,i)=>{h+=`<div class="card" style="margin-bottom:10px">
+      <div style="font-family:var(--font-d);font-weight:600;font-size:16px">${esc(t.name)}</div>
+      <div class="note" style="margin:2px 0 8px">${esc(t.cls)}${t.faction?" · "+esc(t.faction):""}</div>
+      <button class="btn amber full" onclick="rAddTemplate(${i})">Pridať do rosteru</button></div>`;});
+  m.innerHTML=h;document.getElementById("scrim").classList.add("on");
+}
 function classPicker(idPrefix){return DATA.character.classes.map((c,i)=>
   `<label class="pick"><input type="radio" name="${idPrefix}cls" value="${esc(c.name)}" ${i===0?"checked":""}><b>${esc(c.name)}</b> <span class="note" style="margin:0">+${c.skills.map(k=>(DATA.skills.find(s=>s.key===k)||{}).name||k).join(", +")}</span></label>`).join("");}
 function renderSetup(body){
+  body.appendChild(menuBackBtn());
   const h=document.createElement("div");h.className="gscene";
   h.innerHTML=`<h3>${esc(curStory().title)}</h3><p class="story">Zostav partiu (1–4 postavy). Každá má vlastné HP, zručnosti a inventár — počas hry medzi nimi prepínaš ťuknutím.</p>`;
   body.appendChild(h);
@@ -1526,7 +1661,8 @@ function gConfirmAddChar(){const name=(document.getElementById("g-name").value||
   GAME.party.push(gMakeChar(name,cls));if(GAME.party.length===1)GAME.active=0;gSave();closeEdit();renderScn();}
 
 function renderScene(body){
-  const sc=curScene();if(!sc){renderHome(body);return;}
+  const sc=curScene();if(!sc){scnUI="menu";renderMenu(body);return;}
+  body.appendChild(menuBackBtn());
   body.appendChild(partyBar());
   if(GAME.banner){const bn=document.createElement("div");bn.className="gbanner "+(GAME.banner.ok?"ok":"bad");bn.textContent=GAME.banner.text;body.appendChild(bn);GAME.banner=null;}
   const sceneEl=document.createElement("div");sceneEl.className="gscene";
@@ -1554,7 +1690,7 @@ function invDrawer(){const ch=gActive();const det=document.createElement("detail
      <div class="note" style="margin-top:8px">Munícia: ${ammo}</div>
      <div class="note" style="margin-top:3px">Materiály: ${mats}</div></div>`;
   return det;}
-function renderCombat(body){const cb=GAME.combat;body.appendChild(partyBar());
+function renderCombat(body){const cb=GAME.combat;body.appendChild(menuBackBtn());body.appendChild(partyBar());
   const head=document.createElement("div");head.className="gscene";
   head.innerHTML=`<h3>${esc(cb.title||"Boj")}</h3>${cb.surprise?`<p class="story">${esc(cb.intro||"")}</p>`:""}`;
   body.appendChild(head);
@@ -1598,6 +1734,7 @@ async function init(){
   }
   C=load();
   GAME=gLoad();
+  ROSTER=rLoad();
   customFactions=loadCustomFactions();
   document.querySelectorAll("#rollSeg button").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
   renderSheet();renderDice();renderCodexTabs();renderCodex();renderScn();
