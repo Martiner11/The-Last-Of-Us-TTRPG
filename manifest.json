@@ -1,26 +1,22 @@
 {
-  "name": "TLOU TTRPG — Companion",
-  "short_name": "TLOU TTRPG",
-  "description": "Digitálny spoločník pre fanúšikovský The Last of Us stolový RPG — sheet, kocky, kódex a scenáre.",
-  "start_url": "./index.html",
-  "scope": "./",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#15170F",
-  "theme_color": "#15170F",
-  "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "version": "2.4.0"
+  "version": "3.42.0",
+  "name": "The Last Of Us TTRPG SK",
+  "contentPass": 63,
+  "technicalAuditPass": 15,
+  "technicalAudit": "audit15",
+  "auditFocus": "NPC companion system",
+  "listenModeRules": {
+    "story": true,
+    "survivor": true,
+    "grounded": false,
+    "survivorUserToggle": true,
+    "storyUserToggle": true,
+    "groundedLocked": true
+  },
+  "companionSystem": {
+    "maxActive": 2,
+    "hpAp": true,
+    "aiTurns": "after_party_before_enemies",
+    "storyProtectedDefault": true
+  }
 }

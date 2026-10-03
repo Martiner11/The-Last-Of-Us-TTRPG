@@ -385,8 +385,12 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
 .canonmap-dot{position:absolute;transform:translate(-50%,-50%);background:none;border:0;color:var(--text);padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;max-width:125px}.canonmap-dot span{width:15px;height:15px;border-radius:50%;background:#d5b06b;border:2px solid #15191b;box-shadow:0 0 0 2px rgba(213,176,107,.25),0 2px 8px #000}.canonmap-dot b{font-size:10px;line-height:1.05;margin-top:4px;text-shadow:0 1px 3px #000;white-space:nowrap}.canonmap-dot.active span{background:#fff;border-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.18),0 0 18px rgba(255,255,255,.5)}.canonmap-dot.active b{color:#fff}.canonmap-label{position:absolute;right:9px;bottom:7px;font-size:8px;color:var(--faint);letter-spacing:.08em}.canonpoi{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:4px 7px;border:1px solid var(--line2);border-radius:999px;background:var(--bg2);color:var(--text)}.canonpoi.workbench{border-color:rgba(120,180,150,.45)}.canonpoi.safe{border-color:rgba(213,176,107,.5)}.canonpoi-row{display:flex;align-items:center;gap:7px;padding:7px 5px;border-bottom:1px solid var(--line);min-height:38px}.canonpoi-row:last-child{border-bottom:none}.canonpoi-row input{width:18px;height:18px;accent-color:var(--amber);flex:0 0 auto}.canonpoi-row.done .canonpoi{opacity:.55;text-decoration:line-through}.canonpoi-row.unverified{opacity:.58}.canonpoi-check{width:18px;height:18px;border:1px solid var(--line2);border-radius:2px;flex:0 0 auto}.canonpoi-state{margin-left:auto;font-family:var(--font-d);font-size:9px;letter-spacing:.07em;color:var(--faint);white-space:nowrap}.canonpoi-row.done .canonpoi-state{color:var(--amber)}
 .canonpoi small{color:var(--muted)}
 .canon-interior{margin-top:10px;padding:9px;border:1px solid var(--line);border-radius:12px;background:var(--bg2)}.canon-floorplan{position:relative;height:300px;margin-top:8px;border:1px solid var(--line2);border-radius:10px;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 20px),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 20px),#101416;overflow:hidden}.canon-room{position:absolute;border:1px solid rgba(213,176,107,.7);background:rgba(213,176,107,.12);color:var(--text);border-radius:5px;cursor:pointer;padding:3px;font-size:9px}.canon-room:hover{background:rgba(213,176,107,.24)}.canon-room span{display:block;line-height:1.05}.canon-floor-label{position:absolute;right:7px;bottom:5px;font-size:8px;color:var(--faint);letter-spacing:.08em}.canon-tactical{margin-top:10px;padding:9px;border:1px solid var(--line);border-radius:12px;background:var(--bg2)}
-.canon-tactical-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;margin-top:8px;touch-action:none}
+.canon-tactical-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-top:8px;touch-action:none}
 .canon-cell{aspect-ratio:1;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.025);border-radius:3px;position:relative;min-width:0}
+.canon-cell.water{background:rgba(55,105,155,.20)}
+.canon-cell.grass{background:rgba(90,150,85,.16)}
+.canon-cell.hazard{background:rgba(190,100,70,.20)}
+.canon-cell.window{box-shadow:inset 0 0 0 2px rgba(150,200,220,.5)}
 .canon-cell.wall{background:rgba(255,255,255,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
 .canon-cell.cover{background:rgba(213,176,107,.16);box-shadow:inset 0 0 0 1px rgba(213,176,107,.32)}
 .canon-cell.door{box-shadow:inset 0 0 0 2px rgba(120,180,150,.5)}
@@ -398,17 +402,19 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
 .canon-cell.token-enemy{background:rgba(190,90,90,.24)}
 .canon-token{position:absolute;inset:1px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;border-radius:4px;z-index:3;pointer-events:auto}
 .canon-token.player{border:1px solid rgba(120,190,240,.8)}
-.canon-token.enemy{border:1px solid rgba(240,120,120,.8)}
+.canon-token.enemy{border:1px solid rgba(240,120,120,.8)}.canon-cell.object{box-shadow:inset 0 0 0 2px rgba(190,170,120,.32)}.canon-object-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px;margin-top:8px}.canon-object-row{padding:7px 8px;border:1px solid var(--line);border-radius:9px;background:var(--bg2);font-size:11px}.canon-object-row.on{border-color:var(--amber)}
 .canon-token.dead{opacity:.35;text-decoration:line-through}
 .canon-tactical-board{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin-top:8px}
 .canon-tactical-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.canon-tactical-actions .btn{min-height:38px}
+.canon-tactical-actions .btn{min-height:38px}.canon-map-editor{margin-top:8px;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}.canon-map-editor-grid{display:grid;grid-template-columns:repeat(12,minmax(22px,1fr));gap:2px;margin-top:8px}.canon-map-editor-cell{aspect-ratio:1;border:1px solid rgba(255,255,255,.08);border-radius:3px;background:rgba(255,255,255,.025);cursor:pointer;font-size:8px;color:var(--text);display:flex;align-items:center;justify-content:center}.canon-map-editor-cell.wall{background:rgba(255,255,255,.18)}.canon-map-editor-cell.water{background:rgba(55,105,155,.28)}.canon-map-editor-cell.grass{background:rgba(90,150,85,.22)}.canon-map-editor-cell.hazard{background:rgba(190,100,70,.25)}.canon-map-editor-cell.cover{background:rgba(213,176,107,.22)}.canon-map-editor-cell.door{box-shadow:inset 0 0 0 2px rgba(120,180,150,.65)}.canon-map-editor-cell.window{box-shadow:inset 0 0 0 2px rgba(150,200,220,.65)}.canon-map-editor-tools{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.canon-map-editor-tools .btn.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.canon-map-editor-toolbar{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:7px}.canon-map-editor-toolbar .zoomval{min-width:46px;text-align:center;font-family:var(--font-d);font-size:10px;color:var(--muted)}.canon-map-editor-viewport{margin-top:8px;overflow:auto;max-width:100%;max-height:58vh;border:1px solid var(--line2);border-radius:9px;background:#080908;touch-action:pan-x pan-y}.canon-map-editor-grid{transform-origin:top left}.canon-map-editor-cell{position:relative;overflow:hidden}.canon-map-editor-cell .coord{position:absolute;left:2px;top:1px;font-size:7px;line-height:1;color:rgba(255,255,255,.42);pointer-events:none}.canon-map-editor-cell .glyph{position:relative;z-index:1;font-size:10px}.canon-map-editor-cell.wall{background:repeating-linear-gradient(135deg,rgba(255,255,255,.22) 0,rgba(255,255,255,.22) 3px,rgba(255,255,255,.10) 3px,rgba(255,255,255,.10) 6px)}.canon-map-editor-cell.door{background:rgba(70,145,105,.13);box-shadow:inset 0 0 0 2px rgba(120,180,150,.8)}.canon-map-editor-cell.window{background:rgba(80,130,165,.13);box-shadow:inset 0 0 0 2px rgba(150,200,220,.8)}.canon-map-editor-cell.cover{background:rgba(213,176,107,.20);box-shadow:inset 0 0 0 2px rgba(213,176,107,.45)}.canon-map-editor-cell.hazard{background:repeating-linear-gradient(45deg,rgba(190,100,70,.28) 0,rgba(190,100,70,.28) 4px,rgba(190,100,70,.10) 4px,rgba(190,100,70,.10) 8px)}.canon-map-editor-cell.selected{outline:2px solid var(--accent);outline-offset:-2px}.canon-map-editor-cell:hover{filter:brightness(1.3)}.canon-map-editor-presets{margin-top:5px}.canon-map-preset{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:5px;border:1px solid var(--line);border-radius:7px;background:rgba(255,255,255,.02)}.canon-map-preset .note{font-size:9px}
 .canon-token-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px;margin-top:8px}
 .canon-token-row{padding:7px 8px;border:1px solid var(--line);border-radius:9px;background:var(--bg2);font-size:12px}
 .canon-token-row.on{border-color:var(--accent)}
 .canon-combat-log{max-height:150px;overflow:auto;padding:7px;border:1px solid var(--line);border-radius:9px;background:var(--bg2);font-size:12px}
 
 </style>
+<!-- Technical Audit 13 / Pass 63: boss phases, cooldowns, armor, fire weakness -->
 </head>
 <body>
 <header class="app">
@@ -485,6 +491,7 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
     <div class="eyebrow">Vylepšenia</div>
     <div class="card"><div id="upgList"></div></div>
 
+    <div class="eyebrow">TLOU II — Skill Trees</div><div id="tlou2Trees"></div>
     <div class="eyebrow">Munícia & materiály</div>
     <div class="card" style="padding:12px 13px"><div id="resWrap"></div></div>
 
@@ -737,7 +744,7 @@ function trAll(s){if(!s)return s;
    ================================================================= */
 const KEY="tlou_ttrpg_char_v1";
 const AMMO_TYPES=["9mm",".357",".44",".308","5.56","Shells","7.62",".45-70","Arrow","Fuel"];
-const MAT_TYPES=["Rag","Alcohol","Adhesive","Blades","Sugar","Explosive","Binding","Fuel"];
+const MAT_TYPES=["Rag","Alcohol","Adhesive","Blades","Sugar","Explosive","Binding","Fuel","Canister"];
 const zeroMap=arr=>Object.fromEntries(arr.map(k=>[k,0]));
 const blank=()=>({
   name:"", faction:"", cls:"", bio:"",
@@ -746,6 +753,7 @@ const blank=()=>({
   inv:[], equip:"Pistol", journal:"", upgrades:{}, skillDice:{},
   parts:0, toolLevel:1, firstAid:{qty:0,heal:0}, trauma:0, weaponUpgrades:{}, rerollsLeft:0,
   xp:0, level:1, skillPoints:0, fatigue:0,
+  tlou2Trees:{"Survival":true,"Field Tactics":true}, tlou2Skills:{},
   ammo:zeroMap(AMMO_TYPES), mats:zeroMap(MAT_TYPES)
 });
 let mem=null,C;
@@ -756,7 +764,7 @@ function blankWorld(){return {mode:"linear",day:1,transport:"Pešo",objective:""
 function ensureWorld(g){
   if(!g)return;
   if(!g.world||!Array.isArray(g.world.locations)){g.world=blankWorld();return;}
-  g.world.mode=g.world.mode||"linear";g.world.day=Math.max(1,Number(g.world.day)||1);g.world.transport=g.world.transport||"Pešo";g.world.objective=g.world.objective||"";g.world.canonicalProgress={manual:{artifacts:0,journalEntries:0,tradingCards:0,coins:0,trainingManuals:0,weapons:0},done:{workbenches:{},safes:{}},...(g.world.canonicalProgress||{})};g.world.canonicalProgress.manual={artifacts:0,journalEntries:0,tradingCards:0,coins:0,trainingManuals:0,weapons:0,...(g.world.canonicalProgress.manual||{})};g.world.canonicalProgress.done={workbenches:{},safes:{},...(g.world.canonicalProgress.done||{})};g.world.canonicalTactics=(g.world.canonicalTactics&&typeof g.world.canonicalTactics==="object")?g.world.canonicalTactics:{};
+  g.world.mode=g.world.mode||"linear";g.world.day=Math.max(1,Number(g.world.day)||1);g.world.transport=g.world.transport||"Pešo";g.world.objective=g.world.objective||"";g.world.canonicalMap=g.world.canonicalMap||"seattle_p2";g.world.canonicalLocation=typeof g.world.canonicalLocation==="string"?g.world.canonicalLocation:"";g.world.canonicalProgress={manual:{artifacts:0,journalEntries:0,tradingCards:0,coins:0,trainingManuals:0,weapons:0},done:{workbenches:{},safes:{}},...(g.world.canonicalProgress||{})};g.world.canonicalProgress.manual={artifacts:0,journalEntries:0,tradingCards:0,coins:0,trainingManuals:0,weapons:0,...(g.world.canonicalProgress.manual||{})};g.world.canonicalProgress.done={workbenches:{},safes:{},...(g.world.canonicalProgress.done||{})};g.world.canonicalTactics=(g.world.canonicalTactics&&typeof g.world.canonicalTactics==="object")?g.world.canonicalTactics:{};
   g.world.locations.forEach(x=>{x.visited=!!x.visited;x.name=x.name||"Lokalita";x.type=x.type||"Custom Building";x.links=undefined;x.safe=!!x.safe;x.looted=!!x.looted;x.danger=Math.max(0,Math.min(3,Number(x.danger)||0));x.supplies=Math.max(0,Number(x.supplies)||0);x.notes=x.notes||"";x.lootSpots=Array.isArray(x.lootSpots)?x.lootSpots:[];x.encounters=Array.isArray(x.encounters)?x.encounters:[];x.obstacles=Array.isArray(x.obstacles)?x.obstacles:[];});
   g.world.links=Array.isArray(g.world.links)?g.world.links:[];g.world.links.forEach(x=>{x.distance=Math.max(1,Number(x.distance)||1);x.route=x.route||"Cesta";});g.world.history=Array.isArray(g.world.history)?g.world.history:[];g.world.events=Array.isArray(g.world.events)?g.world.events:[];g.world.travelSupplies=Math.max(0,Number(g.world.travelSupplies??10)||0);g.world.travelEvents=Array.isArray(g.world.travelEvents)?g.world.travelEvents:[];g.world.survival={rations:10,water:10,camp:false,campSafe:false,restedDay:0,nightEvents:[],...(g.world.survival||{})};g.world.survival.rations=Math.max(0,Number(g.world.survival.rations)||0);g.world.survival.water=Math.max(0,Number(g.world.survival.water)||0);g.world.survival.camp=!!g.world.survival.camp;g.world.survival.campSafe=!!g.world.survival.campSafe;g.world.survival.restedDay=Math.max(0,Number(g.world.survival.restedDay)||0);g.world.survival.nightEvents=Array.isArray(g.world.survival.nightEvents)?g.world.survival.nightEvents:[];g.world.base={locationId:null,name:"",beds:2,safety:1,storage:0,workbench:0,medical:0,generator:false,fuel:0,defense:0,materials:zeroMap(MAT_TYPES),ammo:zeroMap(AMMO_TYPES),history:[],...(g.world.base||{})};g.world.base.beds=Math.max(1,Number(g.world.base.beds)||1);g.world.base.safety=Math.max(0,Math.min(3,Number(g.world.base.safety)||0));g.world.base.storage=Math.max(0,Number(g.world.base.storage)||0);g.world.base.workbench=Math.max(0,Number(g.world.base.workbench)||0);g.world.base.medical=Math.max(0,Number(g.world.base.medical)||0);g.world.base.generator=!!g.world.base.generator;g.world.base.fuel=Math.max(0,Number(g.world.base.fuel)||0);g.world.base.defense=Math.max(0,Number(g.world.base.defense)||0);g.world.base.materials={...zeroMap(MAT_TYPES),...(g.world.base.materials||{})};g.world.base.ammo={...zeroMap(AMMO_TYPES),...(g.world.base.ammo||{})};g.world.base.history=Array.isArray(g.world.base.history)?g.world.base.history:[];
   if(!g.world.current||!g.world.locations.some(x=>x.id===g.world.current))g.world.current=g.world.locations.find(x=>x.visited)?.id||g.world.locations[0]?.id||"loc0";
@@ -1099,7 +1107,7 @@ function renderCanonicalProgress(){
 function renderCanonicalMap(){
   const wrap=document.createElement('div');wrap.className='card';
   const id=GAME.world.canonicalMap||'seattle_p2'; const m=canonicalMapData(id)||canonicalMapData('seattle_p2'); if(!m)return wrap;
-  const opts=Object.entries(DATA.canonicalMaps||{}).map(([k,v])=>`<option value="${esc(k)}" ${k===id?'selected':''}>${esc(v.name)}</option>`).join('');
+  const opts=Object.entries(DATA.canonicalMaps||{}).map(([k,v])=>`<option value="${esc(k)}" ${k===id?'selected':''}>${esc(v.game||'TLOU')} · ${esc(v.name)}</option>`).join('');
   const active=GAME.world.canonicalLocation||'';
   const filter=GAME.world.canonicalFilter||'all';
   const query=String(GAME.world.canonicalQuery||'').toLowerCase().trim();
@@ -1120,14 +1128,14 @@ function renderCanonicalMap(){
   const lines=(m.links||[]).map(([a,b])=>{const A=byId[a],B=byId[b];return A&&B?`<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" />`:''}).join('');
   const dots=pts.map(({a,x,y})=>`<button class="canonmap-dot ${active===a.id?'active':''}" style="left:${x}%;top:${y}%" title="${esc(a.name)}" onclick="worldSetCanonicalLocation('${a.id}')"><span></span><b>${esc(a.name)}</b></button>`).join('');
   wrap.innerHTML=`<div class="eyebrow">Kánonická mapa TLOU</div>
-    <div class="note">${esc(m.source)}</div><div class="note" style="margin-top:6px"><b>Kánonický checklist:</b> TLOU Part II má podľa zdroja 25 workbenchov a 14 sejfov. Mapa nižšie ukazuje iba body, ktoré sú v tejto databáze explicitne overené; vlastné TTRPG prvky sa do kánonických počtov nerátajú.</div>
+    <div class="note">${esc(m.source)}</div><div class="note" style="margin-top:6px"><b>Rozsah:</b> ${esc(m.game||'TLOU')} · ${esc(m.chapter||m.name||'')}. Kánonické body sú oddelené od TTRPG rekonštrukcie; vlastné TTRPG prvky sa do kánonických počtov nerátajú.</div>
     <div class="row" style="gap:7px;margin-top:8px"><select class="grow" onchange="worldSetCanonicalMap(this.value)">${opts}</select></div>
     <div class="row" style="gap:7px;margin-top:7px;align-items:center"><select style="max-width:150px" onchange="worldSetCanonicalFilter(this.value)">
       <option value="all" ${filter==='all'?'selected':''}>Všetky lokality</option><option value="workbench" ${filter==='workbench'?'selected':''}>🔧 Workbench</option><option value="safe" ${filter==='safe'?'selected':''}>▣ Sejf</option><option value="loot" ${filter==='loot'?'selected':''}>Loot</option><option value="encounter" ${filter==='encounter'?'selected':''}>Encounter</option>
     </select><input class="grow" value="${esc(GAME.world.canonicalQuery||'')}" placeholder="Hľadať lokalitu alebo bod…" oninput="worldSetCanonicalQuery(this.value)"></div>
     <div class="worldchips" style="margin-top:8px"><span class="worldchip">${stats.areas} lokalít</span><span class="worldchip">${stats.interiors} interiérov</span><span class="worldchip">${stats.enemies} s encountermi</span><span class="worldchip">${stats.workbenches} workbenchov</span><span class="worldchip">${stats.safes} sejfov</span><span class="worldchip">${stats.loot} s lootom</span><span class="worldchip">${stats.tactical} s taktickými prvkami</span><span class="worldchip">pokrytie ${coverage}%</span><span class="worldchip">Kánon: ${canonicalProgressPointList('workbench').length} workbenchov / ${canonicalProgressPointList('safe').length} sejfov</span></div>
     <div class="canonmap-visual"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="Mapa lokalít"><path class="canonmap-water" d="M0 72 C18 65 25 78 38 70 S65 64 100 76 L100 100 L0 100Z"/>${lines}</svg>${dots}<div class="canonmap-label">${id==='seattle_p2'?'HERNEJ MAPY · ORIENTAČNÉ POZÍCIE':'REÁLNY GEOGRAFICKÝ KONTEXT · ORIENTAČNÉ POZÍCIE'}</div></div>
-    ${active?(()=>{const a=m.areas.find(x=>x.id===active);return a?`<div class="note" style="margin-top:8px"><b>${esc(a.name)}</b><br>${esc(a.note)}<br><span style="color:var(--faint)">Pozícia na tejto vizualizácii je orientačná. Herná mapa TLOU a skutočné Seattle nie sú totožné; vlastné lokality kampane ostávajú oddelené.</span></div>${canonicalPointsHTML(a,id)}${canonicalInteriorHTML(a)}<div class="canon-tactical"><div class="row"><div class="grow"><b>Taktické bojisko</b><div class="note">Orientačná TTRPG konverzia vybranej lokality. Nie je to presná herná mapa.</div></div><button class="btn amber sm" onclick="canonicalMakeTactical('${a.id}')">Spustiť TTRPG</button></div>${canonicalTacticalHTML(a.id)}</div>`:''})():`<div class="note" style="margin-top:8px">Klikni na bod na mape. Kampaňový graf nižšie sa tým nemení.</div>`}
+    ${active?(()=>{const a=m.areas.find(x=>x.id===active);return a?`<div class="note" style="margin-top:8px"><b>${esc(a.name)}</b><br>${esc(a.note)}<br><span style="color:var(--faint)">Pozícia na tejto vizualizácii je orientačná. Herná mapa TLOU a skutočné Seattle nie sú totožné; vlastné lokality kampane ostávajú oddelené.</span></div>${canonicalPointsHTML(a,id)}${canonicalInteriorHTML(a,id,m)}<div class="canon-tactical"><div class="row"><div class="grow"><b>Taktické bojisko</b><div class="note">Orientačná TTRPG konverzia vybranej lokality. Nie je to presná herná mapa.</div></div><button class="btn amber sm" onclick="canonicalMakeTactical('${a.id}')">Spustiť TTRPG</button><button class="btn ghost sm" onclick="canonicalOpenMapEditor('${a.id}')">Upraviť mapu</button></div>${canonicalTacticalHTML(a.id)}</div>`:''})():`<div class="note" style="margin-top:8px">Klikni na bod na mape. Kampaňový graf nižšie sa tým nemení.</div>`}
     <div class="canonmap-links"><b>Väzby:</b> ${m.links.map(([a,b])=>{const A=m.areas.find(x=>x.id===a),B=m.areas.find(x=>x.id===b);return A&&B?`<span>${esc(A.name)} ↔ ${esc(B.name)}</span>`:''}).join('')}</div>`;
   wrap.appendChild(renderCanonicalProgress());
   return wrap;
@@ -1147,7 +1155,27 @@ function canonicalPointsHTML(a,mapId){
   const verifiedCount=pts.filter(p=>p.verified).length;
   return `<div class="note" style="margin-top:8px"><div style="display:flex;align-items:center;gap:8px"><b>Kánonické body záujmu</b><span class="pill amber">${done} / ${verifiedCount} hotovo</span></div><div class="canonpoi-list" style="margin-top:6px">${rows}</div><div class="note" style="margin-top:5px">Checkbox je priamo prepojený s globálnym Kánonickým progressom. Neoverené body ostávajú zobrazené, ale nezapočítavajú sa.</div></div>`;
 }
-function canonicalInteriorHTML(a){
+function canonicalMapFallback(a,m){
+  const hasAreaDetail=!!(a?.interior?.rooms?.length||a?.lootPoints?.length||a?.interactions?.length||a?.tacticalFeatures?.length||(a?.enemies?.length)||(a?.enemyEncounters?.length));
+  if(hasAreaDetail||!m)return null;
+  const rooms=(m.rooms||[]).map((r,i)=>({id:r.id||('maproom_'+i),name:r.name||('Priestor '+(i+1)),x:Number(r.x)||5+(i%4)*23,y:Number(r.y)||8+Math.floor(i/4)*25,w:Number(r.w)||18,h:Number(r.h)||18,description:r.description||''}));
+  const encounters=(m.encounters||[]).map(e=>({name:e.name||'Encounter',enemies:Array.isArray(e.enemies)?e.enemies:[],trigger:e.trigger||e.terrain||e.style||''}));
+  const loot=(m.lootPoints||[]).map(String);
+  const interactions=(m.interactions||[]).map(String);
+  const tactical=Array.isArray(m.tacticalFeatures)?m.tacticalFeatures:Object.keys(m.tacticalFeatures||{});
+  const hasMultipleAreas=(m.areas||[]).length>1;
+  const pois=(m.pois||[]).filter(p=>{const areaRef=p.areaId||p.area||p.area_id;return !hasMultipleAreas||!areaRef||String(areaRef)===String(a?.id);}).map(p=>({name:p.name||'',type:p.type||'poi',verified:!!p.verified,code:p.code||'',description:p.description||''}));
+  return {interior:rooms.length?{name:m.name||'Taktická lokalita',status:'Detail rekonštrukcie na úrovni mapy',rooms}:null,encounters,loot,interactions,tactical,pois,enemies:[]};
+}
+function canonicalInteriorHTML(a,mapId,m){
+  const fb=canonicalMapFallback(a,m);
+  if(fb){
+    const rooms=(fb.interior?.rooms||[]).map(r=>`<button class="canon-room" style="left:${r.x}%;top:${r.y}%;width:${r.w}%;height:${r.h}%" title="${esc(r.name)}"><span>${esc(r.name)}</span></button>`).join('');
+    const enc=fb.encounters?.length?`<div class="note" style="margin-top:8px"><b>Nepriatelia a encountery</b>${fb.encounters.map(e=>`<div style="margin-top:6px;padding:7px;border:1px solid var(--line);border-radius:8px"><b>${esc(e.name)}</b>${e.enemies.length?` — ${e.enemies.map(x=>esc(x)).join(', ')}`:''}<br><span class="note">${esc(e.trigger)}</span></div>`).join('')}</div>`:'';
+    const list=(title,items)=>items?.length?`<div class="note" style="margin-top:8px"><b>${title}</b><div style="margin-top:4px;display:flex;flex-wrap:wrap;gap:4px">${items.map(x=>`<span class="pill">${esc(x)}</span>`).join('')}</div></div>`:'';
+    const poi=fb.pois?.length?`<div class="note" style="margin-top:8px"><b>POI a collectible body</b><div style="margin-top:4px;display:flex;flex-wrap:wrap;gap:4px">${fb.pois.map(p=>`<span class="pill ${p.verified?'':'ghost'}"><b>${esc(p.name)}</b> · ${esc(p.type)}${p.code?' · '+esc(p.code):''}</span>`).join('')}</div><div class="note" style="margin-top:5px">Tieto body sú načítané z mapovej detailnej vrstvy. Presná poloha je TTRPG rekonštrukcia.</div></div>`:'';
+    return `<div class="canon-interior"><div class="row"><div class="grow"><b>${esc(fb.interior?.name||m?.name||'Detail lokality')}</b><div class="note">${esc(fb.interior?.status||'Detail na úrovni mapy')}</div></div><span class="pill">${fb.interior?.rooms?.length||0} priestorov</span></div>${fb.interior?.rooms?.length?`<div class="canon-floorplan">${rooms}<div class="canon-floor-label">ORIENTAČNÝ PÔDORYS · TTRPG</div></div>`:''}${enc}${list('Loot / collectible body',fb.loot)}${list('Interakcie',fb.interactions)}${list('Taktické prvky',fb.tactical)}${poi}</div>`;
+  }
   const i=a?.interior;
   const rooms=(i?.rooms||[]).map(r=>`<button class="canon-room" style="left:${r.x}%;top:${r.y}%;width:${r.w}%;height:${r.h}%" title="${esc(r.name)}"><span>${esc(r.name)}</span></button>`).join('');
   const enemies=a?.enemies||[];
@@ -1168,68 +1196,72 @@ function canonicalTacticalEnemyNames(a){
 }
 function canonicalTacticalBuild(areaId){
   const mapId=GAME.world.canonicalMap||'seattle_p2'; const m=canonicalMapData(mapId); const a=m?.areas?.find(x=>x.id===areaId); if(!a)return null;
-  const width=12,height=10;
-  const features=Array.isArray(a.tacticalFeatures)?a.tacticalFeatures:(a.tacticalFeatures&&typeof a.tacticalFeatures==='object'?Object.keys(a.tacticalFeatures):[]);
+  const width=12,height=10, clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+  const fb=canonicalMapFallback(a,m);
+  const fallbackPoints=fb?(m.pois||[]).filter(p=>{const areaRef=p.areaId||p.area||p.area_id;return (p.type==='workbench'||p.type==='safe')&&(!areaRef||String(areaRef)===String(areaId));}).map(p=>({...p,verified:!!p.verified})):([]);
+  const tacticalArea=fb?{...a,interior:fb.interior||a.interior,lootPoints:fb.loot,interactions:fb.interactions,tacticalFeatures:fb.tactical,enemyEncounters:fb.encounters,enemies:fb.enemies,canonicalPoints:(a.canonicalPoints?.length?a.canonicalPoints:fallbackPoints)}:a;
+  const features=Array.isArray(tacticalArea.tacticalFeatures)?tacticalArea.tacticalFeatures:(tacticalArea.tacticalFeatures&&typeof tacticalArea.tacticalFeatures==='object'?Object.keys(tacticalArea.tacticalFeatures):[]);
   const hasFeature=k=>features.some(x=>String(x).toLowerCase().includes(k));
-  const interior=a.interior?.rooms||[];
-  const cells=[];
-  const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
-  const roomRect=r=>({
-    x0:clamp(Math.floor((Number(r.x||0)/100)*width),1,width-2),
-    y0:clamp(Math.floor((Number(r.y||0)/100)*height),1,height-2),
-    x1:clamp(Math.max(1,Math.ceil(((Number(r.x||0)+Number(r.w||0))/100)*width)-1),1,width-2),
-    y1:clamp(Math.max(1,Math.ceil(((Number(r.y||0)+Number(r.h||0))/100)*height)-1),1,height-2)
-  });
-  const roomRects=interior.map(roomRect).filter(r=>r.x1>=r.x0&&r.y1>=r.y0);
-  const insideRoom=(x,y)=>roomRects.some(r=>x>=r.x0&&x<=r.x1&&y>=r.y0&&y<=r.y1);
+  const interior=tacticalArea.interior?.rooms||[];
   const idx=(x,y)=>y*width+x;
+  const roomRect=r=>({x0:clamp(Math.floor((Number(r.x||0)/100)*width),1,width-2),y0:clamp(Math.floor((Number(r.y||0)/100)*height),1,height-2),x1:clamp(Math.max(1,Math.ceil(((Number(r.x||0)+Number(r.w||0))/100)*width)-1),1,width-2),y1:clamp(Math.max(1,Math.ceil(((Number(r.y||0)+Number(r.h||0))/100)*height)-1),1,height-2)});
+  const roomRects=interior.map(roomRect).filter(r=>r.x1>=r.x0&&r.y1>=r.y0);
+  const cells=[];
+  const insideRoom=(x,y)=>roomRects.some(r=>x>=r.x0&&x<=r.x1&&y>=r.y0&&y<=r.y1);
   for(let y=0;y<height;y++)for(let x=0;x<width;x++){
-    let type='';
-    if(x===0||y===0||x===width-1||y===height-1) type='wall';
-    else if(roomRects.length && !insideRoom(x,y)) type='wall';
-    cells.push({i:idx(x,y),x,y,type,label:type==='wall'?'Stena':'Voľné'});
+    let type=(x===0||y===0||x===width-1||y===height-1)?'wall':(roomRects.length&&!insideRoom(x,y)?'wall':'');
+    cells.push({i:idx(x,y),x,y,type,label:type==='wall'?'Stena':'Voľné',cost:type==='wall'?99:1});
   }
-  // Connect the existing reconstructed rooms with narrow corridors. The source room rectangles remain the layout authority.
-  if(roomRects.length>1){
-    for(let i=0;i<roomRects.length-1;i++){
-      const A=roomRects[i],B=roomRects[i+1];
-      let ax=Math.round((A.x0+A.x1)/2), ay=Math.round((A.y0+A.y1)/2);
-      let bx=Math.round((B.x0+B.x1)/2), by=Math.round((B.y0+B.y1)/2);
-      let x=ax,y=ay;
-      while(x!==bx){ x+=x<bx?1:-1; if(x>0&&x<width-1)cells[idx(x,y)].type=''; }
-      while(y!==by){ y+=y<by?1:-1; if(y>0&&y<height-1)cells[idx(x,y)].type=''; }
-      cells[idx(ax,ay)].type=''; cells[idx(bx,by)].type='';
-      if(hasFeature('door')){ cells[idx(Math.round((ax+bx)/2),Math.round((ay+by)/2))].type='door'; }
+  if(hasFeature('water')){cells.filter(c=>c.type==='').filter((_,i)=>i%11===3).slice(0,10).forEach(c=>{c.type='water';c.cost=2;c.label='Voda';});}
+  if(hasFeature('high grass')||hasFeature('grass')){cells.filter(c=>c.type==='').filter((_,i)=>i%13===4).slice(0,8).forEach(c=>{c.type='grass';c.cost=1;c.label='Vysoká tráva';});}
+  const objects=[];
+  roomRects.forEach((r,i)=>{const rr=interior[i];objects.push({id:'room_'+(rr?.id||i),type:'room',name:rr?.name||`Miestnosť ${i+1}`,x:Math.round((r.x0+r.x1)/2),y:Math.round((r.y0+r.y1)/2),roomIndex:i});});
+  // Preserve the room layout as authority: connect adjacent room boundaries with a single opening/door, not an invented hallway.
+  for(let i=0;i<roomRects.length-1;i++){
+    const A=roomRects[i],B=roomRects[i+1];
+    let dx=0,dy=0,x=0,y=0;
+    const horizontalGap=B.x0-A.x1;
+    const verticalGap=B.y0-A.y1;
+    if(horizontalGap>=0 && Math.abs((A.y0+A.y1)-(B.y0+B.y1))<=Math.abs((A.x0+A.x1)-(B.x0+B.x1))){
+      x=A.x1; y=clamp(Math.round((Math.max(A.y0,B.y0)+Math.min(A.y1,B.y1))/2),1,height-2); dx=1;
+      if(x+1<width-1) cells[idx(x+1,y)].type='';
+    }else if(verticalGap>=0){
+      y=A.y1; x=clamp(Math.round((Math.max(A.x0,B.x0)+Math.min(A.x1,B.x1))/2),1,width-2); dy=1;
+      if(y+1<height-1) cells[idx(x,y+1)].type='';
+    }else{
+      // Overlapping/diagonal rooms: open the nearest pair of boundary cells.
+      x=clamp(Math.round((A.x0+A.x1+B.x0+B.x1)/4),1,width-2); y=clamp(Math.round((A.y0+A.y1+B.y0+B.y1)/4),1,height-2);
     }
-  } else {
-    // Outdoor / undocumented interior fallback: a deterministic open arena rather than a random obstacle field.
-    for(let y=1;y<height-1;y++) for(let x=1;x<width-1;x++) cells[idx(x,y)].type='';
-    if(hasFeature('wall')){
-      for(let x=3;x<width-3;x++) cells[idx(x,Math.floor(height/2))].type='wall';
-      cells[idx(Math.floor(width/2),Math.floor(height/2))].type='door';
-    }
+    cells[idx(x,y)].type=hasFeature('door')?'door':''; cells[idx(x,y)].label='Dvere';
+    objects.push({id:`door_${i}`,type:'door',name:`Dvere ${i+1}`,x,y,roomIndex:i});
   }
-  // Cover, hazards and stealth are derived from the area's declared tactical features, not invented as canonical facts.
+  if(hasFeature('windows')){
+    const winCandidates=cells.filter(c=>c.type==='' && (c.x===1||c.y===1||c.x===width-2||c.y===height-2));
+    winCandidates.filter((_,i)=>i%2===0).slice(0,6).forEach((c,i)=>{c.type='window';c.label='Okno';objects.push({id:`window_${i}`,type:'window',name:`Okno ${i+1}`,x:c.x,y:c.y});});
+  }
   if(hasFeature('cover')){
-    const candidates=[];
-    for(let y=1;y<height-1;y++)for(let x=1;x<width-1;x++)if(cells[idx(x,y)].type==='')candidates.push(cells[idx(x,y)]);
-    for(let i=0;i<candidates.length;i+=Math.max(3,Math.floor(candidates.length/8)))candidates[i].type='cover';
-  }
-  if(hasFeature('hazard')){
     const candidates=cells.filter(c=>c.type==='');
-    for(let i=1;i<candidates.length;i+=Math.max(5,Math.floor(candidates.length/6)))candidates[i].type='hazard';
+    const step=Math.max(4,Math.floor(candidates.length/6));
+    candidates.filter((_,i)=>i%step===0).slice(0,6).forEach((c,i)=>{c.type='cover';c.label='Kryt';objects.push({id:`cover_${i}`,type:'cover',name:`Kryt ${i+1}`,x:c.x,y:c.y});});
   }
-  cells.forEach(c=>{if(c.type==='door')c.label='Dvere';else if(c.type==='cover')c.label='Kryt';else if(c.type==='hazard')c.label='Hazard';});
-  // Room labels are retained as cell labels at their centers so the GM can orient the tactical scene.
-  roomRects.forEach((r,i)=>{const rr=interior[i];const x=Math.round((r.x0+r.x1)/2),y=Math.round((r.y0+r.y1)/2);const c=cells[idx(x,y)];if(c)c.label=rr?.name||`Miestnosť ${i+1}`;});
+  if(hasFeature('hazards')){
+    const candidates=cells.filter(c=>c.type==='');
+    const step=Math.max(7,Math.floor(candidates.length/4));
+    candidates.filter((_,i)=>i%step===1).slice(0,4).forEach((c,i)=>{c.type='hazard';c.label='Hazard';objects.push({id:`hazard_${i}`,type:'hazard',name:`Nebezpečné miesto ${i+1}`,x:c.x,y:c.y});});
+  }
+  // Loot, interactions and canonical POIs become persistent TTRPG objects. Their exact positions are reconstructed, not claimed as source facts.
+  const usableRooms=roomRects.length?roomRects:[{x0:1,y0:1,x1:width-2,y1:height-2}];
+  const addNamed=(list,type,prefix)=>{(list||[]).forEach((name,i)=>{const r=usableRooms[i%usableRooms.length];const x=clamp(r.x0+1+(i%Math.max(1,r.x1-r.x0)),r.x0,r.x1),y=clamp(r.y0+1+Math.floor(i/Math.max(1,r.x1-r.x0+1)),r.y0,r.y1);objects.push({id:`${prefix}_${i}`,type,name:String(name),x,y,roomIndex:i%usableRooms.length,collected:false});});};
+  addNamed(tacticalArea.lootPoints,'loot','loot'); addNamed(tacticalArea.interactions,'interaction','interaction');
+  (tacticalArea.canonicalPoints||[]).filter(p=>p.verified).forEach((p,i)=>{const r=usableRooms[i%usableRooms.length];objects.push({id:`poi_${i}`,type:p.type==='safe'?'safe':'workbench',name:p.name,code:p.code||'',x:clamp(r.x0+1,r.x0,r.x1),y:clamp(r.y1-1,r.y0,r.y1),roomIndex:i%usableRooms.length,collected:false});});
   const tokens=[];
   const party=(GAME.party||[]).filter(p=>!p.dead).slice(0,4);
-  party.forEach((p,i)=>{const spawn=roomRects[0]||{x0:1,y0:1,x1:3,y1:3};tokens.push({id:'p'+i,side:'player',name:p.name||('Hráč '+(i+1)),kind:'player',x:clamp(spawn.x0+1,1,width-2),y:clamp(spawn.y0+i,1,height-2),hp:Number(p.hp)||10,hpMax:Number(p.hpMax)||10,ap:4,apMax:4,initiative:10-i,dead:false});});
-  const enemies=canonicalTacticalEnemyNames(a);
-  enemies.forEach((name,i)=>{const spawn=roomRects.length?roomRects[Math.min(roomRects.length-1,Math.floor((i+1)*roomRects.length/(enemies.length+1)))] : {x0:width-4,y0:1,x1:width-2,y1:height-2};tokens.push({id:'e'+i,side:'enemy',name,kind:'enemy',x:clamp(spawn.x1-1,1,width-2),y:clamp(spawn.y0+(i%Math.max(1,spawn.y1-spawn.y0+1)),1,height-2),hp:6,hpMax:6,ap:2,apMax:2,initiative:6-i,dead:false});});
+  party.forEach((p,i)=>{const spawn=usableRooms[0];tokens.push({id:'p'+i,side:'player',name:p.name||('Hráč '+(i+1)),kind:'player',x:clamp(spawn.x0+1,1,width-2),y:clamp(spawn.y0+i,1,height-2),hp:Number(p.hp)||10,hpMax:Number(p.hpMax)||10,ap:4,apMax:4,initiative:10-i,dead:false,statuses:{bleed:0,stunned:0,wounded:false}});});  const companions=(GAME.companions?.active||GAME.companions?.selected||[]); if(Array.isArray(companions)){companions.slice(0,2).forEach((c,i)=>{const spawn=usableRooms[0];tokens.push({id:'c'+i,side:'player',name:c.name||'Spoločník',kind:'companion',x:clamp(spawn.x0+1+i,1,width-2),y:clamp(spawn.y0+3+i,1,height-2),hp:Number(c.hp)||8,hpMax:Number(c.hpMax)||8,ap:4,apMax:4,initiative:8-i,dead:false,statuses:{bleed:0,stunned:0,wounded:false}});});}
+  const enemies=canonicalTacticalEnemyNames(tacticalArea);
+  enemies.forEach((name,i)=>{const spawn=usableRooms[Math.min(usableRooms.length-1,Math.floor((i+1)*usableRooms.length/(enemies.length+1)))];tokens.push({id:'e'+i,side:'enemy',name,kind:'enemy',x:clamp(spawn.x1-1,1,width-2),y:clamp(spawn.y0+(i%Math.max(1,spawn.y1-spawn.y0+1)),1,height-2),hp:6,hpMax:6,ap:2,apMax:2,initiative:6-i,dead:false,statuses:{bleed:0,stunned:0,wounded:false}});});
   const order=tokens.slice().sort((a,b)=>b.initiative-a.initiative).map(t=>t.id);
-  const state={areaId,mapId,width,height,cells,tokens,turnOrder:order,turnIndex:0,round:1,selectedId:tokens.find(t=>t.side==='player')?.id||tokens[0]?.id||null,targetId:null,log:[`Začína taktické stretnutie: ${a.name}.`,interior.length?`Použitá existujúca rekonštrukcia: ${a.interior.name||'interiér'}.`:'Lokalita nemá samostatný pôdorys; použitá je otvorená TTRPG aréna.',a.lootPoints?.length?`Loot / body záujmu: ${a.lootPoints.length}.`:'' ].filter(Boolean),active:true,sourceInterior:interior.length>0};
-  GAME.world.canonicalTactics[canonicalTacticalKey(areaId)]=state; gSave(); return state;
+  const state={areaId,mapId,width,height,cells,objects,tokens,turnOrder:order,turnIndex:0,round:1,selectedId:tokens.find(t=>t.side==='player')?.id||tokens[0]?.id||null,targetId:null,selectedObjectId:null,log:[`Začína taktické stretnutie: ${a.name}.`,interior.length?`Použitý existujúci interiér: ${a.interior.name||'interiér'}.`:'Lokalita nemá interiér; použitá je otvorená TTRPG rekonštrukcia.',objects.length?`Objekty v scéne: ${objects.length}.`:'' ].filter(Boolean),active:true,sourceInterior:interior.length>0,reconstruction:true};
+  canonicalApplyTacticalEdits(state,areaId); GAME.world.canonicalTactics[canonicalTacticalKey(areaId)]=state; gSave(); return state;
 }
 function canonicalTacticalEnsure(areaId){return canonicalTacticalState(areaId)||canonicalTacticalBuild(areaId);}
 function canonicalTacticalToken(state,id){return state?.tokens?.find(t=>t.id===id)||null;}
@@ -1238,47 +1270,91 @@ function canonicalTacticalBlocked(state,x,y){const c=canonicalTacticalCell(state
 function canonicalTacticalDistance(a,b){return Math.abs(a.x-b.x)+Math.abs(a.y-b.y);}
 function canonicalTacticalPath(state,from,to,max){
   if(!from||!to||to.x<0||to.y<0||to.x>=state.width||to.y>=state.height)return null;
-  const q=[[from.x,from.y]],prev=new Map([[from.x+','+from.y,null]]),dirs=[[1,0],[-1,0],[0,1],[0,-1]];
-  while(q.length){const [x,y]=q.shift();if(x===to.x&&y===to.y)break;for(const [dx,dy] of dirs){const nx=x+dx,ny=y+dy,k=nx+','+ny;if(prev.has(k))continue;if(nx<0||ny<0||nx>=state.width||ny>=state.height)continue;const c=canonicalTacticalCell(state,nx,ny);if(!c||c.type==='wall')continue;const occupied=state.tokens.some(t=>!t.dead&&t.x===nx&&t.y===ny&&!(nx===to.x&&ny===to.y));if(occupied)continue;prev.set(k,[x,y]);q.push([nx,ny]);}}
-  const key=to.x+','+to.y;if(!prev.has(key))return null;const path=[];let cur=[to.x,to.y];while(cur){path.unshift({x:cur[0],y:cur[1]});cur=prev.get(cur[0]+','+cur[1]);}return path.length-1<=max?path:null;
+  const key=(x,y)=>x+','+y,dirs=[[1,0],[-1,0],[0,1],[0,-1]],q=[{x:from.x,y:from.y,cost:0}],best=new Map([[key(from.x,from.y),0]]),prev=new Map();
+  while(q.length){q.sort((a,b)=>a.cost-b.cost);const cur=q.shift();if(cur.x===to.x&&cur.y===to.y)break;for(const [dx,dy] of dirs){const nx=cur.x+dx,ny=cur.y+dy;if(nx<0||ny<0||nx>=state.width||ny>=state.height)continue;const c=canonicalTacticalCell(state,nx,ny);if(!c||c.type==='wall')continue;const occupied=state.tokens.some(t=>!t.dead&&t.x===nx&&t.y===ny&&!(nx===to.x&&ny===to.y));if(occupied)continue;const step=Math.max(1,Number(c.cost)||1),nc=cur.cost+step,k=key(nx,ny);if(nc>max||nc>=(best.get(k)??Infinity))continue;best.set(k,nc);prev.set(k,[cur.x,cur.y]);q.push({x:nx,y:ny,cost:nc});}}
+  const tk=key(to.x,to.y);if(!best.has(tk))return null;const path=[];let cur=[to.x,to.y];while(cur){path.unshift({x:cur[0],y:cur[1]});cur=prev.get(key(cur[0],cur[1]));}path.cost=best.get(tk);return path;
 }
-function canonicalTacticalRenderToken(t){return `<span class="canon-token ${t.side} ${t.dead?'dead':''}" title="${esc(t.name)} · ${Math.max(0,t.hp)}/${t.hpMax} HP">${esc((t.name||'?').slice(0,2).toUpperCase())}</span>`;}
+function canonicalTacticalHasLOS(state,a,b){
+  const dx=b.x-a.x,dy=b.y-a.y,steps=Math.max(Math.abs(dx),Math.abs(dy));if(!steps)return true;
+  for(let i=1;i<steps;i++){const x=Math.round(a.x+dx*i/steps),y=Math.round(a.y+dy*i/steps);const c=canonicalTacticalCell(state,x,y);if(!c||c.type==='wall')return false;}
+  return true;
+}
+function canonicalTacticalCoverBonus(state,attacker,target){
+  const c=canonicalTacticalCell(state,target.x,target.y);return c?.type==='cover'?2:0;
+}
+function canonicalTacticalStatusText(t){const a=[];if(t.statuses?.bleed)a.push(`krvácanie ${t.statuses.bleed}`);if(t.statuses?.stunned)a.push('omráčený');if(t.statuses?.wounded)a.push('zranený');return a.join(' · ');}
+function canonicalTacticalRenderToken(t){const st=canonicalTacticalStatusText(t);return `<span class="canon-token ${t.side} ${t.dead?'dead':''}" title="${esc(t.name)} · ${Math.max(0,t.hp)}/${t.hpMax} HP${st?' · '+st:''}">${esc((t.name||'?').slice(0,2).toUpperCase())}</span>`;}
+function canonicalTacticalEdits(areaId){ensureWorld(GAME);GAME.world.canonicalMapEdits=GAME.world.canonicalMapEdits||{};return GAME.world.canonicalMapEdits[canonicalTacticalKey(areaId)]||null;}
+function canonicalMapEditLabel(type){return ({wall:'Stena',water:'Voda',grass:'Vysoká tráva',hazard:'Hazard',cover:'Kryt',door:'Dvere',window:'Okno','':'Voľné'})[type]||type||'Voľné';}
+function canonicalApplyTacticalEdits(state,areaId){const e=canonicalTacticalEdits(areaId);if(!e)return state;(e.cells||[]).forEach(x=>{const c=state.cells?.find(c=>c.x===x.x&&c.y===x.y);if(c){c.type=x.type||'';c.cost=c.type==='wall'?99:c.type==='water'?2:1;c.label=canonicalMapEditLabel(c.type);}});(e.objects||[]).forEach(x=>{const o=state.objects?.find(o=>o.id===x.id);if(o){o.x=Number(x.x);o.y=Number(x.y);o.type=x.type||o.type;o.name=x.name||o.name;}});state.reconstruction=true;state.customized=true;return state;}
+function canonicalOpenMapEditor(areaId){const t=canonicalTacticalEnsure(areaId);if(!t)return;const m=document.getElementById('modal');const tools=[['','Voľné'],['wall','Stena'],['door','Dvere'],['window','Okno'],['cover','Kryt'],['water','Voda'],['grass','Vysoká tráva'],['hazard','Hazard'],['move-object','Presun objektu']];m.innerHTML=`<div class="grabber"></div><h3>Editor mapy <span class="x" onclick="closeEdit()">×</span></h3><div class="note">Uprav terén alebo vyber <b>Presun objektu</b>. Mriežka má súradnice X/Y a na mobile sa dá posúvať aj zväčšovať.</div><div class="canon-map-editor-tools" id="mapEditTools">${tools.map((x,i)=>`<button class="btn ghost sm ${i===0?'active':''}" data-type="${x[0]}" onclick="canonicalMapEditorTool('${x[0]}')">${x[1]}</button>`).join('')}</div><div class="canon-map-editor-toolbar"><button class="btn ghost sm" onclick="canonicalMapEditorZoom(-1)">−</button><span class="zoomval" id="mapEditorZoomVal">100 %</span><button class="btn ghost sm" onclick="canonicalMapEditorZoom(1)">+</button><button class="btn ghost sm" onclick="canonicalMapEditorZoom(0)">Reset zoom</button><button class="btn ghost sm" onclick="canonicalMapEditorCenter()">Vycentrovať</button></div><div class="note" style="margin-top:6px"><b>Presety mapy</b></div><div class="canon-map-editor-presets"><div class="row" style="gap:5px"><button class="btn ghost sm grow" onclick="canonicalMapPresetSave('${esc(areaId)}')">Uložiť ako preset</button><button class="btn ghost sm grow" onclick="document.getElementById('mapPresetImport').click()">Importovať preset</button><input id="mapPresetImport" type="file" accept="application/json,.json" hidden onchange="canonicalMapPresetImport(this.files[0])"></div><div id="mapEditorPresets" style="display:grid;gap:4px;margin-top:5px"></div></div><div class="note" style="margin-top:6px"><b>Objekty</b></div><div id="mapEditorObjects" style="display:grid;gap:4px;margin-top:5px"></div><div class="canon-map-editor"><div id="mapEditorViewport" class="canon-map-editor-viewport"><div id="mapEditorGrid" class="canon-map-editor-grid"></div></div></div><div class="row" style="margin-top:8px;gap:6px"><button class="btn amber full" onclick="canonicalSaveMapEditor('${esc(areaId)}')">Uložiť mapu</button><button class="btn ghost full" onclick="canonicalResetMapEdits('${esc(areaId)}')">Obnoviť pôvodnú</button></div>`;m.dataset.mapEditorArea=areaId;m.dataset.mapEditorTool='';m.dataset.mapEditorObject='';m.dataset.mapEditorZoom='1';canonicalRenderMapEditor(t);canonicalRenderMapPresets(areaId);document.getElementById('scrim').classList.add('on');setTimeout(canonicalMapEditorCenter,0);}
+function canonicalMapEditorTool(type){const m=document.getElementById('modal');if(!m)return;m.dataset.mapEditorTool=type;if(type!=='move-object')m.dataset.mapEditorObject='';document.querySelectorAll('#mapEditTools .btn').forEach(b=>b.classList.toggle('active',b.dataset.type===type));canonicalRenderMapEditor(canonicalTacticalEnsure(m.dataset.mapEditorArea));}
+function canonicalMapEditorSelectObject(id){const m=document.getElementById('modal');if(!m)return;m.dataset.mapEditorObject=id;m.dataset.mapEditorTool='move-object';document.querySelectorAll('#mapEditTools .btn').forEach(b=>b.classList.toggle('active',b.dataset.type==='move-object'));canonicalRenderMapEditor(canonicalTacticalEnsure(m.dataset.mapEditorArea));}
+function canonicalRenderMapEditor(state){const grid=document.getElementById('mapEditorGrid');if(!grid)return;const m=document.getElementById('modal');const zoom=Math.max(.7,Math.min(2.5,Number(m?.dataset.mapEditorZoom||1)));grid.style.gridTemplateColumns=`repeat(${state.width},${Math.round(30*zoom)}px)`;grid.style.width=`${Math.round(state.width*30*zoom)}px`;grid.style.transform='none';grid.innerHTML=state.cells.map(c=>{const o=(state.objects||[]).find(o=>!o.collected&&o.x===c.x&&o.y===c.y);const glyph=o?({loot:'L',interaction:'I',safe:'S',workbench:'W',cover:'K',hazard:'!',enemy:'N',player:'H',companion:'C'}[o.type]||'O'):(c.type==='wall'?'■':c.type==='door'?'D':c.type==='window'?'O':c.type==='cover'?'K':c.type==='water'?'≈':c.type==='grass'?'G':c.type==='hazard'?'!':'');const sel=o&&o.id===m?.dataset.mapEditorObject;return `<button type="button" class="canon-map-editor-cell ${esc(c.type||'')} ${sel?'selected':''}" title="${esc(o?o.name:(c.label||'Voľné'))} [${c.x+1},${c.y+1}]" onclick="canonicalMapEditorPaint(${c.x},${c.y})"><span class="coord">${c.x+1},${c.y+1}</span><span class="glyph">${glyph}</span></button>`;}).join('');const list=document.getElementById('mapEditorObjects');if(list){list.innerHTML=(state.objects||[]).filter(o=>o.type!=='room').map(o=>`<button type="button" class="btn ghost sm ${o.id===m?.dataset.mapEditorObject?'active':''}" onclick="canonicalMapEditorSelectObject('${esc(o.id)}')">${esc(o.name)} · ${esc(o.type)} · [${o.x+1},${o.y+1}]</button>`).join('')||'<span class="note">Žiadne objekty</span>';}const z=document.getElementById('mapEditorZoomVal');if(z)z.textContent=Math.round(zoom*100)+' %';}
+function canonicalMapEditorZoom(dir){const m=document.getElementById('modal');if(!m)return;let z=Number(m.dataset.mapEditorZoom||1);z=dir===0?1:Math.max(.7,Math.min(2.5,z+(dir>0?.2:-.2)));m.dataset.mapEditorZoom=String(z);canonicalRenderMapEditor(canonicalTacticalEnsure(m.dataset.mapEditorArea));}
+function canonicalMapEditorCenter(){const v=document.getElementById('mapEditorViewport');if(!v)return;v.scrollLeft=Math.max(0,(v.scrollWidth-v.clientWidth)/2);v.scrollTop=Math.max(0,(v.scrollHeight-v.clientHeight)/2);}
+function canonicalMapPresetStore(){ensureWorld(GAME);GAME.world.canonicalMapPresets=(GAME.world.canonicalMapPresets&&typeof GAME.world.canonicalMapPresets==='object')?GAME.world.canonicalMapPresets:{};return GAME.world.canonicalMapPresets;}
+function canonicalMapPresetSnapshot(state){return {cells:(state.cells||[]).map(c=>({x:Number(c.x),y:Number(c.y),type:c.type||''})),objects:(state.objects||[]).filter(o=>o.type!=='room').map(o=>({id:o.id,x:Number(o.x),y:Number(o.y),type:o.type||'',name:o.name||''})),updatedAt:Date.now()};}
+function canonicalRenderMapPresets(areaId){const box=document.getElementById('mapEditorPresets');if(!box)return;const store=canonicalMapPresetStore(),key=canonicalTacticalKey(areaId),list=Array.isArray(store[key])?store[key]:[];box.innerHTML=list.length?list.map((p,i)=>`<div class="canon-map-preset"><div class="grow"><b>${esc(p.name||('Preset '+(i+1)))}</b><span class="note"> · ${new Date(Number(p.updatedAt)||Date.now()).toLocaleString('sk-SK')}</span></div><button class="btn ghost sm" onclick="canonicalMapPresetLoad('${esc(areaId)}',${i})">Načítať</button><button class="btn ghost sm" onclick="canonicalMapPresetExport('${esc(areaId)}',${i})">Export</button><button class="btn ghost sm" onclick="canonicalMapPresetDelete('${esc(areaId)}',${i})">Zmazať</button></div>`).join(''):'<span class="note">Zatiaľ nemáš uložený žiadny preset tejto mapy.</span>';}
+function canonicalMapPresetSave(areaId){const t=canonicalTacticalEnsure(areaId);if(!t)return;const name=window.prompt('Názov presetu mapy:',`Moja verzia ${new Date().toLocaleDateString('sk-SK')}`);if(!name||!name.trim())return;const store=canonicalMapPresetStore(),key=canonicalTacticalKey(areaId);store[key]=Array.isArray(store[key])?store[key]:[];const snap=canonicalMapPresetSnapshot(t);store[key].push({name:name.trim(),...snap});gSave();canonicalRenderMapPresets(areaId);}
+function canonicalMapPresetLoad(areaId,index){const store=canonicalMapPresetStore(),key=canonicalTacticalKey(areaId),p=store[key]?.[index];if(!p)return;ensureWorld(GAME);GAME.world.canonicalMapEdits=GAME.world.canonicalMapEdits||{};GAME.world.canonicalMapEdits[key]={cells:(p.cells||[]).map(c=>({...c})),objects:(p.objects||[]).map(o=>({...o})),updatedAt:Date.now(),presetName:p.name||''};delete GAME.world.canonicalTactics[key];gSave();canonicalMakeTactical(areaId);const m=document.getElementById('modal');if(m&&m.dataset.mapEditorArea===areaId){canonicalRenderMapEditor(canonicalTacticalEnsure(areaId));canonicalRenderMapPresets(areaId);canonicalMapEditorCenter();}}
+function canonicalMapPresetDelete(areaId,index){const store=canonicalMapPresetStore(),key=canonicalTacticalKey(areaId);if(!Array.isArray(store[key])||!store[key][index])return;if(!window.confirm(`Zmazať preset „${store[key][index].name||'bez názvu'}“?`))return;store[key].splice(index,1);gSave();canonicalRenderMapPresets(areaId);}
+function canonicalMapPresetExport(areaId,index){const store=canonicalMapPresetStore(),key=canonicalTacticalKey(areaId),p=store[key]?.[index];if(!p)return;const payload={format:'tlou-ttrpg-map-preset',version:1,areaId,name:p.name||'Preset',cells:p.cells||[],objects:p.objects||[]};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`tlou-map-preset-${String(areaId).replace(/[^a-z0-9_-]/gi,'_')}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);}
+function canonicalMapPresetImport(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const p=JSON.parse(reader.result);if(p?.format!=='tlou-ttrpg-map-preset'||!Array.isArray(p.cells)||!Array.isArray(p.objects))throw new Error('Neplatný formát');const areaId=document.getElementById('modal')?.dataset.mapEditorArea||p.areaId;if(!areaId)throw new Error('Chýba mapa');const store=canonicalMapPresetStore(),key=canonicalTacticalKey(areaId);store[key]=Array.isArray(store[key])?store[key]:[];store[key].push({name:String(p.name||'Importovaný preset').slice(0,120),cells:p.cells.map(c=>({x:Number(c.x)||0,y:Number(c.y)||0,type:c.type||''})),objects:p.objects.map(o=>({id:String(o.id||''),x:Number(o.x)||0,y:Number(o.y)||0,type:o.type||'',name:o.name||''})),updatedAt:Date.now()});gSave();canonicalRenderMapPresets(areaId);window.alert('Preset bol importovaný.');}catch(e){window.alert('Preset sa nepodarilo importovať.');}};reader.readAsText(file);}
+function canonicalMapEditorPaint(x,y){const m=document.getElementById('modal'),areaId=m?.dataset.mapEditorArea,t=canonicalTacticalEnsure(areaId);if(!t)return;const mode=m.dataset.mapEditorTool||'';if(mode==='move-object'){const id=m.dataset.mapEditorObject,o=t.objects?.find(o=>o.id===id);if(o){o.x=x;o.y=y;canonicalRenderMapEditor(t);}return;}const c=t.cells.find(c=>c.x===x&&c.y===y);if(!c)return;c.type=mode;c.cost=mode==='wall'?99:mode==='water'?2:1;c.label=canonicalMapEditLabel(mode);canonicalRenderMapEditor(t);}
+function canonicalSaveMapEditor(areaId){const t=canonicalTacticalEnsure(areaId);if(!t)return;ensureWorld(GAME);GAME.world.canonicalMapEdits=GAME.world.canonicalMapEdits||{};GAME.world.canonicalMapEdits[canonicalTacticalKey(areaId)]={cells:t.cells.map(c=>({x:c.x,y:c.y,type:c.type||''})),objects:(t.objects||[]).filter(o=>o.type!=='room').map(o=>({id:o.id,x:o.x,y:o.y,type:o.type,name:o.name})),updatedAt:Date.now()};delete GAME.world.canonicalTactics[canonicalTacticalKey(areaId)];gSave();closeEdit();canonicalMakeTactical(areaId);}
+function canonicalResetMapEdits(areaId){ensureWorld(GAME);GAME.world.canonicalMapEdits=GAME.world.canonicalMapEdits||{};delete GAME.world.canonicalMapEdits[canonicalTacticalKey(areaId)];delete GAME.world.canonicalTactics[canonicalTacticalKey(areaId)];gSave();closeEdit();canonicalMakeTactical(areaId);}
 function canonicalTacticalHTML(areaId){
   const t=canonicalTacticalState(areaId); if(!t)return '<div class="note" style="margin-top:7px">Taktické bojisko ešte nebolo spustené.</div>';
-  const activeId=t.turnOrder?.[t.turnIndex]; const active=canonicalTacticalToken(t,activeId); const selected=canonicalTacticalToken(t,t.selectedId); const target=canonicalTacticalToken(t,t.targetId);
+  const activeId=t.turnOrder?.[t.turnIndex], active=canonicalTacticalToken(t,activeId), selected=canonicalTacticalToken(t,t.selectedId), target=canonicalTacticalToken(t,t.targetId), selectedObj=t.objects?.find(o=>o.id===t.selectedObjectId);
   const reachable=new Set(); if(selected&&!selected.dead&&selected.side==='player'&&selected.id===activeId&&selected.ap>0){for(const c of t.cells){const path=canonicalTacticalPath(t,selected,c,selected.ap);if(path)reachable.add(c.i);}}
-  const cells=t.cells.map(c=>{const tok=t.tokens.find(x=>!x.dead&&x.x===c.x&&x.y===c.y);const cls=[c.type,tok?'token-'+tok.side:'',selected&&selected.x===c.x&&selected.y===c.y?'selected':'',target&&target.x===c.x&&target.y===c.y?'selected':'',reachable.has(c.i)?'reachable':''].filter(Boolean).join(' ');return `<button type="button" class="canon-cell ${cls}" title="${esc(c.label||'')}" onclick="canonicalTacticalCellClick(${c.i})"><span>${tok?canonicalTacticalRenderToken(tok):(c.type==='cover'?'K':(c.type==='door'?'D':''))}</span></button>`;}).join('');
-  const tokenRows=t.tokens.map(tok=>`<button type="button" class="canon-token-row ${tok.id===t.selectedId?'on':''}" onclick="canonicalTacticalSelect('${tok.id}')"><b>${esc(tok.name)}</b> · ${tok.side==='player'?'hráč':'nepriateľ'}<br><span class="note">${Math.max(0,tok.hp)}/${tok.hpMax} HP · AP ${tok.ap}</span></button>`).join('');
+  const cells=t.cells.map(c=>{const tok=t.tokens.find(x=>!x.dead&&x.x===c.x&&x.y===c.y);const obj=t.objects?.find(o=>!o.collected&&o.x===c.x&&o.y===c.y);const cls=[c.type,tok?'token-'+tok.side:'',obj?'object':'',selected&&selected.x===c.x&&selected.y===c.y?'selected':'',target&&target.x===c.x&&target.y===c.y?'selected':'',reachable.has(c.i)?'reachable':''].filter(Boolean).join(' ');return `<button type="button" class="canon-cell ${cls}" title="${esc(obj?obj.name:(c.label||''))}" onclick="canonicalTacticalCellClick(${c.i})"><span>${tok?canonicalTacticalRenderToken(tok):(obj?({loot:'L',interaction:'I',safe:'S',workbench:'W',door:'D',window:'O',cover:'K',hazard:'!'}[obj.type]||'•'):(c.type==='cover'?'K':(c.type==='door'?'D':'')))}</span></button>`;}).join('');
+  const tokenRows=t.tokens.map(tok=>`<button type="button" class="canon-token-row ${tok.id===t.selectedId?'on':''}" onclick="canonicalTacticalSelect('${tok.id}')"><b>${esc(tok.name)}</b> · ${tok.side==='player'?'hráč':'nepriateľ'}<br><span class="note">${Math.max(0,tok.hp)}/${tok.hpMax} HP · AP ${tok.ap}${canonicalTacticalStatusText(tok)?' · '+esc(canonicalTacticalStatusText(tok)):''}</span></button>`).join('');
+  const objRows=(t.objects||[]).filter(o=>o.type!=='room').map(o=>`<button type="button" class="canon-object-row ${o.id===t.selectedObjectId?'on':''} ${o.collected?'done':''}" onclick="canonicalTacticalSelectObject('${o.id}')"><b>${esc(o.name)}</b><br><span class="note">${esc(o.type)} · [${o.x+1}, ${o.y+1}]${o.code?' · kód '+esc(o.code):''}${o.collected?' · HOTOVO':''}</span></button>`).join('');
   const logs=(t.log||[]).slice(-8).reverse().map(x=>`<div>${esc(x)}</div>`).join('');
   return `<div class="note" style="margin-top:6px"><b>${esc(t.theme||'Taktické bojisko')}</b> · ${t.width}×${t.height} · kolo ${t.round} · na ťahu: ${esc(active?.name||'—')}</div>
-  <div class="canon-tactical-actions" style="margin-top:8px"><button type="button" class="btn amber sm" onclick="canonicalTacticalAttack()" ${!(selected&&activeId===selected.id&&selected.side==='player'&&!selected.dead)?'disabled':''}>Útok D6</button><button type="button" class="btn ghost sm" onclick="canonicalTacticalEndTurn()">Koniec ťahu</button><button type="button" class="btn ghost sm" onclick="canonicalTacticalReset('${esc(areaId)}')">Reset stretnutia</button><span class="pill">${selected?esc(selected.name):'nič nevybrané'}${target?' → '+esc(target.name):''}</span></div>
+  <div class="canon-tactical-actions" style="margin-top:8px"><button type="button" class="btn amber sm" onclick="canonicalTacticalAttack()" ${!(selected&&activeId===selected.id&&selected.side==='player'&&!selected.dead)?'disabled':''}>Útok D6</button><button type="button" class="btn ghost sm" onclick="canonicalTacticalInteract()" ${!(selectedObj&&!selectedObj.collected)?'disabled':''}>Interakcia</button><button type="button" class="btn ghost sm" onclick="canonicalTacticalEndTurn()">Koniec ťahu</button><button type="button" class="btn ghost sm" onclick="canonicalTacticalHeal()" ${!(selected&&activeId===selected.id&&selected.side==='player'&&!selected.dead&&selected.ap>=1&&SC().firstAid?.qty>0)?'disabled':''}>Lekárnička</button><button type="button" class="btn ghost sm" onclick="canonicalTacticalReset('${esc(areaId)}')">Reset</button><span class="pill">${selected?esc(selected.name):'nič nevybrané'}${target?' → '+esc(target.name):''}${selectedObj?' · '+esc(selectedObj.name):''}</span></div>
   <div class="canon-tactical-board"><div class="canon-tactical-grid" style="grid-template-columns:repeat(${t.width},1fr)">${cells}</div></div>
-  <div class="note" style="margin-top:6px">Vyber svoju postavu a klikni na dostupné políčko. Pohyb stojí AP. Potom vyber nepriateľa a použi Útok D6. Kryt, stena a dvere zostávajú súčasťou rekonštrukcie mapy.</div>
-  <div class="canon-token-list">${tokenRows}</div><div class="canon-combat-log" style="margin-top:8px">${logs||'—'}</div>`;
+  <div class="note" style="margin-top:6px"><b>Suroviny:</b> Handra ${SC().mats?.Rag||0} · Alkohol ${SC().mats?.Alcohol||0} · Viazanie ${SC().mats?.Binding||0} · Čepele ${SC().mats?.Blades||0} · Výbušnina ${SC().mats?.Explosive||0} · Kanistre ${SC().mats?.Canister||0}<br>Pohyb spotrebúva AP podľa terénu: bežný terén 1, voda 2. Kryt znižuje zásah o 2; steny blokujú LOS. Kliknutím na políčko sa pohybuje postava alebo vyberie objekt. L = loot, I = interakcia, S = sejf, W = workbench, K = kryt, ! = hazard, D = dvere, O = okno. Pozície objektov sú TTRPG rekonštrukcia.</div>
+  <div class="canon-token-list">${tokenRows}</div><div class="canon-object-list">${objRows}</div><div class="canon-combat-log" style="margin-top:8px">${logs||'—'}</div>`;
 }
+function canonicalTacticalSelectObject(id){const t=canonicalTacticalState(GAME.world.canonicalLocation);if(!t)return;const o=t.objects?.find(x=>x.id===id);if(!o||o.collected)return;t.selectedObjectId=id;gSave();renderScn();}
+function canonicalTacticalInteract(){const t=canonicalTacticalState(GAME.world.canonicalLocation);if(!t)return;const o=t.objects?.find(x=>x.id===t.selectedObjectId);const sel=canonicalTacticalToken(t,t.selectedId);if(!o||o.collected||!sel||sel.side!=='player'||sel.ap<1)return;if(canonicalTacticalDistance(sel,o)>1){t.log.push(`${sel.name}: ${o.name} je príliš ďaleko.`);gSave();renderScn();return;}if(o.type!=='workbench')o.collected=true;if(o.type==='safe'||o.type==='workbench'){const list=canonicalProgressPointList(o.type);const match=list.find(x=>x.name===o.name||((x.code||'')&&x.code===o.code));if(match){GAME.world.canonicalProgress.done[o.type==='safe'?'safes':'workbenches'][match.id]=true;}}if(o.type==='loot'){const ch=GAME.party.find(p=>p.name===sel.name);if(ch){const label=o.lootLabel||o.name||'Loot';const got=lootGive(ch,label);t.log.push(`${sel.name}: +${got.replace(/^\+/,'')}`);}}if(o.type==='hazard'){sel.hp=Math.max(0,sel.hp-1);t.log.push(`${sel.name} utrpel 1 poškodenie z hazardu.`);}sel.ap=Math.max(0,sel.ap-1);t.selectedObjectId=null;t.log.push(`${sel.name} interagoval s: ${o.name}.`);gSave();renderScn();}
 function canonicalTacticalSelect(id){const t=canonicalTacticalState(GAME.world.canonicalLocation);if(!t)return;const tok=canonicalTacticalToken(t,id);if(!tok)return;if(tok.side==='enemy')t.targetId=id;else{t.selectedId=id;t.targetId=null;}gSave();renderScn();}
 function canonicalTacticalCellClick(i){
   const areaId=GAME.world.canonicalLocation,t=canonicalTacticalState(areaId);if(!t)return;const c=t.cells[i];if(!c)return;
-  const tok=t.tokens.find(x=>!x.dead&&x.x===c.x&&x.y===c.y);if(tok){if(tok.side==='enemy'){t.targetId=tok.id;}else{t.selectedId=tok.id;t.targetId=null;}gSave();renderScn();return;}
+  const tok=t.tokens.find(x=>!x.dead&&x.x===c.x&&x.y===c.y);if(tok){if(tok.side==='enemy'){t.targetId=tok.id;}else{t.selectedId=tok.id;t.targetId=null;}gSave();renderScn();return;}const obj=t.objects?.find(o=>!o.collected&&o.x===c.x&&o.y===c.y);if(obj){t.selectedObjectId=obj.id;gSave();renderScn();return;}
   const sel=canonicalTacticalToken(t,t.selectedId),active=canonicalTacticalToken(t,t.turnOrder[t.turnIndex]);
   if(!sel||sel.dead||sel.side!=='player'||sel.id!==active?.id)return;
   const path=canonicalTacticalPath(t,sel,c,sel.ap);if(!path||c.type==='wall')return;
-  sel.x=c.x;sel.y=c.y;sel.ap=Math.max(0,sel.ap-(path.length-1));t.log.push(`${sel.name} sa presunul na [${c.x+1}, ${c.y+1}].`);gSave();renderScn();
+  sel.x=c.x;sel.y=c.y;sel.ap=Math.max(0,sel.ap-(Number(path.cost)||0));t.log.push(`${sel.name} sa presunul na [${c.x+1}, ${c.y+1}].`);gSave();renderScn();
+}
+function canonicalTacticalSyncParty(t){
+  (t.tokens||[]).filter(x=>x.side==='player'&&x.kind==='player').forEach(tok=>{const idx=Number(String(tok.id).replace('p',''));const ch=GAME.party?.[idx];if(!ch)return;ch.hp=Math.max(0,Math.min(ch.hpMax||tok.hpMax,tok.hp));ch.dead=!!tok.dead;ch.trauma=Math.max(Number(ch.trauma)||0,tok.statuses?.wounded?1:0);});
+}
+function canonicalTacticalTickStatuses(t){
+  (t.tokens||[]).filter(x=>!x.dead).forEach(tok=>{tok.statuses=tok.statuses||{};if(tok.statuses.bleed>0){tok.hp=Math.max(0,tok.hp-1);tok.statuses.bleed--;t.log.push(`${tok.name}: krvácanie spôsobilo 1 poškodenie.`);if(tok.hp<=0){tok.dead=true;t.log.push(`${tok.name} podľahol zraneniam.`);}}if(tok.statuses.stunned>0)tok.statuses.stunned--;tok.statuses.wounded=tok.hp>0&&tok.hp<=Math.ceil(tok.hpMax*0.5);});
+  canonicalTacticalSyncParty(t);
+}
+function canonicalTacticalHeal(){
+ const t=canonicalTacticalState(GAME.world.canonicalLocation);if(!t)return;const sel=canonicalTacticalToken(t,t.selectedId),active=canonicalTacticalToken(t,t.turnOrder[t.turnIndex]),ch=sel?GAME.party?.[Number(String(sel.id).replace('p',''))]:null;
+ if(!sel||!ch||sel.side!=='player'||sel.dead||active?.id!==sel.id||sel.ap<1||!ch.firstAid?.qty){t.log.push('Nie je možné použiť lekárničku.');gSave();renderScn();return;}
+ const heal=Math.max(1,Number(ch.firstAid.heal)||10);ch.firstAid.qty--;sel.hp=Math.min(sel.hpMax,sel.hp+heal);sel.statuses=sel.statuses||{};sel.statuses.bleed=0;sel.statuses.wounded=sel.hp<=Math.ceil(sel.hpMax*.5);sel.ap--;canonicalTacticalSyncParty(t);t.log.push(`${sel.name} použil lekárničku a vyliečil ${heal} HP.`);gSave();renderScn();
 }
 function canonicalTacticalAttack(){
-  const areaId=GAME.world.canonicalLocation,t=canonicalTacticalState(areaId);if(!t)return;const sel=canonicalTacticalToken(t,t.selectedId),active=canonicalTacticalToken(t,t.turnOrder[t.turnIndex]);if(!sel||sel.dead||sel.side!=='player'||active?.id!==sel.id)return;
-  const target=canonicalTacticalToken(t,t.targetId)||t.tokens.find(x=>!x.dead&&x.side==='enemy'&&canonicalTacticalDistance(sel,x)<=6);if(!target||target.dead||target.side!=='enemy'||canonicalTacticalDistance(sel,target)>6){t.log.push(`${sel.name}: žiadny nepriateľ v dosahu 6 polí.`);gSave();renderScn();return;}
-  const roll=1+Math.floor(Math.random()*6),damage=Math.max(1,roll+1);target.hp-=damage;sel.ap=Math.max(0,sel.ap-2);t.selectedId=target.id;t.log.push(`${sel.name} zaútočil na ${target.name}: D6 ${roll}, ${damage} poškodenia.`);if(target.hp<=0){target.dead=true;t.log.push(`${target.name} bol vyradený.`);}gSave();renderScn();
+  const areaId=GAME.world.canonicalLocation,t=canonicalTacticalState(areaId);if(!t)return;const sel=canonicalTacticalToken(t,t.selectedId),active=canonicalTacticalToken(t,t.turnOrder[t.turnIndex]);if(!sel||sel.dead||sel.side!=='player'||active?.id!==sel.id||sel.ap<2){if(sel?.ap<2)t.log.push(`${sel.name}: nedostatok AP na útok.`);gSave();renderScn();return;}
+  const target=canonicalTacticalToken(t,t.targetId)||t.tokens.find(x=>!x.dead&&x.side==='enemy'&&canonicalTacticalDistance(sel,x)<=6);if(!target||target.dead||target.side!=='enemy'||canonicalTacticalDistance(sel,target)>6||!canonicalTacticalHasLOS(t,sel,target)){t.log.push(`${sel.name}: žiadny nepriateľ v dosahu 6 polí.`);gSave();renderScn();return;}
+  const roll=1+Math.floor(Math.random()*6),cover=canonicalTacticalCoverBonus(t,sel,target),damage=Math.max(1,roll+1-cover);target.hp-=damage;target.statuses=target.statuses||{bleed:0,stunned:0,wounded:false};if(damage>=5)target.statuses.bleed=Math.max(target.statuses.bleed,2);if(roll===6)target.statuses.stunned=Math.max(target.statuses.stunned,1);target.statuses.wounded=target.hp>0&&target.hp<=Math.ceil(target.hpMax*.5);sel.ap=Math.max(0,sel.ap-2);t.selectedId=target.id;t.log.push(`${sel.name} zaútočil na ${target.name}: D6 ${roll}, ${damage} poškodenia.${cover?' Kryt znížil zásah o 2.':''}${target.statuses.bleed?' Krvácanie.':''}${target.statuses.stunned?' Omráčenie.':''}`);if(target.hp<=0){target.dead=true;t.log.push(`${target.name} bol vyradený.`);}if(t.tokens.filter(x=>x.side==='enemy'&&!x.dead).length===0){t.active=false;t.result='win';t.log.push('Všetci nepriatelia boli vyradení — stretnutie vyhrané.');}gSave();renderScn();
 }
 function canonicalTacticalEnemyTurn(t){
   const enemies=t.tokens.filter(x=>x.side==='enemy'&&!x.dead);const players=t.tokens.filter(x=>x.side==='player'&&!x.dead);if(!players.length)return;
-  enemies.forEach(e=>{if(e.dead)return;const target=players.slice().sort((a,b)=>canonicalTacticalDistance(e,a)-canonicalTacticalDistance(e,b))[0];if(!target)return;const d=canonicalTacticalDistance(e,target);if(d<=1){const dmg=1+Math.floor(Math.random()*3);target.hp=Math.max(0,target.hp-dmg);t.log.push(`${e.name} zaútočil na ${target.name}: ${dmg} poškodenia.`);if(target.hp<=0){target.dead=true;t.log.push(`${target.name} bol vyradený.`);}return;}const dirs=[[Math.sign(target.x-e.x),0],[0,Math.sign(target.y-e.y)],[target.x>e.x?1:-1,0],[0,target.y>e.y?1:-1]];for(const [dx,dy] of dirs){if(!dx&&!dy)continue;const nx=e.x+dx,ny=e.y+dy;if(nx<1||ny<1||nx>=t.width-1||ny>=t.height-1)continue;if(!canonicalTacticalBlocked(t,nx,ny)){e.x=nx;e.y=ny;break;}}});
+  enemies.forEach(e=>{if(e.dead)return;const target=players.slice().sort((a,b)=>canonicalTacticalDistance(e,a)-canonicalTacticalDistance(e,b))[0];if(!target)return;const d=canonicalTacticalDistance(e,target);if(d<=1){const dmg=1+Math.floor(Math.random()*3);target.hp=Math.max(0,target.hp-dmg);target.statuses=target.statuses||{bleed:0,stunned:0,wounded:false};if(dmg>=3)target.statuses.bleed=Math.max(target.statuses.bleed,1);target.statuses.wounded=target.hp>0&&target.hp<=Math.ceil(target.hpMax*.5);t.log.push(`${e.name} zaútočil na ${target.name}: ${dmg} poškodenia.${target.statuses.bleed?' Krvácanie.':''}`);if(target.hp<=0){target.dead=true;t.log.push(`${target.name} bol vyradený.`);if(t.tokens.filter(x=>x.side==='player'&&!x.dead).length===0){t.active=false;t.result='lose';t.log.push('Všetky postavy boli vyradené — stretnutie prehrané.');}}return;}const dirs=[[Math.sign(target.x-e.x),0],[0,Math.sign(target.y-e.y)],[target.x>e.x?1:-1,0],[0,target.y>e.y?1:-1]];for(const [dx,dy] of dirs){if(!dx&&!dy)continue;const nx=e.x+dx,ny=e.y+dy;if(nx<1||ny<1||nx>=t.width-1||ny>=t.height-1)continue;if(!canonicalTacticalBlocked(t,nx,ny)){e.x=nx;e.y=ny;break;}}});
 }
 function canonicalTacticalEndTurn(){
   const t=canonicalTacticalState(GAME.world.canonicalLocation);if(!t)return;const cur=canonicalTacticalToken(t,t.turnOrder[t.turnIndex]);if(cur?.side==='player')cur.ap=0;
   let next=t.turnIndex;for(let i=0;i<t.turnOrder.length;i++){next=(next+1)%t.turnOrder.length;const n=canonicalTacticalToken(t,t.turnOrder[next]);if(n&&!n.dead){t.turnIndex=next;break;}}
   const active=canonicalTacticalToken(t,t.turnOrder[t.turnIndex]);if(active?.side==='enemy'){canonicalTacticalEnemyTurn(t);for(let i=0;i<t.turnOrder.length;i++){t.turnIndex=(t.turnIndex+1)%t.turnOrder.length;const n=canonicalTacticalToken(t,t.turnOrder[t.turnIndex]);if(n&&!n.dead&&n.side==='player')break;}t.round++;}
-  t.tokens.forEach(x=>{if(!x.dead)x.ap=x.apMax;});t.log.push(`Kolo ${t.round} — na ťahu ${canonicalTacticalToken(t,t.turnOrder[t.turnIndex])?.name||'—'}.`);gSave();renderScn();
+  canonicalTacticalTickStatuses(t);t.tokens.forEach(x=>{if(!x.dead&&!x.statuses?.stunned)x.ap=x.apMax;});t.log.push(`Kolo ${t.round} — na ťahu ${canonicalTacticalToken(t,t.turnOrder[t.turnIndex])?.name||'—'}.`);gSave();renderScn();
 }
 function canonicalTacticalReset(areaId){if(!confirm('Resetovať toto TTRPG stretnutie?'))return;const key=canonicalTacticalKey(areaId);delete GAME.world.canonicalTactics[key];canonicalTacticalBuild(areaId);renderScn();}
 function canonicalMakeTactical(areaId){GAME.world.canonicalLocation=areaId;canonicalTacticalBuild(areaId);renderScn();}
@@ -1370,6 +1446,36 @@ function progCfg(){return DATA?.progression||null;}
 function progLevels(){return progCfg()?.levels||[{level:1,xp:0},{level:2,xp:100},{level:3,xp:250},{level:4,xp:450},{level:5,xp:700},{level:6,xp:1000},{level:7,xp:1400},{level:8,xp:1850},{level:9,xp:2350},{level:10,xp:3000}];}
 function progLevelForXP(xp){let lvl=1;for(const x of progLevels()){if((xp||0)>=x.xp)lvl=x.level;else break;}return lvl;}
 function progNextXP(level){const n=progLevels().find(x=>x.level===level+1);return n?n.xp:null;}
+function ensureTLOU2Progression(ch){
+  if(!ch)return;
+  ch.tlou2Trees=ch.tlou2Trees&&typeof ch.tlou2Trees==='object'?ch.tlou2Trees:{Survival:true,'Field Tactics':true};
+  ch.tlou2Trees.Survival=true; ch.tlou2Trees['Field Tactics']=true;
+  ch.tlou2Skills=ch.tlou2Skills&&typeof ch.tlou2Skills==='object'?ch.tlou2Skills:{};
+}
+function tlou2Tree(name){return (DATA.tlou2SkillTrees||[]).find(t=>t.key===name);}
+function tlou2Owned(ch,tree,idx){return Number((ch.tlou2Skills||{})[tree+'::'+idx]||0)>0;}
+function tlou2ManualCount(){return Number((GAME.world.canonicalProgress?.manual?.trainingManuals)||0);}
+function tlou2ManualUnlocks(ch){
+  ensureTLOU2Progression(ch); const manuals=tlou2ManualCount();
+  const manualTrees=(DATA.tlou2SkillTrees||[]).filter(t=>!t.auto);
+  manualTrees.slice(0,Math.min(manuals,manualTrees.length)).forEach(t=>ch.tlou2Trees[t.key]=true);
+}
+function applyTLOU2Effect(ch,e){
+  if(!ch)return; ch.tlou2Effects=ch.tlou2Effects||{}; ch.tlou2Effects[e]=(ch.tlou2Effects[e]||0)+1;
+  if(e==='maxHp20'||e==='maxHp10'||e==='maxHp15'){ch.hpMax=(ch.hpMax||25)+(e==='maxHp20'?20:e==='maxHp10'?10:15); if(ch.hp>ch.hpMax)ch.hp=ch.hpMax;}
+  if(e==='fasterHeal'||e==='fasterHeal2'){ch.firstAid=ch.firstAid||{qty:0,heal:0};ch.firstAid.heal=(ch.firstAid.heal||0)+5;}
+}
+function buyTLOU2Skill(treeName,idx){
+  const ch=SC(); ensureTLOU2Progression(ch); tlou2ManualUnlocks(ch); const tree=tlou2Tree(treeName),sk=tree?.skills?.[idx];
+  if(!tree||!sk||!ch.tlou2Trees[treeName]||tlou2Owned(ch,treeName,idx)||(ch.pills||0)<sk.cost)return;
+  ch.pills-=sk.cost; ch.tlou2Skills[treeName+'::'+idx]=1; applyTLOU2Effect(ch,sk.effect); sheetSave();renderSheet();renderCodex();
+}
+function renderTLOU2Trees(ch){
+  ensureTLOU2Progression(ch); tlou2ManualUnlocks(ch); const el=document.getElementById('tlou2Trees'); if(!el)return;
+  el.innerHTML=(DATA.tlou2SkillTrees||[]).map(t=>{const unlocked=!!ch.tlou2Trees[t.key]; const owned=(t.skills||[]).filter((_,i)=>tlou2Owned(ch,t.key,i)).length;
+    return `<div class="card" style="padding:10px;margin-bottom:8px"><div class="row"><div class="grow"><b>${esc(t.name)}</b><div class="note">${t.auto?'Automaticky odomknutý':'Training Manual'} · ${owned}/5</div></div><span class="pill ${unlocked?'amber':'ghost'}">${unlocked?'ODOMKNUTÉ':'ZAMKNUTÉ'}</span></div>${unlocked?`<div class="progskills">${t.skills.map((sk,i)=>{const have=tlou2Owned(ch,t.key,i);return `<button class="progskill" ${have?'disabled':''} onclick="buyTLOU2Skill('${t.key}',${i})"><span>${esc(sk.name)}<small style="display:block;color:var(--faint)">${sk.cost} piluliek</small></span><span class="v">${have?'✓':'+'}</span></button>`}).join('')}</div>`:`<div class="note" style="margin-top:7px">Nájdi Training Manual. Odomknutie nasleduje podľa počtu nájdených manuálov.</div>`}</div>`;
+  }).join('');
+}
 function ensureProgression(ch){if(!ch)return;ch.xp=Math.max(0,Number(ch.xp)||0);ch.level=progLevelForXP(ch.xp);ch.skillPoints=Math.max(0,Number(ch.skillPoints)||0);}
 function addXP(ch,amount,reason){if(!ch||!amount)return;ensureProgression(ch);const before=ch.level;ch.xp+=Math.max(0,Number(amount)||0);const after=progLevelForXP(ch.xp);ch.level=after;if(after>before){ch.skillPoints+=(after-before);GAME.banner={ok:true,text:`${ch.name||"Postava"} dosiahla úroveň ${after}. Získava ${after-before} bod zručnosti.`};}
   else if(reason)GAME.banner={ok:true,text:`${ch.name||"Postava"}: +${amount} XP · ${reason}.`};
@@ -1466,6 +1572,7 @@ function renderSheet(){
   eq.value=S.equip;
 
   renderCharacterStatus(S);
+  renderTLOU2Trees(S);
   renderProgression(S);
   renderInventory3(S);
   document.getElementById("journal").value=S.journal||"";
@@ -1516,7 +1623,7 @@ function renderCharacterStatus(S){
 function inventoryCategory(name){
   if(DATA.weapons?.some(w=>w.name===name)) return "weapons";
   if(["First Aid Kit","Lekárnička","Bandage","Bandáž","Medicine","Pills"].includes(name)) return "medical";
-  if(["Molotov","Molotov Cocktail","Nail Bomb","Pipe Bomb","Smoke Bomb","Trap Mine","Shiv","Arrow","Fire Arrow","Explosive Arrow"].includes(name)) return "crafting";
+  if(["Molotov","Molotov Cocktail","Nail Bomb","Pipe Bomb","Smoke Bomb","Stun Bomb","Trap Mine","Silencer","Melee Upgrade","Shiv","Arrow","Fire Arrow","Explosive Arrow","Incendiary Shells","Hunting Pistol Ammo"].includes(name)) return "crafting";
   if(["Guitar","Infection Scanner","Holster","Gas Container","Gas Can","Siphon Hose","Notes","Electrical Panel","Electric Cable","Generator (Working)","Generator (Out of Gas)","Generator (Damaged)","Key / Keycard","Plank","Ladder","Dumpster / Cart"].includes(name)) return "quest";
   return "misc";
 }
@@ -2513,7 +2620,8 @@ function gLoad(){try{const r=localStorage.getItem(GKEY);if(!r)return null;
     try{localStorage.removeItem(GKEY);}catch(e){} // poškodená/stará rozohraná hra (napr. prázdna partia) — zahodiť namiesto pádu appky
     return null;
   }
-  ensureWorld(g);g.party.forEach(p=>{Object.assign(p,blank(),p);ensureProgression(p);p.ammo={...zeroMap(AMMO_TYPES),...(p.ammo||{})};p.mats={...zeroMap(MAT_TYPES),...(p.mats||{})};});
+  ensureWorld(g);ensureCampaignState(g);ensureCompanions(g);g.party.forEach(p=>{Object.assign(p,blank(),p);ensureProgression(p);p.ammo={...zeroMap(AMMO_TYPES),...(p.ammo||{})};p.mats={...zeroMap(MAT_TYPES),...(p.mats||{})};});
+  if(g.combat){g.combat.companions=Array.isArray(g.combat.companions)?g.combat.companions:[];g.combat.companions.forEach(c=>{const p=companionProfile(c.id);if(p){Object.assign(c,{...companionState(c.id),...c});}});}
   return g;
   }catch(e){try{localStorage.removeItem(GKEY);}catch(e2){} return null;}}
 function gSave(){try{localStorage.setItem(GKEY,JSON.stringify(GAME));}catch(e){}}
@@ -2536,7 +2644,7 @@ function saveSlot(n){
 function loadSlot(n){
   const x=loadSaveSlots()[String(n)];if(!x||!x.GAME)return false;
   try{
-    GAME=x.GAME;ensureWorld(GAME);GAME.party.forEach(p=>{Object.assign(p,blank(),p);ensureProgression(p);});ROSTER=Array.isArray(x.ROSTER)?x.ROSTER.map(p=>{const q={...blank(),...p};ensureProgression(q);return q;}):[];C=x.C?{...blank(),...x.C}:blank();ensureProgression(C);
+    GAME=x.GAME;ensureWorld(GAME);ensureCampaignState(GAME);ensureCompanions(GAME);GAME.party.forEach(p=>{Object.assign(p,blank(),p);ensureProgression(p);});ROSTER=Array.isArray(x.ROSTER)?x.ROSTER.map(p=>{const q={...blank(),...p};ensureProgression(q);return q;}):[];C=x.C?{...blank(),...x.C}:blank();ensureProgression(C);
     customFactions=Array.isArray(x.customFactions)?x.customFactions:[];
     gSave();rSave();save();saveCustomFactions();scnUI="game";WIZ=null;renderSheet();renderScn();return true;
   }catch(e){alert("Uložená hra je poškodená.");return false;}
@@ -2582,10 +2690,15 @@ function gCheck(ch,key,dc){const s=sidesOf(gDie(ch,key));const nat=1+Math.floor(
 function weaponOf(ch){return DATA.weapons.find(w=>w.name===ch.equip)||DATA.weapons[0];}
 function ammoKeyForWeapon(w){
   const a=String(w?.stats?.Ammo||"");
-  const map={".357 Magnum":".357",".44 Magnum":".44","Arrows":"Arrow",".45-70 Gov":".45-70"};
+  const map={".357 Magnum":".357",".44 Magnum":".44","Arrows":"Arrow","Arrow":"Arrow",".45-70 Gov":".45-70","Shells":"Shells","Fuel":"Fuel"};
   return map[a]||a;
 }
-function weaponCapacity(w){const n=parseInt(String(w?.stats?.Capacity||"").replace(/[^0-9]/g,""));return Number.isFinite(n)&&n>0?n:0;}
+function weaponUpgradeRowsOwned(w){const S=SC();return (w?.upg||[]).map((u,gi)=>{const owned=wuOwned(w.name,gi);return {u,gi,owned,rows:(u.rows||[]).slice(0,owned)};});}
+function weaponUpgradeText(w){return weaponUpgradeRowsOwned(w).flatMap(x=>x.rows.map(r=>String(r[0]||""))).join(" | ");}
+function weaponEffectiveCapacity(w){let n=parseInt(String(w?.stats?.Capacity||"").replace(/[^0-9]/g,""));if(!Number.isFinite(n)||n<=0)return 0;for(const x of weaponUpgradeRowsOwned(w)){for(const r of x.rows){const m=String(r[0]||"").match(/(?:zásobník|clip)[^0-9]*(\d+)/i);if(m)n=Math.max(n,parseInt(m[1]));}}return n;}
+function weaponDamageExpr(w){let best=String(w?.stats?.Damage||w?.stats?.['Melee Damage']||'1D6');for(const x of weaponUpgradeRowsOwned(w)){for(const r of x.rows){const txt=String(r[0]||'');if(/damage/i.test(txt)){const m=txt.match(/((?:\d+\s*[dD]\s*\d+)(?:\s*\+\s*\d+\s*[dD]\s*\d+)*)/);if(m)best=m[1];}}}return best;}
+function weaponAimingBonus(w){let b=0;for(const x of weaponUpgradeRowsOwned(w)){for(const r of x.rows){const m=String(r[0]||'').match(/\+(\d+)\s*Aiming/i);if(m)b=Math.max(b,parseInt(m[1]));}}return b;}
+function weaponCapacity(w){return weaponEffectiveCapacity(w);}
 function weaponIsMelee(w){return !!w && !weaponCapacity(w) && (!!w.stats?.Type || !!w.stats?.["Melee Damage"] || String(w.stats?.Damage||"")==="Instant Kill");}
 function weaponDurabilityMax(w){
   const s=String(w?.stats?.Durability||"");
@@ -2618,7 +2731,8 @@ function ensureAmmoState(ch,w=weaponOf(ch)){
     ch.loaded[w.name]=Math.min(cap,total);
     ch.ammo[key]=Math.max(0,total-ch.loaded[w.name]);
   }
-  return {key,loaded:Math.max(0,ch.loaded[w.name]||0),reserve:Math.max(0,ch.ammo[key]||0),capacity:cap};
+  ch.loaded[w.name]=Math.min(cap,Math.max(0,ch.loaded[w.name]||0));
+  return {key,loaded:ch.loaded[w.name],reserve:Math.max(0,ch.ammo[key]||0),capacity:cap};
 }
 function reloadAmount(w){
   const cap=weaponCapacity(w), r=String(w?.stats?.Reload||"").toLowerCase();
@@ -2639,7 +2753,7 @@ function gMakeChar(name,clsName){
   DATA.skills.forEach(s=>c.skills[s.key]=2);
   const cls=(DATA.character.classes||[]).find(x=>x.name===clsName);
   if(cls&&cls.skills)cls.skills.forEach(k=>{if(k in c.skills)c.skills[k]++;});
-  c.cls=clsName||"";c.hp=25;c.hpMax=25;c.pills=80;c.equip="Pistol";
+  c.cls=clsName||"";c.hp=25;c.hpMax=25;c.pills=80;c.equip="Pistol";c.mats={Rag:0,Alcohol:0,Binding:0,Blades:0,Explosive:0,Canister:0};c.mats={Rag:0,Alcohol:0,Binding:0,Blades:0,Explosive:0,Canister:0};
   c.ammo["9mm"]=7;c.firstAid={qty:1,heal:10};
   c.inv=[{name:"Pistol",q:1},{name:"Bandáž",q:2}];
   return c;
@@ -2662,6 +2776,7 @@ function applyFx(fx){const ch=gActive();if(!ch||!fx)return;fx.forEach(f=>{
   if(f.firstaid){if(!ch.firstAid)ch.firstAid={qty:0,heal:10};ch.firstAid.qty=(ch.firstAid.qty||0)+f.firstaid;if(!ch.firstAid.heal)ch.firstAid.heal=10;}
   if(f.equip)ch.equip=f.equip;
   if(f.flag)GAME.flags[f.flag]=true;
+  if(f.clearFlag)delete GAME.flags[f.clearFlag];
 });}
 function lootKeyName(name){
   const map={"Pills":"Pilulky","Parts":"Diely","Medicine":"Lieky","Rag":"Handra","Alcohol":"Alkohol","Adhesive":"Lepidlo","Blades":"Čepele","Sugar":"Cukor","First Aid Kit":"Lekárnička","Ammo":"Munícia","Throwable":"Hádzateľný predmet","Hunting Long Gun":"Lovecká dlhá zbraň","Short Gun":"Krátka zbraň","Military Long Gun":"Vojenská dlhá zbraň","Military Utility":"Vojenské vybavenie","Body Armor":"Telesné brnenie","Combat Helmet":"Bojová prilba","Gas Mask":"Plynová maska","Flashlight":"Baterka","Guitar":"Gitara","Holster":"Puzdro","Melee Weapon":"Melee zbraň","Medical":"Zdravotnícke","Goods":"Tovar","Consumables":"Spotrebné","Utility":"Náradie","Crafting":"Výroba","Military":"Vojenské"};
@@ -2695,6 +2810,13 @@ function lootGive(ch,label){
   if(label==="Explosive"||label==="Explosives"){name="Explosive";}
   if(label==="Fuel Canister"){name="Fuel Canister";}
   if(label==="Binding"){name="Binding";}
+  if(["Rag","Alcohol","Binding","Blades","Explosive","Canister","Adhesive"].includes(label)) {
+    const key = label === "Adhesive" ? "Binding" : label;
+    qty = 1 + Math.floor(Math.random()*2);
+    if(!ch.mats) ch.mats={};
+    ch.mats[key]=(ch.mats[key]||0)+qty;
+    return `+${qty} ${craftLabel(key)}`;
+  }
   const weapon=DATA.weapons.find(w=>w.name===name);
   if(weapon){gAddInv(ch,name,1);return `+1 ${tr(name)}`;}
   gAddInv(ch,name,1);return `+1 ${lootKeyName(name)}`;
@@ -2704,20 +2826,22 @@ function lootRoll(ch,theme,dc){
   return r;
 }
 function craftLabel(name){
-  const m={"Molotov Cocktail":"Molotov","Nail Bomb":"Nail Bomb","Pipe Bomb":"Pipe Bomb","Smoke Bomb":"Dymovnica","Trap Mine":"Pasca","Shiv":"Shiv","Arrow":"Šíp","Fire Arrow":"Zápalný šíp","Explosive Arrow":"Výbušný šíp","First Aid Kit":"Lekárnička"};
+  const m={"Molotov Cocktail":"Molotov","Nail Bomb":"Nail Bomb","Pipe Bomb":"Pipe Bomb","Smoke Bomb":"Dymovnica","Trap Mine":"Pasca","Shiv":"Shiv","Arrow":"Šíp","Fire Arrow":"Zápalný šíp","Explosive Arrow":"Výbušný šíp","First Aid Kit":"Lekárnička","Stun Bomb":"Omračovací granát","Silencer":"Tlmič","Melee Upgrade":"Vylepšenie zbrane na blízko","Incendiary Shells":"Zápalné náboje","Hunting Pistol Ammo":"Munícia do loveckej pištole"};
   return m[name]||tr(name);
 }
 const CRAFT_RECIPES=[
-  {name:"Molotov Cocktail",needs:[["Rag",1,"mat"],["Fuel",1,"mat"]],out:["Molotov",1,"item"]},
-  {name:"Nail Bomb",needs:[["Blades",1,"mat"],["Explosive",1,"mat"]],out:["Nail Bomb",1,"item"]},
-  {name:"Pipe Bomb",needs:[["Explosive",2,"mat"]],out:["Pipe Bomb",1,"item"]},
-  {name:"Smoke Bomb",needs:[["Sugar",1,"mat"],["Explosive",1,"mat"]],out:["Smoke Bomb",1,"item"]},
-  {name:"Trap Mine",needs:[["Explosive",3,"mat"]],out:["Trap Mine",1,"item"]},
-  {name:"Shiv",needs:[["Blades",1,"mat"],["Binding",1,"mat"]],out:["Shiv",1,"item"]},
-  {name:"Arrow",needs:[["Blades",1,"mat"],["Binding",1,"mat"]],out:["Arrow",1,"ammo"]},
-  {name:"Fire Arrow",needs:[["Arrow",1,"ammo"],["Binding",1,"mat"],["Rag",1,"mat"],["Fuel",1,"mat"]],out:["Fire Arrow",1,"item"]},
-  {name:"Explosive Arrow",needs:[["Arrow",1,"ammo"],["Binding",1,"mat"],["Explosive",1,"mat"]],out:["Explosive Arrow",1,"item"]},
-  {name:"First Aid Kit",needs:[["Rag",1,"mat"],["Alcohol",1,"mat"]],out:["First Aid Kit",1,"item"]}
+  {name:"First Aid Kit",needs:[["Rag",1,"mat"],["Alcohol",1,"mat"]],out:["First Aid Kit",1,"item"]},
+  {name:"Molotov Cocktail",needs:[["Rag",1,"mat"],["Alcohol",1,"mat"]],out:["Molotov",1,"item"]},
+  {name:"Stun Bomb",needs:[["Canister",1,"mat"],["Explosive",1,"mat"]],out:["Stun Bomb",1,"item"]},
+  {name:"Trap Mine",needs:[["Canister",1,"mat"],["Explosive",1,"mat"]],out:["Trap Mine",1,"item"]},
+  {name:"Silencer",needs:[["Rag",1,"mat"],["Canister",1,"mat"]],out:["Silencer",1,"item"]},
+  {name:"Melee Upgrade",needs:[["Binding",1,"mat"],["Blades",1,"mat"]],out:["Melee Upgrade",1,"item"]},
+  {name:"Arrow",needs:[["Binding",1,"mat"],["Blades",1,"mat"]],out:["Arrow",1,"ammo"]},
+  {name:"Explosive Arrow",needs:[["Explosive",1,"mat"],["Binding",1,"mat"]],out:["Explosive Arrow",1,"item"]},
+  {name:"Pipe Bomb",needs:[["Alcohol",1,"mat"],["Canister",1,"mat"],["Explosive",1,"mat"]],out:["Pipe Bomb",1,"item"]},
+  {name:"Incendiary Shells",needs:[["Alcohol",1,"mat"],["Explosive",1,"mat"]],out:["Incendiary Shells",1,"item"]},
+  {name:"Hunting Pistol Ammo",needs:[["Explosive",1,"mat"],["Blades",1,"mat"]],out:["Hunting Pistol Ammo",1,"item"]},
+  {name:"Shiv",needs:[["Binding",1,"mat"],["Blades",1,"mat"]],out:["Shiv",1,"item"]}
 ];
 function craftAmount(ch,key,type){
   if(type==="mat"){
@@ -2747,8 +2871,11 @@ function craftOne(r){
   const ch=gActive();if(!ch||!r)return;
   if(!canCraft(ch,r)){GAME.banner={ok:false,text:`Na výrobu ${craftLabel(r.name)} nemáš dostatok materiálu.`};renderScn();return;}
   r.needs.forEach(([k,q,t])=>spendCraft(ch,k,q,t));
-  const [out,q,t]=r.out;
-  if(t==="ammo")ch.ammo[out]=(ch.ammo[out]||0)+q;else gAddInv(ch,out,q);
+  let [out,q,t]=r.out;
+  const ammoAlias={"Hunting Pistol Ammo":".308","Incendiary Shells":"Shells"};
+  if(t==="ammo"){ch.ammo[out]=(ch.ammo[out]||0)+q;}
+  else if(ammoAlias[out]){ch.ammo[ammoAlias[out]]=(ch.ammo[ammoAlias[out]]||0)+q;}
+  else gAddInv(ch,out,q);
   GAME.banner={ok:true,text:`Vyrobil si: ${craftLabel(out)}.`};gSave();renderSheet();renderScn();
 }
 function renderCraftingPanel(body){
@@ -2787,11 +2914,47 @@ function gUseItemOutside(name){const ch=gActive();if(!ch)return;const e=ch.inv.f
   e.q--;ch.hp=Math.min(ch.hpMax,ch.hp+heal);if(e.q<=0)ch.inv=ch.inv.filter(x=>x!==e);GAME.banner={ok:true,text:`${ch.name} použil ${tr(name)} (+${heal} HP).`};gSave();renderSheet();renderScn();
 }
 
+function ensureCampaignState(g){
+  if(!g)return;
+  g.flags=(g.flags&&typeof g.flags==='object')?g.flags:{};
+  g.branchHistory=Array.isArray(g.branchHistory)?g.branchHistory:[];
+  g.unlockedEvents=Array.isArray(g.unlockedEvents)?g.unlockedEvents:[];
+  g.disabledScenes=Array.isArray(g.disabledScenes)?g.disabledScenes:[];
+}
+function campaignApplyEffects(effects,source=''){if(!GAME||!Array.isArray(effects))return;ensureCampaignState(GAME);
+  effects.forEach(e=>{
+    if(!e)return;
+    if(e.setFlag)GAME.flags[e.setFlag]=true;
+    if(e.clearFlag)delete GAME.flags[e.clearFlag];
+    if(e.unlockEvent&&!GAME.unlockedEvents.includes(e.unlockEvent))GAME.unlockedEvents.push(e.unlockEvent);
+    if(e.disableScene&&!GAME.disabledScenes.includes(e.disableScene))GAME.disabledScenes.push(e.disableScene);
+    if(e.enableScene)GAME.disabledScenes=GAME.disabledScenes.filter(x=>x!==e.enableScene);
+    if(e.companion){
+      const st=companionStory(e.companion);
+      if(st&&e.status)st.status=e.status;
+      if(e.trust||e.bond)companionStoryDelta(e.companion,Number(e.trust||0),Number(e.bond||0),source||'Dôsledok rozhodnutia');
+    }
+    if(e.relationWith&&e.relationDelta&&e.companion)companionRelationDelta(e.companion,e.relationWith,Number(e.relationDelta),source||'Dôsledok rozhodnutia');
+  });
+  if(source)GAME.branchHistory.push({day:GAME.world?.day||1,source,effects:JSON.parse(JSON.stringify(effects))});
+}
+function campaignNeedVisible(need){if(!GAME)return false;ensureCampaignState(GAME);if(!need)return true;
+  if(need.campaign&&GAME.campaignPart!==need.campaign)return false;
+  if(need.chapter){const k=String(GAME.campaignChapter||'').toLowerCase();if(Array.isArray(need.chapter)?!need.chapter.map(String).map(x=>x.toLowerCase()).includes(k):String(need.chapter).toLowerCase()!==k)return false;}
+  if(need.scene&&GAME.scene!==need.scene)return false;
+  if(need.flag&&!GAME.flags[need.flag])return false;
+  if(need.notFlag&&GAME.flags[need.notFlag])return false;
+  if(Array.isArray(need.allFlags)&&!need.allFlags.every(x=>!!GAME.flags[x]))return false;
+  if(Array.isArray(need.anyFlag)&&!need.anyFlag.some(x=>!!GAME.flags[x]))return false;
+  if(need.notScene&&GAME.scene===need.notScene)return false;
+  return true;
+}
+function campaignSceneDisabled(id){ensureCampaignState(GAME);return GAME.disabledScenes.includes(id);}
+
 function gHasNeed(need){
   if(!need)return true;
   const ch=gActive();if(!ch)return false;
-  if(need.flag&&!GAME.flags[need.flag])return false;
-  if(need.notFlag&&GAME.flags[need.notFlag])return false;
+  if(!campaignNeedVisible(need))return false;
   if(need.item){const q=need.qty||1;if(!ch.inv?.some(x=>x.name===need.item&&(x.q||1)>=q))return false;}
   if(need.ammo){if((ch.ammo?.[need.ammo]||0)<(need.qty||1))return false;}
   if(need.mat){if((ch.mats?.[need.mat]||0)<(need.qty||1))return false;}
@@ -2802,11 +2965,12 @@ function gHasNeed(need){
   return true;
 }
 
-function wizPickStory(id){WIZ={storyId:id,difficulty:"survivor",permadeath:false,partyIds:[]};scnUI="wizDiff";renderScn();}
+function wizPickStory(id){WIZ={storyId:id,difficulty:"survivor",listenMode:true,permadeath:false,partyIds:[]};scnUI="wizDiff";renderScn();}
 function wizBackToStories(){scnUI="stories";renderScn();}
 function wizBackToDiff(){scnUI="wizDiff";renderScn();}
 function wizToParty(){scnUI="wizParty";renderScn();}
-function wizSetDiff(d){WIZ.difficulty=d;renderScn();}
+function wizSetDiff(d){WIZ.difficulty=d;if(d==="grounded")WIZ.listenMode=false;else if(typeof WIZ.listenMode!=="boolean")WIZ.listenMode=true;renderScn();}
+function wizToggleListen(){if(WIZ.difficulty==="grounded")return;WIZ.listenMode=!WIZ.listenMode;renderScn();}
 function wizTogglePermadeath(){WIZ.permadeath=!WIZ.permadeath;renderScn();}
 function wizToggleChar(id){const i=WIZ.partyIds.indexOf(id);
   if(i>=0)WIZ.partyIds.splice(i,1);else{if(WIZ.partyIds.length>=4)return;WIZ.partyIds.push(id);}
@@ -2817,8 +2981,8 @@ function gStartFromWizard(){
   const party=WIZ.partyIds.map(id=>{const src=ROSTER.find(r=>r.id===id);return src?JSON.parse(JSON.stringify(src)):null;}).filter(Boolean);
   party.forEach(p=>ensureProgression(p));
   if(!party.length)return;
-  GAME={storyId:st.id,scene:st.start,flags:{},visited:{},party,active:0,
-    difficulty:WIZ.difficulty,permadeath:WIZ.permadeath,banner:null,combat:null,looted:{},world:blankWorld()};
+  GAME={storyId:st.id,scene:st.start,campaignPart:(/left.?behind|dlc/i.test(String(st.title||st.id))?'leftBehind':/part.?ii|part2|seattle|abby/i.test(String(st.title||st.id))?'partII':'partI'),campaignChapter:st.start,flags:{},visited:{},party,active:0,
+    difficulty:WIZ.difficulty,listenMode:(WIZ.listenMode!==false && WIZ.difficulty!=="grounded"),permadeath:WIZ.permadeath,banner:null,combat:null,looted:{},companionIds:[],companions:[],world:blankWorld(),branchHistory:[],unlockedEvents:[],disabledScenes:[]};
   if(GAME.difficulty==="grounded"){ // rulebook Grounded: nové postavy bez piluliek a bez štartovacej výbavy
     GAME.party.forEach(p=>{p.pills=0;p.inv=[];p.ammo=zeroMap(AMMO_TYPES);p.mats=zeroMap(MAT_TYPES);
       p.firstAid={qty:0,heal:(p.firstAid&&p.firstAid.heal)||10};});
@@ -2835,17 +2999,22 @@ function gSwitch(i){if(!GAME||!GAME.party[i]||GAME.party[i].dead)return;
   if(GAME.combat&&!GAME.combat.result&&GAME.active!==i&&GAME.party[GAME.active]&&GAME.party[GAME.active].hp>0)return;
   GAME.active=i;gSave();renderSheet();renderScn();}
 
-function gGoto(sceneId,first){const st=curStory();const sc=st.scenes[sceneId];if(!sc)return;
-  GAME.scene=sceneId;
+function inferCampaignPart(){const st=curStory();const raw=String(GAME?.campaignPart||GAME?.storyId||st?.id||'').toLowerCase();const title=String(st?.title||'').toLowerCase();if(/left.?behind|dlc/.test(raw+' '+title))return 'leftBehind';if(/part.?ii|part2|p2|seattle|abby/.test(raw+' '+title))return 'partII';return 'partI';}
+function campaignChapterKey(){const sc=curScene();return String(sc?.chapter||sc?.id||GAME?.scene||'').toLowerCase();}
+function gGoto(sceneId,first){const st=curStory();const sc=st.scenes[sceneId];if(!sc)return;ensureCampaignState(GAME);if(campaignSceneDisabled(sceneId)){GAME.banner={ok:false,text:'Táto scéna je momentálne nedostupná v tejto vetve kampane.'};gSave();renderScn();return;}
+  GAME.scene=sceneId;GAME.campaignPart=GAME.campaignPart||inferCampaignPart();GAME.campaignChapter=sc.chapter||sceneId;
   if(sc.onEnter&&!GAME.visited[sceneId])applyFx(sc.onEnter);
   const firstVisit=!GAME.visited[sceneId];
   GAME.visited[sceneId]=true;
   if(firstVisit){const reward=Number(sc.xp)||Number(progCfg()?.rewards?.scene)||0;if(reward)addPartyXP(reward,"scéna");}
+  if(!GAME.pendingCompanionEvent)companionTriggerEvent('scene');
   if(sc.combat){gStartCombat(sc);} else {GAME.combat=null;}
   gSave();renderScn();
 }
 function gChoice(ch){ // ch = choice object
   if(ch.restart){gReset();return;}
+  ensureCampaignState(GAME);
+  if(ch.effects)campaignApplyEffects(ch.effects,`Voľba: ${ch.t||'—'}`);
   if(ch.check){const ac=gActive();
     const diffMod=GAME.difficulty==="grounded"?2:(GAME.difficulty==="story"?-2:0);
     const dc=Math.max(1,ch.check.dc+diffMod);
@@ -2890,9 +3059,9 @@ function mkFoe(f){let stats=null,inf=null;
     Runner:{kind:"runner",attacks:1},
     Stalker:{kind:"stalker",attacks:1,ambush:true},
     Clicker:{kind:"clicker",attacks:1,berserk:true},
-    Shambler:{kind:"shambler",attacks:1,deathBurst:"6D6"},
-    Bloater:{kind:"bloater",attacks:2,toxin:"2D10"},
-    "Rat King":{kind:"ratking",attacks:5,splitEvery:50,damageTaken:0}
+    Shambler:{kind:"shambler",attacks:1,deathBurst:"6D6",bossTier:"elite",acidCooldown:0},
+    Bloater:{kind:"bloater",attacks:2,toxin:"2D10",bossTier:"elite",fungalArmor:8,armorMax:8,sporeCooldown:0,chargeCooldown:0},
+    "Rat King":{kind:"ratking",attacks:3,splitEvery:50,damageTaken:0,bossTier:"boss",bossPhase:1,phaseThresholds:[0.70,0.35],phaseTriggered:{},bossCooldown:0}
   }[name]||{kind:f.type==="enemy"?"human":"infected",attacks:1};
   return {name,hp,hpMax:hp,dmg:stats.Damage,hitDC:+String(stats["Hit DC"]).replace(/\D/g,"")||7,dodgeDC:+String(stats["Dodge DC"]).replace(/\D/g,"")||7,...special};
 }
@@ -2910,15 +3079,186 @@ function combatInitScore(p){
   const sh=Number(p.skills?.shrewd||p.skills?.Shrewd||6)||6;
   return Math.max(1,Math.floor(Math.random()*12)+1)+Math.max(q,sh);
 }
+
+/* ---------- Companion System 1.0 ----------
+   Story companions are separate from the player-controlled party. They have
+   their own HP/AP, position, weapon profile and lightweight AI. */
+const COMPANION_PROFILES={
+  dina:{id:'dina',name:'Dina',faction:'Jackson',role:'support',hpMax:22,apMax:4,attackExpr:'1D8',range:5,hitSkill:'aiming',skills:{aiming:3,elusive:3,instinct:3},weapon:'Pistol',support:'stun',storyProtected:true},
+  jesse:{id:'jesse',name:'Jesse',faction:'Jackson',role:'ranged',hpMax:25,apMax:4,attackExpr:'1D10',range:7,hitSkill:'aiming',skills:{aiming:4,elusive:3,instinct:3},weapon:'Semi-Auto Rifle',support:null,storyProtected:true},
+  tommy:{id:'tommy',name:'Tommy',faction:'Jackson',role:'marksman',hpMax:28,apMax:4,attackExpr:'1D12',range:8,hitSkill:'aiming',skills:{aiming:5,elusive:3,instinct:4},weapon:'Hunting Rifle',support:null,storyProtected:true},
+  joel:{id:'joel',name:'Joel',faction:'Jackson',role:'bruiser',hpMax:30,apMax:4,attackExpr:'1D10',range:5,hitSkill:'aiming',skills:{aiming:4,brutality:4,elusive:3,instinct:4},weapon:'Revolver',support:'protect',storyProtected:true},
+  lev:{id:'lev',name:'Lev',faction:'Seraphites',role:'stealth-ranged',hpMax:20,apMax:4,attackExpr:'1D8',range:8,hitSkill:'aiming',skills:{aiming:4,elusive:5,instinct:4},weapon:'Bow',support:'stealth',storyProtected:true},
+  yara:{id:'yara',name:'Yara',faction:'Seraphites',role:'support',hpMax:23,apMax:4,attackExpr:'1D8',range:5,hitSkill:'aiming',skills:{aiming:3,elusive:3,instinct:4,medicine:4},weapon:'Pistol',support:'heal',storyProtected:true},
+  mel:{id:'mel',name:'Mel',faction:'WLF',role:'medic',hpMax:21,apMax:4,attackExpr:'1D8',range:5,hitSkill:'aiming',skills:{aiming:2,elusive:3,instinct:4,medicine:5},weapon:'Pistol',support:'heal',storyProtected:true},
+  manny:{id:'manny',name:'Manny',faction:'WLF',role:'ranged',hpMax:26,apMax:4,attackExpr:'1D10',range:7,hitSkill:'aiming',skills:{aiming:4,elusive:3,instinct:4},weapon:'Pistol',support:null,storyProtected:true},
+  tess:{id:'tess',name:'Tess',faction:'Fireflies',role:'ranged',hpMax:24,apMax:4,attackExpr:'1D8',range:5,hitSkill:'aiming',skills:{aiming:4,elusive:4,instinct:4},weapon:'Pistol',support:null,storyProtected:true},
+  bill:{id:'bill',name:'Bill',faction:'Survivors',role:'bruiser',hpMax:26,apMax:4,attackExpr:'2D6',range:4,hitSkill:'aiming',skills:{aiming:3,brutality:5,elusive:2,instinct:3},weapon:'Shotgun',support:'protect',storyProtected:true},
+  riley:{id:'riley',name:'Riley',faction:'Fireflies',role:'stealth-ranged',hpMax:18,apMax:4,attackExpr:'1D8',range:5,hitSkill:'aiming',skills:{aiming:3,elusive:4,instinct:4},weapon:'Pistol',support:'stealth',storyProtected:true}
+};
+function companionProfile(id){return COMPANION_PROFILES[id]||null;}
+function companionState(id){const p=companionProfile(id);if(!p)return null;return {id:p.id,name:p.name,hp:p.hpMax,hpMax:p.hpMax,ap:p.apMax,apMax:p.apMax,downed:false,dead:false,hidden:false,storyProtected:p.storyProtected!==false,role:p.role,skills:{...p.skills},weapon:p.weapon,attackExpr:p.attackExpr,range:p.range,hitSkill:p.hitSkill,support:p.support,mode:'aggressive',guardTarget:null,focusTarget:null,loyaltyTier:'neutral',refusedCommand:false,loyaltyBonus:0};}
+const COMPANION_STORY={
+  dina:{recruitable:true,defaultTrust:2,defaultBond:1,arc:'Jackson',note:'Spoločníčka dostupná podľa priebehu kampane.'},
+  jesse:{recruitable:true,defaultTrust:2,defaultBond:1,arc:'Jackson',note:'Prieskum a ochrana partie.'},
+  tommy:{recruitable:true,defaultTrust:3,defaultBond:1,arc:'Jackson',note:'Skúsený strelec; dostupnosť riadi príbeh.'},
+  joel:{recruitable:true,defaultTrust:3,defaultBond:2,arc:'Part I',note:'Dostupnosť riadi konkrétna kapitola.'},
+  lev:{recruitable:true,defaultTrust:2,defaultBond:1,arc:'Seraphites',note:'Dostupnosť riadi príbeh.'},
+  yara:{recruitable:true,defaultTrust:2,defaultBond:1,arc:'Seraphites',note:'Podpora a liečenie.'},
+  mel:{recruitable:true,defaultTrust:2,defaultBond:1,arc:'WLF',note:'Medic; dostupnosť riadi príbeh.'},
+  manny:{recruitable:true,defaultTrust:2,defaultBond:1,arc:'WLF',note:'Strelec; dostupnosť riadi príbeh.'},
+  tess:{recruitable:true,defaultTrust:2,defaultBond:1,arc:'Part I',note:'Dostupnosť riadi konkrétna kapitola.'},
+  bill:{recruitable:true,defaultTrust:1,defaultBond:1,arc:'Part I',note:'Dostupnosť riadi konkrétna kapitola.'},
+  riley:{recruitable:true,defaultTrust:2,defaultBond:2,arc:'Left Behind',note:'Dostupnosť riadi konkrétna kapitola.'}
+};
+function companionStoryState(id){const d=COMPANION_STORY[id]||{};return {recruited:false,trust:Number(d.defaultTrust)||0,bond:Number(d.defaultBond)||0,status:'available',arc:d.arc||'',events:[],lastEvent:null};}
+function ensureCompanions(g){if(!g)return;ensureCompanionRelations(g);g.companionIds=Array.isArray(g.companionIds)?g.companionIds.filter(id=>!!companionProfile(id)):[];g.companionIds=[...new Set(g.companionIds)].slice(0,2);g.companions=Array.isArray(g.companions)?g.companions:[];g.companionStory=(g.companionStory&&typeof g.companionStory==='object')?g.companionStory:{};Object.keys(COMPANION_PROFILES).forEach(id=>{g.companionStory[id]={...companionStoryState(id),...(g.companionStory[id]||{})};g.companionStory[id].trust=Math.max(0,Math.min(5,Number(g.companionStory[id].trust)||0));g.companionStory[id].bond=Math.max(0,Math.min(5,Number(g.companionStory[id].bond)||0));g.companionStory[id].events=Array.isArray(g.companionStory[id].events)?g.companionStory[id].events:[];});g.companionIds.forEach(id=>{g.companionStory[id].recruited=true;g.companionStory[id].status='active';});}
+function companionAvailable(id){if(!GAME||!companionProfile(id))return false;ensureCompanions(GAME);const st=GAME.companionStory[id];if(st?.status==='left'||st?.status==='dead')return false;return !GAME.party?.some(p=>String(p.name||'').toLowerCase()===String(companionProfile(id).name).toLowerCase());}
+function companionStory(id){ensureCompanions(GAME);return GAME.companionStory[id]||null;}
+/* ---------- Companion Story Events 1.0 ----------
+   One-shot narrative events with explicit choices and persistent consequences.
+*/
+const COMPANION_EVENTS=[
+ {id:'p1_tess_first_mission',when:{campaign:'partI',companion:'tess',minTrust:1},title:'Tess — pred odchodom',text:'Tess chce vedieť, či sa pri ďalšom postupe budeš držať dohody alebo improvizovať.',choices:[
+  {label:'Držať sa dohody',trust:1,bond:1,result:'Tess ti viac dôveruje pri ďalšom postupe.'},
+  {label:'Improvizovať podľa situácie',trust:0,bond:1,result:'Tess prijme tvoje rozhodnutie, ale bude sledovať jeho dôsledky.'}]},
+ {id:'p1_bill_supply_argument',when:{campaign:'partI',companion:'bill',minTrust:1},title:'Bill — zásoby',text:'Bill nechce riskovať zásoby kvôli výprave, ktorá podľa neho nemá jasný cieľ.',choices:[
+  {label:'Ušetriť zásoby',trust:1,bond:0,result:'Bill oceňuje opatrnosť.'},
+  {label:'Riskovať kvôli výprave',trust:-1,bond:1,result:'Bill nesúhlasí, ale rešpektuje odhodlanie.'}]},
+ {id:'p1_joel_survivor_rule',when:{campaign:'partI',companion:'joel',minTrust:2},title:'Joel — pravidlo prežitia',text:'Joel ti pripomenie, že prežitie má niekedy prednosť pred plánom.',choices:[
+  {label:'Súhlasiť',trust:1,bond:1,result:'Joel vidí, že rozmýšľate podobne.'},
+  {label:'Trvať na pôvodnom pláne',trust:0,bond:1,result:'Joel rešpektuje tvoju samostatnosť.'}]},
+ {id:'lb_riley_memory',when:{campaign:'leftBehind',companion:'riley',minBond:2},title:'Riley — spomienka',text:'Riley otvorí tému minulosti a čaká, či jej dáš priestor hovoriť.',choices:[
+  {label:'Vypočuť ju',trust:1,bond:1,result:'Riley sa ti otvorí viac.'},
+  {label:'Zmeniť tému',trust:0,bond:-1,result:'Riley tému nechá tak.'}]},
+ {id:'p2_dina_patrol',when:{campaign:'partII',companion:'dina',minTrust:2},title:'Dina — hliadka',text:'Dina navrhne tichší postup cez okraj oblasti.',choices:[
+  {label:'Prijať jej trasu',trust:1,bond:1,result:'Dina si všimne, že jej skúsenosti berieš vážne.'},
+  {label:'Zvoliť vlastnú trasu',trust:0,bond:0,result:'Dina bude nasledovať tvoje rozhodnutie.'}]},
+ {id:'p2_jesse_risk',when:{campaign:'partII',companion:'jesse',minTrust:2},title:'Jesse — riziko',text:'Jesse upozorní na riziko ďalšieho postupu a navrhne návrat k bezpečnejšej pozícii.',choices:[
+  {label:'Ustúpiť a prehodnotiť situáciu',trust:1,bond:1,result:'Jesse oceňuje, že berieš riziko vážne.'},
+  {label:'Pokračovať',trust:0,bond:1,result:'Jesse zostane pri tebe a bude kryť postup.'}]},
+ {id:'p2_lev_trust',when:{campaign:'partII',companion:'lev',minBond:2},title:'Lev — dôvera',text:'Lev sa ťa spýta, či mu pri ďalšom postupe budeš dôverovať bez ďalších otázok.',choices:[
+  {label:'Dôverovať mu',trust:1,bond:1,result:'Lev sa bude cítiť istejšie v skupine.'},
+  {label:'Požadovať vysvetlenie',trust:0,bond:0,result:'Lev vysvetlí svoje rozhodnutie a zostane opatrný.'}]},
+ {id:'p2_yara_support',when:{campaign:'partII',companion:'yara',minTrust:1},title:'Yara — podpora',text:'Yara navrhne zastaviť sa a ošetriť zraneného člena skupiny.',choices:[
+  {label:'Zastaviť sa',trust:1,bond:1,result:'Yara oceňuje, že zdravie skupiny má prednosť.'},
+  {label:'Pokračovať',trust:-1,bond:0,result:'Yara nesúhlasí s rizikom, ale pokračuje.'}]},
+ {id:'p2_manny_patience',when:{campaign:'partII',companion:'manny',minTrust:1},title:'Manny — trpezlivosť',text:'Manny navrhne počkať na vhodnejší okamih pred ďalším presunom.',choices:[
+  {label:'Počkať',trust:1,bond:1,result:'Manny ocení koordinovaný postup.'},
+  {label:'Vyraziť okamžite',trust:0,bond:0,result:'Manny sa prispôsobí.'}]},
+ {id:'companion_low_trust',when:{minTrust:0,maxTrust:1},title:'Napätie v skupine',text:'Spoločník začne pochybovať o ďalšom postupe.',choices:[
+  {label:'Vysvetliť plán',trust:1,bond:1,result:'Spoločník lepšie chápe tvoje rozhodnutie.'},
+  {label:'Pokračovať bez diskusie',trust:-1,bond:-1,result:'Napätie zostáva.'}]},
+ {id:'companion_high_bond',when:{minBond:4},title:'Silné puto',text:'Spoločník ti ponúkne pomoc ešte predtým, než o ňu požiadaš.',choices:[
+  {label:'Prijať pomoc',trust:1,bond:1,result:'Vzájomná dôvera sa posilnila.'},
+  {label:'Odmietnuť',trust:0,bond:-1,result:'Rozhodnutie rešpektuje, ale puto sa mierne oslabí.'}]},
+ {id:'companion_combat_survivor',when:{afterCombat:true},title:'Po boji',text:'Po poslednom strete má spoločník vlastný pohľad na to, čo sa stalo.',choices:[
+  {label:'Prebrať chyby',trust:1,bond:1,result:'Spoločník si váži otvorenú diskusiu.'},
+  {label:'Nechať to tak',trust:0,bond:0,result:'Skupina pokračuje ďalej bez ďalšej zmeny.'}]}
+];
+function companionEventState(g){if(!g)return null;g.companionEvents=(g.companionEvents&&typeof g.companionEvents==='object')?g.companionEvents:{};g.companionEventLog=Array.isArray(g.companionEventLog)?g.companionEventLog:[];return g.companionEvents;}
+function companionEventEligible(ev,trigger='scene'){if(!GAME||!ev)return false;ensureCompanions(GAME);const w=ev.when||{};if(w.afterCombat&&trigger!=='combat')return false;if(!w.afterCombat&&trigger==='combat')return false;const cp=GAME.campaignPart||inferCampaignPart();if(w.campaign&&w.campaign!==cp)return false;if(w.chapter&&!(Array.isArray(w.chapter)?w.chapter.includes(GAME.campaignChapter):w.chapter===GAME.campaignChapter))return false;if(w.scene&&GAME.scene!==w.scene)return false;const active=(GAME.companionIds||[]).filter(id=>GAME.companionStory?.[id]?.status==='active');if(w.companion&&!active.includes(w.companion))return false;const id=w.companion||active[0];if(!id)return false;const st=GAME.companionStory?.[id];if(!st)return false;if(w.minTrust!=null&&st.trust<Number(w.minTrust))return false;if(w.maxTrust!=null&&st.trust>Number(w.maxTrust))return false;if(w.minBond!=null&&st.bond<Number(w.minBond))return false;return true;}
+function companionTriggerEvent(trigger='scene'){if(!GAME)return null;const seen=companionEventState(GAME);for(const ev of COMPANION_EVENTS){if(seen[ev.id])continue;if(companionEventEligible(ev,trigger)){const active=(GAME.companionIds||[]).filter(id=>GAME.companionStory?.[id]?.status==='active');const cid=ev.when?.companion&&active.includes(ev.when.companion)?ev.when.companion:active[0];GAME.pendingCompanionEvent={id:ev.id,companionId:cid,title:ev.title,text:ev.text,choices:ev.choices.map((c,i)=>({...c,index:i}))};gSave();return ev;}}return null;}
+function companionResolveEvent(index){if(!GAME?.pendingCompanionEvent)return;const pe=GAME.pendingCompanionEvent;const ev=COMPANION_EVENTS.find(x=>x.id===pe.id);const choice=ev?.choices?.[Number(index)];if(!ev||!choice)return;const cid=pe.companionId;const st=companionStory(cid);if(choice.effects)campaignApplyEffects(choice.effects,`Event: ${ev.id}`);if(st){st.trust=Math.max(0,Math.min(5,st.trust+Number(choice.trust||0)));st.bond=Math.max(0,Math.min(5,st.bond+Number(choice.bond||0)));st.events.push({day:GAME.world?.day||1,event:`${ev.id}: ${choice.label}`,trust:st.trust,bond:st.bond});st.lastEvent=choice.result||choice.label;}companionEventState(GAME)[ev.id]=true;GAME.companionEventLog.push({day:GAME.world?.day||1,eventId:ev.id,companionId:cid,choice:choice.label});GAME.pendingCompanionEvent=null;GAME.banner={ok:(choice.trust||0)>=0,text:choice.result||choice.label};gSave();renderScn();}
+function renderPendingCompanionEvent(body){const pe=GAME?.pendingCompanionEvent;if(!pe)return;const box=document.createElement('div');box.className='card';box.style.marginTop='10px';box.style.borderColor='var(--amber)';box.innerHTML=`<div class="eyebrow">Príbehová udalosť · ${esc(companionProfile(pe.companionId)?.name||'Spoločník')}</div><h3 style="margin:4px 0 7px">${esc(pe.title)}</h3><p class="story" style="margin:0">${esc(pe.text)}</p>`;const row=document.createElement('div');row.style.cssText='display:grid;gap:7px;margin-top:10px';(pe.choices||[]).forEach((c,i)=>{const b=document.createElement('button');b.className='btn '+(i===0?'amber':'ghost');b.textContent=c.label;b.onclick=()=>companionResolveEvent(i);row.appendChild(b);});box.appendChild(row);body.appendChild(box);}
+
+function companionStoryDelta(id,trust=0,bond=0,event=''){const st=companionStory(id);if(!st)return;st.trust=Math.max(0,Math.min(5,st.trust+Number(trust||0)));st.bond=Math.max(0,Math.min(5,st.bond+Number(bond||0)));if(event){st.events.push({day:GAME.world?.day||1,event,trust:st.trust,bond:st.bond});st.lastEvent=event;}gSave();}
+function companionRecruit(id){if(!GAME||!companionProfile(id))return;ensureCompanions(GAME);const st=companionStory(id);if(st.status==='left'||st.status==='dead')return;if(GAME.companionIds.includes(id)){GAME.banner={ok:true,text:`${companionProfile(id).name} je už v skupine.`};renderScn();return;}if(GAME.companionIds.length>=2){GAME.banner={ok:false,text:'Maximum sú 2 aktívni spoločníci.'};renderScn();return;}st.recruited=true;st.status='active';GAME.companionIds.push(id);GAME.companions=[];companionStoryDelta(id,1,1,'Pripojil sa k partii');GAME.banner={ok:true,text:`${companionProfile(id).name} sa pridal k partii.`};renderScn();}
+function companionDismiss(id){if(!GAME)return;ensureCompanions(GAME);const st=companionStory(id);const i=GAME.companionIds.indexOf(id);if(i<0)return;GAME.companionIds.splice(i,1);st.status='available';GAME.companions=[];companionStoryDelta(id,0,-1,'Dočasne opustil aktívnu partiu');GAME.banner={ok:true,text:`${companionProfile(id).name} zostáva mimo aktívnej partie.`};renderScn();}
+function companionTalk(id){const p=companionProfile(id),st=companionStory(id);if(!p||!st||st.status!=='active')return;const lines={dina:'Dina si vypočuje tvoje rozhodnutie a zapamätá si ho.',jesse:'Jesse preberie s partiou ďalší postup.',tommy:'Tommy skontroluje okolie a ponúkne praktickú radu.',joel:'Joel zostane stručný, ale dá jasne najavo, čo považuje za riziko.',lev:'Lev pozorne sleduje okolie a povie, čo si všimol.',yara:'Yara sa pýta na stav partie a zásoby.',mel:'Mel skontroluje zranenia a zdravotné zásoby.',manny:'Manny prejde možné strelecké pozície.',tess:'Tess preberie s tebou riziká ďalšieho úseku.',bill:'Bill upozorní na pasce a obranné možnosti.',riley:'Riley sa podelí o svoj pohľad na situáciu.'};companionStoryDelta(id,1,1,'Rozhovor');GAME.banner={ok:true,text:lines[id]||`${p.name} prebral situáciu s partiou.`};renderScn();}
+function companionSupportEvent(id){const p=companionProfile(id),st=companionStory(id);if(!p||!st||st.status!=='active')return;const ok=st.trust>=2||st.bond>=2;if(ok){companionStoryDelta(id,0,1,'Vzájomná podpora');GAME.banner={ok:true,text:`${p.name}: vzájomná podpora posilnila puto.`};}else{companionStoryDelta(id,-1,0,'Napätie');GAME.banner={ok:false,text:`${p.name}: medzi postavami vzniklo napätie.`};}renderScn();}
+function toggleCompanion(id){if(!GAME)return;ensureCompanions(GAME);if(!companionAvailable(id))return;const i=GAME.companionIds.indexOf(id);if(i>=0)GAME.companionIds.splice(i,1);else{if(GAME.companionIds.length>=2){GAME.banner={ok:false,text:'Maximum sú 2 spoločníci naraz.'};renderScn();return;}GAME.companionIds.push(id);}GAME.companions=[];gSave();renderScn();}
+function companionResetStates(cb){
+  if(!cb)return;ensureCompanions(GAME);const old=Array.isArray(GAME.companions)?GAME.companions:[];
+  cb.companions=(GAME.companionIds||[]).map(id=>{const prev=old.find(x=>x.id===id);return prev?{...companionState(id),...prev,skills:{...companionProfile(id).skills,...(prev.skills||{})},mode:prev.mode||'aggressive',focusTarget:Number.isInteger(prev.focusTarget)?prev.focusTarget:null,guardTarget:prev.guardTarget||null}:companionState(id);}).filter(Boolean);
+  cb.companions.forEach((c,i)=>{c.ap=c.apMax;c.downed=false;c.dead=false;c.cell=c.cell||['D3','D4'][i]||'D3';});
+  cb.tactical=cb.tactical||{};cb.tactical.companionCell=cb.companions.reduce((m,c,i)=>(m[i]=c.cell,m),{});
+  GAME.companions=JSON.parse(JSON.stringify(cb.companions));
+}
+function companionPersist(cb){if(!GAME||!cb)return;GAME.companions=JSON.parse(JSON.stringify(cb.companions||[]));gSave();}
+function companionModeLabel(m){return ({aggressive:'ÚTOK',defensive:'OBRANA',stealth:'STEALTH',medic:'MEDIK',hold:'DRŽAŤ POZÍCIU'}[m]||'ÚTOK');}
+function companionSetMode(id,mode){const c=(GAME?.combat?.companions||[]).find(x=>x.id===id);if(!c)return;c.mode=['aggressive','defensive','stealth','medic','hold'].includes(mode)?mode:'aggressive';clog(`${c.name}: príkaz ${companionModeLabel(c.mode)}.`,'hit');companionPersist(GAME.combat);renderScn();}
+function companionFocus(id,foeIndex){const cb=GAME?.combat;if(!cb)return;const c=(cb.companions||[]).find(x=>x.id===id);const foe=cb.foes?.[foeIndex];if(!c||!foe||foe.hp<=0)return;c.focusTarget=foeIndex;clog(`${c.name}: zameranie na ${foe.name}.`,'hit');companionPersist(cb);renderScn();}
+function companionClearFocus(id){const c=(GAME?.combat?.companions||[]).find(x=>x.id===id);if(!c)return;c.focusTarget=null;companionPersist(GAME.combat);renderScn();}
+
+
+function companionLoyalty(id){const st=companionStory(id);if(!st)return {tier:'neutral',bonus:0,refuse:0};const t=Number(st.trust)||0,b=Number(st.bond)||0;let tier='neutral',bonus=0,refuse=0;if(t<=1){tier='strained';refuse=0.35;}else if(t>=4&&b>=4){tier='loyal';bonus=1;}else if(t>=3||b>=3){tier='supportive';bonus=0.5;}return {tier,bonus,refuse};}
+function applyCompanionLoyalty(c){const l=companionLoyalty(c.id);c.loyaltyTier=l.tier;c.loyaltyBonus=l.bonus;c.refusedCommand=false;return l;}
+function companionCommandAllowed(c){const l=companionApplyRelationshipToCombat(c);if(l.refuse<=0)return true;if(c.mode==='hold'||c.mode==='defensive'||c.mode==='medic')return true;if(Math.random()<l.refuse){c.refusedCommand=true;c.ap=0;companionStoryDelta(c.id,0,-1,'Odmietol riskantný príkaz');clog(`${c.name}: odmietol riskantný príkaz pre nízku dôveru.`,'miss');return false;}return true;}
+function companionLiving(cb){return (cb?.companions||[]).filter(c=>c.hp>0&&!c.dead&&!c.downed);}
+function companionDistance(c,foe,cb){tacticalEnsure(cb);const i=cb.companions.indexOf(c);const from=c.cell||cb.tactical.companionCell?.[i]||'D3';const fi=cb.foes.indexOf(foe);const to=cb.tactical.foeCell?.[fi]||cb.tactical.foePos?.[fi]||'A1';return cellDist(from,to);}
+function companionNearestFoe(c,cb){return cb.foes.filter(f=>f.hp>0).sort((a,b)=>companionDistance(c,a,cb)-companionDistance(c,b,cb))[0]||null;}
+function companionMoveToward(c,foe,cb,steps){const i=cb.companions.indexOf(c);const fi=cb.foes.indexOf(foe);const from=c.cell||cb.tactical.companionCell?.[i]||'D3';const to=cb.tactical.foeCell?.[fi]||cb.tactical.foePos?.[fi]||'A1';let A=parseCell(from),B=parseCell(to),cell=from;for(let n=0;n<steps;n++){if(A.x!==B.x)A.x+=A.x<B.x?1:-1;else if(A.y!==B.y)A.y+=A.y<B.y?1:-1;cell=gridCell(A.x,A.y);}c.cell=cell;cb.tactical.companionCell[i]=cell;if(c.mode!=='stealth'){cb.ai.noise=(cb.ai.noise||0)+1;cb.tactical.soundEvents.push({cell,amount:1,round:cb.round||1,by:`companion:${c.id}`});}return cell;}
+function companionHeal(c,cb){const target=GAME.party.filter(p=>p.hp>0&&p.hp<p.hpMax).sort((a,b)=>a.hp/a.hpMax-b.hp/b.hpMax)[0];if(!target||c.ap<2)return false;const amount=c.support==='heal'?5:0;if(!amount)return false;target.hp=Math.min(target.hpMax,target.hp+amount);c.ap-=2;clog(`${c.name}: ošetril ${target.name} (+${amount} HP).`,'hit');return true;}
+function companionAttack(c,foe,cb){if(!c||!foe||c.ap<2)return false;const r=gCheck(c,c.hitSkill||'aiming',Number(foe.dodgeDC)||7);c.ap-=2;if(r.success){let d=rollExpr(c.attackExpr||'1D6');if(r.crit)d*=2;d+=Math.floor(Number(c.loyaltyBonus||0));d=bossIncomingDamage(foe,d,c.weapon||'companion');foe.hp=Math.max(0,foe.hp-d);foe.damageTaken=(foe.damageTaken||0)+d;clog(`${c.name}: ${c.weapon||'útok'} → ${foe.name} za ${d}${r.crit?' KRIT!':''}.`,r.crit?'crit':'hit');if(foe.hp<=0){gFoeDeathEffect(foe);if(GAME.difficulty==='grounded')grDropRoll(GAME.party[GAME.active]);}return true;}clog(`${c.name}: minul ${foe.name} (${r.total} vs DC ${r.dc}).`,'miss');return true;}
+function companionSpecial(c,cb){if(c.support==='heal')return companionHeal(c,cb);if(c.support==='stun'){const f=companionNearestFoe(c,cb);if(f&&c.ap>=2){f.stunned=Math.max(1,f.stunned||0);c.ap-=2;clog(`${c.name}: omráčil ${f.name}.`,'hit');return true;}}if(c.support==='protect'){const target=GAME.party.filter(p=>p.hp>0).sort((a,b)=>a.hp-b.hp)[0];if(target&&c.ap>=1){target.combatGuard=Math.max(target.combatGuard||0,2);c.ap-=1;clog(`${c.name}: kryje ${target.name}.`,'hit');return true;}}return false;}
+function companionTurn(){
+  const cb=GAME.combat;if(!cb||cb.result)return;
+  const liveFoes=cb.foes.filter(f=>f.hp>0);if(!liveFoes.length){cb.result='win';return;}
+  tacticalEnsure(cb);
+  (cb.companions||[]).forEach(c=>{
+    if(c.dead||c.downed||c.hp<=0)return;
+    c.ap=c.apMax;c.mode=c.mode||'aggressive';applyCompanionLoyalty(c);
+    if(!companionCommandAllowed(c))return;
+    const wounded=GAME.party.filter(p=>p.hp>0&&p.hp<p.hpMax).sort((a,b)=>a.hp/a.hpMax-b.hp/b.hpMax)[0];
+    if((c.mode==='medic'||(c.hp<c.hpMax*.45&&c.support==='heal'))&&c.support==='heal'&&wounded&&companionHeal(c,cb)){c.ap=Math.max(0,c.ap);return;}
+    let foe=null;
+    if(Number.isInteger(c.focusTarget)&&cb.foes[c.focusTarget]?.hp>0) foe=cb.foes[c.focusTarget];
+    if(!foe)foe=companionNearestFoe(c,cb);
+    if(!foe){c.ap=0;return;}
+    let d=companionDistance(c,foe,cb);
+    const canMove=c.mode!=='hold'&&c.mode!=='defensive'&&c.ap>=1;
+    if(d>c.range&&canMove){
+      const steps=Math.min(c.ap,d-c.range);
+      companionMoveToward(c,foe,cb,steps);c.ap-=steps;d=companionDistance(c,foe,cb);
+      clog(`${c.name}: presunul sa bližšie k ${foe.name}.`,'hit');
+    }
+    if(d<=c.range&&c.ap>=2){companionAttack(c,foe,cb);}
+    else if(c.mode==='defensive'&&c.support==='protect'&&c.ap>=1){companionSpecial(c,cb);}
+    else if(c.mode==='stealth'&&c.support==='stealth'){c.hidden=true;c.ap=Math.max(0,c.ap-1);clog(`${c.name}: zostáva skrytý.`,'hit');}
+    c.ap=0;
+  });
+  if(!cb.foes.some(f=>f.hp>0)){cb.result='win';clog('Spoločníci zneškodnili poslednú hrozbu.','hit');}
+  companionPersist(cb);
+}
+
+function renderCompanionRoster(body){body.appendChild(menuBackBtn());ensureCompanions(GAME);const h=document.createElement('div');h.className='gscene';h.innerHTML=`<h3>Spoločníci</h3><p class="story">Príbehový kontext: <b>${esc(({partI:'Part I',leftBehind:'Left Behind',partII:'Part II'}[GAME.campaignPart]||'Part I'))}</b> · kapitola <b>${esc(GAME.campaignChapter||GAME.scene||'—')}</b></p><p class="story">Dostupnosť, dôvera a puto sa ukladajú samostatne od bojových štatistík.</p>`;body.appendChild(h);const grid=document.createElement('div');grid.className='card';grid.innerHTML='<div class="eyebrow">Aktívni spoločníci</div>'+(GAME.companionIds?.length?GAME.companionIds.map(id=>{const st=companionStory(id);return `<span class="pill amber" style="margin:3px">${esc(companionProfile(id)?.name||id)} · dôvera ${st?.trust||0}/5</span>`}).join(''):'<span class="note">Žiadni</span>');body.appendChild(grid);Object.values(COMPANION_PROFILES).forEach(p=>{const st=companionStory(p.id),on=GAME.companionIds?.includes(p.id),locked=st?.status==='left'||st?.status==='dead';const card=document.createElement('div');card.className='card';card.style.marginTop='8px';card.innerHTML=`<div class="row"><div class="grow"><b>${esc(p.name)}</b><div class="note">${esc(p.faction)} · ${esc(p.role)} · ${esc(p.weapon)}</div></div><span class="pill ${on?'amber':locked?'':'teal'}">${on?'AKTÍVNY':locked?(st.status==='dead'?'MŔTVY':'ODIŠIEL'):'DOSTUPNÝ'}</span></div><div class="worldstats" style="margin-top:8px"><div class="worldstat"><span>Dôvera</span><b>${st?.trust||0}/5</b></div><div class="worldstat"><span>Puto</span><b>${st?.bond||0}/5</b></div><div class="worldstat"><span>Príbehová línia</span><b>${esc(st?.arc||'—')}</b></div><div class="worldstat"><span>HP</span><b>${p.hpMax}</b></div></div><div class="note" style="margin-top:7px">${esc(COMPANION_STORY[p.id]?.note||'')}</div>`;
+if(!locked){const acts=document.createElement('div');acts.style.cssText='display:flex;flex-wrap:wrap;gap:6px;margin-top:8px';if(on){[['Rozhovor',()=>companionDialogue(p.id)],['Podpora',()=>companionSupportEvent(p.id)],['Odobrať',()=>companionDismiss(p.id)]].forEach(([label,fn])=>{const b=document.createElement('button');b.className='btn '+(label==='Odobrať'?'ghost':'amber');b.textContent=label;b.onclick=fn;acts.appendChild(b);});}else{const b=document.createElement('button');b.className='btn amber';b.textContent=GAME.companionIds.length>=2?'Plná skupina':'Pridať do skupiny';b.disabled=GAME.companionIds.length>=2;b.onclick=()=>companionRecruit(p.id);acts.appendChild(b);}card.appendChild(acts);}body.appendChild(card);});renderCompanionRelationshipWeb(body);}
+
+function renderCombatCompanions(body){
+  const cb=GAME.combat;if(!cb?.companions?.length)return;
+  const box=document.createElement('div');box.className='card';box.style.marginTop='10px';
+  box.innerHTML='<div class="eyebrow">Spoločníci · príkazy</div>';
+  cb.companions.forEach(c=>{
+    const d=document.createElement('div');d.className='worlddetail';
+    const loy=companionLoyalty(c.id);d.innerHTML=`<div class="wd"><b>${esc(c.name)}</b><span>${c.downed?'V bezvedomí':c.hp<=0?'mŕtvy':c.hp+'/'+c.hpMax+' HP · '+c.ap+'/'+c.apMax+' AP'}</span></div><div class="note">${esc(c.weapon||'')} · ${esc(companionModeLabel(c.mode||'aggressive'))} · pozícia ${esc(c.cell||'—')} · lojalita ${esc(loy.tier)}</div>`;
+    box.appendChild(d);
+    if(c.hp>0&&!c.downed&&!c.dead){
+      const modes=document.createElement('div');modes.style.cssText='display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:6px';
+      [['aggressive','ÚTOK'],['defensive','OBRANA'],['stealth','STEALTH'],['medic','MEDIK'],['hold','DRŽAŤ']].forEach(([m,label])=>{const b=document.createElement('button');b.className='btn '+((c.mode||'aggressive')===m?'amber':'ghost');b.textContent=label;b.onclick=()=>companionSetMode(c.id,m);modes.appendChild(b);});
+      box.appendChild(modes);
+      const sel=document.createElement('select');sel.className='grow';sel.style.marginTop='6px';sel.innerHTML='<option value="">Zamerať: automaticky</option>'+cb.foes.map((f,i)=>f.hp>0?`<option value="${i}">Zamerať: ${esc(f.name)}</option>`:'').join('');
+      if(Number.isInteger(c.focusTarget))sel.value=String(c.focusTarget);
+      sel.onchange=()=>sel.value===''?companionClearFocus(c.id):companionFocus(c.id,Number(sel.value));box.appendChild(sel);
+    }
+  });
+  const note=document.createElement('div');note.className='note';note.style.marginTop='7px';note.textContent='Príkaz platí pre ďalšie kolo AI. ÚTOK útočí na najbližší alebo zameraný cieľ, OBRANA drží pozíciu a chráni, STEALTH sa pohybuje bez vytvárania hluku, MEDIK prioritne lieči a DRŽAŤ zakáže presun.';box.appendChild(note);body.appendChild(box);
+}
+
 function gStartCombat(sc){
   GAME.party.forEach(p=>{ensureProgression(p);ensureAmmoState(p);p.combatGuard=0;});
+  ensureCompanions(GAME);
   const living=GAME.party.map((p,i)=>({p,i})).filter(x=>x.p.hp>0&&!x.p.dead);
   const order=living.map(x=>({i:x.i,score:combatInitScore(x.p)})).sort((a,b)=>b.score-a.score);
   const first=order.length?order[0].i:0;
-  GAME={...GAME,active:first,combat:{title:sc.title,intro:sc.text,win:sc.combat.win,lose:sc.combat.lose,stealthKill:sc.combat.stealthKill||null,surprise:true,phase:"listen",mode:"tlou",ai:{state:"patrol",alert:0,lastKnown:null,searchTurns:0,noise:0},foes:expandFoes(sc.combat.foes).map(f=>{const x=mkFoe(f);x.statuses={bleeding:0,wounded:false,stunned:x.stunned||0,frightened:0};x.threatSuccess=({runner:3,stalker:6,clicker:8,shambler:10,bloater:12,ratking:16}[x.kind]||3);x.threatRemaining=x.threatSuccess;x.aiRole=x.kind==="runner"?"rush":x.kind==="stalker"?"ambush":x.kind==="clicker"?"sound":x.kind==="bloater"?"pressure":x.kind==="shambler"?"area":"soldier";return x;}),log:[],result:null,actorIndex:first,round:1,initiative:order,turnUsed:false}};
+  GAME={...GAME,active:first,combat:{title:sc.title,intro:sc.text,win:sc.combat.win,lose:sc.combat.lose,stealthKill:sc.combat.stealthKill||null,surprise:true,phase:(GAME.listenMode!==false?"listen":"sneak"),mode:"tlou",ai:{state:"patrol",alert:0,lastKnown:null,searchTurns:0,noise:0},foes:expandFoes(sc.combat.foes).map(f=>{const x=mkFoe(f);x.statuses={bleeding:0,wounded:false,stunned:x.stunned||0,frightened:0};x.threatSuccess=({runner:3,stalker:6,clicker:8,shambler:10,bloater:12,ratking:16}[x.kind]||3);x.threatRemaining=x.threatSuccess;x.aiRole=x.kind==="runner"?"rush":x.kind==="stalker"?"ambush":x.kind==="clicker"?"sound":x.kind==="bloater"?"pressure":x.kind==="shambler"?"area":"soldier";return x;}),log:[],result:null,actorIndex:first,round:1,initiative:order,turnUsed:false,companions:[]}};
+  companionResetStates(GAME.combat);
   clog(`Poradie: ${order.map((x,n)=>`${n+1}. ${GAME.party[x.i]?.name||''}`).join(' · ')}`,'hit');
+  if(GAME.companions?.length)clog(`Spoločníci: ${GAME.companions.map(c=>c.name).join(', ')}.`,'hit');
 }
-function gListen(){const cb=GAME.combat;if(!cb||cb.result||cb.phase!=="listen"||cb.listenUsed?.includes(cb.actorIndex))return;const ch=combatActor();if(!ch)return;if(!cb.listenUsed)cb.listenUsed=[];cb.listenUsed.push(cb.actorIndex);const key="shrewd";const sides=Math.max(4,Number(gDie(ch,key))||6);const r=1+Math.floor(Math.random()*sides);if(r>=5){const n=r===sides?5:3;cb.chapterDice=Math.max(0,(cb.chapterDice||6)-n);clog(`${ch.name}: LISTEN úspech — upravené ${n} Chapter dice.`,'hit');}else if(r>=3){cb.chapterDice=Math.max(0,(cb.chapterDice||6)-2);clog(`${ch.name}: LISTEN úspech za cenu — upravené 2 Chapter dice.`,'hit');}else{cb.chapterDice=(cb.chapterDice||6)+1;clog(`${ch.name}: LISTEN neúspech — +1 Chapter die.`,'miss');}GAME.active=cb.actorIndex;renderScn();}
+
+function ensureListenMode(g){if(!g)return; if(g.difficulty==="grounded")g.listenMode=false; else if(typeof g.listenMode!=="boolean")g.listenMode=true;}
+function gListen(){const cb=GAME.combat;if(GAME.listenMode===false)return;if(!cb||cb.result||cb.phase!=="listen"||cb.listenUsed?.includes(cb.actorIndex))return;const ch=combatActor();if(!ch)return;if(!cb.listenUsed)cb.listenUsed=[];cb.listenUsed.push(cb.actorIndex);const key="shrewd";const sides=Math.max(4,Number(gDie(ch,key))||6);const r=1+Math.floor(Math.random()*sides);const scan=cb.tactical?.foePos?Object.entries(cb.tactical.foePos).filter(([i])=>cb.foes[Number(i)]?.hp>0).map(([i,z])=>({i:Number(i),z})) : [];cb.listenRange=Number(ch.listenRange||10)+(ch.skills?.listenRange||0);cb.listenKnown=scan.map(x=>x.i);if(r>=5){const n=r===sides?5:3;cb.chapterDice=Math.max(0,(cb.chapterDice||6)-n);cb.ai.noise=0;cb.ai.state="suspicious";clog(`${ch.name}: LISTEN úspech — nepriatelia odhalení na mape (${scan.length}), hluk vynulovaný.`,'hit');}else if(r>=3){cb.chapterDice=Math.max(0,(cb.chapterDice||6)-2);cb.ai.state="suspicious";clog(`${ch.name}: LISTEN úspech za cenu — zachytených ${scan.length} nepriateľských pozícií.`,'hit');}else{cb.chapterDice=(cb.chapterDice||6)+1;cb.ai.noise=(cb.ai.noise||0)+1;clog(`${ch.name}: LISTEN neúspech — +1 Chapter die a skupina zachytila podozrivý zvuk.`,'miss');}GAME.active=cb.actorIndex;renderScn();}
 function gSneak(){const cb=GAME.combat;if(!cb||cb.result||cb.phase!=="sneak")return;const ch=combatActor();if(!ch)return;if(!cb.sneakUsed)cb.sneakUsed=[];if(cb.sneakUsed.includes(cb.actorIndex))return;cb.sneakUsed.push(cb.actorIndex);const key="elusive";const sides=Math.max(4,Number(gDie(ch,key))||6);const r=1+Math.floor(Math.random()*sides);if(r>=5){ch.hidden=true;cb.hiddenCount=(cb.hiddenCount||0)+1;cb.stealthBonus=2;clog(`${ch.name}: SNEAK — skryl sa dokonale. Ďalší stealth útok odstráni +1 Threat die.`,'crit');}else if(r>=3){ch.hidden=true;cb.hiddenCount=(cb.hiddenCount||0)+1;clog(`${ch.name}: SNEAK — úspešne sa skryl.`,'hit');}else{cb.alerted=true;cb.phase="combat";clog(`${ch.name}: SNEAK neúspech — skupina je odhalená.`,'miss');}renderScn();}
 function gEnterCombatPhase(){const cb=GAME.combat;if(!cb||cb.result)return;cb.phase="combat";cb.surprise=false;clog("Predbojová fáza skončila — začína otvorený boj.",'hit');renderScn();}
 function gCombatStatuses(ch){
@@ -2952,7 +3292,7 @@ function gNextActor(){
   const living=combatLivingParty();if(!living.length){cb.result="lose";clog("Celá partia padla.","miss");return;}
   const order=(cb.initiative||living.map(x=>({i:x.i,score:0}))).map(x=>x.i).filter(i=>living.some(x=>x.i===i));
   const pos=order.indexOf(cb.actorIndex);const nextIndex=pos<0?0:pos+1;
-  if(nextIndex>=order.length){gEnemyTurn();if(cb.result)return;cb.round=(cb.round||1)+1;cb.turnUsed=false;cb.actorIndex=order[0]??living[0].i;}
+  if(nextIndex>=order.length){companionTurn();if(cb.result)return;gEnemyTurn();if(cb.result)return;cb.round=(cb.round||1)+1;cb.turnUsed=false;cb.actorIndex=order[0]??living[0].i;}
   else {cb.actorIndex=order[nextIndex];cb.turnUsed=false;}
   const a=combatActor();if(a){a.combatGuard=0;combatStatusStart(a);if(a.hp<=0){gCombatDownCheck(a);}}GAME.active=cb.actorIndex;
 }
@@ -2985,9 +3325,9 @@ function gAttack(){const cb=GAME.combat;if(!cb||cb.result||cb.turnUsed)return;if
   }else{
     const wk=(w.skill||"Aiming").toLowerCase();const r=gCheck(ch,wk,foe.dodgeDC);
     spendWeaponDurability(ch,w);
-    if(r.success){let dmg=rollExpr(dmgExpr);if(r.crit)dmg*=2;const beforeHp=foe.hp;foe.hp=Math.max(0,foe.hp-dmg);foe.damageTaken=(foe.damageTaken||0)+dmg;if(!foe.statuses)foe.statuses={bleeding:0,wounded:false,stunned:0,frightened:0};if(r.crit)applyCombatStatus(foe,'stunned',1);if(Math.random()<0.2)applyCombatStatus(foe,'bleeding',1);if(foe.hp>0&&foe.hp<=foe.hpMax/2)applyCombatStatus(foe,'wounded');
+    if(r.success){let dmg=rollExpr(dmgExpr);if(r.crit)dmg*=2;dmg=bossIncomingDamage(foe,dmg,w.name);const beforeHp=foe.hp;foe.hp=Math.max(0,foe.hp-dmg);foe.damageTaken=(foe.damageTaken||0)+dmg;if(!foe.statuses)foe.statuses={bleeding:0,wounded:false,stunned:0,frightened:0};if(r.crit)applyCombatStatus(foe,'stunned',1);if(Math.random()<0.2)applyCombatStatus(foe,'bleeding',1);if(foe.hp>0&&foe.hp<=foe.hpMax/2)applyCombatStatus(foe,'wounded');
       clog(`${ch.name}: ${tr(w.name)} — zásah${r.crit?" (KRIT!)":""} za ${dmg} — ${foe.name} ${foe.hp>0?foe.hp+" HP":"PADOL"}`,r.crit?"crit":"hit");
-      if(foe.hp<=0){gFoeDeathEffect(foe);if(GAME.difficulty==="grounded")grDropRoll(ch);}else gCheckFoeSplits(foe,beforeHp);
+      if(foe.hp<=0){gFoeDeathEffect(foe);if(GAME.difficulty==="grounded")grDropRoll(ch);}else {bossPhaseUpdate(foe);gCheckFoeSplits(foe,beforeHp);}
     } else clog(`${ch.name}: minul (hod ${r.total} vs Úhyb ${foe.dodgeDC})`,"miss");
   }
   const after=ensureWeaponState(ch,w);
@@ -3037,23 +3377,31 @@ const TACTICAL_ZONES=[
   {id:'C2',name:'Juh',cover:'čiastočný kryt'},
   {id:'C3',name:'Juhovýchod',cover:'plný kryt'}
 ];
+const TTRPG_GRID={cols:10,rows:8,scale:1.5};
+function gridCell(x,y){return `${String.fromCharCode(65+y)}${x+1}`;}
+function parseCell(id){const m=/^([A-Z])(\d+)$/.exec(String(id||''));if(!m)return{x:0,y:0};return{x:Math.max(0,Math.min(TTRPG_GRID.cols-1,Number(m[2])-1)),y:Math.max(0,Math.min(TTRPG_GRID.rows-1,m[1].charCodeAt(0)-65))};}
+function cellDist(a,b){const A=parseCell(a),B=parseCell(b);return Math.abs(A.x-B.x)+Math.abs(A.y-B.y);}
+function tacticalRange(w){const raw=w?.stats?.Range??w?.stats?.['Range'];const n=Number(String(raw||'').match(/\d+(?:\.\d+)?/)?.[0]);return Number.isFinite(n)&&n>0?Math.round(n):5;}
+function tacticalSelectedFoe(){const cb=GAME.combat;if(!cb?.tactical)return null;const i=Number(cb.tactical.targetFoe);return Number.isInteger(i)&&cb.foes?.[i]?.hp>0?cb.foes[i]:null;}
+function tacticalPickFoe(i){const cb=GAME.combat;if(!cb)return; if(cb.foes?.[i]?.hp>0){cb.tactical=cb.tactical||{};cb.tactical.targetFoe=i;clog(`Cieľ: ${cb.foes[i].name}.`,'hit');renderScn();}}
+function tacticalMoveGrid(cell){const cb=GAME.combat;if(!cb||cb.result||cb.turnUsed)return;const i=cb.actorIndex;tacticalEnsure(cb);const from=cb.tactical.playerCell?.[i]||cb.tactical.playerPos?.[i]||'C2';if(cellDist(from,cell)>2){clog('Pohyb je obmedzený na 2 políčka za akciu.','miss');renderScn();return;}cb.tactical.playerCell[i]=cell;cb.tactical.playerPos[i]=cell;const ch=GAME.party[i];const stealthRank=Number(ch?.skills?.stealth||0);const concealed=!!ch?.hidden||!!ch?.prone;const noise=cell===from?0:(concealed?0:Math.max(1,2-stealthRank));cb.ai.noise=(cb.ai.noise||0)+noise;if(noise){cb.tactical.soundEvents.push({cell,amount:noise,round:cb.round||1,by:i});cb.ai.lastKnown=i;cb.tactical.lastKnownZone=cell;if(cb.phase==='combat')aiSetState('combat','pohyb vytvoril zvukovú stopu');}clog(`${GAME.party[i].name}: presun na ${cell}${noise?' — hluk 1':''}.`,'hit');gEndCombatAction();}
+function tacticalCellCover(cell){const c=parseCell(cell);if(c.x===0||c.x===9||c.y===0||c.y===7)return 1;return 0;}
+function gTacticalAttack(){const cb=GAME.combat;if(!cb||cb.result||cb.turnUsed)return;const ch=combatActor();const foe=tacticalSelectedFoe()||aliveFoe();if(!ch||!foe)return;const fi=cb.foes.indexOf(foe);tacticalEnsure(cb);const from=cb.tactical.playerCell?.[cb.actorIndex]||cb.tactical.playerPos?.[cb.actorIndex]||'C2';const to=cb.tactical.foeCell?.[fi]||cb.tactical.foePos?.[fi]||'A1';const w=weaponOf(ch);const melee=weaponIsMelee(w);const dist=cellDist(from,to);const range=tacticalRange(w);if(!melee&&dist>range){clog(`${tr(w.name)} nedosiahne cieľ (${dist}/${range} políčok).`,'miss');renderScn();return;}const ws=ensureWeaponState(ch,w);if(melee&&ws.max&&ws.durability<=0){clog(`${tr(w.name)} je zničená.`,'miss');renderScn();return;}const a=melee?null:ensureAmmoState(ch,w);if(!melee&&a.capacity&&a.loaded<=0){clog(`${tr(w.name)}: prázdny zásobník.`,'miss');renderScn();return;}if(!melee&&a.capacity)ch.loaded[w.name]=a.loaded-1;const cover=tacticalCellCover(to);const base=Number(foe.dodgeDC)||5;const dc=Math.max(1,base+cover-(dist<=2?1:0)-weaponAimingBonus(w));const skill=(w.skill||'Aiming').toLowerCase();const key=skill==='aiming'?'aiming':skill==='hit'?'brutality':skill==='sneak'?'elusive':'aiming';const r=gCheck(ch,key,dc);spendWeaponDurability(ch,w);if(r.success){let dmg=rollExpr(weaponDamageExpr(w));if(r.crit)dmg*=2;const beforeHp=foe.hp;dmg=bossIncomingDamage(foe,dmg,w.name);foe.hp=Math.max(0,foe.hp-dmg);foe.damageTaken=(foe.damageTaken||0)+dmg;if(!foe.statuses)foe.statuses={bleeding:0,wounded:false,stunned:0,frightened:0};if(r.crit)applyCombatStatus(foe,'stunned',1);if(foe.hp>0&&foe.hp<=foe.hpMax/2)applyCombatStatus(foe,'wounded');clog(`${ch.name}: ${tr(w.name)} → ${foe.name} ${r.crit?'KRIT! ':''}${dmg} poškodenia (${dist} políčok, kryt +${cover}).`,r.crit?'crit':'hit');if(foe.hp<=0)gFoeDeathEffect(foe);else {bossPhaseUpdate(foe);gCheckFoeSplits(foe,beforeHp);}}else clog(`${ch.name}: ${tr(w.name)} minul (${r.total} vs DC ${dc}).`,'miss');gEndCombatAction();}
 function tacticalEnsure(cb){
   if(!cb)return;
-  cb.tactical=cb.tactical||{zones:TacticalClone(),playerPos:{},foePos:{},noise:null,lastKnownZone:null,vision:{},soundEvents:[]};
-  GAME.party.forEach((p,i)=>{if(cb.tactical.playerPos[i]==null)cb.tactical.playerPos[i]=i%2===0?'C2':'C3';});
-  (cb.foes||[]).forEach((f,i)=>{if(cb.tactical.foePos[i]==null)cb.tactical.foePos[i]=['A1','A2','A3','B1'][i%4];});
+  cb.tactical=cb.tactical||{zones:TacticalClone(),playerPos:{},foePos:{},playerCell:{},foeCell:{},targetFoe:null,noise:null,lastKnownZone:null,vision:{},soundEvents:[]};
+  GAME.party.forEach((p,i)=>{if(cb.tactical.playerPos[i]==null)cb.tactical.playerPos[i]=i%2===0?'C2':'C3'; if(cb.tactical.playerCell[i]==null)cb.tactical.playerCell[i]=cb.tactical.playerPos[i];});
+  (cb.foes||[]).forEach((f,i)=>{if(cb.tactical.foePos[i]==null)cb.tactical.foePos[i]=['A1','A2','A3','B1'][i%4]; if(cb.tactical.foeCell[i]==null)cb.tactical.foeCell[i]=cb.tactical.foePos[i];});
 }
 function TacticalClone(){return TACTICAL_ZONES.map(z=>({...z}));}
 function tacticalZone(id){return TACTICAL_ZONES.find(z=>z.id===id)||TACTICAL_ZONES[4];}
 function tacticalMoveActor(zone){const cb=GAME.combat;if(!cb||cb.result||cb.turnUsed)return;const i=cb.actorIndex;tacticalEnsure(cb);cb.tactical.playerPos[i]=zone;const z=tacticalZone(zone);const noise=z.id==='B2'?1:2;cb.ai.noise=(cb.ai.noise||0)+noise;cb.tactical.soundEvents.push({zone,amount:noise,round:cb.round||1,by:i});cb.ai.lastKnown=i;cb.tactical.lastKnownZone=zone;clog(`${GAME.party[i].name}: presun do zóny ${zone} (${z.name}) — hluk ${noise}.`,'hit');if(cb.phase==='combat')aiSetState('combat','pohyb vytvoril zvukovú stopu');gEndCombatAction();}
 function tacticalMoveFoe(i,zone){const cb=GAME.combat;if(!cb||cb.result)return;tacticalEnsure(cb);if(cb.foes[i]&&cb.foes[i].hp>0)cb.tactical.foePos[i]=zone;renderScn();}
 function tacticalAutoAI(){const cb=GAME.combat;if(!cb||cb.result)return;tacticalEnsure(cb);const live=cb.foes.filter(f=>f.hp>0);const targetZone=cb.tactical.lastKnownZone||cb.tactical.playerPos[GAME.active]||'C2';live.forEach((f)=>{const i=cb.foes.indexOf(f);const role=f.aiRole||'soldier';let z=cb.tactical.foePos[i]||'A2';if(cb.ai.state==='search'||cb.ai.state==='alert'){const opts=['A1','A2','A3','B1','B2','B3','C1','C2','C3'];z=opts[Math.max(0,Math.min(opts.length-1,opts.indexOf(targetZone)+((role==='ambush'||role==='soldier')?1:0)))];}else if(cb.ai.state==='combat'){z=targetZone;}cb.tactical.foePos[i]=z;});cb.tactical.lastKnownZone=targetZone;}
-function renderTacticalMap(body){const cb=GAME.combat;if(!cb)return;tacticalEnsure(cb);const t=cb.tactical;const wrap=document.createElement('div');wrap.className='card';wrap.style.marginTop='10px';let html='<div class="eyebrow">Taktická mapa</div><div class="note">'+(t.mapName?`Prostredie: <b>${esc(t.mapName)}</b> · `:'')+'AI pozná iba to, čo mohol nepriateľ skutočne vidieť alebo počuť.</div><button class="btn sm" style="margin-top:7px" onclick="tacticalGenerateMap()">Vygenerovať nové prostredie</button><div class="note" style="margin-top:6px">Posledný hluk: '+(t.soundEvents?.length?`zóna ${t.soundEvents.at(-1).zone}, sila ${t.soundEvents.at(-1).amount}`:'žiadny')+'</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px">';TACTICAL_ZONES.forEach(z=>{const ps=GAME.party.map((p,i)=>t.playerPos[i]===z.id?`<span class="worldchip">H: ${esc(p.name)}</span>`:'').join('');const fs=cb.foes.map((f,i)=>f.hp>0&&t.foePos[i]===z.id?`<span class="worldchip">N: ${esc(f.name)}</span>`:'').join('');const isLast=t.lastKnownZone===z.id;html+=`<div style="min-height:76px;padding:7px;border:1px solid var(--line);border-radius:10px;${isLast?'outline:2px solid var(--accent);':''}"><b>${z.id}</b><div class="note">${z.name}<br>${z.cover}</div>${ps}${fs}</div>`;});html+='</div>';wrap.innerHTML=html;body.appendChild(wrap);
- if(cb.phase==='combat'&&!cb.turnUsed&&!cb.result){const row=document.createElement('div');row.className='row';TACTICAL_ZONES.slice(0,6).forEach(z=>{const b=document.createElement('button');b.className='btn ghost sm';b.textContent=`Presun: ${z.id}`;b.onclick=()=>tacticalMoveActor(z.id);row.appendChild(b);});wrap.appendChild(row);}
-}
+function renderTacticalMap(body){const cb=GAME.combat;if(!cb)return;tacticalEnsure(cb);const t=cb.tactical;const wrap=document.createElement('div');wrap.className='card';wrap.style.marginTop='10px';let html='<div class="eyebrow">Taktická mapa · 10×8</div><div class="note">'+(t.mapName?`Prostredie: <b>${esc(t.mapName)}</b> · `:'')+'1 políčko ≈ 1,5 m. Polohy sú TTRPG rekonštrukcia, ak lokalita nemá presnú mriežku.</div><div class="note" style="margin-top:6px">Cieľ: '+(tacticalSelectedFoe()?.name||'nevybraný')+' · Posledný hluk: '+(t.soundEvents?.length?`zóna ${t.soundEvents.at(-1).cell||t.soundEvents.at(-1).zone}`:'žiadny')+'</div><div style="display:grid;grid-template-columns:repeat(10,1fr);gap:2px;margin-top:10px">';for(let y=0;y<TTRPG_GRID.rows;y++){for(let x=0;x<TTRPG_GRID.cols;x++){const id=gridCell(x,y);const players=GAME.party.map((p,i)=>t.playerCell?.[i]===id?`<span class="worldchip">H:${esc(p.name.slice(0,7))}</span>`:'').join('');const foes=cb.foes.map((f,i)=>f.hp>0&&(t.foeCell?.[i]===id)?`<button type="button" class="worldchip" style="cursor:pointer" onclick="tacticalPickFoe(${i})">N:${esc(f.name.slice(0,7))}</button>`:'').join('');const selected=foes&&t.targetFoe!=null&&t.foeCell?.[t.targetFoe]===id;html+=`<div style="min-height:46px;padding:2px;border:1px solid var(--line);border-radius:4px;position:relative;${selected?'outline:2px solid var(--accent);':''}"><button type="button" class="btn ghost sm" style="width:100%;height:100%;padding:2px;font-size:9px" onclick="tacticalMoveGrid('${id}')">${id}</button><div style="position:absolute;left:2px;bottom:2px;display:flex;gap:2px;flex-wrap:wrap">${players}${foes}</div></div>`;}}html+='</div>';wrap.innerHTML=html;body.appendChild(wrap);if(cb.phase==='combat'&&!cb.turnUsed&&!cb.result){const row=document.createElement('div');row.className='row';const atk=document.createElement('button');atk.className='btn';atk.textContent='Útok na cieľ';atk.onclick=()=>gTacticalAttack();row.appendChild(atk);const end=document.createElement('button');end.className='btn ghost';end.textContent='Ukončiť ťah';end.onclick=()=>gEndCombatAction();row.appendChild(end);wrap.appendChild(row);}}
 
 function tacticalCanSee(from,to){const a=tacticalZone(from),b=tacticalZone(to);if(!a||!b)return false;if(from===to)return true;const blocked=['A2','B2','B3','C2'].includes(from)&&['A2','B2','B3','C2'].includes(to);return !blocked||a.cover==='bez krytu'||b.cover==='bez krytu';}
-function tacticalPerception(){const cb=GAME.combat;if(!cb)return; tacticalEnsure(cb); const t=cb.tactical; t.vision={}; cb.foes.forEach((f,i)=>{if(f.hp<=0)return;const fz=t.foePos[i]||'A1';const visible=[];GAME.party.forEach((p,j)=>{const pz=t.playerPos[j]||'C2';const role=f.aiRole||'soldier';const sees=role==='sound' ? false : tacticalCanSee(fz,pz);if(sees&&!p.hidden)visible.push(j);});t.vision[i]=visible;if(visible.length){cb.ai.lastKnown=visible[0];cb.ai.lastKnownZone=t.playerPos[visible[0]];if(cb.ai.state!=='combat')aiSetState('alert',`${f.name} zazrel hráča`);}});}
+function tacticalPerception(){const cb=GAME.combat;if(!cb)return; tacticalEnsure(cb); const t=cb.tactical; t.vision={}; cb.foes.forEach((f,i)=>{if(f.hp<=0)return;const fz=t.foePos[i]||'A1';const visible=[];GAME.party.forEach((p,j)=>{const pz=t.playerPos[j]||'C2';const role=f.aiRole||'soldier';const dist=cellDist(fz,pz);const inSight=dist<=3;const sees=role!=='sound' && inSight && tacticalCanSee(fz,pz);const stealth=Number(p?.skills?.stealth||0);const concealed=!!p.hidden||!!p.prone;if(sees&&!concealed){const dc=Math.max(1,4-stealth);const roll=1+Math.floor(Math.random()*6);if(roll>=dc){visible.push(j);cb.ai.lastKnown=j;cb.ai.lastKnownZone=pz;}}});t.vision[i]=visible;if(visible.length&&cb.ai.state!=='combat')aiSetState('alert',`${f.name} zazrel hráča`);});}
 function tacticalGenerateMap(){const cb=GAME.combat;if(!cb)return;tacticalEnsure(cb);const themes=[['Opustený obchod','čiastočný kryt'],['Sklad','plný kryt'],['Ulica','nízky kryt'],['Dom','plný kryt'],['Škola','čiastočný kryt']];const pick=themes[Math.floor(Math.random()*themes.length)];cb.tactical.mapName=pick[0];cb.tactical.mapTheme=pick[1];TACTICAL_ZONES.forEach((z,i)=>{if(i%3===0)z.cover=pick[1];});clog(`Mapa vygenerovaná: ${pick[0]}. Kryt: ${pick[1]}.`,'hit');renderScn();}
 function aiEnemyDecision(foe){const cb=GAME.combat;if(!cb||!cb.ai)return "attack";if(cb.ai.state==="search"){if(foe.aiRole==="ambush"||foe.aiRole==="sound")return "search";return Math.random()<0.45?"search":"patrol";}if(cb.ai.state==="suspicious")return Math.random()<0.5?"investigate":"search";if(cb.ai.state==="alert")return foe.aiRole==="soldier"?"flank":foe.aiRole==="ambush"?"ambush":"attack";return "attack";}
 function gEnemyTurn(){const cb=GAME.combat;if(!cb||cb.result)return;
@@ -3070,12 +3418,28 @@ function gEnemyTurn(){const cb=GAME.combat;if(!cb||cb.result)return;
   }else{
     if(cb.traps?.length){
       const trap=cb.traps.shift();const foe=cb.foes.find(f=>f.hp>0);
-      if(foe){const dmg=rollExpr("1D20+1D12+1D10+1D8+1D6+1D4");foe.hp=Math.max(0,foe.hp-dmg);foe.damageTaken=(foe.damageTaken||0)+dmg;clog(`Pasca vybuchla pod ${foe.name} za ${dmg} damage — ${foe.hp>0?foe.hp+" HP":"PADOL"}.`,"crit");if(foe.hp<=0)gFoeDeathEffect(foe);}
+      if(foe){let dmg=rollExpr("1D20+1D12+1D10+1D8+1D6+1D4");const beforeHp=foe.hp;dmg=bossDamage(foe,dmg,"explosive");foe.hp=Math.max(0,foe.hp-dmg);foe.damageTaken=(foe.damageTaken||0)+dmg;clog(`Pasca vybuchla pod ${foe.name} za ${dmg} damage — ${foe.hp>0?foe.hp+" HP":"PADOL"}.`,"crit");if(foe.hp<=0)gFoeDeathEffect(foe);else bossPhaseUpdate(foe,beforeHp);}
     }
     cb.foes.filter(f=>f.hp>0).forEach(foe=>{
       const live=combatLivingParty();if(!live.length)return;
       if(foe.stunned>0){foe.stunned--;clog(`${foe.name}: je omráčený a tento ťah neútočí.`,"hit");return;}
+      bossPhaseUpdate(foe);
+      if(foe.sporeCooldown>0)foe.sporeCooldown--;if(foe.chargeCooldown>0)foe.chargeCooldown--;if(foe.bossCooldown>0)foe.bossCooldown--;
+      if(foe.kind==="shambler"&&foe.acidCooldown<=0){foe.acidCooldown=2;combatLivingParty().forEach(({p})=>{const rr=gCheck(p,"elusive",foe.dodgeDC);if(!rr.success){const d=rollExpr("2D6");p.hp=Math.max(0,p.hp-d);applyCombatStatus(p,"bleeding",1);clog(`${foe.name}: kyslý výboj zasiahol ${p.name} za ${d}.`,'miss');gCombatDownCheck(p);}});}
+      else if(foe.kind==="shambler")foe.acidCooldown--;
+      if(foe.kind==="bloater"&&foe.sporeCooldown<=0){foe.sporeCooldown=3;const p=combatLivingParty()[0]?.p;if(p){const rr=gCheck(p,"elusive",foe.dodgeDC);if(!rr.success){const d=rollExpr(foe.toxin||"2D10");p.hp=Math.max(0,p.hp-d);clog(`${foe.name}: spore bomb zasiahla ${p.name} za ${d}.`,'miss');gCombatDownCheck(p);}else clog(`${p.name}: uhol spore bomb.`,'hit');}}
+      if(foe.kind==="ratking"&&foe.bossCooldown<=0){foe.bossCooldown=Math.max(1,4-(foe.bossPhase||1));clog(`Rat King: špeciálny nápor vo fáze ${foe.bossPhase||1}.`,'miss');}
       let attacks=Math.max(1,foe.attacks||1);
+      if(foe.burning>0){const burn=rollExpr('1D6');foe.hp=Math.max(0,foe.hp-burn);foe.burning--;clog(`${foe.name}: horí za ${burn} poškodenia.`,'crit');if(foe.hp<=0){gFoeDeathEffect(foe);return;}}
+      if(foe.boss){
+        foe.specialCooldown=Math.max(0,(foe.specialCooldown||0)-1);
+        if(foe.specialCooldown===0){
+          const target=live[Math.floor(Math.random()*live.length)];const ch=target.p;GAME.active=target.i;
+          if(foe.kind==='shambler'){const d=rollExpr(foe.acid||'2D8');ch.hp=Math.max(0,ch.hp-d);applyCombatStatus(ch,'bleeding',1);clog(`${foe.name}: kyselinový výron za ${d}; ${ch.name} krváca.`,'miss');foe.specialCooldown=2;gCombatDownCheck(ch);return;}
+          if(foe.kind==='bloater'){const d=rollExpr(foe.toxin||'2D10');ch.hp=Math.max(0,ch.hp-d);clog(`${foe.name}: hodil mykotoxínový vak za ${d}.`,'miss');foe.specialCooldown=2;gCombatDownCheck(ch);return;}
+          if(foe.kind==='ratking'){let d=rollExpr(foe.phase>=3?'4D10':foe.phase===2?'3D10':'2D10');ch.hp=Math.max(0,ch.hp-d);clog(`${foe.name}: ${foe.phase>=2?'ničivý nápor':'kyselinový výron'} za ${d}.`,'miss');foe.specialCooldown=foe.phase>=3?1:2;gCombatDownCheck(ch);return;}
+        }
+      }
       if(foe.kind==="stalker"&&foe.ambush&&!foe.ambushUsed){
         foe.ambushUsed=true;attacks=1;clog(`${foe.name}: vyrazí z úkrytu a útočí z prepadu.`,"miss");
       }
@@ -3102,6 +3466,30 @@ function gEnemyTurn(){const cb=GAME.combat;if(!cb||cb.result)return;
   }
   const live=combatLivingParty();if(!live.length){cb.result="lose";clog("Celá partia padla.","miss");}
 }
+function bossPhaseUpdate(foe){
+  if(!foe||!foe.bossTier||foe.hp<=0)return;
+  const ratio=foe.hp/Math.max(1,foe.hpMax||1);
+  if(foe.kind==="ratking"){
+    let phase=ratio<=0.35?3:(ratio<=0.70?2:1);
+    if(phase>(foe.bossPhase||1)){
+      foe.bossPhase=phase;foe.attacks=phase===3?5:4;foe.bossCooldown=0;
+      clog(`Rat King: FÁZA ${phase} — masa sa trhá, útoky sú agresívnejšie.`,'crit');
+      if(phase===2&&!foe.phaseTriggered?.splitA){foe.phaseTriggered=foe.phaseTriggered||{};foe.phaseTriggered.splitA=true;const nf=mkFoe({type:"infected",name:"Stalker"});cbSafePushFoe(nf);clog('Rat King: od masy sa oddelil Stalker.','miss');}
+      if(phase===3&&!foe.phaseTriggered?.splitB){foe.phaseTriggered=foe.phaseTriggered||{};foe.phaseTriggered.splitB=true;const nf=mkFoe({type:"infected",name:"Clicker"});cbSafePushFoe(nf);clog('Rat King: posledná fáza — odtrhla sa ďalšia infikovaná časť.','miss');}
+    }
+  }
+  if(foe.kind==="bloater"&&ratio<=0.5&&!foe.enraged){foe.enraged=true;foe.attacks=3;clog(`${foe.name}: poškodený fungal armor — prechádza do zúrivého tlaku.`,'miss');}
+}
+function cbSafePushFoe(foe){const cb=GAME.combat;if(!cb||!foe)return;foe.statuses={bleeding:0,wounded:false,stunned:0,frightened:0};cb.foes.push(foe);}
+function bossIncomingDamage(foe,dmg,sourceName){
+  if(!foe)return dmg;const src=String(sourceName||'').toLowerCase();const fire=/molotov|flamethrower|flame|incendiary|oheň|fire/.test(src);
+  if(foe.kind==="bloater"&&(foe.fungalArmor||0)>0){
+    if(fire){const burn=Math.min(4,foe.fungalArmor);foe.fungalArmor-=burn;clog(`${foe.name}: oheň spálil ${burn} fungal armoru (${foe.fungalArmor}/${foe.armorMax||8}).`,'crit');return dmg;}
+    const blocked=Math.min(Math.ceil(dmg*0.45),foe.fungalArmor);foe.fungalArmor-=blocked;clog(`${foe.name}: fungal armor absorboval ${blocked} poškodenia.`,'hit');return Math.max(1,dmg-blocked);
+  }
+  if(foe.kind==="shambler"&&fire)return Math.ceil(dmg*1.25);
+  return dmg;
+}
 function gFoeDeathEffect(foe){
   const cb=GAME.combat;if(!cb||!foe||foe.deathEffectDone)return;foe.deathEffectDone=true;
   if(foe.kind==="shambler"){
@@ -3109,14 +3497,27 @@ function gFoeDeathEffect(foe){
     combatLivingParty().forEach(({p})=>{const r=gCheck(p,"elusive",foe.dodgeDC);if(!r.success){let d=rollExpr(foe.deathBurst||"6D6");if(GAME.difficulty==="grounded")d*=2;p.hp=Math.max(0,p.hp-d);clog(`Spóry zasiahli ${p.name} za ${d} — ${p.hp} HP.`,"miss");gCombatDownCheck(p);}else clog(`${p.name}: uhol oblaku spór.`,"hit");});
   }
 }
-function gCheckFoeSplits(foe,previousHp){
-  if(!foe||foe.kind!=="ratking")return;
-  const cb=GAME.combat;if(!cb)return;
-  const old=Math.floor((previousHp||foe.hpMax)/50),now=Math.floor((foe.hp||0)/50);
-  if(old<=now)return;
-  const count=Math.max(0,old-now);
-  for(let i=0;i<count;i++){const type=i%2===0?"Stalker":"Clicker";const nf=mkFoe({type:"infected",name:type});cb.foes.push(nf);clog(`Rat King sa roztrhol: oddelil sa ${type}.`,"miss");}
+function bossPhaseUpdate(foe,previousHp){
+  if(!foe||!foe.boss||foe.hp<=0)return;
+  const ratio=foe.hp/Math.max(1,foe.hpMax),old=foe.phase||1;
+  let phase=ratio<=0.25?3:(ratio<=0.6?2:1);
+  if(foe.kind==='shambler')phase=ratio<=0.45?2:1;
+  foe.phase=phase;
+  if(phase!==old){clog(`${foe.name}: prechod do fázy ${phase}.`,'miss');foe.specialCooldown=0;}
+  if(foe.kind==='ratking'&&!foe.splitDone&&ratio<=0.6){
+    foe.splitDone=true;const nf=mkFoe({type:'infected',name:'Stalker'});nf.name='Rat King Stalker';nf.kind='stalker';nf.hp=Math.max(nf.hp,18);nf.hpMax=nf.hp;GAME.combat.foes.push(nf);clog('Rat King: z masy sa odtrhol Stalker a vstupuje do boja.','miss');
+  }
 }
+function bossDamage(foe,dmg,type='ballistic'){
+  if(!foe||!foe.boss)return Math.max(0,dmg);
+  let out=dmg;
+  if(type==='fire'){out=Math.ceil(out*(foe.fireWeak?1.5:1));foe.burning=2;if(foe.armor)foe.armor=Math.max(0,foe.armor-1);}
+  else if(type==='explosive')out=Math.ceil(out*1.25);
+  else if(foe.armor>0)out=Math.max(1,out-foe.armor);
+  return out;
+}
+function gCheckFoeSplits(foe,previousHp){bossPhaseUpdate(foe,previousHp);}
+
 function gStealthKill(){const cb=GAME.combat;if(!cb||cb.result)return;const ch=combatActor();const foe=aliveFoe();if(!ch||!foe)return;
   GAME.active=cb.actorIndex;const w=weaponOf(ch);const stealthWeapon=["Shiv","Switchblade"].includes(w.name);
   if(!stealthWeapon&&!(cb.stealthKill&&gHasNeed({flag:cb.stealthKill}))){clog("Tichý zásah vyžaduje Shiv, Switchblade alebo povolenie scenára.","miss");renderScn();return;}
@@ -3147,7 +3548,10 @@ function gUseCombatCraft(name){
     "Molotov":{damage:"5D6",label:"Molotov"},
     "Molotov Cocktail":{damage:"5D6",label:"Molotov"},
     "Nail Bomb":{damage:"5D8",label:"Nail Bomb"},
-    "Pipe Bomb":{damage:"4D10",label:"Pipe Bomb"}
+    "Pipe Bomb":{damage:"4D10",label:"Pipe Bomb"},
+    "Stun Bomb":{damage:"1D4",label:"Omračovací granát"},
+    "Incendiary Shells":{damage:"3D6",label:"Zápalné náboje"},
+    "Hunting Pistol Ammo":{damage:"0",label:"Munícia do loveckej pištole"}
   }[name];
   if(name==="Smoke Bomb"){
     e.q--;if(e.q<=0)ch.inv=ch.inv.filter(x=>x!==e);
@@ -3168,13 +3572,13 @@ function gUseCombatCraft(name){
     if(ch.equip!=="Bow"){clog(`${tr(name)} môžeš použiť iba s lukom.` ,"miss");renderScn();return;}
     const dmg=name==="Fire Arrow"?"1D20+2D6":"1D20+2D8";const r=gCheck(ch,"aiming",foe.dodgeDC);
     e.q--;if(e.q<=0)ch.inv=ch.inv.filter(x=>x!==e);
-    if(r.success){let d=rollExpr(dmg);if(r.crit)d*=2;const beforeHp=foe.hp;foe.hp=Math.max(0,foe.hp-d);foe.damageTaken=(foe.damageTaken||0)+d;clog(`${ch.name}: ${tr(name)} — zásah${r.crit?" (KRIT!)":""} za ${d} — ${foe.name} ${foe.hp>0?foe.hp+" HP":"PADOL"}`,r.crit?"crit":"hit");if(foe.hp<=0)gFoeDeathEffect(foe);else gCheckFoeSplits(foe,beforeHp);}
+    if(r.success){let d=rollExpr(dmg);if(r.crit)d*=2;const beforeHp=foe.hp;d=bossDamage(foe,d,name==="Fire Arrow"?"fire":"explosive");foe.hp=Math.max(0,foe.hp-d);foe.damageTaken=(foe.damageTaken||0)+d;clog(`${ch.name}: ${tr(name)} — zásah${r.crit?" (KRIT!)":""} za ${d} — ${foe.name} ${foe.hp>0?foe.hp+" HP":"PADOL"}`,r.crit?"crit":"hit");if(foe.hp<=0)gFoeDeathEffect(foe);else gCheckFoeSplits(foe,beforeHp);}
     else clog(`${ch.name}: ${tr(name)} minul (hod ${r.total} vs Úhyb ${foe.dodgeDC}).`,"miss");
     if(!aliveFoe()){cb.result="win";gSave();renderScn();return;}gEndCombatAction();return;
   }
   if(!data){clog(`${tr(name)} sa v boji zatiaľ nedá použiť.`,"miss");renderScn();return;}
   const r=gCheck(ch,"aiming",foe.dodgeDC);e.q--;if(e.q<=0)ch.inv=ch.inv.filter(x=>x!==e);
-  if(r.success){let dmg=rollExpr(data.damage);if(r.crit)dmg*=2;const beforeHp=foe.hp;foe.hp=Math.max(0,foe.hp-dmg);foe.damageTaken=(foe.damageTaken||0)+dmg;clog(`${ch.name}: ${data.label} — zásah${r.crit?" (KRIT!)":""} za ${dmg} — ${foe.name} ${foe.hp>0?foe.hp+" HP":"PADOL"}`,r.crit?"crit":"hit");if(foe.hp<=0)gFoeDeathEffect(foe);else gCheckFoeSplits(foe,beforeHp);}
+  if(r.success){let dmg=rollExpr(data.damage);if(r.crit)dmg*=2;const beforeHp=foe.hp;const fire=["Molotov","Molotov Cocktail","Incendiary Shells"].includes(name);dmg=bossDamage(foe,dmg,fire?"fire":"explosive");foe.hp=Math.max(0,foe.hp-dmg);foe.damageTaken=(foe.damageTaken||0)+dmg;clog(`${ch.name}: ${data.label} — zásah${r.crit?" (KRIT!)":""} za ${dmg} — ${foe.name} ${foe.hp>0?foe.hp+" HP":"PADOL"}`,r.crit?"crit":"hit");if(foe.hp<=0)gFoeDeathEffect(foe);else gCheckFoeSplits(foe,beforeHp);}
   else clog(`${ch.name}: ${data.label} minul (hod ${r.total} vs Úhyb ${foe.dodgeDC}).`,"miss");
   if(!aliveFoe()){cb.result="win";gSave();renderScn();return;}gEndCombatAction();
 }
@@ -3184,6 +3588,7 @@ function gSwitchWeapon(name){const cb=GAME.combat;if(!cb||cb.result)return;const
   if(ch.equip===name)return;ch.equip=name;ensureAmmoState(ch,weaponOf(ch));clog(`${ch.name}: vytiahol ${tr(name)}.`,"hit");gEndCombatAction();
 }
 function gPostCombatRevive(){ // po výhre: bez Permadeath sa padnutí prebudia na nízke HP, s Permadeath ostávajú mŕtvi
+  if(GAME?.combat?.companions){GAME.companions=GAME.combat.companions.map(c=>{const x={...c};if(x.hp<=0&&x.storyProtected&&!GAME.permadeath){x.hp=Math.max(1,Math.round(x.hpMax*0.25));x.downed=false;x.dead=false;}return x;});}
   const revived=[],dead=[];
   GAME.party.forEach(p=>{if(p.hp<=0){
     if(p.dead||GAME.permadeath){p.dead=true;dead.push(p.name);}
@@ -3258,16 +3663,77 @@ function renderEncounterGenerator(body){body.appendChild(menuBackBtn());const e=
  if(ENCOUNTER.active){const a=ENCOUNTER.active,x=ENCOUNTER.generated,need=Math.max(2,Math.ceil((x?.total||2)*2));const h=document.createElement('div');h.className='eyebrow';h.style.marginTop='16px';h.textContent='Aktívne stretnutie';body.appendChild(h);const c=document.createElement('div');c.className='card';c.innerHTML=`<h3 style="margin:0 0 8px">${esc(a.objective)}</h3><div class="worldstats"><div class="worldstat"><span>Kolo</span><b>${a.round}</b></div><div class="worldstat"><span>Postup</span><b>${Math.min(a.progress,need)}/${need}</b></div><div class="worldstat"><span>Stress</span><b>${a.stress}</b></div></div><div class="note" style="margin-top:8px">Každý úspešný zásah/prekážka môže pridať 1–2 body postupu podľa situácie. Pôvodné pravidlá TLOU TTRPG používajú úspechy na porazenie Threatu.</div>`;body.appendChild(c);const row=document.createElement('div');row.className='row';[['+1 úspech','encounterProgress(1)'],['+2 úspechy','encounterProgress(2)'],['Ďalšie kolo','encounterRound()']].forEach(z=>{const q=document.createElement('button');q.className='btn ghost';q.textContent=z[0];q.onclick=()=>eval(z[1]);row.appendChild(q);});body.appendChild(row);const end=document.createElement('button');end.className='btn ghost full';end.style.marginTop='8px';end.textContent=a.done?'Stretnutie dokončené':'Ukončiť stretnutie';end.onclick=encounterEnd;body.appendChild(end);const reset=document.createElement('button');reset.className='btn ghost full';reset.style.marginTop='6px';reset.textContent='Resetovať stretnutie';reset.onclick=encounterReset;body.appendChild(reset);}
 }
 
+
+/* ---------- companion relationship web : Audit 21 ---------- */
+const COMPANION_RELATION_SEEDS={
+  'dina|ellie':{score:4,label:'blízke puto'},
+  'dina|jesse':{score:3,label:'história a rešpekt'},
+  'ellie|jesse':{score:1,label:'spolupráca'},
+  'joel|ellie':{score:5,label:'rodinné puto'},
+  'joel|tess':{score:3,label:'dlhoročná spolupráca'},
+  'joel|tommy':{score:4,label:'bratia'},
+  'lev|yara':{score:5,label:'súrodenecké puto'},
+  'tommy|dina':{score:2,label:'spoločná zodpovednosť'},
+  'tommy|jesse':{score:2,label:'spolupráca'},
+  'mel|manny':{score:2,label:'spolupráca'},
+  'riley|ellie':{score:4,label:'blízke puto'}
+};
+function companionPairKey(a,b){return [String(a||''),String(b||'')].sort().join('|');}
+function companionRelations(g){if(!g)return {};g.companionRelations=(g.companionRelations&&typeof g.companionRelations==='object')?g.companionRelations:{};Object.entries(COMPANION_RELATION_SEEDS).forEach(([k,v])=>{if(!g.companionRelations[k])g.companionRelations[k]={score:v.score,label:v.label,history:[]};});return g.companionRelations;}
+function ensureCompanionRelations(g){if(!g)return;const r=companionRelations(g);Object.keys(r).forEach(k=>{r[k].score=Math.max(-5,Math.min(5,Number(r[k].score)||0));r[k].history=Array.isArray(r[k].history)?r[k].history:[];});}
+function companionRelation(a,b){if(!GAME||!a||!b||a===b)return {score:0,label:'—',history:[]};ensureCompanionRelations(GAME);const k=companionPairKey(a,b),r=GAME.companionRelations[k];return r||{score:0,label:'bez histórie',history:[]};}
+function companionRelationDelta(a,b,delta,reason=''){if(!GAME||!a||!b||a===b)return;ensureCompanionRelations(GAME);const k=companionPairKey(a,b),r=GAME.companionRelations[k]||(GAME.companionRelations[k]={score:0,label:'bez histórie',history:[]});r.score=Math.max(-5,Math.min(5,Number(r.score||0)+Number(delta||0)));if(reason)r.history.push({day:GAME.world?.day||1,delta:Number(delta||0),reason,score:r.score});gSave();}
+function companionRelationshipTier(score){score=Number(score)||0;if(score<=-3)return 'konflikt';if(score<0)return 'napätie';if(score<=2)return 'neutrálne';if(score<=4)return 'dobrá spolupráca';return 'silné puto';}
+function companionRelationshipModifier(id){if(!GAME)return 0;const active=(GAME.companionIds||[]).filter(x=>x!==id);let m=0;active.forEach(other=>{const r=companionRelation(id,other);if(r.score>=4)m+=1;else if(r.score<=-3)m-=1;});return Math.max(-1,Math.min(1,m));}
+function companionApplyRelationshipToCombat(c){const l=companionLoyalty(c.id);const rel=companionRelationshipModifier(c.id);c.loyaltyTier=rel>0?'supported':rel<0?'strained_group':l.tier;c.loyaltyBonus=Math.max(-1,Math.min(2,Number(l.bonus||0)+rel));c.refusedCommand=false;return {loyalty:l,relationship:rel};}
+function renderCompanionRelationshipWeb(body){ensureCompanionRelations(GAME);const active=GAME.companionIds||[];const box=document.createElement('div');box.className='card';box.style.marginTop='10px';box.innerHTML='<div class="eyebrow">Vzťahy medzi spoločníkmi</div><p class="story">Vzťah je oddelený od dôvery k hráčovi. Ovlplyvňuje spoluprácu v skupine.</p>';if(active.length<2){const n=document.createElement('div');n.className='note';n.textContent='Pridaj aspoň dvoch aktívnych spoločníkov, aby sa vzťah medzi nimi prejavil.';box.appendChild(n);body.appendChild(box);return;}for(let i=0;i<active.length;i++)for(let j=i+1;j<active.length;j++){const a=active[i],b=active[j],r=companionRelation(a,b);const row=document.createElement('div');row.className='worlddetail';row.innerHTML=`<div class="wd"><b>${esc(companionProfile(a)?.name||a)} ↔ ${esc(companionProfile(b)?.name||b)}</b><span>${r.score>0?'+':''}${r.score}/5</span></div><div class="note">${esc(r.label||'bez histórie')} · ${companionRelationshipTier(r.score)}</div>`;const acts=document.createElement('div');acts.style.cssText='display:flex;gap:5px;margin-top:6px';[['+','Zlepšiť',1],['−','Zhoršiť',-1]].forEach(([sym,label,d])=>{const bt=document.createElement('button');bt.className='btn ghost';bt.textContent=label;bt.onclick=()=>{companionRelationDelta(a,b,d,'zásah príbehu');renderScn();};acts.appendChild(bt);});row.appendChild(acts);box.appendChild(row);}body.appendChild(box);}
+
+
+/* ---------- Companion Dialogue 1.0 — Audit 22 ---------- */
+const COMPANION_DIALOGUES={
+ dina:{title:'Dina',nodes:{start:{text:'Dina sa na chvíľu zastaví. „Chceš si prejsť plán?“',choices:[{label:'„Áno, povedz svoj návrh.“',next:'plan',trust:1,bond:1},{label:'„Najprv skontrolujeme zásoby.“',next:'supplies',bond:1},{label:'„Ideme ďalej.“',next:'end'}]},plan:{text:'Dina navrhne tichšiu trasu a krytie pri presune.',choices:[{label:'„Beriem tvoj plán.“',next:'end',trust:1,bond:1},{label:'„Vyberiem inú trasu.“',next:'end',trust:0}]},supplies:{text:'Dina prepočíta zásoby a upozorní na zranených členov.',choices:[{label:'„Dáme si krátku pauzu.“',next:'end',bond:1},{label:'„Pokračujeme bez pauzy.“',next:'end',trust:-1}]},end:{text:'Dina prikývne a vráti sa k príprave.',choices:[]}}},
+ jesse:{title:'Jesse',nodes:{start:{text:'Jesse sleduje okolie. „Niečo tu nesedí.“',choices:[{label:'„Ukáž mi, čo si našiel.“',next:'intel',trust:1},{label:'„Držíme sa spolu.“',next:'team',bond:1},{label:'„Pokračujeme.“',next:'end'}]},intel:{text:'Jesse ukáže čerstvé stopy a možné miesto prepadnutia.',choices:[{label:'„Obídeme ho.“',next:'end',trust:1,bond:1},{label:'„Pripravíme pascu.“',next:'end',bond:1},{label:'„Ignorujeme to.“',next:'end',trust:-1}]},team:{text:'„Tak potom nikto nejde sám,“ povie Jesse.',choices:[{label:'„Presne tak.“',next:'end',trust:1,bond:1},{label:'„Len dnes.“',next:'end'}]},end:{text:'Jesse skontroluje zbraň.',choices:[]}}},
+ tommy:{title:'Tommy',nodes:{start:{text:'Tommy si prezrie priestor a čaká na rozhodnutie.',choices:[{label:'„Kde by si zaujal pozíciu?“',next:'position',trust:1},{label:'„Potrebujem tvoju skúsenosť.“',next:'advice',bond:1},{label:'„Zvládneme to sami.“',next:'end',trust:-1}]},position:{text:'Tommy označí miesto s dobrým výhľadom a možnosťou ústupu.',choices:[{label:'„Zoberieme tú pozíciu.“',next:'end',trust:1,bond:1},{label:'„Nájdeme inú.“',next:'end'}]},advice:{text:'„Nechoď tam, kde nemáš druhú cestu von.“',choices:[{label:'„Budem si to pamätať.“',next:'end',trust:1},{label:'„Riskneme to.“',next:'end',trust:-1}]},end:{text:'Tommy zostane v strehu.',choices:[]}}},
+ joel:{title:'Joel',nodes:{start:{text:'Joel odpovie krátkym pohľadom. „Hovor.“',choices:[{label:'„Chcem poznať tvoje riziko.“',next:'risk',trust:1},{label:'„Potrebujem, aby si kryl skupinu.“',next:'cover',bond:1},{label:'„Rozhodnem sa sám.“',next:'end',trust:-1}]},risk:{text:'„Najväčšie riziko je, keď si myslíš, že máš všetko pod kontrolou.“',choices:[{label:'„Rozumiem.“',next:'end',trust:1,bond:1},{label:'„Aj tak to skúsime.“',next:'end'}]},cover:{text:'Joel prikývne. „Držte sa za mnou.“',choices:[{label:'„Dohodnuté.“',next:'end',bond:1},{label:'„Zvládneme to bez teba.“',next:'end',trust:-1}]},end:{text:'Joel sa vráti k príprave.',choices:[]}}},
+ lev:{title:'Lev',nodes:{start:{text:'Lev pozoruje okolie a potom sa obráti k tebe.',choices:[{label:'„Dôverujem tvojmu úsudku.“',next:'scout',trust:1,bond:1},{label:'„Vysvetli mi, čo si videl.“',next:'detail'},{label:'„Zostaň pri skupine.“',next:'end'}]},scout:{text:'Lev ukáže bezpečnejší smer cez krytý priestor.',choices:[{label:'„Veď nás.“',next:'end',trust:1,bond:1},{label:'„Zostaň pri mne.“',next:'end',bond:1}]},detail:{text:'Lev vysvetlí, odkiaľ môže prísť nebezpečenstvo.',choices:[{label:'„Ďakujem.“',next:'end',bond:1},{label:'„Ešte si to overíme.“',next:'end'}]},end:{text:'Lev pokračuje v pozorovaní.',choices:[]}}},
+ yara:{title:'Yara',nodes:{start:{text:'Yara sa pýta na stav skupiny.',choices:[{label:'„Skontroluj zranených.“',next:'medic',trust:1},{label:'„Potrebujeme pokračovať.“',next:'end'},{label:'„Čo potrebuješ?“',next:'needs',bond:1}]},medic:{text:'Yara skontroluje stav partie a navrhne ošetrenie.',choices:[{label:'„Daj im čas.“',next:'end',trust:1,bond:1},{label:'„Len základné ošetrenie.“',next:'end'}]},needs:{text:'„Potrebujem, aby sme si navzájom kryli chrbát.“',choices:[{label:'„Máš ho.“',next:'end',trust:1,bond:1},{label:'„Každý sa postará sám.“',next:'end',trust:-1}]},end:{text:'Yara sa vráti k ostatným.',choices:[]}}},
+ mel:{title:'Mel',nodes:{start:{text:'Mel si všimne zdravotný stav skupiny.',choices:[{label:'„Čo nám chýba?“',next:'medical',trust:1},{label:'„Šetrime lieky.“',next:'conserve',bond:1},{label:'„Zvládneme to.“',next:'end'}]},medical:{text:'Mel upozorní na nedostatok zdravotníckeho materiálu.',choices:[{label:'„Priorita sú zranení.“',next:'end',trust:1,bond:1},{label:'„Lieky necháme na neskôr.“',next:'end',trust:-1}]},conserve:{text:'„Dobre. Každé použitie musíme zvážiť.“',choices:[{label:'„Presne.“',next:'end',bond:1},{label:'„Ak treba, použijeme ich.“',next:'end'}]},end:{text:'Mel pokračuje v kontrole vybavenia.',choices:[]}}},
+ manny:{title:'Manny',nodes:{start:{text:'Manny sa pozrie na možné strelecké pozície.',choices:[{label:'„Ukáž mi najlepší výhľad.“',next:'position',trust:1},{label:'„Zostaň pri skupine.“',next:'team',bond:1},{label:'„Choď dopredu.“',next:'end'}]},position:{text:'Manny označí pozíciu s dobrým krytím.',choices:[{label:'„Použijeme ju.“',next:'end',trust:1,bond:1},{label:'„Príliš otvorené.“',next:'end'}]},team:{text:'„Jasné. Nebudem sa vzďaľovať.“',choices:[{label:'„Dobre.“',next:'end',bond:1},{label:'„Ak sa situácia zmení, kry nás.“',next:'end'}]},end:{text:'Manny skontroluje muníciu.',choices:[]}}},
+ tess:{title:'Tess',nodes:{start:{text:'Tess chce vedieť, či sa budeš držať dohody.',choices:[{label:'„Držíme sa dohody.“',next:'end',trust:1,bond:1},{label:'„Podľa situácie improvizujeme.“',next:'end',bond:1},{label:'„Ty rozhodni.“',next:'end',trust:1}]},end:{text:'Tess prikývne. „Tak poďme.“',choices:[]}}},
+ bill:{title:'Bill',nodes:{start:{text:'Bill si prezerá zásoby a obranné vybavenie.',choices:[{label:'„Ušetríme všetko, čo sa dá.“',next:'supplies',trust:1},{label:'„Ak treba, použijeme zásoby.“',next:'supplies',bond:1},{label:'„Nechaj to tak.“',next:'end',trust:-1}]},supplies:{text:'Bill spokojne prikývne, keď vidí, že počítaš s následkami.',choices:[{label:'„Prežitie je priorita.“',next:'end',trust:1,bond:1},{label:'„Risk je niekedy nutný.“',next:'end'}]},end:{text:'Bill sa vráti k svojim pasciam.',choices:[]}}},
+ riley:{title:'Riley',nodes:{start:{text:'Riley sa pousmeje. „Tak čo, kam ideme?“',choices:[{label:'„Ukáž mi, čo poznáš.“',next:'explore',bond:1},{label:'„Zostaňme spolu.“',next:'team',trust:1,bond:1},{label:'„Len rýchlo prejdeme.“',next:'end'}]},explore:{text:'Riley ukáže cestu, ktorú pozná z minulosti.',choices:[{label:'„Verím ti.“',next:'end',trust:1,bond:1},{label:'„Radšej pôjdeme inak.“',next:'end'}]},team:{text:'„Jasné. Žiadne sólo akcie.“',choices:[{label:'„Dohodnuté.“',next:'end',bond:1},{label:'„Uvidíme.“',next:'end'}]},end:{text:'Riley sa pridá k postupu.',choices:[]}}}
+};
+function companionDialogueAvailable(id){const p=companionProfile(id),st=companionStory(id),d=COMPANION_DIALOGUES[id];return !!(p&&st&&st.status==='active'&&d);}
+function dialogueChoiceVisible(c,cid){if(!c?.when)return true;const st=companionStory(cid);if(!st)return false;const w=c.when;if(w.minTrust!=null&&st.trust<Number(w.minTrust))return false;if(w.maxTrust!=null&&st.trust>Number(w.maxTrust))return false;if(w.minBond!=null&&st.bond<Number(w.minBond))return false;if(w.relationWith){const r=companionRelation(cid,w.relationWith);if(w.minRelation!=null&&r.score<Number(w.minRelation))return false;if(w.maxRelation!=null&&r.score>Number(w.maxRelation))return false;}if(w.campaign&&GAME.campaignPart!==w.campaign)return false;if(w.chapter){const k=companionChapterKey();if(Array.isArray(w.chapter)?!w.chapter.includes(k):w.chapter!==k)return false;}if(w.scene&&GAME.scene!==w.scene)return false;if(w.flag&& !GAME.flags?.[w.flag])return false;return true;}
+const COMPANION_CHAPTER_DIALOGUES={
+  prolog:{
+    dina:{title:'Dina — Prológ',node:{text:'Dina si všimne, že sa ešte len učíš, ako skupina funguje. „Neponáhľaj sa. Najprv zistime, čo máme okolo seba.“',choices:[{label:'„Najprv preskúmame okolie.“',next:'end',trust:1,bond:1},{label:'„Ideme rovno ďalej.“',next:'end',trust:-1},{label:'„Povedz mi, čo si si všimla.“',next:'end',bond:1}]}},
+    joel:{title:'Joel — Prológ',node:{text:'Joel si drží odstup a sleduje, ako reaguješ na prvé nebezpečenstvo. „Najprv si over situáciu.“',choices:[{label:'„Rozumiem.“',next:'end',trust:1},{label:'„Nemáme čas.“',next:'end',trust:-1},{label:'„Kry ma, kým to preverím.“',next:'end',bond:1}]}},
+    tess:{title:'Tess — Prológ',node:{text:'Tess chce vedieť, či budeš pri prvom probléme spolupracovať alebo konať sám.',choices:[{label:'„Držíme spolu.“',next:'end',trust:1,bond:1},{label:'„Rozhodnem podľa situácie.“',next:'end',bond:1},{label:'„Postarám sa o seba.“',next:'end',trust:-1}]}},
+    bill:{title:'Bill — Prológ',node:{text:'Bill okamžite hodnotí priestor z pohľadu zásob a obrany.',choices:[{label:'„Ukáž mi, čo sa oplatí vziať.“',next:'end',trust:1},{label:'„Nemáme čas na všetko.“',next:'end',trust:-1},{label:'„Chcem vedieť, čo je nebezpečné.“',next:'end',bond:1}]}},
+    riley:{title:'Riley — Prológ',node:{text:'Riley sa snaží odľahčiť napätie, ale zároveň sleduje tvoju reakciu na okolie.',choices:[{label:'„Zostaňme spolu.“',next:'end',trust:1,bond:1},{label:'„Pozrieme sa každý sám.“',next:'end',trust:-1},{label:'„Ukáž mi, čo poznáš.“',next:'end',bond:1}]}}
+  }
+};
+function companionChapterKey(){return String(GAME?.campaignChapter||GAME?.scene||'').toLowerCase();}
+function companionContextDialogue(id){const key=companionChapterKey();const ctx=COMPANION_CHAPTER_DIALOGUES[key]?.[id];if(ctx)return {title:ctx.title,nodes:{start:ctx.node,end:{text:'Rozhovor sa skončil.',choices:[]}},contextKey:key};return null;}
+function companionDialogue(id){if(!companionDialogueAvailable(id))return;const contextual=companionContextDialogue(id);GAME.pendingCompanionDialogue={companionId:id,node:'start',history:[],contextKey:contextual?.contextKey||null};gSave();renderScn();}
+function companionDialogueClose(){if(!GAME)return;GAME.pendingCompanionDialogue=null;gSave();renderScn();}
+function companionDialogueChoose(index){const pd=GAME?.pendingCompanionDialogue;if(!pd)return;const d=companionContextDialogue(pd.companionId)||COMPANION_DIALOGUES[pd.companionId],node=d?.nodes?.[pd.node],choices=(node?.choices||[]).filter(c=>dialogueChoiceVisible(c,pd.companionId)),choice=choices[Number(index)];if(!d||!node||!choice)return;const cid=pd.companionId;if(choice.trust||choice.bond)companionStoryDelta(cid,Number(choice.trust||0),Number(choice.bond||0),`Dialóg: ${choice.label}`);if(choice.relationWith&&choice.relationDelta)companionRelationDelta(cid,choice.relationWith,choice.relationDelta,`Dialóg: ${choice.label}`);if(choice.effects)campaignApplyEffects(choice.effects,`Dialóg: ${choice.label}`);pd.history.push({node:pd.node,choice:choice.label});if(choice.next==='end'||!d.nodes[choice.next]){GAME.banner={ok:(choice.trust||0)>=0,text:`Rozhovor s ${d.title} skončil.`};GAME.pendingCompanionDialogue=null;}else pd.node=choice.next;gSave();renderScn();}
+function renderPendingCompanionDialogue(body){const pd=GAME?.pendingCompanionDialogue;if(!pd)return;const d=companionContextDialogue(pd.companionId)||COMPANION_DIALOGUES[pd.companionId],node=d?.nodes?.[pd.node];if(!d||!node)return;const choices=(node.choices||[]).filter(c=>dialogueChoiceVisible(c,pd.companionId));const box=document.createElement('div');box.className='card';box.style.marginTop='10px';box.style.borderColor='var(--amber)';const st=companionStory(pd.companionId);box.innerHTML=`<div class="eyebrow">Rozhovor · ${esc(d.title)}${pd.contextKey?` · scéna ${esc(pd.contextKey)}`:''}</div><div class="note">Dôvera ${st?.trust||0}/5 · puto ${st?.bond||0}/5</div><p class="story" style="margin:7px 0 10px">${esc(node.text)}</p>`;const row=document.createElement('div');row.style.cssText='display:grid;gap:7px';if(!choices.length){const b=document.createElement('button');b.className='btn amber';b.textContent='Zavrieť';b.onclick=companionDialogueClose;row.appendChild(b);}else choices.forEach((c,i)=>{const b=document.createElement('button');b.className='btn '+(i===0?'amber':'ghost');b.textContent=c.label;b.onclick=()=>companionDialogueChoose(i);row.appendChild(b);});box.appendChild(row);const close=document.createElement('button');close.className='btn ghost full';close.style.marginTop='7px';close.textContent='Prerušiť rozhovor';close.onclick=companionDialogueClose;box.appendChild(close);body.appendChild(box);}
+
 /* ---------- render ---------- */
-function renderScn(){const body=document.getElementById("scnBody");body.innerHTML="";
+function renderScn(){ensureListenMode(GAME);const body=document.getElementById("scnBody");body.innerHTML="";
   if(scnUI==="roster"){renderRoster(body);return;}
   if(scnUI==="stories"){renderStoryPicker(body);return;}
   if(scnUI==="wizDiff"&&WIZ){renderWizDiff(body);return;}
   if(scnUI==="wizParty"&&WIZ){renderWizParty(body);return;}
   if(scnUI==="world"&&GAME){renderWorld(body);return;}
   if(scnUI==="npc"){renderNPCGenerator(body);return;}
+  if(scnUI==="companions"){renderCompanionRoster(body);return;}
   if(scnUI==="encounter"){renderEncounterGenerator(body);return;}
   if(scnUI==="game"&&GAME){
+    if(GAME.pendingCompanionDialogue){renderScene(body);renderPendingCompanionDialogue(body);return;}
+    if(GAME.pendingCompanionEvent){renderScene(body);renderPendingCompanionEvent(body);return;}
     if(GAME.combat){renderCombat(body);return;}
     renderScene(body);return;
   }
@@ -3283,7 +3749,8 @@ function gameUtilBar(){const b=document.createElement("div");b.className="gutil"
   b.innerHTML=`<button onclick="openOverlay('sheet')"><svg class="ic" viewBox="0 0 24 24">${OV_ICONS.sheet}</svg>Postava</button>
     <button onclick="openOverlay('dice')"><svg class="ic" viewBox="0 0 24 24">${OV_ICONS.dice}</svg>Kocky</button>
     <button onclick="openOverlay('codex')"><svg class="ic" viewBox="0 0 24 24">${OV_ICONS.codex}</svg>Kódex</button>
-    <button onclick="scnUI='world';renderScn()">Mapa</button>`;
+    <button onclick="scnUI='world';renderScn()">Mapa</button>
+    <button onclick="scnUI='companions';renderScn()">Spoločníci</button>`;
   return b;}
 function gameDiffPill(){if(!GAME)return"";const nm={story:"Príbeh",survivor:"Preživší",grounded:"Grounded"}[GAME.difficulty]||"Preživší";
   return `<span class="pill amber" style="margin-left:8px">${nm}${GAME.permadeath?" · Permadeath":""}</span>`;}
@@ -3385,6 +3852,12 @@ function renderWizDiff(body){
     const row=document.createElement("button");row.className="hudrow"+(on?" on":"");row.style.width="100%";
     row.innerHTML=`<span class="lbl"><b>${d.name}</b><small>${d.desc}</small></span><span class="val"><span class="dot${on?" on":""}"></span></span>`;
     row.onclick=()=>wizSetDiff(d.id);body.appendChild(row);});
+  const listenEyeb=document.createElement("div");listenEyeb.className="eyebrow";listenEyeb.textContent="Listen Mode";body.appendChild(listenEyeb);
+  const listenRow=document.createElement("button");listenRow.className="hudrow"+(WIZ.listenMode?" on":"");listenRow.style.width="100%";
+  const locked=WIZ.difficulty==="grounded";
+  listenRow.innerHTML=`<span class="lbl"><b>Listen Mode</b><small>${locked?"Grounded — zakázané":"Pomoc pri odhaľovaní nepriateľov cez prekážky"}</small></span><span class="val"><span class="toggle${WIZ.listenMode?" on":""}${locked?" disabled":""}"></span></span>`;
+  listenRow.disabled=locked;listenRow.onclick=wizToggleListen;body.appendChild(listenRow);
+  const listenNote=document.createElement("div");listenNote.className="note box";listenNote.style.margin="6px 0 10px";listenNote.textContent=locked?"Na Grounded je Listen Mode vypnutý podľa pravidiel obtiažnosti.":"Listen Mode je voliteľná asistencia. Stealth funguje aj bez neho.";body.appendChild(listenNote);
   const eyeb2=document.createElement("div");eyeb2.className="eyebrow";eyeb2.textContent="Trvalá smrť";body.appendChild(eyeb2);
   const pd=document.createElement("button");pd.className="hudrow"+(WIZ.permadeath?" on":"");pd.style.width="100%";
   pd.innerHTML=`<span class="lbl"><b>Trvalá smrť</b><small>${WIZ.permadeath?"Padnutá postava ostáva mŕtva navždy":"Po boji sa prebudí s nízkym HP"}</small></span>
@@ -3471,6 +3944,7 @@ function renderScene(body){
   const progress=Math.min(100,Math.round(visitedScenes/totalScenes*100));
   sceneEl.innerHTML=`<div class="note" style="margin-bottom:7px">Príbeh · ${visitedScenes}/${totalScenes} scén · ${progress}%</div><h3>${esc(sc.title||"")}</h3><p class="story">${esc(sc.text||"")}</p>`;
   body.appendChild(sceneEl);
+  renderPendingCompanionEvent(body);
   renderLootPanel(body);
   renderCraftingPanel(body);
   (sc.choices||[]).forEach(c=>{
@@ -3509,14 +3983,14 @@ function invDrawer(){const ch=gActive();const det=document.createElement("detail
      <div class="note" style="margin-top:8px">Munícia: ${ammo}</div>
      <div class="note" style="margin-top:3px">Materiály: ${mats}</div></div>`;
   return det;}
-function renderCombat(body){const cb=GAME.combat; tacticalEnsure(cb);
+function renderCombat(body){const cb=GAME.combat; tacticalEnsure(cb);if(cb?.result==='win'&&!GAME.pendingCompanionEvent)companionTriggerEvent('combat');
   const topRow=document.createElement("div");topRow.style.cssText="display:flex;align-items:center;gap:0;margin-bottom:2px";
   topRow.appendChild(menuBackBtn());topRow.insertAdjacentHTML("beforeend",gameDiffPill());
   body.appendChild(topRow);body.appendChild(partyBar());body.appendChild(gameUtilBar());
   const head=document.createElement("div");head.className="gscene";
-  head.innerHTML=`<h3>${esc(cb.title||"Boj")}</h3>${cb.phase!=="combat"?`<p class="story">Predbojová fáza — využite LISTEN a SNEAK, potom spustite boj.</p>`:`${cb.surprise?`<p class="story">${esc(cb.intro||"")}</p>`:""}`}`;
+  head.innerHTML=`<h3>${esc(cb.title||"Boj")}</h3>${cb.phase!=="combat"?`<p class="story">Predbojová fáza — podľa nastavenia použite Listen Mode a potom SNEAK, alebo prejdite rovno na SNEAK.</p>`:`${cb.surprise?`<p class="story">${esc(cb.intro||"")}</p>`:""}`}`;
   body.appendChild(head);
-  if(cb.phase!=="combat"&&!cb.result){const pre=document.createElement("div");pre.className="card";pre.style.marginTop="8px";pre.innerHTML=`<div class="row"><b>Predbojová fáza</b><span class="pill teal" style="margin-left:auto">${cb.phase.toUpperCase()}</span></div><div class="note" style="margin-top:6px">Chapter dice: <b>${cb.chapterDice||6}</b> · skrytí Survivori: <b>${cb.hiddenCount||0}</b></div>`;const b1=document.createElement("button");b1.className="btn full";b1.style.marginTop="7px";b1.textContent="LISTEN — preskúmať pozície";b1.onclick=gListen;b1.disabled=cb.phase!=="listen";pre.appendChild(b1);const b2=document.createElement("button");b2.className="btn full";b2.style.marginTop="7px";b2.textContent="SNEAK — pokúsiť sa skryť";b2.onclick=gSneak;b2.disabled=cb.phase!=="sneak";pre.appendChild(b2);if(cb.phase==="listen"){const b3=document.createElement("button");b3.className="btn full";b3.style.marginTop="7px";b3.textContent="Pokračovať na SNEAK ›";b3.onclick=()=>{cb.phase="sneak";cb.sneakUsed=[];renderScn();};pre.appendChild(b3);}else if(cb.phase==="sneak"){const b3=document.createElement("button");b3.className="btn amber full";b3.style.marginTop="7px";b3.textContent="Začať boj ›";b3.onclick=gEnterCombatPhase;pre.appendChild(b3);}body.appendChild(pre);}
+  if(cb.phase!=="combat"&&!cb.result){const pre=document.createElement("div");pre.className="card";pre.style.marginTop="8px";pre.innerHTML=`<div class="row"><b>Predbojová fáza</b><span class="pill teal" style="margin-left:auto">${cb.phase.toUpperCase()}</span></div><div class="note" style="margin-top:6px">Chapter dice: <b>${cb.chapterDice||6}</b> · skrytí Survivori: <b>${cb.hiddenCount||0}</b>${GAME.listenMode===false?" · Listen Mode: vypnutý":""}</div>`;if(GAME.listenMode!==false){const b1=document.createElement("button");b1.className="btn full";b1.style.marginTop="7px";b1.textContent="LISTEN — preskúmať pozície";b1.onclick=gListen;b1.disabled=cb.phase!=="listen";pre.appendChild(b1);}const b2=document.createElement("button");b2.className="btn full";b2.style.marginTop="7px";b2.textContent="SNEAK — pokúsiť sa skryť";b2.onclick=gSneak;b2.disabled=cb.phase!=="sneak";pre.appendChild(b2);if(cb.phase==="listen"){const b3=document.createElement("button");b3.className="btn full";b3.style.marginTop="7px";b3.textContent="Pokračovať na SNEAK ›";b3.onclick=()=>{cb.phase="sneak";cb.sneakUsed=[];renderScn();};pre.appendChild(b3);}else if(cb.phase==="sneak"){const b3=document.createElement("button");b3.className="btn amber full";b3.style.marginTop="7px";b3.textContent="Začať boj ›";b3.onclick=gEnterCombatPhase;pre.appendChild(b3);}body.appendChild(pre);}
 
   cb.foes.forEach((f,i)=>{const el=document.createElement("div");el.className="gfoe"+(f.hp<=0?" dead":"")+(f.hp>0&&cb.targetIndex===i?" selected":"");
     const tag=f.kind&&f.kind!=="human"&&f.kind!=="infected"?({runner:"RÝCHLY",stalker:"STEALTH",clicker:"ECHOLÓKÁCIA",shambler:"SPÓRY",bloater:"MYKOTOXÍN",ratking:"BOSS"}[f.kind]||""):"";
@@ -3545,6 +4019,7 @@ function renderCombat(body){const cb=GAME.combat; tacticalEnsure(cb);
   const hide=document.createElement("button");hide.className="btn full";hide.style.marginTop="8px";hide.textContent="Prerušiť kontakt / schovať sa";hide.onclick=aiTryBreakContact;hide.disabled=!!cb.turnUsed||cb.phase!=="combat";body.appendChild(hide);
   const aiBox=document.createElement("div");aiBox.className="note";aiBox.style.marginTop="8px";aiBox.innerHTML=`AI GM: <b>${aiStateLabel(cb.ai?.state||"combat")}</b> · režim: <b>${cb.ai?.mode||"offline"}</b> · Hluk: <b>${cb.ai?.noise||0}</b>${cb.ai?.lastKnown!=null?` · posledná pozícia: ${esc(GAME.party[cb.ai.lastKnown]?.name||"neznáma")}`:""}`;body.appendChild(aiBox);
   const think=document.createElement("button");think.className="btn full";think.style.marginTop="7px";think.textContent="AI GM — vyhodnotiť situáciu";think.onclick=aiThink;think.disabled=!!cb.turnUsed;body.appendChild(think);
+  renderCombatCompanions(body);
   renderTacticalMap(body); tacticalPerception();
   if(cb.ai?.lastPlan?.length){const pl=document.createElement("div");pl.className="note";pl.style.marginTop="6px";pl.innerHTML=`<b>Odporúčanie AI:</b><br>${cb.ai.lastPlan.map(x=>"• "+esc(x)).join("<br>")}`;body.appendChild(pl);}
   const atk=document.createElement("button");atk.className="btn amber full";atk.style.marginTop="8px";
@@ -3635,6 +4110,11 @@ init();
 if("serviceWorker"in navigator){
   window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 }
+</script>
+
+<script>
+// Content Pass 3: master location audit is available as data.canonicalLocationAudit.
+// UI integrations can consume entries without treating reference locations as completed maps.
 </script>
 </body>
 </html>
