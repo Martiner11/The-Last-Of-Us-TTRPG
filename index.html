@@ -408,6 +408,9 @@ h2.sec{font-family:var(--font-d);font-weight:600;font-size:26px;letter-spacing:.
 .canon-token-row.on{border-color:var(--accent)}
 .canon-combat-log{max-height:150px;overflow:auto;padding:7px;border:1px solid var(--line);border-radius:9px;background:var(--bg2);font-size:12px}
 
+
+/* Release build: diagnostics remain available to runtime APIs but are not part of the player UI. */
+[id^="audit"][id$="-panel"]{display:none !important;}
 </style>
 
 <!-- TLOU BUILD AUDIT 196 -->
@@ -5549,6 +5552,7 @@ function init(){load();const d=D();if(!d.missions.length)for(let i=0;i<3;i++)mak
 setTimeout(init,1200);setInterval(()=>{try{if(D().enabled)tick()}catch(e){}},60000);
 })();
 </script>
+<script id="tlou-audit94-runtime">
 /* AUDIT 94 — CAMPAIGN OPERATIONS / PREPARATION / LOADOUT / ROUTE PLANNER */
 (()=>{
 'use strict';
@@ -5582,7 +5586,7 @@ function render(){let el=document.getElementById('audit94-panel');if(!el){el=doc
 function init(){load();seedParty();resources();const d=D();if(!d.operations.length)for(let i=0;i<3;i++)plan(['recon','supply','rescue'][i]);render();window.TLOU94={ensure:D,plan,activate,prep,setLoadout,launch,advance,complete,fail,abort,tick,report,recalc,render};}
 setTimeout(init,1500);setInterval(()=>{try{if(D().enabled)tick()}catch(e){}},60000);
 })();
-
+</script>
 <script>
 /* AUDIT 95 — COMMAND & CONSEQUENCE ORCHESTRATOR / PERSISTENT STATE / SQUAD READINESS */
 (()=>{
@@ -6406,6 +6410,8 @@ function render(){let el=document.getElementById('audit76-panel');if(!el){el=doc
 function observe(action){const d=init();if(action==='shot'){d.stats.shots++;d.alert=Math.min(100,d.alert+18);d.threat=Math.min(100,d.threat+4)}if(action==='kill')d.stats.kills++;if(action==='retreat')d.stats.retreats++;if(action==='stealth')d.stats.stealth++;if(action==='combat')d.stats.combat++;save();}
 window.TLOU76={init,tick,generate,resolve,report:()=>{const d=init();return JSON.parse(JSON.stringify(d))},observe,render};init();setTimeout(render,800);setInterval(()=>{try{tick()}catch(e){console.warn('Audit76',e)}},45000);
 })();
+</script>
+<script>
 /* AUDIT 96 — LIVING COMMAND: COMPANION AI / BASE / DIPLOMACY / LOGISTICS */
 (()=>{
 'use strict';
@@ -6438,6 +6444,8 @@ function render(){let el=document.getElementById('audit96-panel');if(!el){el=doc
 function init(){load();seed();sync();render();window.TLOU96={ensure:D,seed,sync,assign,project,advanceProject,diplomacy,contract,tick,report,render,save,load};}
 setTimeout(init,2200);setInterval(()=>{try{if(D().enabled)tick()}catch(e){console.warn('Audit96',e)}},60000);
 })();
+</script>
+<script>
 /* AUDIT 98 — LIVING NARRATIVE / STATE MACHINE / DIRECTOR 3 */
 (()=>{
 'use strict';

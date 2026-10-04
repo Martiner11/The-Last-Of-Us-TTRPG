@@ -1,8 +1,8 @@
 {
-  "version": "3.37.0",
+  "version": "3.38.0",
   "name": "The Last Of Us TTRPG SK",
   "contentPass": 85,
-  "runtimeAudit": "223",
+  "runtimeAudit": "224",
   "short_name": "TLOU TTRPG SK",
   "start_url": "./",
   "scope": "./",
