@@ -1292,7 +1292,7 @@ function canonicalMakeTactical(areaId){GAME.world.canonicalLocation=areaId;canon
 /* ---------- Audit 73 — Encounter / Quest Engine ---------- */
 function ensureEncounterEngine(g){
   if(!g)return;
-  ensureWorld(g);
+  if(!g.world||!Array.isArray(g.world.locations))g.world=blankWorld();
   const w=g.world;
   w.questEngine=w.questEngine||{active:[],completed:[],failed:[],history:[],seed:1};
   const q=w.questEngine;
@@ -1343,7 +1343,7 @@ function worldSetCanonicalQuery(v){GAME.world.canonicalQuery=String(v||'').slice
 
 /* ---------- Audit 74 — Narrative / NPC / Consequence Engine ---------- */
 function ensureNarrativeEngine(g){
-  if(!g)return; ensureWorld(g); const w=g.world;
+  if(!g)return; if(!g.world||!Array.isArray(g.world.locations))g.world=blankWorld(); const w=g.world;
   w.narrative=w.narrative||{npcs:[],active:null,history:[],flags:{},consequences:[],chains:[]};
   const n=w.narrative;
   n.npcs=Array.isArray(n.npcs)?n.npcs:[]; n.history=Array.isArray(n.history)?n.history:[];
@@ -2549,6 +2549,7 @@ function quickCheck(skillKey,as,dc){
 /* ================= HRA — sólo hrateľný engine (bez AI) ================= */
 const GKEY="tlou_game_v2";
 let GAME=null;
+Object.defineProperty(window,"GAME",{configurable:true,get:()=>GAME,set:v=>{GAME=v}});
 let scnUI="menu"; // "menu" | "roster" | "stories" | "wizDiff" | "wizParty" | "game" | "npc"
 let WIZ=null; // dočasný stav sprievodcu novou hrou: {storyId, difficulty, permadeath, partyIds:[]}
 
@@ -3766,7 +3767,7 @@ function renderCombat(body){const cb=GAME.combat; tacticalEnsure(cb);
 const skillKeyByName=n=>(DATA.skills.find(s=>s.name===n)||{}).key||"brutality";
 
 /* ---------- helpers ---------- */
-function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 const val=id=>document.getElementById(id).value.trim();
 const sel=id=>document.getElementById(id).value;
 const num=(id,f)=>{const v=parseInt(document.getElementById(id).value);return isNaN(v)?f:v;};
@@ -4357,8 +4358,8 @@ renderSheet=function(){__renderSheet68.apply(this,arguments);const ch=SC();if(!c
 const __renderScn68=renderScn;
 renderScn=function(){__renderScn68.apply(this,arguments);const ch=GAME?.party?.[GAME?.active];if(ch)a68Ensure(ch);};
 function a68EndRound(){if(!GAME?.combat)return;GAME.party.forEach(a68TickInjuries);}
-const __endTurn68=gTacticalEndTurn;
-if(typeof __endTurn68==='function')gTacticalEndTurn=function(){a68EndRound();return __endTurn68.apply(this,arguments)};
+const __endTurn68=typeof gTacticalEndTurn==='function'?gTacticalEndTurn:null;
+if(__endTurn68)gTacticalEndTurn=function(){a68EndRound();return __endTurn68.apply(this,arguments)};
 function a68AwardCombatXP(){if(!GAME?.combat||GAME.combat.result)return;const cb=GAME.combat;if(cb._a68Awarded)return;const defeated=(cb.foes||[]).filter(f=>f.hp<=0).length;if(defeated){addPartyXP(defeated*(progCfg()?.rewards?.combat||25),'boj');cb._a68Awarded=true;}}
 const __gFoeDeath68=gFoeDeathEffect;
 gFoeDeathEffect=function(foe){const r=__gFoeDeath68.apply(this,arguments);a68AwardCombatXP();return r};
@@ -4545,9 +4546,9 @@ function a71TravelStep(){a71Ensure(GAME);if(!GAME.world.traveling)return;const t
  else GAME.banner={ok:true,text:`Cesta pokračuje: ${Math.min(100,Math.round(GAME.world.travelProgress/GAME.world.travelTotal*100))} %.`};gSave();renderScn();}
 function a71Rest(hours=6){a71Ensure(GAME);const l=worldCurrent();if(!l)return;const safe=!!l.safe||GAME.world.safehouses.some(x=>x.locationId===l.id);const gain=safe?hours:Math.max(1,Math.floor(hours/2));a71AdvanceTime(gain);GAME.world.survival=GAME.world.survival||{};GAME.world.survival.restedDay=GAME.world.day;GAME.world.survival.camp=false;GAME.world.survival.campSafe=safe;GAME.world.survival.rations=Math.max(0,(Number(GAME.world.survival.rations)||0)-(safe?0:1));GAME.world.survival.water=Math.max(0,(Number(GAME.world.survival.water)||0)-1);GAME.banner={ok:true,text:`Oddych: ${a71Phase()} ${a71HourLabel()}. ${safe?'Bezpečný úkryt.':'Nocľah bol neistý.'}`};gSave();renderScn();}
 function a71WorldUI(){a71Ensure(GAME);const body=document.createElement('div');body.className='card';const w=GAME.world,cur=worldCurrent(),links=a71Linked(),weather=a71Weather();body.innerHTML=`<div class="eyebrow" style="margin:0 0 5px">SVET · AUDIT 71</div><div class="worldtop"><div class="worldstat"><span>Deň</span><b>${esc(w.day)}</b></div><div class="worldstat"><span>Čas</span><b>${a71HourLabel()}</b></div><div class="worldstat"><span>Fáza</span><b>${a71Phase()}</b></div><div class="worldstat"><span>Počasie</span><b>${esc(weather.name)}</b></div></div><div class="note" style="margin-top:8px">${cur?`Aktuálne: <b>${esc(cur.name)}</b> · Nebezpečenstvo ${cur.danger||0}/3`:'Bez lokality'}${w.traveling?` · Cesta ${Math.min(100,Math.round(w.travelProgress/w.travelTotal*100))}%`:''}</div><div class="row" style="margin-top:8px;gap:6px;flex-wrap:wrap"><button class="btn" onclick="a71Rest(3)">Odpočinok 3h</button><button class="btn" onclick="a71Rest(6)">Odpočinok 6h</button><button class="btn" onclick="a71SetSafehouse()">${cur?.safe?'Zrušiť úkryt':'Nastaviť úkryt'}</button>${w.traveling?`<button class="btn amber" onclick="a71TravelStep()">Pokračovať v ceste</button>`:''}</div><div class="field" style="margin-top:9px"><label>Cieľ cesty</label><select id="a71Dest"><option value="">— vyber —</option>${links.map(x=>`<option value="${esc(x.id)}">${esc(x.name)} · nebezpeč. ${x.danger||0}</option>`).join('')}</select></div><button class="btn amber full" onclick="const x=document.getElementById('a71Dest').value;if(x)a71Travel(x)">Vyraziť</button>${w.lastTravelEvent?`<div class="note" style="margin-top:8px"><b>Posledná udalosť:</b> ${esc(w.lastTravelEvent.name)} · ${esc(w.lastTravelEvent.weather||'')}</div>`:''}`;return body;}
-function a71PatchRender(){if(window.__a71Patched)return;window.__a71Patched=true;const old=window.renderScn;window.renderScn=function(){old.apply(this,arguments);const host=document.getElementById('scnBody');if(host){host.querySelector('#a71world')?.remove();const u=a71WorldUI();u.id='a71world';host.prepend(u);}};}
-function a71Init(){try{a71Ensure(GAME);if(!GAME.world.weatherTurns)a71RollWeather();a71PatchRender();}catch(e){console.warn('Audit71 init',e)}}
-a71Init();
+function a71PatchRender(){if(window.__a71Patched)return;window.__a71Patched=true;const old=window.renderScn;window.renderScn=function(){old.apply(this,arguments);const host=document.getElementById('scnBody');if(host&&GAME){host.querySelector('#a71world')?.remove();const u=a71WorldUI();u.id='a71world';host.prepend(u);}};}
+function a71Init(){try{if(!GAME)return;a71Ensure(GAME);if(!GAME.world.weatherTurns)a71RollWeather();a71PatchRender();}catch(e){console.warn('Audit71 init',e)}}
+a71Init(); window.addEventListener('load',()=>setTimeout(()=>a71Init(),0));
 </script>
 
 <script>
@@ -4880,7 +4881,7 @@ setTimeout(init,900);setInterval(()=>{try{if(C()&&!C().result){hook();render79()
 (()=>{
 'use strict';
 const V=80;
-function C(){return window.GAME&&GAME.combat}
+function C(){return typeof GAME!=='undefined'&&GAME?GAME.combat:null}
 function T(){const c=C();return c&&(c.tactical||(c.tactical={}))}
 function A(){const t=T();if(!t)return null;t.a80=t.a80||{};const a=t.a80;
  a.version=V;a.squads=a.squads||{};a.noise=a.noise||[];a.reinforcements=a.reinforcements||[];a.coverReservations=a.coverReservations||{};a.alarm=Number(a.alarm||0);a.lastTick=a.lastTick||0;a.history=a.history||[];a.resultApplied=a.resultApplied||false;a.pursuit=a.pursuit||{active:false,target:null,turns:0};a.maxFoes=Number(a.maxFoes||14);return a}
@@ -5086,7 +5087,7 @@ window.TLOU82={ensure:A,tick,generateMission,accept,resolveMission,trade,report,
 'use strict';
 const T=window.TLOU72;if(!T)return;
 const S=()=>T.ensure();
-const A=()=>{const g=S();g.a83=g.a83||{};const a=g.a83;
+const A=()=>{const g=S();if(!g)return null;g.a83=g.a83||{};const a=g.a83;
  a.version=1;a.enabled=a.enabled!==false;a.tick=Number(a.tick||0);a.npcs=a.npcs||{};a.groups=a.groups||{};a.events=a.events||[];a.relationships=a.relationships||{};a.memory=a.memory||{};a.history=a.history||[];a.goals=a.goals||{};a.dead=a.dead||{};
  const defs=[['maria','Maria','Survivors','Jackson','medic'],['eli','Eli','Survivors','Jackson','scout'],['owen','Owen','WLF','Market','soldier'],['ruth','Ruth','WLF','Suburbs','scout'],['isaac','Isaac','WLF','Market','leader'],['lev','Lev','Seraphites','Forest','scout'],['joel','Joel','Survivors','Jackson','hunter'],['tess','Tess','Fireflies','Cabin','trader'],['garrett','Garrett','Hunters','Downtown','hunter'],['nora','Nora','WLF','Hospital','medic'],['david','David','Hunters','Market','leader'],['sam','Sam','Survivors','Outskirts','scout']];
  defs.forEach((d,i)=>{const id=d[0];a.npcs[id]=a.npcs[id]||{id,name:d[1],faction:d[2],zone:d[3],role:d[4],hp:70+i%4*7,morale:55+(i%5)*6,trust:50,stress:20,alive:true,goal:null,group:null,memory:[],inventory:{food:2+ i%3,medicine:i%2,ammo:3+i%4},traits:[],lastAction:'',lastTick:0,met:false};});
@@ -5142,12 +5143,12 @@ const A=()=>{const g=S();g.a84=g.a84||{};const a=g.a84;
  ['anna','Anna','Survivors','Jackson','trader'],['mike','Mike','WLF','Market','guard'],['rachel','Rachel','Fireflies','Cabin','medic'],['caleb','Caleb','Hunters','Downtown','scout'],
  ['sarah','Sarah','Survivors','Outskirts','scout'],['noah','Noah','FEDRA','Dam','guard'],['mara','Mara','Seraphites','Forest','trader'],['vince','Vince','Hunters','Suburbs','hunter']
  ];
- defs.forEach((d,i)=>{if(!S().a83.npcs[d[0]])T.create(d[1],d[2],d[3],d[4]);const id=d[0];if(S().a83.npcs[id]){const n=S().a83.npcs[id];n.personality=n.personality||['cautious','loyal','pragmatic','curious','protective'][i%5];n.home=n.home||d[3];n.schedule=n.schedule||['work','patrol','rest','trade'][i%4];n.standing=n.standing||0;a.trust[id]=Number(a.trust[id]??50)}});
+ defs.forEach((d,i)=>{if(!S().npcs[d[0]])T.create(d[1],d[2],d[3],d[4]);const id=d[0];if(S().npcs[id]){const n=S().npcs[id];n.personality=n.personality||['cautious','loyal','pragmatic','curious','protective'][i%5];n.home=n.home||d[3];n.schedule=n.schedule||['work','patrol','rest','trade'][i%4];n.standing=n.standing||0;a.trust[id]=Number(a.trust[id]??50)}});
  return a};
 const clamp=(x,a=0,b=100)=>Math.max(a,Math.min(b,Number(x)||0));
 const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const rng=n=>Math.floor(Math.random()*n);
-const npcs=()=>S().a83.npcs;
+const npcs=()=>S().npcs;
 const alive=()=>Object.values(npcs()).filter(n=>n.alive);
 function log(x){try{window.TLOU72.log(x)}catch(e){}}
 function event(text,type='story',npc=null){const a=A();a.history.unshift({id:'e84_'+Date.now().toString(36)+rng(9999),tick:a.tick,text,type,npc});a.history=a.history.slice(0,180);try{T.remember(npc,text,type)}catch(e){}log(text)}
@@ -6177,7 +6178,7 @@ init();
 (()=>{
 'use strict';
 const KEY='TLOU_A108';
-const G=()=>window.GAME=window.GAME||{};
+const G=()=>typeof GAME!=='undefined'&&GAME?GAME:null;
 const log=(m)=>{try{if(typeof window.clog==='function')window.clog('[A108] '+m);else console.log('[A108]',m)}catch(e){console.log('[A108]',m)}};
 const base={
  day:1, location:'JACKSON', weather:'clear', time:8,
@@ -6218,8 +6219,8 @@ function camp(){const d=ensure();d.day++;d.stats.days++;d.time=7;d.stamina=Math.
 function status(){const d=ensure();return{day:d.day,location:d.location,weather:d.weather,stamina:d.stamina,heat:d.heat,alert:d.alert,supplies:{...d.supplies},discovered:Object.keys(d.discovered).length,total:Object.keys(d.nodes).length}}
 function report(){return{status:status(),routes:Object.keys(ensure().routes).length,history:ensure().history.slice(-20),stats:{...ensure().stats}}}
 function render(){const d=ensure();let el=document.getElementById('audit108-panel');if(!el){el=document.createElement('section');el.id='audit108-panel';el.style.cssText='position:fixed;right:10px;bottom:10px;z-index:9998;max-width:390px;background:#111;color:#eee;border:1px solid #555;border-radius:10px;padding:12px;font:12px Arial;box-shadow:0 4px 20px #0008';document.body.appendChild(el)}const n=node(d.location);const opts=n.neighbors.map(x=>`<button data-a108="go" data-id="${x}">${node(x).name}</button>`).join(' ');el.innerHTML=`<b>AUDIT 108 · WORLD MAP 2.0</b><br>${n.name} · deň ${d.day} · ${d.weather}<br>stamina ${Math.round(d.stamina)} · heat ${Math.round(d.heat)} · alert ${Math.round(d.alert)}<br>food ${d.supplies.food} · water ${d.supplies.water} · ammo ${d.supplies.ammo} · med ${d.supplies.medicine}<hr><b>CESTY</b><br>${opts||'žiadne'}<hr><button data-a108="camp">CAMP</button> <button data-a108="search">SCAVENGE</button> <button data-a108="report">REPORT</button> <button data-a108="hide">HIDE</button>`;el.onclick=e=>{const b=e.target.closest('[data-a108]');if(!b)return;const a=b.dataset.a108;if(a==='go')travel(b.dataset.id);else if(a==='camp')camp();else if(a==='search')search(d.location);else if(a==='report')console.log('[TLOU108]',report());else if(a==='hide')el.remove()}}
-function hook(){const g=G();if(g.__a108)return;g.__a108=true;load();setTimeout(render,0)}
-hook();
+function hook(){const g=G();if(!g)return;if(g.__a108)return;g.__a108=true;load();setTimeout(render,0)}
+hook(); window.addEventListener('load',()=>setTimeout(()=>hook(),0));
 window.TLOU108={ensure,save,load,status,report,node,dist,edgeRisk,travel,search,camp,discover,render};
 })();
 </script>
